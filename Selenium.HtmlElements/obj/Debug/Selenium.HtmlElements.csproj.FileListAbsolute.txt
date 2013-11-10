@@ -1,0 +1,15 @@
+C:\git\HtmlElements.Net\Selenium.HtmlElements\bin\Debug\Selenium.HtmlElements.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements\bin\Debug\Selenium.HtmlElements.pdb
+C:\git\HtmlElements.Net\Selenium.HtmlElements\bin\Debug\Castle.Core.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements\bin\Debug\Castle.DynamicProxy2.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements\bin\Debug\Castle.Services.Logging.log4netIntegration.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements\bin\Debug\Castle.Services.Logging.NLogIntegration.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements\bin\Debug\log4net.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements\bin\Debug\NLog.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements\bin\Debug\WebDriver.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements\bin\Debug\WebDriver.Support.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements\bin\Debug\log4net.xml
+C:\git\HtmlElements.Net\Selenium.HtmlElements\bin\Debug\WebDriver.xml
+C:\git\HtmlElements.Net\Selenium.HtmlElements\bin\Debug\WebDriver.Support.xml
+C:\git\HtmlElements.Net\Selenium.HtmlElements\obj\Debug\Selenium.HtmlElements.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements\obj\Debug\Selenium.HtmlElements.pdb

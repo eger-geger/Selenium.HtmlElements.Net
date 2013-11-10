@@ -1,0 +1,17 @@
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\Selenium.HtmlElements.Test.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\Selenium.HtmlElements.Test.pdb
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\nunit.framework.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\Rhino.Mocks.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\Selenium.HtmlElements.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\WebDriver.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\WebDriver.Support.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\Castle.Core.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\Castle.DynamicProxy2.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\Selenium.HtmlElements.pdb
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\nunit.framework.xml
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\Rhino.Mocks.xml
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\WebDriver.xml
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\bin\Debug\WebDriver.Support.xml
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\obj\Debug\Selenium.HtmlElements.Test.csprojResolveAssemblyReference.cache
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\obj\Debug\Selenium.HtmlElements.Test.dll
+C:\git\HtmlElements.Net\Selenium.HtmlElements.Test\obj\Debug\Selenium.HtmlElements.Test.pdb
