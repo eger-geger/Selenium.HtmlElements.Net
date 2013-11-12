@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using NUnit.Framework;
 
@@ -13,6 +14,16 @@ namespace Selenium.HtmlElements.Demo.Tests {
             NavigateToUrl();
             ClearCookies();
             NavigateToUrl();
+        }
+
+        [Test]
+        public void LinkByJsIsOk() {
+            On<JaHomePage>().LinkByJs.Click();
+        }
+
+        [Test]
+        public void ListByJsIsOk() {
+            On<JaHomePage>().LinkListByJs.Last().Click();
         }
 
         [Test]

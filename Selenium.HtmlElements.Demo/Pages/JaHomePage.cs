@@ -7,6 +7,7 @@ using OpenQA.Selenium.Support.PageObjects;
 
 using Selenium.HtmlElements.Demo.Elements;
 using Selenium.HtmlElements.Elements;
+using Selenium.HtmlElements.Locators;
 
 #pragma warning disable 649
 
@@ -21,12 +22,6 @@ namespace Selenium.HtmlElements.Demo.Pages {
         [FindsBy(How = How.Id, Using = "JA_HeaderHelp")]
         private readonly IHtmlElement _contactAsLink;
 
-        [FindsBy(How = How.Id, Using = "JA_HeaderLogin")]
-        private readonly IHtmlElement _headrerLoginLink;
-
-        [FindsBy(How = How.Id, Using = "JA_loginInfo strong")]
-        private readonly IHtmlElement _loggedInLink;
-
         [FindsBy(How = How.CssSelector, Using = "a[id*=lnkQuestionTitle]")]
         private readonly IList<IHtmlElement> _questionLinks;
 
@@ -37,6 +32,12 @@ namespace Selenium.HtmlElements.Demo.Pages {
 
         [FindsBy(How = How.Id, Using = "JA_tabbedQuestionBox")]
         public JaTabbedQuestionBox TabbedQuestionBox { get; private set; }
+
+        [FindsBy(How = How.Custom, Using = "$('#JA_HeaderLogin').get(0)", CustomFinderType = typeof(ByJs))]
+        public HtmlElement LinkByJs { get; private set; }
+
+        [FindsBy(How = How.Custom, Using = "$('a').get()", CustomFinderType = typeof(ByJs))]
+        public IList<HtmlElement> LinkListByJs { get; private set; } 
 
         public void OpenContactUs() {
             _contactAsLink.Click();

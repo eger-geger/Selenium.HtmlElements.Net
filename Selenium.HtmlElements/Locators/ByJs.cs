@@ -8,7 +8,7 @@ namespace Selenium.HtmlElements.Locators {
 
     public class ByJs : By {
 
-        protected ByJs(string jsLocator) {
+        public ByJs(string jsLocator) {
             FindElementMethod = context => FindByJs(context, jsLocator) as IWebElement;
 
             FindElementsMethod = delegate(ISearchContext context) {

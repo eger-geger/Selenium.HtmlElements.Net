@@ -31,6 +31,9 @@ namespace Selenium.HtmlElements.Proxy {
 
         protected override void ExecuteLoad() {
             WrappedElement = _locator.FindElement();
+            if (WrappedElement is IWrapsElement) {
+                WrappedElement = (WrappedElement as IWrapsElement).WrappedElement;
+            }
         }
 
         protected override void HandleLoadError(WebDriverException ex) {
