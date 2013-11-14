@@ -16,6 +16,17 @@ namespace Selenium.HtmlElements.Elements {
             set { this.SetAttribute("size", value); }
         }
 
+        public string MaxLength {
+            get { return GetAttribute("maxlength"); }
+            set { this.SetAttribute("maxlength", value); }
+        }
+
+        public string Src {
+            get { return GetAttribute("src"); }
+            set { this.SetAttribute("src", value); }
+        }
+
+
     }
 
 }

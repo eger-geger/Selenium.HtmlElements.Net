@@ -1,7 +1,10 @@
 using System;
 
 using OpenQA.Selenium;
+using OpenQA.Selenium.Internal;
 using OpenQA.Selenium.Support.UI;
+
+using Selenium.HtmlElements.Conditional;
 
 namespace Selenium.HtmlElements.Elements {
 
@@ -14,8 +17,7 @@ namespace Selenium.HtmlElements.Elements {
         public static bool IsPresent(this IWebElement self) {
             try {
                 var ignore = self.Size;
-            }
-            catch (NoSuchElementException) {
+            } catch (NoSuchElementException) {
                 return false;
             }
 
@@ -56,12 +58,13 @@ namespace Selenium.HtmlElements.Elements {
         }
 
         public static TResult WaitForResult<TElement, TResult>(this TElement self, Func<TElement, TResult> condition,
-            TimeSpan timeout) where TElement : class, IWebElement {
+                                                               TimeSpan timeout) where TElement : class, IWebElement {
             return WaitForResult(self, condition, timeout, DefaultPollingInterval);
         }
 
         public static TResult WaitForResult<TElement, TResult>(this TElement self, Func<TElement, TResult> condition,
-            TimeSpan timeout, TimeSpan pollingInterval) where TElement : class, IWebElement {
+                                                               TimeSpan timeout, TimeSpan pollingInterval)
+            where TElement : class, IWebElement {
             var wait = new DefaultWait<TElement>(self) {
                 Message = string.Format("{0} expires after {1}", condition, timeout),
                 PollingInterval = pollingInterval,
@@ -84,8 +87,18 @@ namespace Selenium.HtmlElements.Elements {
         }
 
         public static void WaitForState<TElement>(this TElement self, Predicate<TElement> condition, TimeSpan timeout,
-            TimeSpan pollingInterval) where TElement : class, IWebElement {
+                                                  TimeSpan pollingInterval) where TElement : class, IWebElement {
             WaitForResult(self, condition.Invoke, timeout, pollingInterval);
+        }
+
+        public static TReturn As<TReturn>(this IWebElement self) where TReturn : class, new() {
+            var webElement = self is IWrapsElement ? (self as IWrapsElement).WrappedElement : self;
+
+            return Activator.CreateInstance(typeof(TReturn), webElement) as TReturn;
+        }
+    
+        public static ConditionalActionExecutor<TElement> Do<TElement>(this TElement self, Action<TElement> action) where TElement : class, IWebElement {
+            return new ConditionalActionExecutor<TElement>(action);
         }
 
     }

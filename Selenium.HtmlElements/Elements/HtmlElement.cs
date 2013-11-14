@@ -40,6 +40,31 @@ namespace Selenium.HtmlElements.Elements {
             set { this.SetDomElementPropery("textContent", value); }
         }
 
+        public string Name {
+            get { return GetAttribute("name"); }
+            set { this.SetAttribute("name", value); }
+        }
+
+        public string Id {
+            get { return GetAttribute("id"); }
+            set { this.SetAttribute("id", value); }
+        }
+
+        public string Class {
+            get { return GetAttribute("class"); }
+            set { this.SetAttribute("class", value); }
+        }
+
+        public string Style {
+            get { return GetAttribute("style"); }
+            set { this.SetAttribute("style", value); }
+        }
+
+        public string Title {
+            get { return GetAttribute("title"); }
+            set { this.SetAttribute("title", value); }
+        }
+
         public void Clear() {
             _wrappedElement.Clear();
         }
@@ -67,8 +92,8 @@ namespace Selenium.HtmlElements.Elements {
         public IWebElement WrappedElement {
             get {
                 return (_wrappedElement is IWrapsElement)
-                    ? (_wrappedElement as IWrapsElement).WrappedElement
-                    : _wrappedElement;
+                           ? (_wrappedElement as IWrapsElement).WrappedElement
+                           : _wrappedElement;
             }
         }
 

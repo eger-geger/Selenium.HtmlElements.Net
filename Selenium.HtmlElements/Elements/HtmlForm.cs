@@ -17,6 +17,16 @@ namespace Selenium.HtmlElements.Elements {
             set { this.SetAttribute("method", value); }
         }
 
+        public string Enctype {
+            get { return GetAttribute("enctype"); }
+            set { this.SetAttribute("enctype", value ); }
+        }
+
+        public string Target {
+            get { return GetAttribute("target"); }
+            set { this.SetAttribute("target", value); }
+        }
+
     }
 
 }

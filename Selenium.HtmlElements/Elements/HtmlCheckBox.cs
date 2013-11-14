@@ -1,6 +1,4 @@
-﻿using System;
-
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace Selenium.HtmlElements.Elements {
 
@@ -12,14 +10,7 @@ namespace Selenium.HtmlElements.Elements {
 
         public bool Checked {
             get { return this.HasAttribute(AttrChecked); }
-            set { this.WaitForState(IsChecked(value)); }
-        }
-
-        private static Predicate<HtmlCheckBox> IsChecked(bool state) {
-            return self => {
-                if (self.Checked != state) self.Click();
-                return self.Checked == state;
-            };
+            set { this.Do(self => self.Click()).Until(self => (self as IWebElement).Selected == value); }
         }
 
     }

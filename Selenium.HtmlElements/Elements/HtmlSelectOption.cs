@@ -1,6 +1,4 @@
-﻿using System;
-
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace Selenium.HtmlElements.Elements {
 
@@ -10,14 +8,7 @@ namespace Selenium.HtmlElements.Elements {
 
         public new bool Selected {
             get { return base.Selected; }
-            set { this.WaitForState(IsSelected(value)); }
-        }
-
-        private static Predicate<HtmlSelectOption> IsSelected(bool state) {
-            return self => {
-                if (self.Selected != state) self.Click();
-                return self.Selected == state;
-            };
+            set { this.Do(e => e.Click()).Until(e => (e as IWebElement).Selected == value); }
         }
 
     }
