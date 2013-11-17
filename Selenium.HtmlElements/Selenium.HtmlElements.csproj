@@ -64,14 +64,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conditional\ConditionalAction.cs" />
+    <Compile Include="Conditional\ConditionalActionExecutor.cs" />
     <Compile Include="Elements\CustomElement.cs" />
     <Compile Include="Elements\HtmlCheckBox.cs" />
     <Compile Include="Elements\HtmlControl.cs" />
     <Compile Include="Elements\HtmlElement.cs" />
     <Compile Include="Elements\HtmlForm.cs" />
+    <Compile Include="Elements\HtmlFrame.cs" />
+    <Compile Include="Elements\HtmlImage.cs" />
     <Compile Include="Elements\HtmlInput.cs" />
+    <Compile Include="Elements\HtmlLabel.cs" />
+    <Compile Include="Elements\HtmlLink.cs" />
+    <Compile Include="Elements\HtmlOption.cs" />
     <Compile Include="Elements\HtmlSelect.cs" />
     <Compile Include="Elements\HtmlSelectOption.cs" />
+    <Compile Include="Elements\HtmlTable.cs" />
     <Compile Include="Elements\HtmlTextArea.cs" />
     <Compile Include="Elements\IHtmlElement.cs" />
     <Compile Include="Elements\JsExtension.cs" />

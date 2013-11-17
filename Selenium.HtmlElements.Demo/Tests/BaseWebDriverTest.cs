@@ -12,7 +12,7 @@ using Selenium.HtmlElements.Factory;
 namespace Selenium.HtmlElements.Demo.Tests {
 
     [TestFixture]
-    public class BaseWebDriverTest {
+    public class BaseWebDriverTest : AssertionHelper {
 
         private IWebDriver _webDriver;
 
@@ -45,8 +45,13 @@ namespace Selenium.HtmlElements.Demo.Tests {
             _webDriver.Manage().Cookies.DeleteAllCookies();
         }
 
-        protected void NavigateToUrl(string url = "http://www.justanswer.com/") {
+        protected void NavigateToUrl(string url = "http://developerslife.ru/")
+        {
             _webDriver.Navigate().GoToUrl(url);
+        }
+
+        protected string CurrentUrl {
+            get { return _webDriver.Url; }
         }
 
         [TestFixtureSetUp]

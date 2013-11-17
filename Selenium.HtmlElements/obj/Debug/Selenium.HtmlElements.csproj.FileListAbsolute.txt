@@ -29,3 +29,4 @@ D:\git\Selenium.HtmlElements.Net\Selenium.HtmlElements\bin\Debug\WebDriver.Suppo
 D:\git\Selenium.HtmlElements.Net\Selenium.HtmlElements\obj\Debug\ResolveAssemblyReference.cache
 D:\git\Selenium.HtmlElements.Net\Selenium.HtmlElements\obj\Debug\Selenium.HtmlElements.dll
 D:\git\Selenium.HtmlElements.Net\Selenium.HtmlElements\obj\Debug\Selenium.HtmlElements.pdb
+C:\git\HtmlElements.Net\Selenium.HtmlElements\obj\Debug\Selenium.HtmlElements.csprojResolveAssemblyReference.cache

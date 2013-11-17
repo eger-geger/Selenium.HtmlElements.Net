@@ -2,7 +2,6 @@
 
 namespace Selenium.HtmlElements.Elements {
 
-    //TODO: Add specific properties and methods
     public class HtmlForm : HtmlElement {
 
         public HtmlForm(IWebElement wrapped) : base(wrapped) {}
