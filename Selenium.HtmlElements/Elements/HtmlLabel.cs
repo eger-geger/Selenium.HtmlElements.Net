@@ -2,7 +2,7 @@
 
 namespace Selenium.HtmlElements.Elements {
 
-    internal class HtmlLabel : HtmlElement {
+    public class HtmlLabel : HtmlElement {
 
         public HtmlLabel(IWebElement wrapped) : base(wrapped) {}
 

@@ -4,7 +4,7 @@ using Selenium.HtmlElements.Factory;
 
 namespace Selenium.HtmlElements.Elements {
 
-    internal class HtmlLink : HtmlElement {
+    public class HtmlLink : HtmlElement {
 
         public const string TargetBlank = "_blank";
         public const string TargetParent = "_parent";

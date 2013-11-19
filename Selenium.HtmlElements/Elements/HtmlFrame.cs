@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.HtmlElements.Elements {
 
-    internal class HtmlFrame : HtmlElement {
+    public class HtmlFrame : HtmlElement {
 
         public HtmlFrame(IWebElement wrapped) : base(wrapped) {}
 

@@ -2,7 +2,7 @@
 
 namespace Selenium.HtmlElements.Elements {
 
-    internal class HtmlOption : HtmlControl {
+    public class HtmlOption : HtmlControl {
 
         public HtmlOption(IWebElement wrapped) : base(wrapped) {}
 

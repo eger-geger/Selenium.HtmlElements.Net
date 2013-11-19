@@ -52,11 +52,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Elements\JaTabbedQuestionBox.cs" />
-    <Compile Include="Pages\JaHomePage.cs" />
+    <Compile Include="Elements\DevLifePost.cs" />
+    <Compile Include="Elements\Pagination.cs" />
+    <Compile Include="Pages\DevLifePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\BaseWebDriverTest.cs" />
-    <Compile Include="Tests\JaHomePageTests.cs" />
+    <Compile Include="Tests\DevLifeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Selenium.HtmlElements\Selenium.HtmlElements.csproj">

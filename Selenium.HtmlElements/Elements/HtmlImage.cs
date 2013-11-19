@@ -2,7 +2,7 @@
 
 namespace Selenium.HtmlElements.Elements {
 
-    internal class HtmlImage : HtmlElement {
+    public class HtmlImage : HtmlElement {
 
         public HtmlImage(IWebElement wrapped) : base(wrapped) {}
 
