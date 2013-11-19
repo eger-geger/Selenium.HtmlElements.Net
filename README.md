@@ -1,7 +1,4 @@
-Selenium.HtmlElements.Net
-=========================
-
-## Define your custom element
+#### Define your custom element
 
 ```C#
 internal class Pagination : HtmlElement {
@@ -27,7 +24,7 @@ internal class Pagination : HtmlElement {
 }
 ```
 
-## and use it within page or other element
+#### and use it within page or other element
 
 ```C#
 internal class DevLifePage : CustomElement {
@@ -64,8 +61,12 @@ internal class DevLifePage : CustomElement {
 }
 ```
 
-## Finally apply PageFactory to your page
+#### Finally apply PageFactory to your page
 
 ```C#
 var devLifePage = PageFactory.InitElementsIn<DevLifePage>(new FirefoxDriver());
 ```
+
+Also you are welcome to try some of [predefined elements](https://github.com/eger-geger/Selenium.HtmlElements.Net/tree/master/Selenium.HtmlElements/Elements)
+and add some more to them!
+
