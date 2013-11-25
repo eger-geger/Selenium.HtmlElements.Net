@@ -2,7 +2,7 @@
 
 namespace Selenium.HtmlElements.Elements {
 
-    public class HtmlTextArea : HtmlControl {
+    public class HtmlTextArea : HtmlControl, ITextControl {
 
         public HtmlTextArea(IWebElement wrapped) : base(wrapped) {}
 
@@ -15,6 +15,7 @@ namespace Selenium.HtmlElements.Elements {
             get { return GetAttribute("rows"); }
             set { this.SetAttribute("rows", value); }
         }
+        
     }
 
 }

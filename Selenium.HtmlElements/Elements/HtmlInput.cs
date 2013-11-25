@@ -2,7 +2,7 @@
 
 namespace Selenium.HtmlElements.Elements {
 
-    public class HtmlInput : HtmlControl {
+    public class HtmlInput : HtmlControl, ITextControl {
 
         public HtmlInput(IWebElement wrapped) : base(wrapped) {}
 

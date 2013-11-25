@@ -82,6 +82,7 @@
     <Compile Include="Elements\HtmlTable.cs" />
     <Compile Include="Elements\HtmlTextArea.cs" />
     <Compile Include="Elements\IHtmlElement.cs" />
+    <Compile Include="Elements\ITextControl.cs" />
     <Compile Include="Elements\JsExtension.cs" />
     <Compile Include="Elements\SearchContextWrapper.cs" />
     <Compile Include="Elements\WebElementExtension.cs" />
