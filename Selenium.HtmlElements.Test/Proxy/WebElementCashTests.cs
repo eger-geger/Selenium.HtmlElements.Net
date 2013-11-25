@@ -20,13 +20,12 @@ namespace Selenium.HtmlElements.Test.Proxy {
             _mockElementLocator = MockRepository.GenerateStub<IElementLocator>();
         }
 
-        private readonly IHtmlElement _mockHtmlElement = MockRepository.GenerateStub<IHtmlElement>();
+        private readonly IWebElement _mockHtmlElement = MockRepository.GenerateStub<IWebElement>();
         private IElementLocator _mockElementLocator;
 
         [TestFixtureSetUp]
         public void InitMockElement() {
             _mockHtmlElement.Stub(e => e.Size).Return(new Size());
-            _mockHtmlElement.Stub(e => e.WrappedDriver).Return(MockRepository.GenerateStub<IWebDriver>());
         }
 
         [Test]
@@ -58,7 +57,6 @@ namespace Selenium.HtmlElements.Test.Proxy {
             var cash = new WebElementCash(_mockElementLocator).Load();
 
             Expect(cash.WrappedElement, Is.Not.Null);
-            Expect(cash.WrappedDriver, Is.Not.Null);
         }
 
         [Test, ExpectedException(typeof(NoSuchElementException))]

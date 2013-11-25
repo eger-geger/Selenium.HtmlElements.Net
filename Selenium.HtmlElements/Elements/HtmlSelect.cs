@@ -102,7 +102,7 @@ namespace Selenium.HtmlElements.Elements {
             new SelectElement(WrappedElement).SelectByValue(value);
         }
 
-        /// <summary>Deselect any selected option.</summary>
+        /// <summary>De-select any selected option.</summary>
         public void DeselectAll() {
             new List<HtmlSelectOption>(AllSelectedOptions).ForEach(e => e.Selected = false);
         }

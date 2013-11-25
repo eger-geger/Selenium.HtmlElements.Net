@@ -38,12 +38,7 @@ namespace Selenium.HtmlElements.Factory {
             if (elementType == typeof(IHtmlElement) || elementType == typeof(IWebElement))
                 return new HtmlElement(proxyElement);
 
-            try {
-                return Activator.CreateInstance(elementType, proxyElement);
-            }
-            catch (SystemException ex) {
-                throw new InvalidOperationException(string.Format("Failed to create instance of {0}", elementType), ex);
-            }
+            return PageObjectFactory.Create(elementType, proxyElement);
         }
 
         private static object NewCollection(Type elementType, IElementLocator elementLocator) {

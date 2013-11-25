@@ -3,15 +3,14 @@ using OpenQA.Selenium.Support.PageObjects;
 
 using Selenium.HtmlElements.Demo.Pages;
 using Selenium.HtmlElements.Elements;
-
-using PageFactory = Selenium.HtmlElements.Factory.PageFactory;
+using Selenium.HtmlElements.Factory;
 
 namespace Selenium.HtmlElements.Demo.Elements {
 
     internal class Pagination : HtmlElement {
 
         public Pagination(IWebElement wrapped) : base(wrapped) {
-            PageFactory.InitElementsIn(this, wrapped);
+            PageObjectActivator.Activate(this, wrapped);
         }
 
         [FindsBy(How = How.CssSelector, Using = ".value.rating")]

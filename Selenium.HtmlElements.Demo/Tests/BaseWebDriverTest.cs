@@ -3,7 +3,6 @@
 using NUnit.Framework;
 
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.Events;
 
@@ -20,11 +19,11 @@ namespace Selenium.HtmlElements.Demo.Tests {
             var eventFiringDriver = new EventFiringWebDriver(new FirefoxDriver());
             eventFiringDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
             eventFiringDriver.Manage().Window.Maximize();
-            
+
             eventFiringDriver.ElementClicked += (sender, args) => Console.WriteLine("{0} clicked", args.Element);
             eventFiringDriver.ExceptionThrown += (sender, args) => Console.WriteLine(args.ThrownException);
             eventFiringDriver.ScriptExecuted += (sender, args) => Console.WriteLine("JS executed: {0}", args.Script);
-            eventFiringDriver.ScriptExecuting += (sender, args) => Console.WriteLine("executing JS: {0}", args.Script); 
+            eventFiringDriver.ScriptExecuting += (sender, args) => Console.WriteLine("executing JS: {0}", args.Script);
 
             _webDriver = eventFiringDriver;
         }
@@ -38,15 +37,14 @@ namespace Selenium.HtmlElements.Demo.Tests {
         }
 
         protected T On<T>() where T : class {
-            return PageFactory.InitElementsIn<T>(_webDriver);
+            return PageObjectActivator.Activate<T>(_webDriver);
         }
 
         protected void ClearCookies() {
             _webDriver.Manage().Cookies.DeleteAllCookies();
         }
 
-        protected void NavigateToUrl(string url = "http://developerslife.ru/")
-        {
+        protected void NavigateToUrl(string url = "http://developerslife.ru/") {
             _webDriver.Navigate().GoToUrl(url);
         }
 

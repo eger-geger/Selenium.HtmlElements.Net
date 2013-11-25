@@ -40,6 +40,7 @@ namespace Selenium.HtmlElements.Proxy {
             if (!(ex is StaleElementReferenceException)) throw ex;
 
             Thread.Sleep(500);
+            
             TryLoad();
         }
 

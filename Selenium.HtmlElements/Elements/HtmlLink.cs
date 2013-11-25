@@ -26,7 +26,7 @@ namespace Selenium.HtmlElements.Elements {
         public TReturn Open<TReturn>() where TReturn : class {
             Click();
 
-            return PageFactory.InitElementsIn<TReturn>(WrappedDriver);
+            return PageObjectActivator.Activate<TReturn>(WrappedDriver);
         }
 
     }

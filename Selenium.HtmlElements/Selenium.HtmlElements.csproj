@@ -86,6 +86,8 @@
     <Compile Include="Elements\JsExtension.cs" />
     <Compile Include="Elements\SearchContextWrapper.cs" />
     <Compile Include="Elements\WebElementExtension.cs" />
+    <Compile Include="Factory\PageObjectActivator.cs" />
+    <Compile Include="Factory\PageObjectFactory.cs" />
     <Compile Include="Locators\ByFactory.cs" />
     <Compile Include="Factory\ElementFactory.cs" />
     <Compile Include="Locators\ByJs.cs" />
@@ -95,7 +97,6 @@
     <Compile Include="Locators\ListItemLocator.cs" />
     <Compile Include="Locators\LocatorFactory.cs" />
     <Compile Include="Factory\MembersCollector.cs" />
-    <Compile Include="Factory\PageFactory.cs" />
     <Compile Include="Factory\ReflectionExtension.cs" />
     <Compile Include="Proxy\WebElementCash.cs" />
     <Compile Include="Proxy\WebElementProxy.cs" />

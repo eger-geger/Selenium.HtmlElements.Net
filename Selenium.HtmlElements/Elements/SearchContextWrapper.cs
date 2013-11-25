@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 
+using Selenium.HtmlElements.Factory;
 using Selenium.HtmlElements.Locators;
 
 namespace Selenium.HtmlElements.Elements {
