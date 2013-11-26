@@ -4,9 +4,11 @@ using OpenQA.Selenium;
 
 namespace Selenium.HtmlElements.Elements {
 
-    public class HtmlPage : CustomElement {
+    public class HtmlPage : SearchContextWrapper {
 
-        public HtmlPage(ISearchContext wrapped) : base(wrapped) {}
+        public HtmlPage(ISearchContext wrapped) : base(wrapped) {
+            PageObjectActivator.Activate(this, wrapped);
+        }
 
         public string Title {
             get { return WrappedDriver.Title; }

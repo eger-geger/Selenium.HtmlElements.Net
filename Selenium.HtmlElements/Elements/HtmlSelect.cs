@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 
 namespace Selenium.HtmlElements.Elements {
@@ -12,14 +13,7 @@ namespace Selenium.HtmlElements.Elements {
 
         private static readonly Exception ReadOnlyException = new ReadOnlyException("ReadOnly element collection");
 
-        public HtmlSelect(IWebElement wrapped) : base(wrapped) {
-            Options = ElementFactory.CreateElementList<HtmlSelectOption>(RelativeLocator(By.TagName("option")));
-
-            AllSelectedOptions =
-                ElementFactory.CreateElementList<HtmlSelectOption>(RelativeLocator(By.CssSelector("option[selected]")));
-
-            FirstSelectedOption = AllSelectedOptions[0];
-        }
+        public HtmlSelect(IWebElement wrapped) : base(wrapped) {}
 
         /// <summary>Gets a value indicating whether the parent element supports multiple selections.</summary>
         public bool IsMultiple {
@@ -31,14 +25,11 @@ namespace Selenium.HtmlElements.Elements {
         }
 
         /// <summary>Gets the list of options for the select element.</summary>
+        [FindsBy(How = How.TagName, Using = "option")]
         public IList<HtmlSelectOption> Options { get; private set; }
 
-        /// <summary>Gets the selected item within the select element.</summary>
-        /// <remarks>If more than one item is selected this will return the first item.</remarks>
-        /// <exception cref="NoSuchElementException">Thrown if no option is selected.</exception>
-        public HtmlSelectOption FirstSelectedOption { get; private set; }
-
         /// <summary>Gets all of the selected options within the select element.</summary>
+        [FindsBy(How = How.CssSelector, Using = "option[selected]")]
         public IList<HtmlSelectOption> AllSelectedOptions { get; private set; }
 
         IEnumerator IEnumerable.GetEnumerator() {

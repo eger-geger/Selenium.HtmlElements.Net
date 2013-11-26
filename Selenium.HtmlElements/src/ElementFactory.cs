@@ -15,8 +15,7 @@ namespace Selenium.HtmlElements {
 
         private static readonly ProxyGenerator ProxyFactory = new ProxyGenerator();
 
-        public static IList<T> CreateElementList<T>(IElementLocator locator, bool useCash = false)
-            where T : class, IWebElement {
+        public static IList<T> CreateElementList<T>(IElementLocator locator, bool useCash = false) where T : class, IWebElement {
             return Create(typeof(IList<T>), locator) as IList<T>;
         }
 
@@ -33,8 +32,7 @@ namespace Selenium.HtmlElements {
         }
 
         private static object NewElement(Type elementType, IElementLocator elementLocator, bool useCash) {
-            var proxyElement =
-                GenerateProxy(typeof(IHtmlElement), new WebElementProxy(elementLocator, useCash)) as IHtmlElement;
+            var proxyElement = GenerateProxy(typeof(IHtmlElement), new WebElementProxy(elementLocator, useCash)) as IHtmlElement;
 
             if (elementType == typeof(IHtmlElement) || elementType == typeof(IWebElement)) return new HtmlElement(proxyElement);
 

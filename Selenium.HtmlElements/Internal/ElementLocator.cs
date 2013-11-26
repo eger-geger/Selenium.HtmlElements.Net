@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 using OpenQA.Selenium;
 
@@ -25,37 +22,25 @@ namespace Selenium.HtmlElements.Internal {
         }
 
         public IWebElement FindElement() {
-            var cancelTrigger = new CancellationTokenSource();
-
-            var tasks =
-                _bys.Select(@by => Task.Factory.StartNew(() => _context.FindElement(@by), cancelTrigger.Token)).ToList();
-
-            var innerExceptions = new List<Exception>();
-
-            while (tasks.Any()) {
-                var finished = tasks[Task.WaitAny(tasks.ToArray())];
-
-                tasks.Remove(finished);
-
-                if (finished.IsFaulted && finished.Exception != null) innerExceptions.AddRange(finished.Exception.InnerExceptions);
-
-                if (finished.Status == TaskStatus.RanToCompletion) {
-                    cancelTrigger.Cancel();
-
-                    return finished.Result;
-                }
+            foreach (var @by in _bys) {
+                try {
+                    return _context.FindElement(@by);
+                } catch (WebDriverException) {}
             }
 
-            throw new NoSuchElementException(string.Format("Failed to locate element using: {0}", this),
-                new AggregateException(innerExceptions));
+            throw new NoSuchElementException(string.Format("Failed to locate element using: {0}", this));
         }
 
         public ReadOnlyCollection<IWebElement> FindElements() {
-            var tasks = _bys.Select(@by => Task.Factory.StartNew(() => _context.FindElements(@by))).ToArray();
+            var elements = new List<IWebElement>();
 
-            Task.WaitAll(tasks);
+            foreach (var @by in _bys) {
+                elements.AddRange(_context.FindElements(@by));
+            }
 
-            return tasks.SelectMany(t => t.Result).ToList().AsReadOnly();
+            if (elements.Count == 0) throw new NoSuchElementException(string.Format("Failed to locate element using: {0}", this));
+
+            return elements.AsReadOnly();
         }
 
         public override string ToString() {

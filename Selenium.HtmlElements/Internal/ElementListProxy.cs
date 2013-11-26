@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using Castle.Core.Interceptor;
@@ -24,13 +25,13 @@ namespace Selenium.HtmlElements.Internal {
         private object InvokeOnFoundElements(IInvocation invocation) {
             var elementList = _elementLocator.FindElements();
 
-            var proxyList = new List<Object>();
+            var proxyList = (IList) Activator.CreateInstance(typeof(List<>).MakeGenericType(_elementType));
 
             for (var index = 0; index < elementList.Count; index++) {
                 proxyList.Add(ElementFactory.Create(_elementType, new ListItemLocator(_elementLocator, index), _useCash));
             }
 
-            return invocation.Method.Invoke(proxyList.AsReadOnly(), invocation.Arguments);
+            return invocation.Method.Invoke(proxyList, invocation.Arguments);
         }
 
     }

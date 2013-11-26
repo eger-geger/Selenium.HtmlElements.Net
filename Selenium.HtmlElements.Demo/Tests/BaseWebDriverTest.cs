@@ -4,6 +4,7 @@ using NUnit.Framework;
 
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.Events;
 
 namespace Selenium.HtmlElements.Demo.Tests {
@@ -14,7 +15,7 @@ namespace Selenium.HtmlElements.Demo.Tests {
         private IWebDriver _webDriver;
 
         private void InitWebDriver() {
-            var eventFiringDriver = new EventFiringWebDriver(new FirefoxDriver());
+            var eventFiringDriver = new EventFiringWebDriver(new InternetExplorerDriver());
             eventFiringDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
             eventFiringDriver.Manage().Window.Maximize();
 

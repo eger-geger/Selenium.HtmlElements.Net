@@ -11,8 +11,8 @@ namespace Selenium.HtmlElements.Demo.Tests {
             NavigateToUrl();
 
             var page = On<DevLifePage>().Pagination.OpenNextPage();
+            page.Pagination.InnerHtml = "GAGA";
 
-            Expect(page.Pagination.CurrentNumber, Is.EqualTo(1));
             Expect(CurrentUrl, Contains("1"));
         }
 

@@ -17,7 +17,7 @@ namespace Selenium.HtmlElements.Elements {
         public static bool IsPresent(this IWebElement self) {
             try {
                 var ignore = self.Size;
-            } catch (NoSuchElementException) {
+            } catch (WebDriverException) {
                 return false;
             }
 
@@ -91,7 +91,7 @@ namespace Selenium.HtmlElements.Elements {
             WaitForResult(self, condition.Invoke, timeout, pollingInterval);
         }
 
-        public static TReturn As<TReturn>(this IWebElement self) where TReturn : class, new() {
+        public static TReturn As<TReturn>(this IWebElement self) where TReturn : class {
             var webElement = self is IWrapsElement ? (self as IWrapsElement).WrappedElement : self;
 
             return Activator.CreateInstance(typeof(TReturn), webElement) as TReturn;

@@ -27,23 +27,23 @@ namespace Selenium.HtmlElements.Internal {
         public IWebElement WrappedElement { get; private set; }
 
         private IWebDriver UnwrapDriver(IWebElement webElement) {
-            var driverWrapper = webElement as IWrapsDriver;
+            var driverWrapper = UnwrapElement(webElement) as IWrapsDriver;
 
             if (driverWrapper != null) return driverWrapper.WrappedDriver;
 
             throw new ArgumentException("Not a driver wrapper", "webElement");
         }
 
-        protected override void ExecuteLoad() {
-            WrappedElement = UnwrapElement(_locator.FindElement());
-        }
-
         private IWebElement UnwrapElement(IWebElement webElement) {
             var wrapper = webElement as IWrapsElement;
 
-            if (wrapper == null) return webElement;
+            if (wrapper != null) return UnwrapElement(wrapper.WrappedElement);
 
-            return UnwrapElement(wrapper.WrappedElement);
+            return webElement;
+        }
+
+        protected override void ExecuteLoad() {
+            WrappedElement = _locator.FindElement();
         }
 
         public override ElementLoader Load() {

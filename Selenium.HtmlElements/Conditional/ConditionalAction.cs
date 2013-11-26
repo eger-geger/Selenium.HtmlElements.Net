@@ -35,7 +35,7 @@ namespace Selenium.HtmlElements.Conditional {
         }
 
         private bool InvokeConditionalAction(T target) {
-            if (_condition.Invoke(target)) _action.Invoke(target);
+            if (!_condition.Invoke(target)) _action.Invoke(target);
 
             return _condition.Invoke(target);
         }
