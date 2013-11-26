@@ -5,7 +5,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 
 using Selenium.HtmlElements.Elements;
-using Selenium.HtmlElements.Factory;
+using Selenium.HtmlElements.Internal;
 
 namespace Selenium.HtmlElements.Test.Factory {
 

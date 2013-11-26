@@ -2,9 +2,9 @@
 
 using OpenQA.Selenium;
 
-namespace Selenium.HtmlElements.Factory {
+namespace Selenium.HtmlElements.Internal {
 
-    public static class PageObjectFactory {
+    internal static class PageObjectFactory {
 
         public static object Create(Type type, ISearchContext context) {
             var emptyCtor = type.GetConstructor(new Type[0]);

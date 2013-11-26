@@ -86,25 +86,26 @@
     <Compile Include="Elements\JsExtension.cs" />
     <Compile Include="Elements\SearchContextWrapper.cs" />
     <Compile Include="Elements\WebElementExtension.cs" />
-    <Compile Include="Factory\PageObjectActivator.cs" />
-    <Compile Include="Factory\PageObjectFactory.cs" />
-    <Compile Include="Locators\ByFactory.cs" />
-    <Compile Include="Factory\ElementFactory.cs" />
-    <Compile Include="Locators\ByJs.cs" />
-    <Compile Include="Proxy\ElementListProxy.cs" />
-    <Compile Include="Locators\ElementLocator.cs" />
-    <Compile Include="Locators\IElementLocator.cs" />
-    <Compile Include="Locators\ListItemLocator.cs" />
-    <Compile Include="Locators\LocatorFactory.cs" />
-    <Compile Include="Factory\MembersCollector.cs" />
-    <Compile Include="Factory\ReflectionExtension.cs" />
-    <Compile Include="Proxy\WebElementCash.cs" />
-    <Compile Include="Proxy\WebElementProxy.cs" />
+    <Compile Include="src\ByJs.cs" />
+    <Compile Include="src\IElementLocator.cs" />
+    <Compile Include="src\PageObjectActivator.cs" />
+    <Compile Include="Internal\PageObjectFactory.cs" />
+    <Compile Include="Internal\ByFactory.cs" />
+    <Compile Include="src\ElementFactory.cs" />
+    <Compile Include="Internal\ElementListProxy.cs" />
+    <Compile Include="Internal\ElementLocator.cs" />
+    <Compile Include="Internal\ListItemLocator.cs" />
+    <Compile Include="Internal\LocatorFactory.cs" />
+    <Compile Include="Internal\MembersCollector.cs" />
+    <Compile Include="Internal\ReflectionExtension.cs" />
+    <Compile Include="Internal\WebElementCash.cs" />
+    <Compile Include="Internal\WebElementProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

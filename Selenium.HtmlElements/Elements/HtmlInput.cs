@@ -26,7 +26,6 @@ namespace Selenium.HtmlElements.Elements {
             set { this.SetAttribute("src", value); }
         }
 
-
     }
 
 }

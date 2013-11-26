@@ -2,8 +2,6 @@
 
 using OpenQA.Selenium;
 
-using Selenium.HtmlElements.Factory;
-
 namespace Selenium.HtmlElements.Elements {
 
     public class HtmlTable : HtmlElement {

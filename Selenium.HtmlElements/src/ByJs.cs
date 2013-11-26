@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 
-namespace Selenium.HtmlElements.Locators {
+namespace Selenium.HtmlElements {
 
     public class ByJs : By {
 
@@ -23,17 +23,14 @@ namespace Selenium.HtmlElements.Locators {
         private static Object FindByJs(ISearchContext context, string jsLocator) {
             var jsExecutor = ExtractJsExecutorFrom(context);
 
-            if (jsExecutor == null)
-                throw new InvalidOperationException(string.Format("Cannot search in {0} with javascript", context));
+            if (jsExecutor == null) throw new InvalidOperationException(string.Format("Cannot search in {0} with javascript", context));
 
             return jsExecutor.ExecuteScript(string.Format("return {0} ;", jsLocator));
         }
 
         private static IJavaScriptExecutor ExtractJsExecutorFrom(ISearchContext context) {
-            if (context is IJavaScriptExecutor)
-                return context as IJavaScriptExecutor;
-            if (context is IWrapsDriver)
-                return ExtractJsExecutorFrom((context as IWrapsDriver).WrappedDriver);
+            if (context is IJavaScriptExecutor) return context as IJavaScriptExecutor;
+            if (context is IWrapsDriver) return ExtractJsExecutorFrom((context as IWrapsDriver).WrappedDriver);
 
             return null;
         }

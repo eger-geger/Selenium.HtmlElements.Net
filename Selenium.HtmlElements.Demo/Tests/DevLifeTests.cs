@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 using Selenium.HtmlElements.Demo.Pages;
 
 namespace Selenium.HtmlElements.Demo.Tests {
 
-    class DevLifeTests : BaseWebDriverTest {
+    internal class DevLifeTests : BaseWebDriverTest {
 
         [Test]
         public void ShouldOpenFirstPage() {
@@ -22,4 +17,5 @@ namespace Selenium.HtmlElements.Demo.Tests {
         }
 
     }
+
 }

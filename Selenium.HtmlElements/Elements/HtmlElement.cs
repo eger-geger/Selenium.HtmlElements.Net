@@ -92,8 +92,8 @@ namespace Selenium.HtmlElements.Elements {
         public IWebElement WrappedElement {
             get {
                 return (_wrappedElement is IWrapsElement)
-                           ? (_wrappedElement as IWrapsElement).WrappedElement
-                           : _wrappedElement;
+                    ? (_wrappedElement as IWrapsElement).WrappedElement
+                    : _wrappedElement;
             }
         }
 

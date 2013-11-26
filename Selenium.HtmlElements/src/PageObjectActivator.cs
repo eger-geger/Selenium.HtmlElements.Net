@@ -3,10 +3,11 @@ using System.Linq;
 using System.Reflection;
 
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
 
-using Selenium.HtmlElements.Locators;
+using Selenium.HtmlElements.Internal;
 
-namespace Selenium.HtmlElements.Factory {
+namespace Selenium.HtmlElements {
 
     public static class PageObjectActivator {
 
@@ -37,7 +38,8 @@ namespace Selenium.HtmlElements.Factory {
         }
 
         private static object ValueFor(MemberInfo memberInfo, LocatorFactory locatorFactory) {
-            return ElementFactory.Create(TypeOf(memberInfo), locatorFactory.CreateLocator(memberInfo));
+            return ElementFactory.Create(TypeOf(memberInfo), locatorFactory.CreateLocator(memberInfo),
+                memberInfo.IsDefined(typeof(CacheLookupAttribute), true));
         }
 
         private static Type TypeOf(MemberInfo memberInfo) {

@@ -6,9 +6,7 @@ using OpenQA.Selenium;
 
 using Rhino.Mocks;
 
-using Selenium.HtmlElements.Elements;
-using Selenium.HtmlElements.Locators;
-using Selenium.HtmlElements.Proxy;
+using Selenium.HtmlElements.Internal;
 
 namespace Selenium.HtmlElements.Test.Proxy {
 
@@ -33,8 +31,8 @@ namespace Selenium.HtmlElements.Test.Proxy {
             _mockElementLocator.Stub(l => l.FindElement()).Return(_mockHtmlElement);
 
             _mockElementLocator.Stub(l => l.FindElement())
-                .Throw(new StaleElementReferenceException("HO!HO!HO!")).Repeat.Once()
-                .Return(MockRepository.GenerateStub<IWebElement>()).Repeat.Once();
+                               .Throw(new StaleElementReferenceException("HO!HO!HO!")).Repeat.Once()
+                               .Return(MockRepository.GenerateStub<IWebElement>()).Repeat.Once();
 
             var cash = new WebElementCash(_mockElementLocator);
 

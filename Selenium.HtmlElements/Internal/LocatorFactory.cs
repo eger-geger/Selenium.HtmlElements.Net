@@ -5,9 +5,9 @@ using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
-namespace Selenium.HtmlElements.Locators {
+namespace Selenium.HtmlElements.Internal {
 
-    public class LocatorFactory {
+    internal class LocatorFactory {
 
         private readonly ISearchContext _searchContext;
 
@@ -21,7 +21,7 @@ namespace Selenium.HtmlElements.Locators {
 
         private static IEnumerable<By> ByFrom(MemberInfo memberInfo) {
             var findsByAttributes = memberInfo.GetCustomAttributes(typeof(FindsByAttribute), true)
-                .Select(a => a as FindsByAttribute).ToList();
+                                              .Select(a => a as FindsByAttribute).ToList();
 
             if (findsByAttributes.Any()) return findsByAttributes.Select(ByFactory.From).ToList();
 

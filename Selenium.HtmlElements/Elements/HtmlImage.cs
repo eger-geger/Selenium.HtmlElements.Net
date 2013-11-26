@@ -25,6 +25,7 @@ namespace Selenium.HtmlElements.Elements {
             get { return GetAttribute("width"); }
             set { this.SetAttribute("width", value); }
         }
+
     }
 
 }

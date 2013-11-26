@@ -51,6 +51,7 @@ namespace Selenium.HtmlElements.Conditional {
                 IgnoredExceptions = _ignoredExceptions
             }.Invoke(_target);
         }
+
     }
 
 }

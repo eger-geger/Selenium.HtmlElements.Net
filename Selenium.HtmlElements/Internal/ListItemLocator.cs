@@ -2,7 +2,7 @@
 
 using OpenQA.Selenium;
 
-namespace Selenium.HtmlElements.Locators {
+namespace Selenium.HtmlElements.Internal {
 
     internal class ListItemLocator : IElementLocator {
 

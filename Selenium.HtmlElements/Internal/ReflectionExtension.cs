@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 using OpenQA.Selenium;
 
-namespace Selenium.HtmlElements.Factory {
+namespace Selenium.HtmlElements.Internal {
 
     internal static class ReflectionExtension {
 
@@ -15,7 +15,7 @@ namespace Selenium.HtmlElements.Factory {
 
         public static bool IsWebElementList(this Type type) {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IList<>)
-                   && type.GetGenericArguments()[0].IsWebElement();
+                && type.GetGenericArguments()[0].IsWebElement();
         }
 
         public static bool IsPropertyBackingField(this FieldInfo fieldInfo) {

@@ -6,8 +6,6 @@ using System.Data;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-using Selenium.HtmlElements.Factory;
-
 namespace Selenium.HtmlElements.Elements {
 
     public class HtmlSelect : HtmlControl, IList<HtmlSelectOption> {

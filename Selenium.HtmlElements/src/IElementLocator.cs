@@ -1,8 +1,8 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 
 using OpenQA.Selenium;
 
-namespace Selenium.HtmlElements.Locators {
+namespace Selenium.HtmlElements {
 
     public interface IElementLocator {
 

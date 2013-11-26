@@ -4,7 +4,7 @@ using System.Globalization;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
-namespace Selenium.HtmlElements.Locators {
+namespace Selenium.HtmlElements.Internal {
 
     /// <summary cref="OpenQA.Selenium.Support.PageObjects.ByFactory">
     ///     Copied from WebDriver sources
@@ -21,8 +21,8 @@ namespace Selenium.HtmlElements.Locators {
         ///     An instance of the <see cref="By" /> class.
         /// </returns>
         public static By From(FindsByAttribute attribute) {
-            How how = attribute.How;
-            string usingValue = attribute.Using;
+            var how = attribute.How;
+            var usingValue = attribute.Using;
             switch (how) {
                 case How.Id:
                     return By.Id(usingValue);
@@ -41,11 +41,9 @@ namespace Selenium.HtmlElements.Locators {
                 case How.XPath:
                     return By.XPath(usingValue);
                 case How.Custom:
-                    if (attribute.CustomFinderType == null)
-                        throw new ArgumentException("Cannot use How.Custom without supplying a custom finder type");
+                    if (attribute.CustomFinderType == null) throw new ArgumentException("Cannot use How.Custom without supplying a custom finder type");
 
-                    if (!attribute.CustomFinderType.IsSubclassOf(typeof(By)))
-                        throw new ArgumentException("Custom finder type must be a descendent of the By class");
+                    if (!attribute.CustomFinderType.IsSubclassOf(typeof(By))) throw new ArgumentException("Custom finder type must be a descendent of the By class");
 
                     var constructor = attribute.CustomFinderType.GetConstructor(new[] {typeof(string)});
 

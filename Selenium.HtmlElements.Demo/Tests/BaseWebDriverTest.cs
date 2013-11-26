@@ -6,8 +6,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.Events;
 
-using Selenium.HtmlElements.Factory;
-
 namespace Selenium.HtmlElements.Demo.Tests {
 
     [TestFixture]

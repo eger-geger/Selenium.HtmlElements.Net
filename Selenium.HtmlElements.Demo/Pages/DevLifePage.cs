@@ -8,19 +8,16 @@ namespace Selenium.HtmlElements.Demo.Pages {
 
     internal class DevLifePage : CustomElement {
 
-        [FindsBy(How = How.CssSelector, Using = ".jslink:nth-child(1)")]
-        private HtmlLink _sortByDate;
+        [FindsBy(How = How.CssSelector, Using = ".jslink:nth-child(1)")] private HtmlLink _sortByDate;
 
-        [FindsBy(How = How.CssSelector, Using = ".jslink:nth-child(3)")]
-        private HtmlLink _sortByHottest;
+        [FindsBy(How = How.CssSelector, Using = ".jslink:nth-child(3)")] private HtmlLink _sortByHottest;
 
-        [FindsBy(How = How.CssSelector, Using = ".jslink:nth-child(2)")]
-        private HtmlLink _sortByRatig;
+        [FindsBy(How = How.CssSelector, Using = ".jslink:nth-child(2)")] private HtmlLink _sortByRatig;
+
+        public DevLifePage(ISearchContext wrapped) : base(wrapped) {}
 
         [FindsBy(How = How.CssSelector, Using = ".entry")]
         public DevLifePost Posts { get; private set; }
-
-        public DevLifePage(ISearchContext wrapped) : base(wrapped) {}
 
         [FindsBy(How = How.CssSelector, Using = ".pagination")]
         public Pagination Pagination { get; private set; }

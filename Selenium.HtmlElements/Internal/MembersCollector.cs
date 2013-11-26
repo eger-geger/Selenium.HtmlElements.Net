@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Selenium.HtmlElements.Factory {
+namespace Selenium.HtmlElements.Internal {
 
     internal static class MembersCollector {
 
@@ -16,10 +16,10 @@ namespace Selenium.HtmlElements.Factory {
 
             if (type != null && type != typeof(object)) {
                 fields.AddRange(type.GetFields(BindingOptions)
-                    .Where(f => !f.IsPropertyBackingField() && IsLocatable(f.FieldType)));
+                                    .Where(f => !f.IsPropertyBackingField() && IsLocatable(f.FieldType)));
 
                 properties.AddRange(type.GetProperties(BindingOptions)
-                    .Where(p => p.CanWrite && IsLocatable(p.PropertyType)));
+                                        .Where(p => p.CanWrite && IsLocatable(p.PropertyType)));
 
                 var baseTypeLocatableMembers = LocatableMembersFrom(type.BaseType);
 

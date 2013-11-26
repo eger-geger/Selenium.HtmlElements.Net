@@ -58,12 +58,12 @@ namespace Selenium.HtmlElements.Elements {
         }
 
         public static TResult WaitForResult<TElement, TResult>(this TElement self, Func<TElement, TResult> condition,
-                                                               TimeSpan timeout) where TElement : class, IWebElement {
+            TimeSpan timeout) where TElement : class, IWebElement {
             return WaitForResult(self, condition, timeout, DefaultPollingInterval);
         }
 
         public static TResult WaitForResult<TElement, TResult>(this TElement self, Func<TElement, TResult> condition,
-                                                               TimeSpan timeout, TimeSpan pollingInterval)
+            TimeSpan timeout, TimeSpan pollingInterval)
             where TElement : class, IWebElement {
             var wait = new DefaultWait<TElement>(self) {
                 Message = string.Format("{0} expires after {1}", condition, timeout),
@@ -87,7 +87,7 @@ namespace Selenium.HtmlElements.Elements {
         }
 
         public static void WaitForState<TElement>(this TElement self, Predicate<TElement> condition, TimeSpan timeout,
-                                                  TimeSpan pollingInterval) where TElement : class, IWebElement {
+            TimeSpan pollingInterval) where TElement : class, IWebElement {
             WaitForResult(self, condition.Invoke, timeout, pollingInterval);
         }
 
@@ -96,8 +96,9 @@ namespace Selenium.HtmlElements.Elements {
 
             return Activator.CreateInstance(typeof(TReturn), webElement) as TReturn;
         }
-    
-        public static ConditionalActionExecutor<TElement> Do<TElement>(this TElement self, Action<TElement> action) where TElement : class, IWebElement {
+
+        public static ConditionalActionExecutor<TElement> Do<TElement>(this TElement self, Action<TElement> action)
+            where TElement : class, IWebElement {
             return new ConditionalActionExecutor<TElement>(action);
         }
 

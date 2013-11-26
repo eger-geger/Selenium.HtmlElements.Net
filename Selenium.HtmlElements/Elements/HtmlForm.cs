@@ -18,7 +18,7 @@ namespace Selenium.HtmlElements.Elements {
 
         public string Enctype {
             get { return GetAttribute("enctype"); }
-            set { this.SetAttribute("enctype", value ); }
+            set { this.SetAttribute("enctype", value); }
         }
 
         public string Target {

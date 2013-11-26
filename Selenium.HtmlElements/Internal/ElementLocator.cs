@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using OpenQA.Selenium;
 
-namespace Selenium.HtmlElements.Locators {
+namespace Selenium.HtmlElements.Internal {
 
     /// <summary>
     ///     Locates element all sets of elements concurrently using provided search context and list of by's
@@ -37,8 +37,7 @@ namespace Selenium.HtmlElements.Locators {
 
                 tasks.Remove(finished);
 
-                if (finished.IsFaulted && finished.Exception != null)
-                    innerExceptions.AddRange(finished.Exception.InnerExceptions);
+                if (finished.IsFaulted && finished.Exception != null) innerExceptions.AddRange(finished.Exception.InnerExceptions);
 
                 if (finished.Status == TaskStatus.RanToCompletion) {
                     cancelTrigger.Cancel();
