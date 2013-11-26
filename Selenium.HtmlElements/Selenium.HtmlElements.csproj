@@ -77,6 +77,7 @@
     <Compile Include="Elements\HtmlLabel.cs" />
     <Compile Include="Elements\HtmlLink.cs" />
     <Compile Include="Elements\HtmlOption.cs" />
+    <Compile Include="Elements\HtmlPage.cs" />
     <Compile Include="Elements\HtmlSelect.cs" />
     <Compile Include="Elements\HtmlSelectOption.cs" />
     <Compile Include="Elements\HtmlTable.cs" />
@@ -98,7 +99,7 @@
     <Compile Include="Internal\LocatorFactory.cs" />
     <Compile Include="Internal\MembersCollector.cs" />
     <Compile Include="Internal\ReflectionExtension.cs" />
-    <Compile Include="Internal\WebElementCash.cs" />
+    <Compile Include="Internal\ElementLoader.cs" />
     <Compile Include="Internal\WebElementProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

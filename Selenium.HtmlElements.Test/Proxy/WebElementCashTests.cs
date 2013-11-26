@@ -34,7 +34,7 @@ namespace Selenium.HtmlElements.Test.Proxy {
                                .Throw(new StaleElementReferenceException("HO!HO!HO!")).Repeat.Once()
                                .Return(MockRepository.GenerateStub<IWebElement>()).Repeat.Once();
 
-            var cash = new WebElementCash(_mockElementLocator);
+            var cash = new ElementLoader(_mockElementLocator, true);
 
             Expect(cash.Load().WrappedElement, Is.Not.Null);
         }
@@ -43,7 +43,7 @@ namespace Selenium.HtmlElements.Test.Proxy {
         public void LoadedElementShouldBeCashed() {
             _mockElementLocator.Stub(l => l.FindElement()).Return(_mockHtmlElement);
 
-            var cash = new WebElementCash(_mockElementLocator);
+            var cash = new ElementLoader(_mockElementLocator, true);
 
             Expect(cash.Load().WrappedElement, Is.SameAs(cash.Load().WrappedElement));
         }
@@ -52,7 +52,7 @@ namespace Selenium.HtmlElements.Test.Proxy {
         public void ShouldLoadWebElement() {
             _mockElementLocator.Stub(l => l.FindElement()).Return(_mockHtmlElement);
 
-            var cash = new WebElementCash(_mockElementLocator).Load();
+            var cash = new ElementLoader(_mockElementLocator, true).Load();
 
             Expect(cash.WrappedElement, Is.Not.Null);
         }
@@ -61,7 +61,7 @@ namespace Selenium.HtmlElements.Test.Proxy {
         public void ShouldThrowNoSuchElementException() {
             _mockElementLocator.Stub(l => l.FindElement()).Throw(new NoSuchElementException());
 
-            new WebElementCash(_mockElementLocator).Load();
+            new ElementLoader(_mockElementLocator, true).Load();
         }
 
     }

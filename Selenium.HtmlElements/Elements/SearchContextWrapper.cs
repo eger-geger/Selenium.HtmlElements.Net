@@ -44,9 +44,10 @@ namespace Selenium.HtmlElements.Elements {
 
         public IWebDriver WrappedDriver {
             get {
+                if (_wrappedContext is IWebDriver) return _wrappedContext as IWebDriver;
                 if (_wrappedContext is IWrapsDriver) return (_wrappedContext as IWrapsDriver).WrappedDriver;
 
-                throw new InvalidOperationException("Does not wrapps WebDriver");
+                throw new InvalidOperationException("Does not wrapp IWebDriver");
             }
         }
 
