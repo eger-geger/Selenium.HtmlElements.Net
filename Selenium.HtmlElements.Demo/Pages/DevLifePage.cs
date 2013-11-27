@@ -6,7 +6,7 @@ using Selenium.HtmlElements.Elements;
 
 namespace Selenium.HtmlElements.Demo.Pages {
 
-    internal class DevLifePage : CustomElement {
+    internal class DevLifePage : HtmlPage {
 
         [FindsBy(How = How.CssSelector, Using = ".jslink:nth-child(1)"), CacheLookup]
         private HtmlLink _sortByDate;
