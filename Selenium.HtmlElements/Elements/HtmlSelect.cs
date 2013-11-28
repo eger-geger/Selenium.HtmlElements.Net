@@ -11,8 +11,6 @@ namespace Selenium.HtmlElements.Elements {
 
     public class HtmlSelect : HtmlControl, IList<HtmlSelectOption> {
 
-        private static readonly Exception ReadOnlyException = new ReadOnlyException("ReadOnly element collection");
-
         public HtmlSelect(IWebElement wrapped) : base(wrapped) {}
 
         /// <summary>Gets a value indicating whether the parent element supports multiple selections.</summary>
@@ -38,15 +36,15 @@ namespace Selenium.HtmlElements.Elements {
 
         public HtmlSelectOption this[int index] {
             get { return Options[index]; }
-            set { throw ReadOnlyException; }
+            set { throw new ReadOnlyException(); }
         }
 
         public void RemoveAt(int index) {
-            throw ReadOnlyException;
+            throw new ReadOnlyException();
         }
 
         public void Insert(int index, HtmlSelectOption item) {
-            throw ReadOnlyException;
+            throw new ReadOnlyException();
         }
 
         public int IndexOf(HtmlSelectOption item) {
@@ -62,7 +60,7 @@ namespace Selenium.HtmlElements.Elements {
         }
 
         public bool Remove(HtmlSelectOption item) {
-            throw ReadOnlyException;
+            throw new ReadOnlyException();
         }
 
         public void CopyTo(HtmlSelectOption[] array, int arrayIndex) {
@@ -74,7 +72,7 @@ namespace Selenium.HtmlElements.Elements {
         }
 
         public void Add(HtmlSelectOption item) {
-            throw ReadOnlyException;
+            throw new ReadOnlyException();
         }
 
         public IEnumerator<HtmlSelectOption> GetEnumerator() {

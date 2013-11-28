@@ -7,9 +7,13 @@ using OpenQA.Selenium.Support.PageObjects;
 
 using Selenium.HtmlElements.Internal;
 
+using log4net;
+
 namespace Selenium.HtmlElements {
 
     public static class PageObjectActivator {
+
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(PageObjectActivator));
 
         public static object Activate(Type type, ISearchContext context) {
             var instance = PageObjectFactory.Create(type, context);
@@ -22,6 +26,8 @@ namespace Selenium.HtmlElements {
         }
 
         public static void Activate(object target, ISearchContext context) {
+            Logger.DebugFormat("activating {0} with {1}", target, context);
+
             if (target == null) throw new ArgumentNullException("target", "not initialized");
 
             var locatableMembers = MembersCollector.LocatableMembersFrom(target.GetType());
@@ -29,6 +35,7 @@ namespace Selenium.HtmlElements {
             var locatorFactory = new LocatorFactory(context);
 
             foreach (var field in locatableMembers.Item1.Where(f => f.GetValue(target) == null)) {
+                Logger.DebugFormat("setting [{0}] of [{1}]", field, target);
                 field.SetValue(target, ValueFor(field, locatorFactory));
             }
 

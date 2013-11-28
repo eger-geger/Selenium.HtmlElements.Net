@@ -23,6 +23,11 @@ namespace Selenium.HtmlElements.Internal {
         public static By From(FindsByAttribute attribute) {
             var how = attribute.How;
             var usingValue = attribute.Using;
+
+            if (string.IsNullOrEmpty(usingValue)) {
+                throw new InvalidOperationException(string.Format("Wrong locator by [{0}] using [{1}]", how, usingValue));
+            }
+
             switch (how) {
                 case How.Id:
                     return By.Id(usingValue);

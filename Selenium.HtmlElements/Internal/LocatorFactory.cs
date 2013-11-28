@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -16,7 +17,11 @@ namespace Selenium.HtmlElements.Internal {
         }
 
         public IElementLocator CreateLocator(MemberInfo memberInfo) {
-            return new ElementLocator(_searchContext, ByFrom(memberInfo));
+            try {
+                return new ElementLocator(_searchContext, ByFrom(memberInfo));
+            } catch (Exception ex) {
+                throw new InvalidOperationException(string.Format("Failed to build locator for {0}", memberInfo), ex);
+            }
         }
 
         private static IEnumerable<By> ByFrom(MemberInfo memberInfo) {

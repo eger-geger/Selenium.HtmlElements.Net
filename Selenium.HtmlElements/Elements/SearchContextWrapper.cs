@@ -56,7 +56,7 @@ namespace Selenium.HtmlElements.Elements {
         }
 
         public override string ToString() {
-            return _wrappedContext.ToString();
+            return string.Format("[{0}] wrapping [{1}]", GetType(), _wrappedContext);
         }
 
     }

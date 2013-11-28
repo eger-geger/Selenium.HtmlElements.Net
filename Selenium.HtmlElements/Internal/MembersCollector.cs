@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
+using OpenQA.Selenium.Support.PageObjects;
+
 namespace Selenium.HtmlElements.Internal {
 
     internal static class MembersCollector {
@@ -16,10 +18,10 @@ namespace Selenium.HtmlElements.Internal {
 
             if (type != null && type != typeof(object)) {
                 fields.AddRange(type.GetFields(BindingOptions)
-                                    .Where(f => !f.IsPropertyBackingField() && IsLocatable(f.FieldType)));
+                                    .Where(f => IsLocatable(f.FieldType) && AnnotatedWithFindsBy(f)));
 
                 properties.AddRange(type.GetProperties(BindingOptions)
-                                        .Where(p => p.CanWrite && IsLocatable(p.PropertyType)));
+                                        .Where(p => p.CanWrite && IsLocatable(p.PropertyType) && AnnotatedWithFindsBy(p)));
 
                 var baseTypeLocatableMembers = LocatableMembersFrom(type.BaseType);
 
@@ -28,6 +30,10 @@ namespace Selenium.HtmlElements.Internal {
             }
 
             return new Tuple<IEnumerable<FieldInfo>, IEnumerable<PropertyInfo>>(fields, properties);
+        }
+
+        private static bool AnnotatedWithFindsBy(MemberInfo memberInfo) {
+            return memberInfo.IsDefined(typeof(FindsByAttribute), true);
         }
 
         private static bool IsLocatable(Type type) {

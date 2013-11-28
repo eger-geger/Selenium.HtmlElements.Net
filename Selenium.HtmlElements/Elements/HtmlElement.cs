@@ -13,7 +13,7 @@ namespace Selenium.HtmlElements.Elements {
         public HtmlElement(IWebElement wrapped) : base(wrapped) {
             _wrappedElement = (wrapped is HtmlElement) ? (wrapped as HtmlElement)._wrappedElement : wrapped;
 
-            PageObjectActivator.Activate(this, wrapped);
+            PageObjectActivator.Activate(this, _wrappedElement);
         }
 
         public IWebElement ParentNode {

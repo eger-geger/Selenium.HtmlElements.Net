@@ -85,16 +85,17 @@
     <Compile Include="Elements\ITextControl.cs" />
     <Compile Include="Elements\JsExtension.cs" />
     <Compile Include="Elements\SearchContextWrapper.cs" />
+    <Compile Include="Elements\WaitExtension.cs" />
     <Compile Include="Elements\WebElementExtension.cs" />
     <Compile Include="Internal\ByFactory.cs" />
     <Compile Include="Internal\ElementListProxy.cs" />
     <Compile Include="Internal\ElementLoader.cs" />
     <Compile Include="Internal\ElementLocator.cs" />
-    <Compile Include="Internal\ListItemLocator.cs" />
     <Compile Include="Internal\LocatorFactory.cs" />
     <Compile Include="Internal\MembersCollector.cs" />
     <Compile Include="Internal\PageObjectFactory.cs" />
     <Compile Include="Internal\ReflectionExtension.cs" />
+    <Compile Include="Internal\SelfLocator.cs" />
     <Compile Include="Internal\WebElementProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\ByJquery.cs" />
@@ -107,25 +108,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
-  
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  
   <Target Name="nuget-package" DependsOnTargets="Build">
-    
     <Exec Command="nuget spec" />
     <Exec Command="nuget pack -o $(OutputPath)" />
     <Exec Command="nuget pack -s -o $(OutputPath)" />
   </Target>
-  
   <Target Name="BeforeBuild">
     <ItemGroup Label="Nupkg">
       <nupkg Include="**/*.nupkg" />
     </ItemGroup>
-    
     <Delete Files="@(nupkg)" />
   </Target>
-  
   <Target Name="AfterBuild">
   </Target>
-  
 </Project>

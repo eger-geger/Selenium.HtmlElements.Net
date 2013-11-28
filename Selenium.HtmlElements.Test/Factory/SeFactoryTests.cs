@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
 
 using Rhino.Mocks;
 
@@ -16,6 +17,7 @@ namespace Selenium.HtmlElements.Test.Factory {
 
         private class TestPage {
 
+            [FindsBy(Using = "dddddd")]
             private IList<IHtmlElement> _privateListF;
 
             public IList<IHtmlElement> PrivateList {
@@ -67,7 +69,7 @@ namespace Selenium.HtmlElements.Test.Factory {
         public void ShouldInitElements() {
             var page = PageObjectActivator.Activate<TestPage>(_mockWebDriver);
 
-            Expect(page.PublicElementP, Is.Not.Null);
+            Expect(page.PublicElementP, Is.Null);
             Expect(page.PrivateList, Is.Not.Null);
         }
 
