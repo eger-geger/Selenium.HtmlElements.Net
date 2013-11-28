@@ -123,8 +123,6 @@
     </ItemGroup>
     
     <Delete Files="@(nupkg)" />
-    
-    <Exec Command="nuget.exe restore -SolutionDirectory ../" />
   </Target>
   
   <Target Name="AfterBuild">

@@ -12,6 +12,8 @@ namespace Selenium.HtmlElements.Elements {
 
         public HtmlElement(IWebElement wrapped) : base(wrapped) {
             _wrappedElement = (wrapped is HtmlElement) ? (wrapped as HtmlElement)._wrappedElement : wrapped;
+
+            PageObjectActivator.Activate(this, wrapped);
         }
 
         public IWebElement ParentNode {

@@ -99,7 +99,7 @@ namespace Selenium.HtmlElements.Elements {
 
         public static ConditionalActionExecutor<TElement> Do<TElement>(this TElement self, Action<TElement> action)
             where TElement : class, IWebElement {
-            return new ConditionalActionExecutor<TElement>(action);
+            return new ConditionalActionExecutor<TElement>(action).On(self);
         }
 
     }

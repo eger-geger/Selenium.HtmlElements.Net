@@ -11,9 +11,8 @@ namespace Selenium.HtmlElements.Elements {
             set { this.SetAttribute("label", value); }
         }
 
-        public new bool Selected {
-            get { return base.Selected; }
-            set { this.Do(self => self.Click()).Until(self => (self as IWebElement).Selected == value); }
+        public void Select() {
+            this.Do(self => Click()).Until(self => Selected);
         }
 
     }

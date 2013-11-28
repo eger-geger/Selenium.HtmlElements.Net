@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading;
 
 using OpenQA.Selenium;
@@ -11,20 +12,23 @@ namespace Selenium.HtmlElements.Internal {
 
     internal class ElementLoader : LoadableComponent<ElementLoader>, IWrapsElement, IWrapsDriver {
 
-        private readonly IElementLocator _locator;
+        public readonly IElementLocator Locator;
+        public readonly bool UseCach;
 
-        private readonly bool _useCash;
-
-        public ElementLoader(IElementLocator locator, bool useCash) {
-            _locator = locator;
-            _useCash = useCash;
+        public ElementLoader(IElementLocator locator, bool useCach) {
+            Locator = locator;
+            UseCach = useCach;
         }
 
         public IWebDriver WrappedDriver {
             get { return UnwrapDriver(WrappedElement); }
         }
 
-        public IWebElement WrappedElement { get; private set; }
+        public IWebElement WrappedElement {
+            get { return WrappedElementList[0]; }
+        }
+
+        public ReadOnlyCollection<IWebElement> WrappedElementList { get; private set; } 
 
         private IWebDriver UnwrapDriver(IWebElement webElement) {
             var driverWrapper = UnwrapElement(webElement) as IWrapsDriver;
@@ -43,11 +47,11 @@ namespace Selenium.HtmlElements.Internal {
         }
 
         protected override void ExecuteLoad() {
-            WrappedElement = _locator.FindElement();
+            WrappedElementList = Locator.FindElements();
         }
 
         public override ElementLoader Load() {
-            if (!_useCash) WrappedElement = null;
+            if (!UseCach) WrappedElementList = null;
 
             return base.Load();
         }
@@ -61,11 +65,11 @@ namespace Selenium.HtmlElements.Internal {
         }
 
         protected override bool EvaluateLoadedStatus() {
-            return WrappedElement != null && WrappedElement.IsPresent();
+            return WrappedElementList != null && WrappedElement.IsPresent();
         }
 
         public override string ToString() {
-            return string.Format("Cashed element found by: {0}", _locator);
+            return string.Format("Cashed element found by: {0}", Locator);
         }
 
     }
