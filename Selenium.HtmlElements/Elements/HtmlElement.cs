@@ -1,9 +1,10 @@
 using System;
 using System.Drawing;
 
-using OpenQA.Selenium;
-
 using HtmlElements.Extensions;
+
+using OpenQA.Selenium;
+using OpenQA.Selenium.Internal;
 
 namespace HtmlElements.Elements {
 
@@ -93,7 +94,11 @@ namespace HtmlElements.Elements {
         }
 
         public IWebElement WrappedElement {
-            get { return _wrappedElement; }
+            get {
+                return _wrappedElement is IWrapsElement
+                    ? (_wrappedElement as IWrapsElement).WrappedElement
+                    : _wrappedElement;
+            }
         }
 
         public string TagName {

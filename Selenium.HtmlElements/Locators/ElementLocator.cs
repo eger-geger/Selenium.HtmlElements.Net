@@ -35,7 +35,7 @@ namespace HtmlElements.Locators {
         }
 
         public ReadOnlyCollection<IWebElement> FindElements() {
-            return _bys.SelectMany(by => by.FindElements(_context)).ToList().AsReadOnly();
+            return _bys.SelectMany(by => _context.FindElements(by)).ToList().AsReadOnly();
         }
 
         public override string ToString() {
