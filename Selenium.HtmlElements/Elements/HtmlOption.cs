@@ -1,5 +1,8 @@
 ﻿using OpenQA.Selenium;
 
+using Selenium.HtmlElements.Actions;
+using Selenium.HtmlElements.Extensions;
+
 namespace Selenium.HtmlElements.Elements {
 
     public class HtmlOption : HtmlControl {
@@ -12,7 +15,7 @@ namespace Selenium.HtmlElements.Elements {
         }
 
         public void Select() {
-            this.Do(self => Click()).Until(self => Selected);
+            this.Do(Click).Until(self => Selected);
         }
 
     }

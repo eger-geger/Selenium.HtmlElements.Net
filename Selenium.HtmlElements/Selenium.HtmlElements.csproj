@@ -64,8 +64,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Conditional\ConditionalAction.cs" />
-    <Compile Include="Conditional\ConditionalActionExecutor.cs" />
+    <Compile Include="Actions\ConditionalAction.cs" />
+    <Compile Include="Actions\ConditionalActionExecutor.cs" />
     <Compile Include="Elements\HtmlCheckBox.cs" />
     <Compile Include="Elements\HtmlControl.cs" />
     <Compile Include="Elements\HtmlElement.cs" />
@@ -83,31 +83,33 @@
     <Compile Include="Elements\HtmlTextArea.cs" />
     <Compile Include="Elements\IHtmlElement.cs" />
     <Compile Include="Elements\ITextControl.cs" />
-    <Compile Include="Elements\JsExtension.cs" />
+    <Compile Include="Extensions\ActionExtension.cs" />
+    <Compile Include="Extensions\JavaScriptExtensions.cs" />
     <Compile Include="Elements\SearchContextWrapper.cs" />
-    <Compile Include="Elements\WaitExtension.cs" />
-    <Compile Include="Elements\WebElementExtension.cs" />
-    <Compile Include="Internal\ByFactory.cs" />
-    <Compile Include="Internal\ElementListProxy.cs" />
-    <Compile Include="Internal\ElementLoader.cs" />
-    <Compile Include="Internal\ElementLocator.cs" />
-    <Compile Include="Internal\LocatorFactory.cs" />
-    <Compile Include="Internal\MembersCollector.cs" />
-    <Compile Include="Internal\PageObjectFactory.cs" />
-    <Compile Include="Internal\ReflectionExtension.cs" />
-    <Compile Include="Internal\SelfLocator.cs" />
-    <Compile Include="Internal\WebElementProxy.cs" />
+    <Compile Include="Extensions\MemberInfoExtensions.cs" />
+    <Compile Include="Extensions\SearchContextExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Extensions\WebElementExtensions.cs" />
+    <Compile Include="Locators\SelfLocator.cs" />
+    <Compile Include="Proxy\CachedElementLoader.cs" />
+    <Compile Include="Proxy\ElementLoader.cs" />
+    <Compile Include="Proxy\ElementProxy.cs" />
+    <Compile Include="Locators\ByFactory.cs" />
+    <Compile Include="Locators\ElementLocator.cs" />
+    <Compile Include="Locators\IElementLocator.cs" />
+    <Compile Include="Locators\ElementLocatorFactory.cs" />
+    <Compile Include="ObjectFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\ByJquery.cs" />
-    <Compile Include="src\ByJs.cs" />
-    <Compile Include="src\ElementFactory.cs" />
-    <Compile Include="src\IElementLocator.cs" />
-    <Compile Include="src\PageObjectActivator.cs" />
+    <Compile Include="Locators\ByJquery.cs" />
+    <Compile Include="Locators\ByJavaScript.cs" />
+    <Compile Include="ElementFactory.cs" />
+    <Compile Include="ElementActivator.cs" />
+    <Compile Include="Proxy\ElementListProxy.cs" />
+    <Compile Include="Proxy\ElementListLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="nuget-package" DependsOnTargets="Build">
     <Exec Command="nuget spec" />

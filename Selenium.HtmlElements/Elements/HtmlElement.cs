@@ -2,7 +2,8 @@ using System;
 using System.Drawing;
 
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
+
+using Selenium.HtmlElements.Extensions;
 
 namespace Selenium.HtmlElements.Elements {
 
@@ -13,7 +14,7 @@ namespace Selenium.HtmlElements.Elements {
         public HtmlElement(IWebElement wrapped) : base(wrapped) {
             _wrappedElement = (wrapped is HtmlElement) ? (wrapped as HtmlElement)._wrappedElement : wrapped;
 
-            PageObjectActivator.Activate(this, _wrappedElement);
+            ElementActivator.Activate(this, _wrappedElement);
         }
 
         public IWebElement ParentNode {
@@ -92,11 +93,7 @@ namespace Selenium.HtmlElements.Elements {
         }
 
         public IWebElement WrappedElement {
-            get {
-                return (_wrappedElement is IWrapsElement)
-                    ? (_wrappedElement as IWrapsElement).WrappedElement
-                    : _wrappedElement;
-            }
+            get { return _wrappedElement; }
         }
 
         public string TagName {

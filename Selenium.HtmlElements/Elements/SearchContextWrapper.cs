@@ -4,59 +4,53 @@ using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 
-using Selenium.HtmlElements.Internal;
+using Selenium.HtmlElements.Extensions;
+using Selenium.HtmlElements.Locators;
 
 namespace Selenium.HtmlElements.Elements {
 
     public abstract class SearchContextWrapper : ISearchContext, IWrapsDriver, IJavaScriptExecutor {
 
-        private readonly ISearchContext _wrappedContext;
+        private readonly ISearchContext _wrapped;
 
         protected SearchContextWrapper(ISearchContext wrapped) {
-            _wrappedContext = (wrapped is SearchContextWrapper)
-                ? (wrapped as SearchContextWrapper)._wrappedContext
-                : wrapped;
+            _wrapped = (wrapped is SearchContextWrapper) ? (wrapped as SearchContextWrapper)._wrapped : wrapped;
         }
 
         public object ExecuteScript(string script, params object[] args) {
-            var jsExecutor = WrappedDriver as IJavaScriptExecutor;
+            var jsExecutor = WrappedDriver.ToJavaScriptExecutor();
 
             if (jsExecutor != null) return jsExecutor.ExecuteScript(script, args);
 
-            throw new InvalidOperationException("Underlying WebDriver cannot execute javascript");
+            throw new InvalidOperationException(string.Format("[{0}] cannot execute JavaScript", this));
         }
 
         public object ExecuteAsyncScript(string script, params object[] args) {
-            var jsExecutor = WrappedDriver as IJavaScriptExecutor;
+            var jsExecutor = WrappedDriver.ToJavaScriptExecutor();
 
             if (jsExecutor != null) return jsExecutor.ExecuteAsyncScript(script, args);
 
-            throw new InvalidOperationException("Underlying WebDriver cannot execute javascript");
+            throw new InvalidOperationException(string.Format("[{0}] cannot execute JavaScript", this));
         }
 
         public ReadOnlyCollection<IWebElement> FindElements(By @by) {
-            return _wrappedContext.FindElements(@by);
+            return _wrapped.FindElements(@by);
         }
 
         public IWebElement FindElement(By @by) {
-            return _wrappedContext.FindElement(@by);
+            return _wrapped.FindElement(@by);
         }
 
         public IWebDriver WrappedDriver {
-            get {
-                if (_wrappedContext is IWebDriver) return _wrappedContext as IWebDriver;
-                if (_wrappedContext is IWrapsDriver) return (_wrappedContext as IWrapsDriver).WrappedDriver;
-
-                throw new InvalidOperationException("Does not wrapp IWebDriver");
-            }
+            get { return _wrapped.ToWebDriver(); }
         }
 
         protected IElementLocator RelativeLocator(By by) {
-            return new ElementLocator(this, @by);
+            return new ElementLocator(this, by);
         }
 
         public override string ToString() {
-            return string.Format("[{0}] wrapping [{1}]", GetType(), _wrappedContext);
+            return string.Format("[{1}] wrapped by [{0}]", GetType(), _wrapped);
         }
 
     }

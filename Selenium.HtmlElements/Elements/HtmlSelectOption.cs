@@ -1,5 +1,8 @@
 ﻿using OpenQA.Selenium;
 
+using Selenium.HtmlElements.Actions;
+using Selenium.HtmlElements.Extensions;
+
 namespace Selenium.HtmlElements.Elements {
 
     public class HtmlSelectOption : HtmlControl {

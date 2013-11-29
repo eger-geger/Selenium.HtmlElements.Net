@@ -1,5 +1,8 @@
 ﻿using OpenQA.Selenium;
 
+using Selenium.HtmlElements.Actions;
+using Selenium.HtmlElements.Extensions;
+
 namespace Selenium.HtmlElements.Elements {
 
     public class HtmlCheckBox : HtmlInput {
@@ -10,7 +13,7 @@ namespace Selenium.HtmlElements.Elements {
 
         public bool Checked {
             get { return this.HasAttribute(AttrChecked); }
-            set { this.Do(self => self.Click()).Until(self => (self as IWebElement).Selected == value); }
+            set { this.Do(Click).Until(self => Checked == value); }
         }
 
     }

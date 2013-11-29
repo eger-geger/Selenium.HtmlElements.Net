@@ -53,9 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factory\ElementFactoryTests.cs" />
-    <Compile Include="Factory\MembersCollectorTests.cs" />
     <Compile Include="Factory\SeFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxy\ListLoaderTests.cs" />
     <Compile Include="Proxy\WebElementCashTests.cs" />
   </ItemGroup>
   <ItemGroup>

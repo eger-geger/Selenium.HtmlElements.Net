@@ -13,7 +13,7 @@ namespace Selenium.HtmlElements.Demo.Elements {
         [FindsBy(How = How.CssSelector, Using = ".nextPage")] private HtmlLink _nextPageLink;
 
         public Pagination(IWebElement wrapped) : base(wrapped) {
-            PageObjectActivator.Activate(this, wrapped);
+            ElementActivator.Activate(this, wrapped);
         }
 
         public int CurrentNumber {

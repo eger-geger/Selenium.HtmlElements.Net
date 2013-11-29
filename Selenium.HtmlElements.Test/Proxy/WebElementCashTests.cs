@@ -8,7 +8,8 @@ using OpenQA.Selenium;
 
 using Rhino.Mocks;
 
-using Selenium.HtmlElements.Internal;
+using Selenium.HtmlElements.Proxy;
+using Selenium.HtmlElements.Locators;
 
 namespace Selenium.HtmlElements.Test.Proxy {
 
@@ -41,34 +42,34 @@ namespace Selenium.HtmlElements.Test.Proxy {
                                .Throw(new StaleElementReferenceException("HO!HO!HO!")).Repeat.Once()
                                .Return(_readOnlyList).Repeat.Once();
 
-            var cash = new ElementLoader(_mockElementLocator, true);
+            var loader = new ElementLoader(_mockElementLocator);
 
-            Expect(cash.Load().WrappedElement, Is.Not.Null);
+            Expect(loader.Load(true), Is.Not.Null);
         }
 
         [Test]
         public void LoadedElementShouldBeCashed() {
             _mockElementLocator.Stub(l => l.FindElements()).Return(_readOnlyList);
 
-            var cash = new ElementLoader(_mockElementLocator, true);
+            var loader = new ElementLoader(_mockElementLocator);
 
-            Expect(cash.Load().WrappedElement, Is.SameAs(cash.Load().WrappedElement));
+            Expect(loader.Load(true), Is.SameAs(loader.Load(true)));
         }
 
         [Test]
         public void ShouldLoadWebElement() {
             _mockElementLocator.Stub(l => l.FindElements()).Return(_readOnlyList);
 
-            var cash = new ElementLoader(_mockElementLocator, true).Load();
+            var loader = new ElementLoader(_mockElementLocator);
 
-            Expect(cash.WrappedElement, Is.Not.Null);
+            Expect(loader.Load(true), Is.Not.Null);
         }
 
         [Test, ExpectedException(typeof(NoSuchElementException))]
         public void ShouldThrowNoSuchElementException() {
-            _mockElementLocator.Stub(l => l.FindElements()).Throw(new NoSuchElementException());
+            _mockElementLocator.Stub(l => l.FindElement()).Throw(new NoSuchElementException());
 
-            new ElementLoader(_mockElementLocator, true).Load();
+            new ElementLoader(_mockElementLocator).Load(true);
         }
 
     }

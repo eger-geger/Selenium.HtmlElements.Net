@@ -54,7 +54,7 @@ namespace Selenium.HtmlElements.Test.Factory {
 
         [TestCaseSource("ConstructorArguments")]
         public void ShouldCreateInstanceUsingSearchContext(Type type, ISearchContext context, object expected) {
-            var target = PageObjectActivator.Activate(type, context);
+            var target = ElementActivator.Activate(type, context);
 
             Expect(target, Is.Not.Null);
             Expect(target, Is.EqualTo(expected));
@@ -62,12 +62,12 @@ namespace Selenium.HtmlElements.Test.Factory {
 
         [Test]
         public void ShouldCreateInstanceWithEmptyConstructor() {
-            Expect(PageObjectActivator.Activate<TestPage>(_mockWebDriver), Is.Not.Null);
+            Expect(ElementActivator.Activate<TestPage>(_mockWebDriver), Is.Not.Null);
         }
 
         [Test]
         public void ShouldInitElements() {
-            var page = PageObjectActivator.Activate<TestPage>(_mockWebDriver);
+            var page = ElementActivator.Activate<TestPage>(_mockWebDriver);
 
             Expect(page.PublicElementP, Is.Null);
             Expect(page.PrivateList, Is.Not.Null);

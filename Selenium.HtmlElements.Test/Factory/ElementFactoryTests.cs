@@ -8,6 +8,7 @@ using OpenQA.Selenium;
 using Rhino.Mocks;
 
 using Selenium.HtmlElements.Elements;
+using Selenium.HtmlElements.Locators;
 
 namespace Selenium.HtmlElements.Test.Factory {
 

@@ -4,7 +4,7 @@ using System.Linq;
 
 using OpenQA.Selenium.Support.UI;
 
-namespace Selenium.HtmlElements.Conditional {
+namespace Selenium.HtmlElements.Actions {
 
     public class ConditionalAction<T> {
 
@@ -35,9 +35,9 @@ namespace Selenium.HtmlElements.Conditional {
         }
 
         private bool InvokeConditionalAction(T target) {
-            if (!_condition.Invoke(target)) _action.Invoke(target);
+            if (!_condition(target)) _action(target);
 
-            return _condition.Invoke(target);
+            return _condition(target);
         }
 
     }

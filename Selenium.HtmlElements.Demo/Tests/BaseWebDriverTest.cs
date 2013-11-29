@@ -36,7 +36,7 @@ namespace Selenium.HtmlElements.Demo.Tests {
         }
 
         protected T On<T>() where T : class {
-            return PageObjectActivator.Activate<T>(_webDriver);
+            return ElementActivator.Activate<T>(_webDriver);
         }
 
         protected void ClearCookies() {

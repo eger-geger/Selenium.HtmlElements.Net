@@ -1,10 +1,12 @@
 ﻿using System;
 
-namespace Selenium.HtmlElements.Elements {
+using Selenium.HtmlElements.Elements;
 
-    public static class JsExtension {
+namespace Selenium.HtmlElements.Extensions {
 
-        private const string JsUndefinedString = "undefined";
+    public static class JavaScriptExtensions {
+
+        private const string JsUndefined = "undefined";
 
         public static bool HasAttribute(this HtmlElement self, string name) {
             var script = string.Format("return {{self}}.hasAttribute('{0}');", name);
@@ -25,7 +27,7 @@ namespace Selenium.HtmlElements.Elements {
         public static bool HasProperty(this HtmlElement self, string name) {
             var property = self.ExecuteScriptOnSelf(string.Format("return {{self}}.{0};", name));
 
-            return property != null && !property.Equals(JsUndefinedString);
+            return property != null && !property.Equals(JsUndefined);
         }
 
         public static void SetDomElementPropery(this HtmlElement self, string name, object value) {

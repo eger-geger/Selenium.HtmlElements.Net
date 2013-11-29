@@ -7,7 +7,7 @@ namespace Selenium.HtmlElements.Elements {
     public class HtmlPage : SearchContextWrapper {
 
         public HtmlPage(ISearchContext wrapped) : base(wrapped) {
-            PageObjectActivator.Activate(this, wrapped);
+            ElementActivator.Activate(this, wrapped);
         }
 
         public string Title {

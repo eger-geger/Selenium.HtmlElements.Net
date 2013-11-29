@@ -2,6 +2,8 @@
 
 using OpenQA.Selenium;
 
+using Selenium.HtmlElements.Extensions;
+
 namespace Selenium.HtmlElements.Elements {
 
     public class HtmlFrame : HtmlElement {

@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
 
+using Selenium.HtmlElements.Extensions;
+
 namespace Selenium.HtmlElements.Elements {
 
     public class HtmlLink : HtmlElement {
@@ -24,7 +26,7 @@ namespace Selenium.HtmlElements.Elements {
         public TReturn Open<TReturn>() where TReturn : class {
             Click();
 
-            return PageObjectActivator.Activate<TReturn>(WrappedDriver);
+            return ElementActivator.Activate<TReturn>(WrappedDriver);
         }
 
     }
