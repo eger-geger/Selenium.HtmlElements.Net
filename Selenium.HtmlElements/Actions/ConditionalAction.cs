@@ -4,7 +4,7 @@ using System.Linq;
 
 using OpenQA.Selenium.Support.UI;
 
-namespace Selenium.HtmlElements.Actions {
+namespace HtmlElements.Actions {
 
     public class ConditionalAction<T> {
 

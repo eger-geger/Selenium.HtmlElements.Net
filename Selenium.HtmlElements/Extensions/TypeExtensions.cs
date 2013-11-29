@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using OpenQA.Selenium;
 
-namespace Selenium.HtmlElements.Extensions {
+namespace HtmlElements.Extensions {
 
     public static class TypeExtensions {
 

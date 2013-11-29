@@ -1,5 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+
+using HtmlElements.Elements;
+using HtmlElements.Locators;
 
 using NUnit.Framework;
 
@@ -7,10 +10,7 @@ using OpenQA.Selenium;
 
 using Rhino.Mocks;
 
-using Selenium.HtmlElements.Elements;
-using Selenium.HtmlElements.Locators;
-
-namespace Selenium.HtmlElements.Test.Factory {
+namespace HtmlElements.Test {
 
     [TestFixture]
     public class ElementFactoryTests : AssertionHelper {

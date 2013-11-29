@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using HtmlElements.Locators;
+
 using OpenQA.Selenium;
 
-using Selenium.HtmlElements.Locators;
-
-namespace Selenium.HtmlElements.Proxy {
+namespace HtmlElements.Proxy {
 
     internal class ElementListLoader : CachedElementLoader<IList> {
 

@@ -2,9 +2,9 @@
 
 using Castle.Core.Interceptor;
 
-using Selenium.HtmlElements.Locators;
+using HtmlElements.Locators;
 
-namespace Selenium.HtmlElements.Proxy {
+namespace HtmlElements.Proxy {
 
     internal class ElementListProxy : IInterceptor {
 

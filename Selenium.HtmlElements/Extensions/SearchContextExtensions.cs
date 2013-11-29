@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 
-namespace Selenium.HtmlElements.Extensions {
+namespace HtmlElements.Extensions {
 
     public static class SearchContextExtensions {
 

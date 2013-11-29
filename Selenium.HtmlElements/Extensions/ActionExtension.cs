@@ -1,11 +1,11 @@
 ﻿using System;
 
+using HtmlElements.Actions;
+
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-using Selenium.HtmlElements.Actions;
-
-namespace Selenium.HtmlElements.Extensions {
+namespace HtmlElements.Extensions {
 
     public static class ActionExtension {
 

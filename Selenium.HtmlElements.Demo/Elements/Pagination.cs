@@ -1,10 +1,10 @@
-﻿using OpenQA.Selenium;
+﻿using HtmlElements.Demo.Pages;
+using HtmlElements.Elements;
+
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
-using Selenium.HtmlElements.Demo.Pages;
-using Selenium.HtmlElements.Elements;
-
-namespace Selenium.HtmlElements.Demo.Elements {
+namespace HtmlElements.Demo.Elements {
 
     internal class Pagination : HtmlElement {
 

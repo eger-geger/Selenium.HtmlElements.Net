@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+
+using HtmlElements.Locators;
+using HtmlElements.Proxy;
 
 using NUnit.Framework;
 
@@ -10,11 +10,8 @@ using OpenQA.Selenium;
 
 using Rhino.Mocks;
 
-using Selenium.HtmlElements.Locators;
-using Selenium.HtmlElements.Proxy;
+namespace HtmlElements.Test.Proxy {
 
-namespace Selenium.HtmlElements.Test.Proxy
-{
     [TestFixture]
     public class ListLoaderTests : AssertionHelper {
 
@@ -23,7 +20,7 @@ namespace Selenium.HtmlElements.Test.Proxy
         }.AsReadOnly();
 
         [Test]
-        public void ShouldLoadElement() {
+        public void ShouldLoadElementList() {
             var locator = MockRepository.GenerateMock<IElementLocator>();
             locator.Stub(l => l.FindElements()).Return(_elementList);
 
@@ -32,5 +29,30 @@ namespace Selenium.HtmlElements.Test.Proxy
             Expect(loader.Load(true), Is.Not.Null);
             Expect(loader.Load(false), Is.Not.Null);
         }
+
+        [Test]
+        public void ShouldIgnoreStaleElementReferenceException() {
+            var locator = MockRepository.GenerateMock<IElementLocator>();
+            locator.Stub(l => l.FindElements())
+                .Throw(new StaleElementReferenceException("HOHOHO")).Repeat.Once();
+
+            locator.Stub(l => l.FindElements()).Return(_elementList);
+
+            var loader = new ElementListLoader(typeof(IWebElement), locator);
+
+            Expect(loader.Load(true), Is.Not.Null);
+        }
+
+        [Test]
+        public void ShouldCacheElementList() {
+            var locator = MockRepository.GenerateMock<IElementLocator>();
+            locator.Stub(l => l.FindElements()).Return(_elementList).Repeat.Once();
+            locator.Stub(l => l.FindElements()).Return(new List<IWebElement>().AsReadOnly());
+
+            var loader = new ElementListLoader(typeof(IWebElement), locator);
+
+            Expect(loader.Load(true), Is.SameAs(loader.Load(true)));
+        }
     }
+
 }

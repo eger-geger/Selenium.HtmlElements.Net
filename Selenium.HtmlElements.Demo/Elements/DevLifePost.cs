@@ -1,8 +1,8 @@
-﻿using OpenQA.Selenium;
+﻿using HtmlElements.Elements;
 
-using Selenium.HtmlElements.Elements;
+using OpenQA.Selenium;
 
-namespace Selenium.HtmlElements.Demo.Elements {
+namespace HtmlElements.Demo.Elements {
 
     internal class DevLifePost : HtmlElement {
 

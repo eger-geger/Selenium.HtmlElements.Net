@@ -5,9 +5,9 @@ using System.Linq;
 
 using OpenQA.Selenium;
 
-using Selenium.HtmlElements.Extensions;
+using HtmlElements.Extensions;
 
-namespace Selenium.HtmlElements {
+namespace HtmlElements {
 
     public class ByJavaScript : By {
 

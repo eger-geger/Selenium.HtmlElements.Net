@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium.HtmlElements", "Selenium.HtmlElements\Selenium.HtmlElements.csproj", "{75C93635-CB01-4FC2-AD38-D575040387BD}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlElements", "Selenium.HtmlElements\HtmlElements.csproj", "{75C93635-CB01-4FC2-AD38-D575040387BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium.HtmlElements.Test", "Selenium.HtmlElements.Test\Selenium.HtmlElements.Test.csproj", "{18B70D01-1559-4741-8847-25D8DB7B69B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlElements.Test", "Selenium.HtmlElements.Test\HtmlElements.Test.csproj", "{18B70D01-1559-4741-8847-25D8DB7B69B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium.HtmlElements.Demo", "Selenium.HtmlElements.Demo\Selenium.HtmlElements.Demo.csproj", "{06EF8282-43E9-4F26-8034-D91CE4371CEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlElements.Demo", "Selenium.HtmlElements.Demo\HtmlElements.Demo.csproj", "{06EF8282-43E9-4F26-8034-D91CE4371CEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

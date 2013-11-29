@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Selenium.HtmlElements.Actions {
+namespace HtmlElements.Actions {
 
     public class ConditionalActionExecutor<T> {
 

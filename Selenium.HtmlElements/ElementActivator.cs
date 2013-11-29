@@ -2,13 +2,14 @@
 using System.Linq;
 using System.Reflection;
 
+using HtmlElements.Locators;
+
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
-using Selenium.HtmlElements.Extensions;
-using Selenium.HtmlElements.Locators;
+using HtmlElements.Extensions;
 
-namespace Selenium.HtmlElements {
+namespace HtmlElements {
 
     public static class ElementActivator {
 

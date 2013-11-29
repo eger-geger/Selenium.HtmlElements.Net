@@ -7,7 +7,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.Events;
 
-namespace Selenium.HtmlElements.Demo.Tests {
+namespace HtmlElements.Demo.Tests {
 
     [TestFixture]
     public class BaseWebDriverTest : AssertionHelper {
@@ -25,6 +25,7 @@ namespace Selenium.HtmlElements.Demo.Tests {
             eventFiringDriver.ScriptExecuting += (sender, args) => Console.WriteLine("executing JS: {0}", args.Script);
 
             _webDriver = eventFiringDriver;
+            _webDriver.Manage().Timeouts();
         }
 
         private void QuitWebDriver() {
@@ -59,7 +60,6 @@ namespace Selenium.HtmlElements.Demo.Tests {
         [TestFixtureTearDown]
         public void FixtuteTearDown() {
             QuitWebDriver();
-            ;
         }
 
     }

@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 
-namespace Selenium.HtmlElements.Elements {
+namespace HtmlElements.Elements {
 
     public class HtmlSelect : HtmlControl, IList<HtmlSelectOption> {
 

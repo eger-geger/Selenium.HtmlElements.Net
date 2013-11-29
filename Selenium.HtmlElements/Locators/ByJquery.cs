@@ -1,4 +1,4 @@
-﻿namespace Selenium.HtmlElements.Locators {
+﻿namespace HtmlElements.Locators {
 
     public class ByJquery : ByJavaScript {
 

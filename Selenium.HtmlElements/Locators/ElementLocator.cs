@@ -5,7 +5,7 @@ using System.Linq;
 
 using OpenQA.Selenium;
 
-namespace Selenium.HtmlElements.Locators {
+namespace HtmlElements.Locators {
 
     internal class ElementLocator : IElementLocator {
 

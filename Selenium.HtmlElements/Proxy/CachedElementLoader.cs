@@ -4,7 +4,7 @@ using System.Linq;
 
 using log4net;
 
-namespace Selenium.HtmlElements.Proxy {
+namespace HtmlElements.Proxy {
 
     internal abstract class CachedElementLoader<T> where T : class {
 
@@ -45,6 +45,7 @@ namespace Selenium.HtmlElements.Proxy {
             try {
                 return _doLoad();
             } catch (Exception ex) {
+                
                 if (ShouldBeThrown(ex)) throw;
 
                 Logger.WarnFormat("Ignored: {0}", ex);

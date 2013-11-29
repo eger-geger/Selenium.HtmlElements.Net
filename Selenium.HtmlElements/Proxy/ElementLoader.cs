@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using HtmlElements.Locators;
+
 using OpenQA.Selenium;
 
-using Selenium.HtmlElements.Extensions;
-using Selenium.HtmlElements.Locators;
+using HtmlElements.Extensions;
 
-namespace Selenium.HtmlElements.Proxy {
+namespace HtmlElements.Proxy {
 
     internal class ElementLoader : CachedElementLoader<IWebElement> {
 

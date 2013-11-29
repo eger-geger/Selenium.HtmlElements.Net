@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
+using HtmlElements.Locators;
+
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 
-using Selenium.HtmlElements.Extensions;
-using Selenium.HtmlElements.Locators;
+using HtmlElements.Extensions;
 
-namespace Selenium.HtmlElements.Elements {
+namespace HtmlElements.Elements {
 
     public abstract class SearchContextWrapper : ISearchContext, IWrapsDriver, IJavaScriptExecutor {
 

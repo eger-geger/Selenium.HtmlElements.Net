@@ -4,7 +4,7 @@ using System.Globalization;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
-namespace Selenium.HtmlElements.Locators {
+namespace HtmlElements.Locators {
 
     internal static class ByFactory {
 

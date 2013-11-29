@@ -1,9 +1,9 @@
 ﻿using OpenQA.Selenium;
 
-using Selenium.HtmlElements.Actions;
-using Selenium.HtmlElements.Extensions;
+using HtmlElements.Actions;
+using HtmlElements.Extensions;
 
-namespace Selenium.HtmlElements.Elements {
+namespace HtmlElements.Elements {
 
     public class HtmlOption : HtmlControl {
 

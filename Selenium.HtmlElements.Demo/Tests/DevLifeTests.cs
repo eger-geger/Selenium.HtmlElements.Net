@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
+﻿using HtmlElements.Demo.Pages;
 
-using Selenium.HtmlElements.Demo.Pages;
+using NUnit.Framework;
 
-namespace Selenium.HtmlElements.Demo.Tests {
+namespace HtmlElements.Demo.Tests {
 
     internal class DevLifeTests : BaseWebDriverTest {
 

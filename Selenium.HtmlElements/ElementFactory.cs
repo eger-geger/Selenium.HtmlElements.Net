@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using Castle.Core.Interceptor;
 using Castle.DynamicProxy;
 
+using HtmlElements.Elements;
+using HtmlElements.Locators;
+using HtmlElements.Proxy;
+
 using OpenQA.Selenium;
 
-using Selenium.HtmlElements.Elements;
-using Selenium.HtmlElements.Extensions;
+using HtmlElements.Extensions;
 
 using log4net;
 
-using Selenium.HtmlElements.Proxy;
-using Selenium.HtmlElements.Locators;
-
-namespace Selenium.HtmlElements {
+namespace HtmlElements {
 
     public static class ElementFactory {
 

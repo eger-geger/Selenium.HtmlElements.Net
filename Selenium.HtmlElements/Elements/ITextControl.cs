@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace Selenium.HtmlElements.Elements {
+namespace HtmlElements.Elements {
 
     public interface ITextControl : IWebElement {
 

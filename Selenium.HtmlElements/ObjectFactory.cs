@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Selenium.HtmlElements {
+namespace HtmlElements {
 
     internal static class ObjectFactory {
 

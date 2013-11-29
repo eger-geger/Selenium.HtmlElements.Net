@@ -1,10 +1,10 @@
-﻿using OpenQA.Selenium;
+﻿using HtmlElements.Demo.Elements;
+using HtmlElements.Elements;
+
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
-using Selenium.HtmlElements.Demo.Elements;
-using Selenium.HtmlElements.Elements;
-
-namespace Selenium.HtmlElements.Demo.Pages {
+namespace HtmlElements.Demo.Pages {
 
     internal class DevLifePage : HtmlPage {
 

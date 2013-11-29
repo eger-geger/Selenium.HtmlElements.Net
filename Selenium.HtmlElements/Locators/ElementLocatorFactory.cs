@@ -5,7 +5,7 @@ using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
-namespace Selenium.HtmlElements.Locators {
+namespace HtmlElements.Locators {
 
     internal class ElementLocatorFactory {
 

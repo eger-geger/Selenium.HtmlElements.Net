@@ -1,12 +1,13 @@
 ﻿using Castle.Core.Interceptor;
 
+using HtmlElements.Locators;
+
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 
-using Selenium.HtmlElements.Extensions;
-using Selenium.HtmlElements.Locators;
+using HtmlElements.Extensions;
 
-namespace Selenium.HtmlElements.Proxy {
+namespace HtmlElements.Proxy {
 
     internal class ElementProxy : IInterceptor {
 

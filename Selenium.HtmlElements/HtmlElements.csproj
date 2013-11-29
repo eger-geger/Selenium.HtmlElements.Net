@@ -7,8 +7,8 @@
     <ProjectGuid>{75C93635-CB01-4FC2-AD38-D575040387BD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Selenium.HtmlElements</RootNamespace>
-    <AssemblyName>Selenium.HtmlElements</AssemblyName>
+    <RootNamespace>HtmlElements</RootNamespace>
+    <AssemblyName>HtmlElements</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace Selenium.HtmlElements.Extensions {
+namespace HtmlElements.Extensions {
 
     internal static class MemberInfoExtensions {
 

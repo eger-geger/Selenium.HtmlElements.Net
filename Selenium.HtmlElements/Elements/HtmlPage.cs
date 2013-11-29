@@ -2,7 +2,7 @@
 
 using OpenQA.Selenium;
 
-namespace Selenium.HtmlElements.Elements {
+namespace HtmlElements.Elements {
 
     public class HtmlPage : SearchContextWrapper {
 

@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/eger-geger/Selenium.HtmlElements.Net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial Release</releaseNotes>
+    <releaseNotes>Namespace changed. Bug fixed. Internal redesign.</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>Selenium WebDriver browser automation support</tags>
   </metadata>

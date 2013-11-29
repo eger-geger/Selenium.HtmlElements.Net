@@ -1,8 +1,8 @@
 ﻿using System;
 
-using Selenium.HtmlElements.Elements;
+using HtmlElements.Elements;
 
-namespace Selenium.HtmlElements.Extensions {
+namespace HtmlElements.Extensions {
 
     public static class JavaScriptExtensions {
 
