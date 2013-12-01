@@ -24,9 +24,11 @@ namespace HtmlElements.Elements {
         }
 
         public TReturn Open<TReturn>() where TReturn : class {
+            var wd = WrappedDriver;
+
             Click();
 
-            return ElementActivator.Activate<TReturn>(WrappedDriver);
+            return ElementActivator.Activate<TReturn>(wd);
         }
 
     }
