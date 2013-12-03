@@ -14,7 +14,7 @@ namespace HtmlElements.Extensions {
         private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(5);
 
         public static ConditionalActionExecutor<T> Do<T>(this T self, Action<T> action) where T : class {
-            return new ConditionalActionExecutor<T>(action, self);
+            return new ConditionalActionExecutor<T>(action, self).Every(DefaultPollingInterval).For(DefaultTimeout);
         }
 
         public static ConditionalActionExecutor<T> Do<T>(this T self, Action action) where T : class {

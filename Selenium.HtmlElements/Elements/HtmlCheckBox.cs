@@ -1,7 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using HtmlElements.Extensions;
 
-using HtmlElements.Actions;
-using HtmlElements.Extensions;
+using OpenQA.Selenium;
 
 namespace HtmlElements.Elements {
 
