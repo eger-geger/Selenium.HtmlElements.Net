@@ -3,9 +3,7 @@
 ```C#
 internal class Pagination : HtmlElement {
 
-    public Pagination(IWebElement wrapped) : base(wrapped) {
-        PageFactory.InitElementsIn(this, wrapped);
-    }
+    public Pagination(IWebElement wrapped) : base(wrapped) {}
 
     [FindsBy(How = How.CssSelector, Using = ".value.rating")]
     private HtmlElement _currentPageNumber;
@@ -27,7 +25,7 @@ internal class Pagination : HtmlElement {
 #### and use it within page or other element
 
 ```C#
-internal class DevLifePage : CustomElement {
+internal class DevLifePage : HtmlPage {
 
     [FindsBy(How = How.CssSelector, Using = ".jslink:nth-child(1)")]
     private HtmlLink _sortByDate;
@@ -61,10 +59,10 @@ internal class DevLifePage : CustomElement {
 }
 ```
 
-#### Finally apply PageFactory to your page
+#### Finally apply ElementActivator to your page
 
 ```C#
-var devLifePage = PageFactory.InitElementsIn<DevLifePage>(new FirefoxDriver());
+var devLifePage = ElementActivator.Activate<DevLifePage>(new FirefoxDriver());
 ```
 
 Also you are welcome to try some of [predefined elements](https://github.com/eger-geger/Selenium.HtmlElements.Net/tree/master/Selenium.HtmlElements/Elements)
