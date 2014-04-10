@@ -1,4 +1,7 @@
 using System;
+using System.Linq;
+
+using HtmlElements.Elements;
 
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
@@ -6,6 +9,35 @@ using OpenQA.Selenium.Internal;
 namespace HtmlElements.Extensions {
 
     public static class WebElementExtensions {
+
+        /// <summary> Check if all text chunks are shown on page </summary>
+        /// <param name="text">text to check</param>
+        /// <returns>
+        ///     true if all provided chunk are shown on page and false otherwise
+        /// </returns>
+        public static bool IsTextShown(this HtmlPage page, params String[] text) {
+            var bodyText = page.Body.Text;
+
+            return text.All(bodyText.Contains);
+        }
+
+        /// <summary> Check if all text chunks are shown on page </summary>
+        /// <param name="text">text to check</param>
+        /// <returns>
+        ///     true if all provided chunks are present in page source and false otherwise
+        /// </returns>
+        public static bool IsTextPresent(this HtmlPage page, params String[] text) {
+            return text.All(page.Source.Contains);
+        }
+
+        /// <summary> Check if all text chunks are not shown on page </summary>
+        /// <param name="text">text to check</param>
+        /// <returns>
+        ///     true if all provided chunks are not present in page source and false otherwise
+        /// </returns>
+        public static bool IsTextNotPresent(this HtmlPage page, params String[] text) {
+            return text.All(t => !page.Source.Contains(t));
+        }
 
         private static T IsVisible<T>(this T element) where T : class, IWebElement {
             return IsPresent(element as IWebElement) && element.Displayed ? element : null;

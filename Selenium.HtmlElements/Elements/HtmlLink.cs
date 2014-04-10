@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+
+using OpenQA.Selenium;
 
 using HtmlElements.Extensions;
 
@@ -12,6 +14,17 @@ namespace HtmlElements.Elements {
         public const string TargetTop = "_top";
 
         public HtmlLink(IWebElement wrapped) : base(wrapped) {}
+
+        public string Url {
+            get {
+                var windowLocation = new Uri(WrappedDriver.Url);
+
+                var linkHref = Href;
+
+                return linkHref.Contains(Uri.UriSchemeHttp) || linkHref.Contains(Uri.UriSchemeHttps)
+                    ? linkHref : String.Format("{0}://{1}{2}", windowLocation.Scheme, windowLocation.Host, linkHref);
+            }
+        }
 
         public string Href {
             get { return GetAttribute("href"); }

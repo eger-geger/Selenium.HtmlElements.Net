@@ -39,6 +39,28 @@ namespace HtmlElements.Extensions {
             return memberList;
         }
 
+        public static Type GetPropertyOrFieldType(this MemberInfo memberInfo) {
+            switch (memberInfo.MemberType) {
+                case MemberTypes.Field:
+                    return ((FieldInfo) memberInfo).FieldType;
+                case MemberTypes.Property:
+                    return ((PropertyInfo) memberInfo).PropertyType;
+            }
+
+            throw new ArgumentException("neither FieldInfo neither PropertyInfo", "memberInfo");
+        }
+
+        public static Object GetPropertyOrFieldValue(this MemberInfo memberInfo, Object target) {
+            switch (memberInfo.MemberType) {
+                case MemberTypes.Field:
+                    return ((FieldInfo)memberInfo).GetValue(target);
+                case MemberTypes.Property:
+                    return ((PropertyInfo)memberInfo).GetValue(target, null);
+            }
+
+            throw new InvalidOperationException(String.Format("cannot extract value [{0}] from [{1}]", memberInfo, target));
+        }
+
     }
 
 }

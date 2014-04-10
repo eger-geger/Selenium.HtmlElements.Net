@@ -1,8 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Xml.Linq;
 
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
 
 namespace HtmlElements.Elements {
 
@@ -35,6 +35,9 @@ namespace HtmlElements.Elements {
                 throw new InvalidOperationException("unexpected document state");
             }
         }
+
+        [FindsBy(How = How.TagName, Using = "body"), CacheLookup]
+        public HtmlElement Body { get; private set; }
 
         public string Title {
             get { return WrappedDriver.Title; }

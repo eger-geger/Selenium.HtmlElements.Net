@@ -1,4 +1,6 @@
-﻿using Castle.Core.Interceptor;
+﻿using System.Reflection;
+
+using Castle.Core.Interceptor;
 
 using HtmlElements.Locators;
 
@@ -33,7 +35,11 @@ namespace HtmlElements.Proxy {
         }
 
         private object InvokeOn(object target, IInvocation invocation) {
-            return invocation.Method.Invoke(target, invocation.Arguments);
+            try {
+                return invocation.Method.Invoke(target, invocation.Arguments);
+            } catch (TargetInvocationException ex) {
+                throw ex.InnerException;
+            }
         }
 
     }
