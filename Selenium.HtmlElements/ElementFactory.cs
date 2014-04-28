@@ -12,38 +12,36 @@ using OpenQA.Selenium;
 
 using HtmlElements.Extensions;
 
-using log4net;
-
 namespace HtmlElements {
 
     public static class ElementFactory {
 
         private static readonly ProxyGenerator ProxyFactory = new ProxyGenerator();
 
-        public static IList<T> CreateElementList<T>(IElementLocator locator, bool useCache = false) where T : class, IWebElement {
-            return Create(typeof(IList<T>), locator, useCache) as IList<T>;
+        public static IList<T> CreateElementList<T>(IElementLocator locator, bool cache = false) where T : class, IWebElement {
+            return Create(typeof(IList<T>), locator, cache) as IList<T>;
         }
 
-        public static T CreateElement<T>(IElementLocator locator, bool useCache = true) where T : class, IWebElement {
-            return Create(typeof(T), locator, useCache) as T;
+        public static T CreateElement<T>(IElementLocator locator, bool cache = true) where T : class, IWebElement {
+            return Create(typeof(T), locator, cache) as T;
         }
 
-        public static Object Create(Type type, IElementLocator locator, bool useCache = false) {
-            if (type.IsWebElement()) return NewElement(type, locator, useCache);
-            if (type.IsWebElementList()) return NewElementList(type.GetGenericArguments()[0], locator, useCache);
+        public static Object Create(Type type, IElementLocator locator, bool cache = false) {
+            if (type.IsWebElement()) return NewElement(type, locator, cache);
+            if (type.IsWebElementList()) return NewElementList(type.GetGenericArguments()[0], locator, cache);
 
-            throw new InvalidOperationException(string.Format("Cannot create instance of [{0}]", type));
+            throw new InvalidOperationException(String.Format("Cannot create instance of [{0}]", type));
         }
 
-        private static object NewElement(Type type, IElementLocator locator, bool useCash) {
-            var proxy = GenerateProxy(typeof(IHtmlElement), new ElementProxy(locator, useCash)) as IHtmlElement;
+        private static object NewElement(Type type, IElementLocator locator, bool cache) {
+            var proxy = GenerateProxy(typeof(IHtmlElement), new ElementProxy(locator, cache)) as IHtmlElement;
 
             return type == typeof(IHtmlElement) || type == typeof(IWebElement)
                 ? new HtmlElement(proxy) : ObjectFactory.Create(type, proxy);
         }
 
-        private static object NewElementList(Type type, IElementLocator locator, bool useCash) {
-            return GenerateProxy(typeof(IList<>).MakeGenericType(type), new ElementListProxy(type, locator, useCash));
+        private static object NewElementList(Type type, IElementLocator locator, bool cache) {
+            return GenerateProxy(typeof(IList<>).MakeGenericType(type), new ElementListProxy(type, locator, cache));
         }
 
         private static object GenerateProxy(Type @interface, IInterceptor interceptor) {

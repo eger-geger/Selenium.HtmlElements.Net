@@ -27,18 +27,22 @@ namespace HtmlElements.Proxy {
             Logger = LogManager.GetLogger(GetType());
         } 
 
-        private T Cached { get; set; }
+        private T Loaded { get; set; }
 
         public IEnumerable<Type> IgnoredExceptionTypes { get; set; }
 
-        public T Load(bool useCached) {
-            if (useCached && _isLoaded(Cached)) return Cached;
+        public bool UseCash { get; protected set; }
 
-            while (!_isLoaded(Cached)) {
-                Cached = LoadIgnoringExceptions();
+        public T Load() {
+            if (!UseCash) {
+                Loaded = null;
             }
 
-            return Cached;
+            while (!_isLoaded(Loaded)) {
+                Loaded = LoadIgnoringExceptions();
+            }
+
+            return Loaded;
         }
 
         private T LoadIgnoringExceptions() {
@@ -59,11 +63,11 @@ namespace HtmlElements.Proxy {
         }
 
         protected virtual T DoLoad() {
-            throw new NotImplementedException("Should Be Overridden in SubClass");
+            throw new NotImplementedException("should be overridden in subclass");
         }
 
         protected virtual bool IsLoaded(T target) {
-            throw new NotImplementedException("Should Be Overridden in SubClass"); 
+            throw new NotImplementedException("should be overridden in subclass"); 
         }
     }
 

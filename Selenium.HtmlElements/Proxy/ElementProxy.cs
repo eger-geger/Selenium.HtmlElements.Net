@@ -15,26 +15,25 @@ namespace HtmlElements.Proxy {
 
         private readonly ElementLoader _loader;
 
-        private readonly bool _useCache;
-
-        public ElementProxy(IElementLocator locator, bool useCache) {
-            _loader = new ElementLoader(locator);
-            _useCache = useCache;
+        public ElementProxy(IElementLocator locator, bool cache) {
+            _loader = new ElementLoader(locator, cache);
         }
 
         public void Intercept(IInvocation invocation) {
-            var loaded = _loader.Load(_useCache);
+            var loaded = _loader.Load();
 
-            if (invocation.Method.DeclaringType == typeof(IWrapsElement))
+            if (invocation.Method.DeclaringType == typeof(IWrapsElement)) {
                 invocation.ReturnValue = loaded;
-            else if (invocation.Method.DeclaringType == typeof(IWrapsDriver))
+            } else if (invocation.Method.DeclaringType == typeof(IWrapsDriver)) {
                 invocation.ReturnValue = loaded.ToWebDriver();
-            else if (invocation.Method.DeclaringType == typeof(IJavaScriptExecutor))
-                invocation.ReturnValue = InvokeOn(loaded.ToJavaScriptExecutor(), invocation);
-            else invocation.ReturnValue = InvokeOn(loaded, invocation);
+            } else if (invocation.Method.DeclaringType == typeof(IJavaScriptExecutor)) {
+                invocation.ReturnValue = InvokeUnwrappingExceptions(loaded.ToJavaScriptExecutor(), invocation);
+            } else {
+                invocation.ReturnValue = InvokeUnwrappingExceptions(loaded, invocation);
+            }
         }
 
-        private object InvokeOn(object target, IInvocation invocation) {
+        private static object InvokeUnwrappingExceptions(object target, IInvocation invocation) {
             try {
                 return invocation.Method.Invoke(target, invocation.Arguments);
             } catch (TargetInvocationException ex) {
