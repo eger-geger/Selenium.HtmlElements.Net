@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ElementFactoryTests.cs" />
+    <Compile Include="Extensions\ElementGroupTests.cs" />
     <Compile Include="Integration\ElementListTests.cs" />
     <Compile Include="Integration\IntegrationTestFixture.cs" />
     <Compile Include="Pages\TestPageObject.cs" />
