@@ -29,10 +29,9 @@ namespace HtmlElements.Extensions {
             return WaitFor(self, condition, timeout, DefaultPollingInterval);
         }
 
-        public static TR WaitFor<TE, TR>(this TE self, Func<TE, TR> condition, TimeSpan timeout, TimeSpan polling)
-            where TE : class {
+        public static TR WaitFor<TE, TR>(this TE self, Func<TE, TR> condition, TimeSpan timeout, TimeSpan polling) where TE : class {
             var wait = new DefaultWait<TE>(self) {
-                Message = string.Format("{0} expires after {1}", condition, timeout),
+                Message = String.Format("{0} expires after {1}", condition, timeout),
                 PollingInterval = polling,
                 Timeout = timeout
             };
@@ -50,8 +49,7 @@ namespace HtmlElements.Extensions {
             WaitUntil(self, condition, timeout, DefaultPollingInterval);
         }
 
-        public static void WaitUntil<T>(this T self, Predicate<T> condition, TimeSpan timeout, TimeSpan polling)
-            where T : class {
+        public static void WaitUntil<T>(this T self, Predicate<T> condition, TimeSpan timeout, TimeSpan polling) where T : class {
             WaitFor(self, condition.Invoke, timeout, polling);
         }
 

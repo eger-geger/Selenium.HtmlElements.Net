@@ -7,8 +7,11 @@ using OpenQA.Selenium;
 
 using HtmlElements.Extensions;
 
-namespace HtmlElements {
+namespace HtmlElements.Locators {
 
+    /// <summary>
+    ///     Execute provided javascript code for element location
+    /// </summary>
     public class ByJavaScript : By {
 
         public ByJavaScript(string locator) {
