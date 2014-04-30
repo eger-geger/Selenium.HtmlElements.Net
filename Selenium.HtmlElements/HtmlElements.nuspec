@@ -9,7 +9,7 @@
     <projectUrl>http://github.com/eger-geger/Selenium.HtmlElements.Net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Handling of InvocationTargetException + Helper Classes</releaseNotes>
+    <releaseNotes>Fix StaleReferenceException issue for collections. Include parent types when locatig elements by groups.</releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>Selenium WebDriver</tags>
   </metadata>
