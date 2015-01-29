@@ -1,3 +1,5 @@
+Can be installed with nuget [HtmlElements](http://www.nuget.org/packages/HtmlElements/)
+
 #### Define your custom element
 
 ```C#
