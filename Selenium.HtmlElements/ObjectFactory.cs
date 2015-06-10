@@ -1,15 +1,29 @@
 ﻿using System;
+using OpenQA.Selenium;
 
 namespace HtmlElements {
 
-    internal static class ObjectFactory {
+    public static class ObjectFactory
+    {
+        public delegate object PageObjectFactoryMethod(Type objectType, ISearchContext context);
 
-        public static object Create(Type type, params object[] args) {
-            var emptyCtor = type.GetConstructor(new Type[0]);
+        public static PageObjectFactoryMethod FactoryMethod { get; set; }
 
-            return emptyCtor != null
-                ? emptyCtor.Invoke(new object[0])
-                : Activator.CreateInstance(type, args);
+        public static object CreatePageObject(Type objecType, ISearchContext searchContext)
+        {
+            if (FactoryMethod != null)
+            {
+                return FactoryMethod.Invoke(objecType, searchContext);
+            }
+
+            var emptyConstructor = objecType.GetConstructor(new Type[0]);
+
+            if (emptyConstructor != null)
+            {
+                return emptyConstructor.Invoke(new object[0]);
+            }
+
+            return Activator.CreateInstance(objecType, searchContext);
         }
 
     }

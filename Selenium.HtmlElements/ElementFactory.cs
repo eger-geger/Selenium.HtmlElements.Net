@@ -37,7 +37,7 @@ namespace HtmlElements {
             var proxy = GenerateProxy(typeof(IHtmlElement), new ElementProxy(locator, cache)) as IHtmlElement;
 
             return type == typeof(IHtmlElement) || type == typeof(IWebElement)
-                ? new HtmlElement(proxy) : ObjectFactory.Create(type, proxy);
+                ? new HtmlElement(proxy) : ObjectFactory.CreatePageObject(type, proxy);
         }
 
         private static object NewElementList(Type type, IElementLocator locator, bool cache) {

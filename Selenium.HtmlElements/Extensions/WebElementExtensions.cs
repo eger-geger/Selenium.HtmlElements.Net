@@ -64,7 +64,7 @@ namespace HtmlElements.Extensions {
         public static T As<T>(this IWebElement self) where T : class {
             var webElement = self is IWrapsElement ? (self as IWrapsElement).WrappedElement : self;
 
-            return ObjectFactory.Create(typeof(T), webElement) as T;
+            return ObjectFactory.CreatePageObject(typeof(T), webElement) as T;
         }
 
         public static void WaitUntilHidden<T>(this T self, TimeSpan timeout, TimeSpan polling)

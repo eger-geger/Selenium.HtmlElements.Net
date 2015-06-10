@@ -17,7 +17,7 @@ namespace HtmlElements {
             if (type == null) throw new ArgumentNullException("type");
             if (type == null) throw new ArgumentNullException("context");
 
-            var instance = ObjectFactory.Create(type, context);
+            var instance = ObjectFactory.CreatePageObject(type, context);
 
             Activate(instance, context);
 

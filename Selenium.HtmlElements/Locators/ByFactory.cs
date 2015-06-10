@@ -46,7 +46,7 @@ namespace HtmlElements.Locators {
                 throw new ArgumentException("[CustomFinderType] must be a descendant of [By] class");
             }
 
-            return ObjectFactory.Create(customFinderType, usingValue) as By;
+            return Activator.CreateInstance(customFinderType, usingValue) as By;
         }
 
         public static By Create(FindsByAttribute attribute) {
