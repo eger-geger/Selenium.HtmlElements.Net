@@ -29,8 +29,9 @@ namespace HtmlElements.Locators {
 
             try {
                 return jsExecutor.ExecuteScript(string.Format("return {0} ;", jsLocator));
-            } catch (Exception ex) {
-                throw new ArgumentException(string.Format("Wrong locator [{0}]", jsLocator), "jsLocator", ex);
+            } catch (Exception ex)
+            {
+                throw new NoSuchElementException(string.Format("Failed to find element using JS locator [{0}]", jsLocator), ex);
             }
         }
 
