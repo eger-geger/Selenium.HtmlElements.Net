@@ -12,5 +12,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: InternalsVisibleTo("HtmlElements.Test")]
 [assembly: Guid("df09e424-55f1-4ef4-a17f-26c0dd792ed0")]
-[assembly: AssemblyVersion("1.1.0.9")]
-[assembly: AssemblyFileVersion("1.1.0.9")]
+[assembly: AssemblyVersion("1.1.0.10")]
+[assembly: AssemblyFileVersion("1.1.0.10")]
