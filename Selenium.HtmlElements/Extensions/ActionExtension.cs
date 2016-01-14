@@ -1,7 +1,6 @@
 ﻿using System;
 
 using HtmlElements.Actions;
-
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -35,7 +34,7 @@ namespace HtmlElements.Extensions {
                 PollingInterval = polling,
                 Timeout = timeout
             };
-
+            
             wait.IgnoreExceptionTypes(typeof(WebDriverException));
 
             return wait.Until(condition);

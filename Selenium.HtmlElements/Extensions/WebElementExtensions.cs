@@ -47,11 +47,29 @@ namespace HtmlElements.Extensions {
             return IsPresent(element as IWebElement) ? element : null;
         }
 
-        public static bool IsPresent(this IWebElement self) {
-            try {
+        public static bool IsPresent(this IWebElement self)
+        {
+            var webDriverWrapper = self.GetWebDriverWrapper();
+
+            if (webDriverWrapper != null && webDriverWrapper.DefaultImplicitWait >= TimeSpan.Zero)
+            {
+                webDriverWrapper.TimeoutsWrapper.ImplicitWait = TimeSpan.Zero;
+            }
+
+            try
+            {
                 var ignore = self.Size;
-            } catch (WebDriverException) {
+            }
+            catch (WebDriverException)
+            {
                 return false;
+            }
+            finally
+            {
+                if (webDriverWrapper != null && webDriverWrapper.DefaultImplicitWait >= TimeSpan.Zero)
+                {
+                    webDriverWrapper.ResetImplicitWait();
+                }
             }
 
             return true;
