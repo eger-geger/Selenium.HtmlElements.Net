@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
-using Castle.Core.Interceptor;
-
+using Castle.DynamicProxy;
 using HtmlElements.Locators;
 
 namespace HtmlElements.Proxy {

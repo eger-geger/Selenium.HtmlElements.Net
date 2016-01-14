@@ -2,29 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using log4net;
-
 namespace HtmlElements.Proxy {
 
     internal abstract class CachedElementLoader<T> where T : class {
 
-        protected readonly ILog Logger;
-
         private readonly Func<T> _doLoad;
+
         private readonly Predicate<T> _isLoaded;
 
         protected CachedElementLoader(Func<T> doLoad, Predicate<T> isLoaded) {
             _doLoad = doLoad;
             _isLoaded = isLoaded;
-
-            Logger = LogManager.GetLogger(GetType());
         }
 
         protected CachedElementLoader() {
             _doLoad = DoLoad;
             _isLoaded = IsLoaded;
-
-            Logger = LogManager.GetLogger(GetType());
         } 
 
         private T Loaded { get; set; }
@@ -49,10 +42,11 @@ namespace HtmlElements.Proxy {
             try {
                 return _doLoad();
             } catch (Exception ex) {
-                
-                if (ShouldBeThrown(ex)) throw;
 
-                Logger.WarnFormat("Ignored: {0}", ex);
+                if (ShouldBeThrown(ex))
+                {
+                    throw;
+                }
 
                 return null;
             }     
