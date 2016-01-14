@@ -82,7 +82,6 @@
     <Compile Include="Extensions\SearchContextExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\WebDriverExtensions.cs" />
-    <Compile Include="Extensions\WebDriverWrapperExtensions.cs" />
     <Compile Include="Extensions\WebElementExtensions.cs" />
     <Compile Include="Locators\ListElementLocator.cs" />
     <Compile Include="Proxy\CachedElementLoader.cs" />
@@ -100,16 +99,10 @@
     <Compile Include="ElementActivator.cs" />
     <Compile Include="Proxy\ElementListProxy.cs" />
     <Compile Include="Proxy\ElementListLoader.cs" />
-    <Compile Include="Wrappers\ITimeoutsWrapper.cs" />
-    <Compile Include="Wrappers\IWedDriverWrapper.cs" />
-    <Compile Include="Wrappers\OptionsWrapper.cs" />
-    <Compile Include="Wrappers\TimeoutsWrapper.cs" />
-    <Compile Include="Wrappers\WebDriverWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="nuget-package" DependsOnTargets="Build">
     <Exec Command="nuget spec" />
