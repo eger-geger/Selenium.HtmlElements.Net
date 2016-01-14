@@ -67,29 +67,96 @@ namespace HtmlElements.Extensions {
             return ObjectFactory.CreatePageObject(typeof(T), webElement) as T;
         }
 
-        public static void WaitUntilHidden<T>(this T self, TimeSpan timeout, TimeSpan polling)
-            where T : class, IWebElement {
-            self.WaitUntil(IsHidden, timeout, polling);
+        public static void WaitUntilHidden<T>(this T self, TimeSpan timeout, TimeSpan polling) where T : class, IWebElement {
+            try
+            {
+                self.WaitUntil(IsHidden, timeout, polling);
+            }
+            catch (NoSuchElementException)
+            {
+                //Element removed from DOM
+            }
+            catch (StaleElementReferenceException)
+            {
+                //Element removed from DOM
+            }
         }
 
         public static void WaitUntilHidden<T>(this T self, TimeSpan timeout) where T : class, IWebElement {
-            self.WaitUntil(IsHidden, timeout);
+            try
+            {
+                self.WaitUntil(IsHidden, timeout);
+            }
+            catch (NoSuchElementException)
+            {
+                //Element removed from DOM
+            }
+            catch (StaleElementReferenceException)
+            {
+                //Element removed from DOM
+            }
         }
 
         public static void WaitUntilHidden<T>(this T self) where T : class, IWebElement {
-            self.WaitUntil(IsHidden);
+            try
+            {
+                self.WaitUntil(IsHidden);
+            }
+            catch (NoSuchElementException)
+            {
+                //Element removed from DOM
+            }
+            catch (StaleElementReferenceException)
+            {
+                //Element removed from DOM
+            }
         }
 
-        public static T WaitForPresent<T>(this T self) where T : class, IWebElement {
-            return self.WaitFor(IsPresent);
+        /// <summary>
+        ///     Wait until element became present on page (get created in DOM) and return the element itself.
+        ///     Current overload waits for 10 seconds and checks weather element is present every second.
+        /// </summary>
+        /// <typeparam name="TTarget">Type of th target element</typeparam>
+        /// <param name="target">Element expected to be created in DOM</param>
+        /// <param name="message">Error message used when command expires</param>
+        /// <returns>Element once it became visible</returns>
+        /// <exception cref="WebDriverTimeoutException">
+        ///     Thrown when element did not appear in DOM after 10 seconds
+        /// </exception>
+        public static TTarget WaitForPresent<TTarget>(this TTarget target, String message = null) where TTarget : class, IWebElement {
+            return target.WaitFor(IsPresent, message ?? String.Format("{0} did not appear in DOM after 10 seconds", target));
         }
 
-        public static T WaitForPresent<T>(this T self, TimeSpan timeout) where T : class, IWebElement {
-            return self.WaitFor(IsPresent, timeout);
+        /// <summary>
+        ///     Wait until element became present on page (get created in DOM) and return the element itself.
+        ///     Current overload waits for a given timeout and checks weather element is present every second.
+        /// </summary>
+        /// <typeparam name="TTarget">Type of th target element</typeparam>
+        /// <param name="target">Element expected to be created in DOM</param>
+        /// <param name="commandTimeout">Timeout after which command will became expired and exception will be thrown</param>
+        /// <param name="message">Error message used when command expires</param>
+        /// <returns>Element once it became visible</returns>
+        /// <exception cref="WebDriverTimeoutException">
+        ///     Thrown when element did not appear in DOM after 10 seconds
+        /// </exception>
+        public static TTarget WaitForPresent<TTarget>(this TTarget target, TimeSpan commandTimeout, String message = null) where TTarget : class, IWebElement {
+            return target.WaitFor(IsPresent, commandTimeout, message ?? String.Format("{0} did not appear in DOM after {1}", target, commandTimeout));
         }
 
-        public static T WaitForPresent<T>(this T self, TimeSpan timeout, TimeSpan polling) where T : class, IWebElement {
-            return self.WaitFor(IsPresent, timeout, polling);
+        /// <summary>
+        ///     Wait until element became present on page (get created in DOM) and return the element itself.
+        /// </summary>
+        /// <typeparam name="TTarget">Type of th target element</typeparam>
+        /// <param name="target">Element expected to be created in DOM</param>
+        /// <param name="commandTimeout">Timeout after which command will became expired and exception will be thrown</param>
+        /// <param name="pollingInterval">Determines how often command will be evaluated until it expires or succeeds</param>
+        /// <param name="message">Error message used when command expires</param>
+        /// <returns>Element once it became visible</returns>
+        /// <exception cref="WebDriverTimeoutException">
+        ///     Thrown when element did not appear in DOM after 10 seconds
+        /// </exception>
+        public static TTarget WaitForPresent<TTarget>(this TTarget target, TimeSpan commandTimeout, TimeSpan pollingInterval, String message = null) where TTarget : class, IWebElement {
+            return target.WaitFor(IsPresent, commandTimeout, pollingInterval, message ?? String.Format("{0} did not appear in DOM after {1}", target, commandTimeout));
         }
 
         public static T WaitForVisible<T>(this T self) where T : class, IWebElement {

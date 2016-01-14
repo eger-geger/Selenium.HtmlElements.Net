@@ -83,6 +83,7 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\WebDriverExtensions.cs" />
     <Compile Include="Extensions\WebElementExtensions.cs" />
+    <Compile Include="ImplicitWaitOverride.cs" />
     <Compile Include="Locators\ListElementLocator.cs" />
     <Compile Include="Proxy\CachedElementLoader.cs" />
     <Compile Include="Proxy\ElementLoader.cs" />
