@@ -8,29 +8,39 @@ using OpenQA.Selenium.Internal;
 
 namespace HtmlElements.Extensions {
 
+    /// <summary>
+    ///     Collection of extension methods for web elements and web pages
+    /// </summary>
     public static class WebElementExtensions {
 
-        /// <summary> Check if all text chunks are shown on page </summary>
-        /// <param name="text">text to check</param>
-        /// <returns>
-        ///     true if all provided chunk are shown on page and false otherwise
-        /// </returns>
+        /// <summary> 
+        ///     Checks weather text is shown on page.
+        /// </summary>
+        /// <param name="page">HTML page to search text on</param>
+        /// <param name="text">List of string to check</param>
+        /// <returns><c>true</c> if every string from the list is shown on a page and <c>false</c> otherwise</returns>
         public static bool IsTextShown(this HtmlPage page, params String[] text) {
             var bodyText = page.Body.Text;
 
             return text.All(bodyText.Contains);
         }
 
-        /// <summary> Check if all text chunks are shown on page </summary>
-        /// <param name="text">text to check</param>
-        /// <returns>
-        ///     true if all provided chunks are present in page source and false otherwise
-        /// </returns>
-        public static bool IsTextPresent(this HtmlPage page, params String[] text) {
-            return text.All(page.Source.Contains);
+        /// <summary> 
+        ///     Check weather text exist on page.
+        /// </summary>
+        /// <param name="page">HTML page to search text on</param>
+        /// <param name="text">List of string to check</param>
+        /// <returns><c>true</c> if every string from the list exist on a page and <c>false</c> otherwise</returns>
+        public static bool IsTextPresent(this HtmlPage page, params String[] text)
+        {
+            var pageSource = page.Source;
+
+            return text.All(pageSource.Contains);
         }
 
-        /// <summary> Check if all text chunks are not shown on page </summary>
+        /// <summary> 
+        ///     Check if all text chunks are not shown on page 
+        /// </summary>
         /// <param name="text">text to check</param>
         /// <returns>
         ///     true if all provided chunks are not present in page source and false otherwise
@@ -39,17 +49,34 @@ namespace HtmlElements.Extensions {
             return text.All(t => !page.Source.Contains(t));
         }
 
-        private static T IsVisible<T>(this T element) where T : class, IWebElement {
+        /// <summary>
+        ///     Checks weather element exist in DOM and visible.
+        /// </summary>
+        /// <typeparam name="TTarget">Target element type</typeparam>
+        /// <param name="element">Element to check</param>
+        /// <returns><c>true</c> when element exist in DOM and <c>false</c> otherwise</returns>
+        private static TTarget IsVisible<TTarget>(this TTarget element) where TTarget : class, IWebElement {
             return IsPresent(element as IWebElement) && element.Displayed ? element : null;
         }
 
-        private static T IsPresent<T>(this T element) where T : class, IWebElement {
+        /// <summary>
+        ///     Checks weather element exists in DOM.
+        /// </summary>
+        /// <typeparam name="TTarget">Target element type</typeparam>
+        /// <param name="element">Element to check</param>
+        /// <returns><c>true</c> when element exist in DOM and <c>false</c> otherwise</returns>
+        private static TTarget IsPresent<TTarget>(this TTarget element) where TTarget : class, IWebElement {
             return IsPresent(element as IWebElement) ? element : null;
         }
 
-        public static bool IsPresent(this IWebElement self) {
+        /// <summary>
+        ///     Checks weather element exists in DOM.
+        /// </summary>
+        /// <param name="element">Element to check</param>
+        /// <returns><c>true</c> when element exist in DOM and <c>false</c> otherwise</returns>
+        public static bool IsPresent(this IWebElement element) {
             try {
-                var ignore = self.Size;
+                var ignore = element.Size;
             } catch (WebDriverException) {
                 return false;
             }
@@ -57,8 +84,13 @@ namespace HtmlElements.Extensions {
             return true;
         }
 
+        /// <summary>
+        ///     Checks weather element is hidden.
+        /// </summary>
+        /// <param name="element">Element to check</param>
+        /// <returns><c>true</c> if element is hidden or does not exist and <c>false</c> otherwise</returns>
         public static bool IsHidden(this IWebElement element) {
-            return !element.Displayed;
+            return !IsPresent(element) && !element.Displayed;
         }
 
         public static T As<T>(this IWebElement self) where T : class {
@@ -67,10 +99,21 @@ namespace HtmlElements.Extensions {
             return ObjectFactory.CreatePageObject(typeof(T), webElement) as T;
         }
 
-        public static void WaitUntilHidden<T>(this T self, TimeSpan timeout, TimeSpan polling) where T : class, IWebElement {
+        /// <summary>
+        ///     Wait until element became hidden for 10 seconds checking it every second
+        /// </summary>
+        /// <typeparam name="TTarget">Target element type</typeparam>
+        /// <param name="target">Target element</param>
+        /// <param name="commandTimeout">Timeout after which command will became expired and exception will be thrown</param>
+        /// <param name="pollingInterval">Determines how often command will be evaluated until it expires or succeeds</param>
+        /// <param name="message">Error message used when command expires</param>
+        /// <exception cref="WebDriverTimeoutException">
+        ///     Thrown when element did not hide after 10 seconds
+        /// </exception>
+        public static void WaitUntilHidden<TTarget>(this TTarget target, TimeSpan commandTimeout, TimeSpan pollingInterval, String message = null) where TTarget : class, IWebElement {
             try
             {
-                self.WaitUntil(IsHidden, timeout, polling);
+                target.WaitUntil(IsHidden, commandTimeout, pollingInterval, message ?? String.Format("{0} did not became hidden after {1}", target, commandTimeout));
             }
             catch (NoSuchElementException)
             {
@@ -82,10 +125,20 @@ namespace HtmlElements.Extensions {
             }
         }
 
-        public static void WaitUntilHidden<T>(this T self, TimeSpan timeout) where T : class, IWebElement {
+        /// <summary>
+        ///     Wait until element became hidden for 10 seconds checking it every second
+        /// </summary>
+        /// <typeparam name="TTarget">Target element type</typeparam>
+        /// <param name="target">Target element</param>
+        /// <param name="commandTimeout">Timeout after which command will became expired and exception will be thrown</param>
+        /// <param name="message">Error message used when command expires</param>
+        /// <exception cref="WebDriverTimeoutException">
+        ///     Thrown when element did not hide after 10 seconds
+        /// </exception>
+        public static void WaitUntilHidden<TTarget>(this TTarget target, TimeSpan commandTimeout, String message = null) where TTarget : class, IWebElement {
             try
             {
-                self.WaitUntil(IsHidden, timeout);
+                target.WaitUntil(IsHidden, commandTimeout, message ?? String.Format("{0} did not became hidden after {1}", target, commandTimeout));
             }
             catch (NoSuchElementException)
             {
@@ -97,10 +150,19 @@ namespace HtmlElements.Extensions {
             }
         }
 
-        public static void WaitUntilHidden<T>(this T self) where T : class, IWebElement {
+        /// <summary>
+        ///     Wait until element became hidden for 10 seconds checking it every second
+        /// </summary>
+        /// <typeparam name="TTarget">Target element type</typeparam>
+        /// <param name="target">Target element</param>
+        /// <param name="message">Error message used when command expires</param>
+        /// <exception cref="WebDriverTimeoutException">
+        ///     Thrown when element did not hide after 10 seconds
+        /// </exception>
+        public static void WaitUntilHidden<TTarget>(this TTarget target, String message = null) where TTarget : class, IWebElement {
             try
             {
-                self.WaitUntil(IsHidden);
+                target.WaitUntil(IsHidden, message ?? String.Format("{0} did not became hidden after 10 seconds", target));
             }
             catch (NoSuchElementException)
             {
@@ -159,16 +221,52 @@ namespace HtmlElements.Extensions {
             return target.WaitFor(IsPresent, commandTimeout, pollingInterval, message ?? String.Format("{0} did not appear in DOM after {1}", target, commandTimeout));
         }
 
-        public static T WaitForVisible<T>(this T self) where T : class, IWebElement {
-            return self.WaitFor(IsVisible);
+        /// <summary>
+        ///     Wait until element is being displayed on a page.
+        ///     Current overload waits for 10 seconds checking element visibility every second.
+        /// </summary>
+        /// <typeparam name="TTarget">Target element type</typeparam>
+        /// <param name="target">Target element</param>
+        /// <param name="message">Error message used when command expires</param>
+        /// <returns>Target element once it became displayed on a page</returns>
+        /// <exception cref="WebDriverTimeoutException">
+        ///     Thrown when element did not became visible after 10 seconds
+        /// </exception>
+        public static TTarget WaitForVisible<TTarget>(this TTarget target, String message = null) where TTarget : class, IWebElement {
+            return target.WaitFor(IsVisible, message ?? String.Format("{0} did not became visible after 10 seconds", target));
         }
 
-        public static T WaitForVisible<T>(this T self, TimeSpan timeout) where T : class, IWebElement {
-            return self.WaitFor(IsVisible, timeout);
+        /// <summary>
+        ///     Wait until element is being displayed on a page.
+        ///     Current overload waits for a given time checking element visibility every second.
+        /// </summary>
+        /// <typeparam name="TTarget">Target element type</typeparam>
+        /// <param name="target">Target element</param>
+        /// <param name="commandTimeout">Timeout after which command will became expired and exception will be thrown</param>
+        /// <param name="message">Error message used when command expires</param>
+        /// <returns>Target element once it became displayed on a page</returns>
+        /// <exception cref="WebDriverTimeoutException">
+        ///     Thrown when element did not became visible after a given timeout
+        /// </exception>
+        public static TTarget WaitForVisible<TTarget>(this TTarget target, TimeSpan commandTimeout, String message = null) where TTarget : class, IWebElement {
+            return target.WaitFor(IsVisible, commandTimeout, message ?? String.Format("{0} did not became visible after {1}", target, commandTimeout));
         }
 
-        public static T WaitForVisible<T>(this T self, TimeSpan timeout, TimeSpan polling) where T : class, IWebElement {
-            return self.WaitFor(IsVisible, timeout, polling);
+        /// <summary>
+        ///     Wait until element is being displayed on a page.
+        ///     Current overload waits for a given time checking element visibility with provided polling interval.
+        /// </summary>
+        /// <typeparam name="TTarget">Target element type</typeparam>
+        /// <param name="target">Target element</param>
+        /// <param name="commandTimeout">Timeout after which command will became expired and exception will be thrown</param>
+        /// <param name="pollingInterval">Determines how often command will be evaluated until it expires or succeeds</param>
+        /// <param name="message">Error message used when command expires</param>
+        /// <returns>Target element once it became displayed on a page</returns>
+        /// <exception cref="WebDriverTimeoutException">
+        ///     Thrown when element did not became visible after a given timeout
+        /// </exception>
+        public static TTarget WaitForVisible<TTarget>(this TTarget target, TimeSpan commandTimeout, TimeSpan pollingInterval, String message = null) where TTarget : class, IWebElement {
+            return target.WaitFor(IsVisible, commandTimeout, pollingInterval, message ?? String.Format("{0} did not became visible after {1}", target, commandTimeout));
         }
 
     }
