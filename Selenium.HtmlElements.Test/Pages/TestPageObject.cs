@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-
 using HtmlElements.Elements;
-
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 

@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
 using HtmlElements.Locators;
 using HtmlElements.Proxy;
-
 using NUnit.Framework;
 
 using OpenQA.Selenium;

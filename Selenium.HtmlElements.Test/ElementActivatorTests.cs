@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-
 using HtmlElements.Elements;
-
 using NUnit.Framework;
 
 using OpenQA.Selenium;

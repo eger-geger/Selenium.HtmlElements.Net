@@ -1,5 +1,4 @@
 ﻿using HtmlElements.Extensions;
-
 using NUnit.Framework;
 
 using OpenQA.Selenium;

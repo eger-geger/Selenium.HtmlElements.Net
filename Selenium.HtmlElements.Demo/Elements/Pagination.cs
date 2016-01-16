@@ -1,6 +1,5 @@
 ﻿using HtmlElements.Demo.Pages;
 using HtmlElements.Elements;
-
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 

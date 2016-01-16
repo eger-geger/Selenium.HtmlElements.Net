@@ -1,5 +1,4 @@
 ﻿using HtmlElements.Elements;
-
 using OpenQA.Selenium;
 
 namespace HtmlElements.Demo.Elements {
