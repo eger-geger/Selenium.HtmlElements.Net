@@ -1,5 +1,4 @@
 ﻿using System;
-using HtmlElements.Actions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -14,12 +13,36 @@ namespace HtmlElements.Extensions {
 
         private static readonly TimeSpan DefaultCommandTimeout = TimeSpan.FromSeconds(10);
 
-        public static ConditionalActionExecutor<T> Do<T>(this T self, Action<T> action) where T : class {
-            return new ConditionalActionExecutor<T>(action, self).Every(DefaultPollingInterval).For(DefaultCommandTimeout);
+        /// <summary>
+        ///     Creates new instance of command builder setting current object as target, 
+        ///     command timeout to 10 seconds and polling interval to 1 second
+        /// </summary>
+        /// <typeparam name="TTarget">Command target type</typeparam>
+        /// <param name="target">Current object being command target</param>
+        /// <param name="command">Command to execute on target</param>
+        /// <returns>Command builder</returns>
+        public static CommandBuilder<TTarget> Do<TTarget>(this TTarget target, Action<TTarget> command) where TTarget : class {
+            return new CommandBuilder<TTarget>()
+                .Execute(command)
+                .WithTarget(target)
+                .WithTimeout(DefaultPollingInterval)
+                .WithInterval(DefaultCommandTimeout);
         }
 
-        public static ConditionalActionExecutor<T> Do<T>(this T self, Action action) where T : class {
-            return Do(self, s => action());
+        /// <summary>
+        ///     Creates new instance of command builder setting current object as target, 
+        ///     command timeout to 10 seconds and polling interval to 1 second
+        /// </summary>
+        /// <typeparam name="TTarget">Command target type</typeparam>
+        /// <param name="target">Current object being command target</param>
+        /// <param name="command">Command which does not require target</param>
+        /// <returns>Command builder</returns>
+        public static CommandBuilder<TTarget> Do<TTarget>(this TTarget target, Action command) where TTarget : class {
+            return new CommandBuilder<TTarget>()
+                .Execute(command)
+                .WithTarget(target)
+                .WithTimeout(DefaultCommandTimeout)
+                .WithInterval(DefaultPollingInterval);
         }
 
         /// <summary>
