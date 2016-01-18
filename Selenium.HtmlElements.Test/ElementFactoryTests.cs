@@ -13,7 +13,7 @@ namespace HtmlElements.Test {
     [TestFixture]
     public class ElementFactoryTests : AssertionHelper {
 
-        private readonly IElementLocator _mockLocator = MockRepository.GenerateStub<IElementLocator>();
+        private readonly IElementProvider _mockProvider = MockRepository.GenerateStub<IElementProvider>();
 
         public IEnumerable<TestCaseData> ElementsToCreate() {
             yield return new TestCaseData(typeof(IWebElement));
@@ -29,7 +29,7 @@ namespace HtmlElements.Test {
 
         [TestCaseSource("ElementsToCreate")]
         public void ShouldCreateElement(Type type) {
-            var created = ElementFactory.Create(type, _mockLocator);
+            var created = ElementFactory.Create(type, _mockProvider);
 
             Expect(created, Is.Not.Null);
             Expect(created, Is.AssignableTo(type));

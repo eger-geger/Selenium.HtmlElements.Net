@@ -12,9 +12,14 @@ namespace HtmlElements.Extensions {
             return typeof(IWebElement).IsAssignableFrom(type);
         }
 
-        internal static bool IsWebElementList(this Type type) {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IList<>)
-                && IsWebElement(type.GetGenericArguments()[0]);
+        internal static bool IsWebElementList(this Type type)
+        {
+            var genericArguments = type.GetGenericArguments();
+
+            return type.IsGenericType 
+                && type.GetGenericTypeDefinition() == typeof(IList<>)
+                && genericArguments.Length == 1
+                && IsWebElement(genericArguments[0]);
         }
 
         internal static IEnumerable<MemberInfo> GetMembersFromGroups(this Type type, params String[] groups) {

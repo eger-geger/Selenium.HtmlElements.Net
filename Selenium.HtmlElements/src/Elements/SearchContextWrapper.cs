@@ -43,8 +43,8 @@ namespace HtmlElements.Elements {
             get { return _wrapped.ToWebDriver(); }
         }
 
-        protected IElementLocator RelativeLocator(By by) {
-            return new ElementLocator(this, by);
+        protected IElementProvider RelativeLocator(By by) {
+            return new ElementProvider(this, by);
         }
 
         public override string ToString() {

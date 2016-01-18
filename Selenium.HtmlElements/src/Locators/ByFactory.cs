@@ -8,8 +8,12 @@ namespace HtmlElements.Locators {
     internal static class ByFactory {
 
         public static By Create(How how, string usingValue, Type customFinderType = null) {
-            if(string.IsNullOrWhiteSpace(usingValue) && how == How.Custom)
+
+            if (string.IsNullOrWhiteSpace(usingValue) && how == How.Custom)
+            {
                 throw new ArgumentException(string.Format("[Using] should not be empty when [How={0}]", how));
+            }
+                
 
             switch (how) {
                 case How.Id:

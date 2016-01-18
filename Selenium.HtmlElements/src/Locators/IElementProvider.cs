@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace HtmlElements.Locators {
 
-    public interface IElementLocator {
+    public interface IElementProvider {
 
         IWebElement FindElement();
 

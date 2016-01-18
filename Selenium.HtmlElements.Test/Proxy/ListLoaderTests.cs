@@ -19,18 +19,18 @@ namespace HtmlElements.Test.Proxy {
 
         [Test]
         public void ShouldLoadElementList() {
-            var locator = MockRepository.GenerateMock<IElementLocator>();
+            var locator = MockRepository.GenerateMock<IElementProvider>();
             locator.Stub(l => l.FindElements()).Return(_elementList);
 
             var loader = new ElementListLoader(locator);
 
-            Expect(loader.Load(), Is.Not.Null);
-            Expect(loader.Load(), Is.Not.Null);
+            Expect(loader.Element(), Is.Not.Null);
+            Expect(loader.Element(), Is.Not.Null);
         }
 
         [Test]
         public void ShouldIgnoreStaleElementReferenceException() {
-            var locator = MockRepository.GenerateMock<IElementLocator>();
+            var locator = MockRepository.GenerateMock<IElementProvider>();
 
             locator.Stub(l => l.FindElements()).Throw(
                 new StaleElementReferenceException("HOHOHO")
@@ -40,19 +40,19 @@ namespace HtmlElements.Test.Proxy {
 
             var loader = new ElementListLoader(locator);
 
-            Expect(loader.Load(), Is.Not.Null);
+            Expect(loader.Element(), Is.Not.Null);
         }
 
         [Test]
         public void ShouldCacheElementList() {
-            var locator = MockRepository.GenerateMock<IElementLocator>();
+            var locator = MockRepository.GenerateMock<IElementProvider>();
 
             locator.Stub(l => l.FindElements()).Return(_elementList).Repeat.Once();
             locator.Stub(l => l.FindElements()).Return(new List<IWebElement>().AsReadOnly());
 
             var loader = new ElementListLoader(locator, true);
 
-            Expect(loader.Load(), Is.SameAs(loader.Load()));
+            Expect(loader.Element(), Is.SameAs(loader.Element()));
         }
     }
 

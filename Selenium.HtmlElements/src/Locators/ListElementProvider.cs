@@ -4,13 +4,13 @@ using OpenQA.Selenium;
 
 namespace HtmlElements.Locators {
 
-    internal class ListElementLocator : IElementLocator {
+    internal class ListElementProvider : IElementProvider {
 
         private readonly Func<ReadOnlyCollection<IWebElement>> _findElements;
 
         private readonly Int32 _elementIndex;
 
-        public ListElementLocator(Func<ReadOnlyCollection<IWebElement>> findElements, int elementIndex) {
+        public ListElementProvider(Func<ReadOnlyCollection<IWebElement>> findElements, int elementIndex) {
             _findElements = findElements;
             _elementIndex = elementIndex;
         }

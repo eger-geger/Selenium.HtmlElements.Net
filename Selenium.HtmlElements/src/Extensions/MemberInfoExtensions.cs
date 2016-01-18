@@ -46,6 +46,32 @@ namespace HtmlElements.Extensions
             return memberList;
         }
 
+        public static IEnumerable<PropertyInfo> GetOwnAndInheritedProperties(this Type type, BindingFlags bindingFlags)
+        {
+            while (type != null && type != typeof(object))
+            {
+                foreach (var property in type.GetProperties(bindingFlags))
+                {
+                    yield return property;
+                }
+
+                type = type.BaseType;
+            }
+        }
+
+        public static IEnumerable<FieldInfo> GetOwnAndInheritedFields(this Type type, BindingFlags bindingFlags)
+        {
+            while (type != null && type != typeof(object))
+            {
+                foreach (var field in type.GetFields(bindingFlags))
+                {
+                    yield return field;
+                }
+
+                type = type.BaseType;
+            }
+        }
+
         public static Type GetPropertyOrFieldType(this MemberInfo memberInfo)
         {
             switch (memberInfo.MemberType)

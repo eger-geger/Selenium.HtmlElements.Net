@@ -56,10 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Actions\ConditionalAction.cs" />
-    <Compile Include="src\Actions\ConditionalActionExecutor.cs" />
-    <Compile Include="src\ElementActivator.cs" />
-    <Compile Include="src\ElementFactory.cs" />
+    <Compile Include="src\CommandBuilder.cs" />
     <Compile Include="src\Elements\HtmlCheckBox.cs" />
     <Compile Include="src\Elements\HtmlControl.cs" />
     <Compile Include="src\Elements\HtmlElement.cs" />
@@ -77,6 +74,7 @@
     <Compile Include="src\Elements\HtmlTextArea.cs" />
     <Compile Include="src\Elements\IHtmlElement.cs" />
     <Compile Include="src\Elements\ITextControl.cs" />
+    <Compile Include="src\Elements\IPageObjectFactoryWrapper.cs" />
     <Compile Include="src\Elements\SearchContextWrapper.cs" />
     <Compile Include="src\Extensions\ActionExtension.cs" />
     <Compile Include="src\Extensions\ElementGroupExtension.cs" />
@@ -87,23 +85,35 @@
     <Compile Include="src\Extensions\WebDriverExtensions.cs" />
     <Compile Include="src\Extensions\WebElementExtensions.cs" />
     <Compile Include="src\ImplicitWaitOverride.cs" />
+    <Compile Include="src\IPageObjectFactory.cs" />
+    <Compile Include="src\LazyLoad\CachingTypedListLoader.cs" />
+    <Compile Include="src\LazyLoad\TransparentTypedListLoader.cs" />
+    <Compile Include="src\LazyLoad\TransparentWebElementLoader.cs" />
+    <Compile Include="src\LazyLoad\TransparentLoader.cs" />
+    <Compile Include="src\LazyLoad\CachingWebElementLoader.cs" />
+    <Compile Include="src\LazyLoad\CachingWebElementListLoader.cs" />
+    <Compile Include="src\LazyLoad\CachingLoader.cs" />
+    <Compile Include="src\LazyLoad\TransparentWebElementListLoader.cs" />
+    <Compile Include="src\LazyLoad\ILoader.cs" />
+    <Compile Include="src\LazyLoad\CachingWebElementListItemLoader.cs" />
     <Compile Include="src\Locators\ByFactory.cs" />
     <Compile Include="src\Locators\ByJavaScript.cs" />
     <Compile Include="src\Locators\ByJquery.cs" />
-    <Compile Include="src\Locators\ElementLocator.cs" />
-    <Compile Include="src\Locators\ElementLocatorFactory.cs" />
-    <Compile Include="src\Locators\IElementLocator.cs" />
-    <Compile Include="src\Locators\ListElementLocator.cs" />
-    <Compile Include="src\ObjectFactory.cs" />
-    <Compile Include="src\Proxy\CachedElementLoader.cs" />
-    <Compile Include="src\Proxy\ElementListLoader.cs" />
+    <Compile Include="src\Locators\ElementProvider.cs" />
+    <Compile Include="src\Locators\ElementProviderFactory.cs" />
+    <Compile Include="src\Locators\IElementProvider.cs" />
+    <Compile Include="src\Locators\ListElementProvider.cs" />
+    <Compile Include="src\PageObjectFactory.cs" />
+    <Compile Include="src\Proxy\AbstractReadOnlyList.cs" />
     <Compile Include="src\Proxy\ElementListProxy.cs" />
-    <Compile Include="src\Proxy\ElementLoader.cs" />
-    <Compile Include="src\Proxy\ElementProxy.cs" />
+    <Compile Include="src\Proxy\IProxyFactory.cs" />
+    <Compile Include="src\Proxy\ProxyFactory.cs" />
+    <Compile Include="src\Proxy\WebElementInterceptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="nuget-package" DependsOnTargets="Build">
     <Exec Command="nuget spec" />

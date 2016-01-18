@@ -1,50 +1,52 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using Castle.DynamicProxy;
-using HtmlElements.Locators;
+﻿using System.Collections.Generic;
+using HtmlElements.LazyLoad;
 
-namespace HtmlElements.Proxy {
+namespace HtmlElements.Proxy
+{
+    internal class ElementListProxy<TElement> : AbstractReadOnlyList<TElement>
+    {
+        private readonly ILoader<IList<TElement>> _listLoader;
 
-    internal class ElementListProxy : IInterceptor {
-
-        private readonly Type _listGenericType;
-        private readonly ElementListLoader _loader;
-
-        public ElementListProxy(Type type, IElementLocator locator, bool cache) {
-            _loader = new ElementListLoader(locator, cache);
-            _listGenericType = type;
+        public ElementListProxy(ILoader<IList<TElement>> listLoader)
+        {
+            _listLoader = listLoader;
         }
 
-        private IList TypedElementList {
-            get {
-                var typedList = CreateTypedElementList();
-
-                for (var i = 0; i < _loader.Load().Count; i++) {
-                    typedList.Add(ElementFactory.Create(_listGenericType, new ListElementLocator(_loader.Load, i)));
-                }
-
-                return typedList;
-            }
+        private IList<TElement> TypedElementList
+        {
+            get { return _listLoader.Load(); }
         }
 
-        public void Intercept(IInvocation invocation) {
-            invocation.ReturnValue = InvokeOnElements(TypedElementList, invocation);
+        public override int Count
+        {
+            get { return TypedElementList.Count; }
         }
 
-        private object InvokeOnElements(IList elementList, IInvocation invocation) {
-            try {
-                return invocation.Method.Invoke(elementList, invocation.Arguments);
-            } catch (TargetInvocationException ex) {
-                throw ex.InnerException;
-            }
+        public override TElement this[int index]
+        {
+            get { return TypedElementList[index]; }
+
+            set { throw ModificationAttemptException; }
         }
 
-        private IList CreateTypedElementList() {
-            return Activator.CreateInstance(typeof(List<>).MakeGenericType(_listGenericType)) as IList;
+        public override IEnumerator<TElement> GetEnumerator()
+        {
+            return TypedElementList.GetEnumerator();
         }
 
+        public override bool Contains(TElement item)
+        {
+            return TypedElementList.Contains(item);
+        }
+
+        public override void CopyTo(TElement[] array, int arrayIndex)
+        {
+            TypedElementList.CopyTo(array, arrayIndex);
+        }
+
+        public override int IndexOf(TElement item)
+        {
+            return TypedElementList.IndexOf(item);
+        }
     }
-
 }

@@ -7,14 +7,14 @@ using OpenQA.Selenium;
 
 namespace HtmlElements.Locators {
 
-    internal class ElementLocator : IElementLocator {
+    internal class ElementProvider : IElementProvider {
 
         private readonly IEnumerable<By> _bys;
         private readonly ISearchContext _context;
 
-        public ElementLocator(ISearchContext context, By by) : this(context, new List<By> {by}) {}
+        public ElementProvider(ISearchContext context, By by) : this(context, new List<By> {by}) {}
 
-        public ElementLocator(ISearchContext context, IEnumerable<By> bys) {
+        public ElementProvider(ISearchContext context, IEnumerable<By> bys) {
             _context = context;
             _bys = bys;
         }

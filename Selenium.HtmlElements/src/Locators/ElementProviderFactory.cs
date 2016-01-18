@@ -6,17 +6,17 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace HtmlElements.Locators {
 
-    internal class ElementLocatorFactory {
+    internal class ElementProviderFactory {
 
         private readonly ISearchContext _searchContext;
 
-        public ElementLocatorFactory(ISearchContext searchContext) {
+        public ElementProviderFactory(ISearchContext searchContext) {
             _searchContext = searchContext;
         }
 
-        public IElementLocator CreateLocator(MemberInfo memberInfo) {
+        public IElementProvider CreateLocator(MemberInfo memberInfo) {
             try {
-                return new ElementLocator(_searchContext, ByFrom(memberInfo));
+                return new ElementProvider(_searchContext, ByFrom(memberInfo));
             } catch (Exception ex) {
                 throw new ArgumentException(string.Format("Cannot build locator from [{0}]", memberInfo), ex);
             }
