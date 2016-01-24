@@ -10,7 +10,7 @@ namespace HtmlElements.Demo.Tests
     public class BaseWebDriverTest : AssertionHelper
     {
         private IWebDriver _webDriver;
-        private readonly IPageObjectFactory PageObjectFactory = new DefaultPageObjectFactory();
+        private readonly IPageObjectFactory PageObjectFactory = new PageObjectFactory();
 
         private void InitWebDriver()
         {

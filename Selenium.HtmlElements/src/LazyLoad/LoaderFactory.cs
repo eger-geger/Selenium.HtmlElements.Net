@@ -5,12 +5,12 @@ using OpenQA.Selenium;
 
 namespace HtmlElements.LazyLoad
 {
-    internal class ElementLoaderFactory
+    public class LoaderFactory : ILoaderFactory
     {
         private readonly IPageObjectFactory _pageObjectFactory;
         private readonly IProxyFactory _proxyFactory;
 
-        public ElementLoaderFactory(IPageObjectFactory pageObjectFactory, IProxyFactory proxyFactory)
+        public LoaderFactory(IPageObjectFactory pageObjectFactory, IProxyFactory proxyFactory)
         {
             _pageObjectFactory = pageObjectFactory;
             _proxyFactory = proxyFactory;
@@ -22,38 +22,35 @@ namespace HtmlElements.LazyLoad
             {
                 return new CachingWebElementLoader(searchContext, elementLocator);
             }
+
             return new TransparentWebElementLoader(searchContext, elementLocator);
         }
 
-        public ILoader<ReadOnlyCollection<IWebElement>> CreateWebElementListLoader(ISearchContext searchContext,
+        public ILoader<ReadOnlyCollection<IWebElement>> CreateElementListLoader(ISearchContext searchContext,
             By elementLocator, Boolean cached)
         {
             if (cached)
             {
                 return new CachingWebElementListLoader(searchContext, elementLocator);
             }
+
             return new TransparentWebElementListLoader(elementLocator, searchContext);
         }
 
-        public Object CreateTypedListLoader(Type elementType, ILoader<ReadOnlyCollection<IWebElement>> elementLoader,
-            Boolean cached)
+        public Object CreateListLoader(Type elementType, ILoader<ReadOnlyCollection<IWebElement>> elementLoader, Boolean cached)
         {
-            var listGenericType = cached
+            var loaderGenericType = cached
                 ? typeof (CachingTypedListLoader<>)
                 : typeof (TransparentTypedListLoader<>);
 
-            return Activator.CreateInstance(
-                listGenericType.MakeGenericType(elementType),
-                elementLoader,
-                _pageObjectFactory,
-                _proxyFactory);
+            var loaderType = loaderGenericType.MakeGenericType(elementType);
+
+            return Activator.CreateInstance(loaderType, elementLoader, _pageObjectFactory, _proxyFactory);
         }
 
-        public Object CreateTypedListLoader(Type elementType, ISearchContext searchContext, By elementLocator,
-            Boolean cached)
+        public Object CreateListLoader(Type elementType, ISearchContext searchContext, By elementLocator, Boolean cached)
         {
-            return CreateTypedListLoader(elementType, CreateWebElementListLoader(searchContext, elementLocator, cached),
-                cached);
+            return CreateListLoader(elementType, CreateElementListLoader(searchContext, elementLocator, cached), cached);
         }
     }
 }

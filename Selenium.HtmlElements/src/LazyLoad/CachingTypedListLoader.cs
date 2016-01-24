@@ -39,7 +39,7 @@ namespace HtmlElements.LazyLoad
         {
             var loader = new CachingWebElementListItemLoader(_elementListLoader, index, element);
 
-            return _pageObjectFactory.Create<TElement>(_proxyFactory.CreateWebElementProxy(loader));
+            return _pageObjectFactory.Create<TElement>(_proxyFactory.CreateElementProxy(loader));
         }
     }
 }

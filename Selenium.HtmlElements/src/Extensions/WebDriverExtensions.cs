@@ -63,7 +63,7 @@ namespace HtmlElements.Extensions {
         ///     Determine weather all of the browser windows were closed.
         /// </summary>
         /// <param name="webDriver">Target web driver</param>
-        /// <returns><c>true</c> if there are no active windows and <c>flase</c> if there is at least one</returns>
+        /// <returns><value>true</value> if there are no active windows and <value>false</value> if there is at least one</returns>
         public static bool IsClosed(this IWebDriver webDriver) {
             try {
                 return webDriver.WindowHandles.Count == 0;

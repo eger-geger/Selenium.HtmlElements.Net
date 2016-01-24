@@ -14,7 +14,7 @@ namespace HtmlElements.Test.Integration {
 
         protected IWebDriver WebDriver { get; private set; }
 
-        protected readonly IPageObjectFactory PageFactory = new DefaultPageObjectFactory();
+        protected readonly IPageObjectFactory PageFactory = new PageObjectFactory();
 
         [SetUp]
         public void OpenTestPage() {

@@ -14,7 +14,6 @@ namespace HtmlElements.Locators {
                 throw new ArgumentException(string.Format("[Using] should not be empty when [How={0}]", how));
             }
                 
-
             switch (how) {
                 case How.Id:
                     return By.Id(usingValue);

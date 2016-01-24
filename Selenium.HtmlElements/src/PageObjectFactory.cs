@@ -11,15 +11,31 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace HtmlElements
 {
-    public class DefaultPageObjectFactory : AbstractPageObjectFactory
+    public class PageObjectFactory : AbstractPageObjectFactory
     {
-        private readonly ProxyFactory _proxyFactory = new ProxyFactory();
+        private readonly ILoaderFactory _loaderFactory;
+        private readonly IProxyFactory _proxyFactory;
 
-        private readonly ElementLoaderFactory _loaderFactory;
-
-        public DefaultPageObjectFactory()
+        public PageObjectFactory()
         {
-            _loaderFactory = new ElementLoaderFactory(this, _proxyFactory);
+            _proxyFactory = new ProxyFactory();
+            _loaderFactory = new LoaderFactory(this, _proxyFactory);
+        }
+
+        public PageObjectFactory(IProxyFactory proxyFactory, ILoaderFactory loaderFactory)
+        {
+            if (proxyFactory == null)
+            {
+                throw new ArgumentNullException("proxyFactory");
+            }
+
+            if (loaderFactory == null)
+            {
+                throw new ArgumentNullException("loaderFactory");
+            }
+
+            _proxyFactory = proxyFactory;
+            _loaderFactory = loaderFactory;
         }
 
         protected override Object CreateMemberInstance(Type memberType, MemberInfo memberInfo, ISearchContext searchContext)
@@ -30,7 +46,7 @@ namespace HtmlElements
 
             if (memberType.IsWebElement())
             {
-                var elementProxy = _proxyFactory.CreateWebElementProxy(
+                var elementProxy = _proxyFactory.CreateElementProxy(
                     _loaderFactory.CreateElementLoader(searchContext, locator, isCached)
                 );
 
@@ -58,9 +74,8 @@ namespace HtmlElements
                     elementType = typeof (HtmlElement);
                 }
 
-                return Activator.CreateInstance(
-                    typeof (ElementListProxy<>).MakeGenericType(elementType), 
-                    _loaderFactory.CreateTypedListLoader(elementType, searchContext, locator, isCached)
+                return _proxyFactory.CreateListProxy(
+                    elementType, _loaderFactory.CreateListLoader(elementType, searchContext, locator, isCached)
                 );
             }
 
