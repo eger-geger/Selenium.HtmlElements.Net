@@ -17,7 +17,6 @@ namespace HtmlElements.Elements {
         }
 
         public HtmlPage(ISearchContext wrapped) : base(wrapped) {
-            ElementActivator.Activate(this, wrapped);
         }
 
         public DocumentReadyState ReadyState {

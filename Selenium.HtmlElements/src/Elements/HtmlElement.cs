@@ -12,8 +12,6 @@ namespace HtmlElements.Elements {
 
         public HtmlElement(IWebElement wrapped) : base(wrapped) {
             _wrappedElement = (wrapped is HtmlElement) ? (wrapped as HtmlElement)._wrappedElement : wrapped;
-
-            ElementActivator.Activate(this, _wrappedElement);
         }
 
         public IWebElement ParentNode {
@@ -126,6 +124,6 @@ namespace HtmlElements.Elements {
         public bool Displayed {
             get { return _wrappedElement.IsPresent() && _wrappedElement.Displayed; }
         }
-    }
 
+    }
 }

@@ -1,6 +1,5 @@
 ﻿using HtmlElements.Extensions;
 using NUnit.Framework;
-
 using OpenQA.Selenium;
 
 namespace HtmlElements.Test.Extensions

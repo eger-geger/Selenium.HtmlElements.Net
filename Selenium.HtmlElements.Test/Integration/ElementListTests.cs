@@ -11,8 +11,9 @@ namespace HtmlElements.Test.Integration {
     public class ElementListTests : IntegrationTestFixture {
 
         [Test]
-        public void ShouldReloadElementList() {
-            var page = ElementActivator.Activate<TestPageObject>(WebDriver);
+        public void ShouldReloadElementList()
+        {
+            var page = PageFactory.Create<TestPageObject>(WebDriver);
 
             var initElementCount = page.ElementListItems.Count;
 
@@ -23,7 +24,7 @@ namespace HtmlElements.Test.Integration {
 
         [Test]
         public void ShouldThrowNoSuchElementException() {
-            var page = ElementActivator.Activate<TestPageObject>(WebDriver);
+            var page = PageFactory.Create<TestPageObject>(WebDriver);
             
             var listElement = page.ElementListItems[0];
 

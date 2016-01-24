@@ -54,15 +54,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ElementFactoryTests.cs" />
-    <Compile Include="Extensions\ElementGroupTests.cs" />
     <Compile Include="Integration\ElementListTests.cs" />
     <Compile Include="Integration\IntegrationTestFixture.cs" />
     <Compile Include="Pages\TestPageObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Proxy\ElementLoaderTests.cs" />
-    <Compile Include="Proxy\ListLoaderTests.cs" />
-    <Compile Include="ElementActivatorTests.cs" />
+    <Compile Include="src\Extensions\ElementGroupTests.cs" />
+    <Compile Include="src\Extensions\TypeExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -73,7 +70,9 @@
       <Name>HtmlElements</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Proxy\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="TestPage.htm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

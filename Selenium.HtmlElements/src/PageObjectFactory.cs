@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Text;
 using HtmlElements.Elements;
@@ -12,86 +11,28 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace HtmlElements
 {
-    public class PageObjectFactory : IPageObjectFactory
+    public class PageObjectFactory : AbstractPageObjectFactory
     {
-        private const BindingFlags BindingFlags = System.Reflection.BindingFlags.DeclaredOnly
-                                                  | System.Reflection.BindingFlags.Instance
-                                                  | System.Reflection.BindingFlags.Public
-                                                  | System.Reflection.BindingFlags.NonPublic;
-
         private readonly ProxyFactory _proxyFactory = new ProxyFactory();
 
-        public object Create(Type pageObjecType, ISearchContext searchContext)
+        private readonly ElementLoaderFactory _loaderFactory;
+
+        public PageObjectFactory()
         {
-            var pageObject = CreateInstance(pageObjecType, searchContext);
-
-            if (pageObject is IPageObjectFactoryWrapper)
-            {
-                (pageObject as IPageObjectFactoryWrapper).PageObjectFactory = this;
-            }
-
-            Init(pageObjecType, searchContext);
-
-            return pageObject;
+            _loaderFactory = new ElementLoaderFactory(this, _proxyFactory);
         }
 
-        public TPageObject Create<TPageObject>(ISearchContext searchContext)
+        protected override Object CreateMemberInstance(Type memberType, MemberInfo memberInfo, ISearchContext searchContext)
         {
-            return (TPageObject) Create(typeof (TPageObject), searchContext);
-        }
-
-        public void Init(object pageObject, ISearchContext searchContext)
-        {
-            if (pageObject == null)
-            {
-                throw new ArgumentNullException(nameof(pageObject));
-            }
-
-            if (searchContext == null)
-            {
-                throw new ArgumentNullException(nameof(searchContext));
-            }
-
-            var pageObjectType = pageObject.GetType();
-
-            foreach (var fieldInfo in pageObjectType.GetOwnAndInheritedFields(BindingFlags))
-            {
-                if (fieldInfo.GetValue(pageObject) != null)
-                {
-                    continue;
-                }
-
-                fieldInfo.SetValue(pageObject, CreateMember(fieldInfo.FieldType, fieldInfo, searchContext));
-            }
-
-            foreach (var propertyInfo in pageObjectType.GetOwnAndInheritedProperties(BindingFlags))
-            {
-                if (propertyInfo.GetValue(pageObject, null) != null)
-                {
-                    continue;
-                }
-
-                propertyInfo.SetValue(pageObject, CreateMember(propertyInfo.PropertyType, propertyInfo, searchContext),
-                    null);
-            }
-        }
-
-        public void Init(SearchContextWrapper pageObject)
-        {
-            Init(pageObject, pageObject);
-        }
-
-        private Object CreateMember(Type memberType, MemberInfo memberInfo, ISearchContext searchContext)
-        {
-            var locator = CreateLocator(memberInfo);
+            var locator = CreateElementLocator(memberInfo);
 
             var isCached = memberInfo.IsDefined(typeof (CacheLookupAttribute), true);
 
             if (memberType.IsWebElement())
             {
-                var elementProxy = isCached
-                    ? _proxyFactory.CreateWebElementProxy(new CachingWebElementLoader(searchContext, locator))
-                    : _proxyFactory.CreateWebElementProxy(new TransparentWebElementLoader(searchContext, locator));
+                var elementProxy = _proxyFactory.CreateWebElementProxy(
+                    _loaderFactory.CreateElementLoader(searchContext, locator, isCached)
+                );
 
                 if (typeof (IWebElement) == memberType || typeof (IHtmlElement) == memberType)
                 {
@@ -110,37 +51,23 @@ namespace HtmlElements
                     return null;
                 }
 
-                var genericArgument = genericArguments[0];
+                var elementType = genericArguments[0];
 
-                if (genericArgument == typeof (IWebElement) || genericArgument == typeof (IHtmlElement))
+                if (elementType == typeof (IWebElement) || elementType == typeof (IHtmlElement))
                 {
-                    genericArgument = typeof (HtmlElement);
+                    elementType = typeof (HtmlElement);
                 }
 
-                ILoader<ReadOnlyCollection<IWebElement>> listLoader;
-
-                if (isCached)
-                {
-                    listLoader = new CachingWebElementListLoader(searchContext, locator);
-                }
-                else
-                {
-                    listLoader = new TransparentWebElementListLoader(locator, searchContext);
-                }
-
-                var loader = isCached
-                    ? CreateGenericInstance(typeof (CachingTypedListLoader<>), genericArgument, listLoader, this,
-                        _proxyFactory)
-                    : CreateGenericInstance(typeof (TransparentTypedListLoader<>), genericArgument, listLoader, this,
-                        _proxyFactory);
-
-                return Activator.CreateInstance(typeof (ElementListProxy<>).MakeGenericType(genericArgument), loader);
+                return Activator.CreateInstance(
+                    typeof (ElementListProxy<>).MakeGenericType(elementType), 
+                    _loaderFactory.CreateTypedListLoader(elementType, searchContext, locator, isCached)
+                );
             }
 
             return null;
         }
 
-        protected virtual By CreateLocator(MemberInfo memberInfo)
+        private By CreateElementLocator(MemberInfo memberInfo)
         {
             var attributes = memberInfo.GetCustomAttributes(typeof (FindsByAttribute), true);
 
@@ -166,20 +93,15 @@ namespace HtmlElements
             return ByFactory.Create(attributes[0] as FindsByAttribute);
         }
 
-        private static Object CreateGenericInstance(Type type, Type generic, params Object[] arguments)
-        {
-            return Activator.CreateInstance(type.MakeGenericType(generic), arguments);
-        }
-
-        protected virtual Object CreateInstance(Type type, ISearchContext searchContext)
+        protected override Object CreatePageObjectInstance(Type pageObjectType, ISearchContext searchContext)
         {
             try
             {
-                return Activator.CreateInstance(type, searchContext);
+                return Activator.CreateInstance(pageObjectType, searchContext);
             }
             catch (MissingMethodException)
             {
-                return Activator.CreateInstance(type);
+                return Activator.CreateInstance(pageObjectType);
             }
         }
     }

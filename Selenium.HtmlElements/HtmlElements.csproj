@@ -70,11 +70,9 @@
     <Compile Include="src\Elements\HtmlPage.cs" />
     <Compile Include="src\Elements\HtmlSelect.cs" />
     <Compile Include="src\Elements\HtmlSelectOption.cs" />
-    <Compile Include="src\Elements\HtmlTable.cs" />
     <Compile Include="src\Elements\HtmlTextArea.cs" />
     <Compile Include="src\Elements\IHtmlElement.cs" />
     <Compile Include="src\Elements\ITextControl.cs" />
-    <Compile Include="src\Elements\IPageObjectFactoryWrapper.cs" />
     <Compile Include="src\Elements\SearchContextWrapper.cs" />
     <Compile Include="src\Extensions\ActionExtension.cs" />
     <Compile Include="src\Extensions\ElementGroupExtension.cs" />
@@ -87,6 +85,7 @@
     <Compile Include="src\ImplicitWaitOverride.cs" />
     <Compile Include="src\IPageObjectFactory.cs" />
     <Compile Include="src\LazyLoad\CachingTypedListLoader.cs" />
+    <Compile Include="src\LazyLoad\ElementLoaderFactory.cs" />
     <Compile Include="src\LazyLoad\TransparentTypedListLoader.cs" />
     <Compile Include="src\LazyLoad\TransparentWebElementLoader.cs" />
     <Compile Include="src\LazyLoad\TransparentLoader.cs" />
@@ -99,11 +98,8 @@
     <Compile Include="src\Locators\ByFactory.cs" />
     <Compile Include="src\Locators\ByJavaScript.cs" />
     <Compile Include="src\Locators\ByJquery.cs" />
-    <Compile Include="src\Locators\ElementProvider.cs" />
-    <Compile Include="src\Locators\ElementProviderFactory.cs" />
-    <Compile Include="src\Locators\IElementProvider.cs" />
-    <Compile Include="src\Locators\ListElementProvider.cs" />
     <Compile Include="src\PageObjectFactory.cs" />
+    <Compile Include="src\AbstractPageObjectFactory.cs" />
     <Compile Include="src\Proxy\AbstractReadOnlyList.cs" />
     <Compile Include="src\Proxy\ElementListProxy.cs" />
     <Compile Include="src\Proxy\IProxyFactory.cs" />

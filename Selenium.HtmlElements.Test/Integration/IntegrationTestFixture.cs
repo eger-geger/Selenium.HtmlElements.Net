@@ -11,7 +11,10 @@ namespace HtmlElements.Test.Integration {
     public class IntegrationTestFixture : AssertionHelper {
 
         protected const String TestPageName = "TestPage.htm";
+
         protected IWebDriver WebDriver { get; private set; }
+
+        protected readonly IPageObjectFactory PageFactory = new PageObjectFactory();
 
         [SetUp]
         public void OpenTestPage() {

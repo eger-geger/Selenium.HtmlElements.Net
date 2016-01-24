@@ -1,20 +1,19 @@
 ﻿using System;
-
 using NUnit.Framework;
-
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.Events;
 
-namespace HtmlElements.Demo.Tests {
-
+namespace HtmlElements.Demo.Tests
+{
     [TestFixture]
-    public class BaseWebDriverTest : AssertionHelper {
-
+    public class BaseWebDriverTest : AssertionHelper
+    {
         private IWebDriver _webDriver;
+        private readonly IPageObjectFactory PageObjectFactory = new PageObjectFactory();
 
-        private void InitWebDriver() {
+        private void InitWebDriver()
+        {
             var eventFiringDriver = new EventFiringWebDriver(new InternetExplorerDriver());
             eventFiringDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
             eventFiringDriver.Manage().Window.Maximize();
@@ -28,40 +27,48 @@ namespace HtmlElements.Demo.Tests {
             _webDriver.Manage().Timeouts();
         }
 
-        private void QuitWebDriver() {
-            try {
+        private void QuitWebDriver()
+        {
+            try
+            {
                 _webDriver.Quit();
-            } catch (WebDriverException) {
+            }
+            catch (WebDriverException)
+            {
                 //ignore
             }
         }
 
-        protected T On<T>() where T : class {
-            return ElementActivator.Activate<T>(_webDriver);
+        protected T On<T>() where T : class
+        {
+            return PageObjectFactory.Create<T>(_webDriver);
         }
 
-        protected void ClearCookies() {
+        protected void ClearCookies()
+        {
             _webDriver.Manage().Cookies.DeleteAllCookies();
         }
 
-        protected void NavigateToUrl(string url = "http://developerslife.ru/") {
+        protected void NavigateToUrl(string url = "http://developerslife.ru/")
+        {
             _webDriver.Navigate().GoToUrl(url);
         }
 
-        protected string CurrentUrl {
+        protected string CurrentUrl
+        {
             get { return _webDriver.Url; }
         }
 
         [TestFixtureSetUp]
-        public void FixtureSetUp() {
+        public void FixtureSetUp()
+        {
             InitWebDriver();
         }
 
         [TestFixtureTearDown]
-        public void FixtuteTearDown() {
+        public void FixtuteTearDown()
+        {
             QuitWebDriver();
         }
-
     }
-
 }

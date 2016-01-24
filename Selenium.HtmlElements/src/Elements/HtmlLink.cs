@@ -11,7 +11,9 @@ namespace HtmlElements.Elements {
         public const string TargetSelf = "_self";
         public const string TargetTop = "_top";
 
-        public HtmlLink(IWebElement wrapped) : base(wrapped) {}
+        public HtmlLink(IWebElement wrapped) : base(wrapped)
+        {
+        }
 
         public string Url {
             get {
@@ -33,15 +35,6 @@ namespace HtmlElements.Elements {
             get { return GetAttribute("target"); }
             set { this.SetAttribute("target", value); }
         }
-
-        public TReturn Open<TReturn>() where TReturn : class {
-            var wd = WrappedDriver;
-
-            Click();
-
-            return ElementActivator.Activate<TReturn>(wd);
-        }
-
     }
 
 }

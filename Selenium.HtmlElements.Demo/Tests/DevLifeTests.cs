@@ -10,8 +10,7 @@ namespace HtmlElements.Demo.Tests {
         public void ShouldOpenFirstPage() {
             NavigateToUrl();
 
-            var page = On<DevLifePage>().Pagination.OpenNextPage();
-            page.Pagination.InnerHtml = "GAGA";
+            On<DevLifePage>().Pagination.OpenNextPage();
 
             Expect(CurrentUrl, Contains("1"));
         }
