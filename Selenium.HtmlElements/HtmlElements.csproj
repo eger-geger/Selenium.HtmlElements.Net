@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\CommandBuilder.cs" />
     <Compile Include="src\Elements\HtmlCheckBox.cs" />
     <Compile Include="src\Elements\HtmlControl.cs" />
     <Compile Include="src\Elements\HtmlElement.cs" />
@@ -75,9 +74,8 @@
     <Compile Include="src\Elements\ITextControl.cs" />
     <Compile Include="src\Elements\SearchContextWrapper.cs" />
     <Compile Include="src\Extensions\ActionExtension.cs" />
-    <Compile Include="src\Extensions\ElementGroupExtension.cs" />
+    <Compile Include="src\Extensions\CommandBuilder.cs" />
     <Compile Include="src\Extensions\JavaScriptExtensions.cs" />
-    <Compile Include="src\Extensions\MemberInfoExtensions.cs" />
     <Compile Include="src\Extensions\StringExtensions.cs" />
     <Compile Include="src\Extensions\TypeExtensions.cs" />
     <Compile Include="src\Extensions\WebDriverExtensions.cs" />
@@ -98,7 +96,7 @@
     <Compile Include="src\Locators\ByFactory.cs" />
     <Compile Include="src\Locators\ByJavaScript.cs" />
     <Compile Include="src\Locators\ByJquery.cs" />
-    <Compile Include="src\PageObjectFactory.cs" />
+    <Compile Include="src\DefaultPageObjectFactory.cs" />
     <Compile Include="src\AbstractPageObjectFactory.cs" />
     <Compile Include="src\Proxy\AbstractReadOnlyList.cs" />
     <Compile Include="src\Proxy\ElementListProxy.cs" />

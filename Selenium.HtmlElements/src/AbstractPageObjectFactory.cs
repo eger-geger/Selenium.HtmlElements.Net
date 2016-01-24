@@ -30,7 +30,7 @@ namespace HtmlElements
         {
             var pageObject = CreatePageObjectInstance(pageObjecType, searchContext);
 
-            Init(pageObjecType, searchContext);
+            Init(pageObject, searchContext);
 
             return pageObject;
         }
@@ -55,12 +55,12 @@ namespace HtmlElements
         {
             if (pageObject == null)
             {
-                throw new ArgumentNullException(nameof(pageObject));
+                throw new ArgumentNullException("pageObject");
             }
 
             if (searchContext == null)
             {
-                throw new ArgumentNullException(nameof(searchContext));
+                throw new ArgumentNullException("searchContext");
             }
 
             var pageObjectType = pageObject.GetType();

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using OpenQA.Selenium;
 
 namespace HtmlElements.Extensions
@@ -55,24 +55,78 @@ namespace HtmlElements.Extensions
                    && IsWebElement(genericArguments[0]);
         }
 
-        internal static IEnumerable<MemberInfo> GetMembersFromGroups(this Type type, params String[] groups)
+        /// <summary>
+        ///     Retrieve metadata of all properties in current object hierarchy which can be assigned a web element or web element list.
+        ///     Properties which cannot be read or written and also indexed properties are being excluded from search.
+        /// </summary>
+        /// <param name="type">Type being scanned</param>
+        /// <param name="bindingFlags">A bitmask comprised that specify how the search is conducted</param>
+        /// <returns>List of properties metadata which can be assigned a web element or list of web elements value</returns>
+        public static IEnumerable<PropertyInfo> GetOwnAndInheritedProperties(this Type type, BindingFlags bindingFlags)
         {
-            var membersList = new List<MemberInfo>();
-
-            while (type != typeof (Object))
+            while (type != null && type != typeof(object))
             {
-                membersList.AddRange(type.GetMembers(BindingFlags.Instance | BindingFlags.NonPublic |
-                                                     BindingFlags.Public)
-                    .Where(
-                        member => member.GetCustomAttributes(typeof (ElementGroupAttribute), true)
-                            .Any(attribute => (attribute as ElementGroupAttribute).Groups.Any(groups.Contains))
-                    )
-                    );
+                foreach (var property in type.GetProperties(bindingFlags | BindingFlags.DeclaredOnly))
+                {
+                    if (!IsWebElementOrElementList(property.PropertyType))
+                    {
+                        continue;
+                    }
+
+                    if (!property.CanWrite || !property.CanRead)
+                    {
+                        continue;
+                    }
+
+                    if (property.GetIndexParameters().Length > 0)
+                    {
+                        continue;
+                    }
+
+                    yield return property;
+                }
 
                 type = type.BaseType;
             }
+        }
 
-            return membersList.Distinct();
+        /// <summary>
+        ///     Retrieve metadata of all fields in current object hierarchy which can be assigned a web element or web element list.
+        /// </summary>
+        /// <param name="type">Type being scanned</param>
+        /// <param name="bindingFlags">A bitmask comprised that specify how the search is conducted</param>
+        /// <returns>List of fields metadata which can be assigned a web element or list of web elements value</returns>
+        public static IEnumerable<FieldInfo> GetOwnAndInheritedFields(this Type type, BindingFlags bindingFlags)
+        {
+            while (type != null && type != typeof(Object))
+            {
+                foreach (var field in type.GetFields(bindingFlags | BindingFlags.DeclaredOnly))
+                {
+                    if (IsPropertyBackingField(field))
+                    {
+                        continue;
+                    }
+
+                    if (!IsWebElementOrElementList(field.FieldType))
+                    {
+                        continue;
+                    }
+
+                    yield return field;
+                }
+
+                type = type.BaseType;
+            }
+        }
+
+        private static bool IsPropertyBackingField(FieldInfo fieldInfo)
+        {
+            return Regex.IsMatch(fieldInfo.Name, "<.+>k__BackingField");
+        }
+
+        private static Boolean IsWebElementOrElementList(Type type)
+        {
+            return type.IsWebElement() || type.IsWebElementList();
         }
     }
 }

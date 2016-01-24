@@ -27,15 +27,16 @@ namespace HtmlElements.Extensions {
         /// </summary>
         /// <param name="webDriver">WebDriver instance</param>
         /// <param name="command">Action which should trigger new browser tab</param>
+        /// <param name="message">Error message used when command expires</param>
         /// <exception cref="WebDriverTimeoutException">
         ///     Thrown if new tab did not open after 10 seconds
         /// </exception>
-        public static void WaitUntilNewWindowOpened(this IWebDriver webDriver, Action command) {
+        public static void WaitUntilNewWindowOpened(this IWebDriver webDriver, Action command, String message = null) {
             var initWindowCount = webDriver.WindowHandles.Count;
 
             command();
 
-            webDriver.WaitUntil(s => s.WindowHandles.Count > initWindowCount, "New browser window did not open after 10 seconds");
+            webDriver.WaitUntil(s => s.WindowHandles.Count > initWindowCount, message ?? "New browser window did not open after 10 seconds");
         }
 
         /// <summary>
@@ -44,15 +45,18 @@ namespace HtmlElements.Extensions {
         /// <param name="webDriver">WebDriver instance</param>
         /// <param name="command">Action which should trigger new browser tab</param>
         /// <param name="commandTimeout">Time after which command expires</param>
+        /// <param name="message">Error message used when command expires</param>
         /// <exception cref="WebDriverTimeoutException">
         ///     Thrown if new tab did not open after 10 seconds
         /// </exception>
-        public static void WaitUntilNewWindowOpened(this IWebDriver webDriver, Action command, TimeSpan commandTimeout) {
+        public static void WaitUntilNewWindowOpened(this IWebDriver webDriver, Action command, TimeSpan commandTimeout, String message = null) {
             var initWindowCount = webDriver.WindowHandles.Count;
 
             command();
 
-            webDriver.WaitUntil(s => s.WindowHandles.Count > initWindowCount, commandTimeout, $"New browser window did not open after {commandTimeout}");
+            webDriver.WaitUntil(s => s.WindowHandles.Count > initWindowCount, commandTimeout, 
+                message ?? String.Format("New browser window did not open after {0}", commandTimeout)
+            );
         }
 
         /// <summary>
@@ -102,10 +106,10 @@ namespace HtmlElements.Extensions {
 
             if (jsExecutor == null)
             {
-                throw new ArgumentException("WebDriver cannot execute JavaScript", nameof(webDriver));
+                throw new ArgumentException("WebDriver cannot execute JavaScript", "webDriver");
             }
 
-            jsExecutor.ExecuteScript($"window.scrollTo({xpos}, {ypos});");
+            jsExecutor.ExecuteScript(String.Format("window.scrollTo({0}, {1});", xpos, ypos));
         }
 
         /// <summary>
@@ -129,8 +133,9 @@ namespace HtmlElements.Extensions {
         /// </summary>
         /// <param name="webDriver">Target WebDriver</param>
         /// <param name="command">Command which should trigger new browser tab</param>
-        public static void OpenNewWindow(this IWebDriver webDriver, Action command) {
-            webDriver.WaitUntilNewWindowOpened(command);
+        /// <param name="message">Error message used when command expires</param>
+        public static void OpenNewWindow(this IWebDriver webDriver, Action command, String message = null) {
+            webDriver.WaitUntilNewWindowOpened(command, message);
             webDriver.SwitchToLastOpenedWindow();
         }
 

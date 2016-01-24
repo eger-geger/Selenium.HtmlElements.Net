@@ -24,7 +24,7 @@ namespace HtmlElements.Locators
         {
             if (String.IsNullOrEmpty(javaScript))
             {
-                throw new ArgumentNullException(nameof(javaScript), "JavaScript snippet is null or empty");
+                throw new ArgumentNullException("javaScript", "JavaScript snippet is null or empty");
             }
 
             _javaScript = javaScript;
@@ -32,7 +32,7 @@ namespace HtmlElements.Locators
 
             FindElementMethod = FindElementWithJavaScript;
             FindElementsMethod = FindElementListWithJavaScript;
-            Description = $"By.JavaScript: {javaScript}, {arguments.ToCommaSepratedString()}";
+            Description = String.Format("By.JavaScript: {0}, {1}", javaScript, arguments.ToCommaSeparatedString());
         }
 
         private IWebElement FindElementWithJavaScript(ISearchContext context)
@@ -51,7 +51,7 @@ namespace HtmlElements.Locators
 
             if (jsExecutor == null)
             {
-                throw new ArgumentException("Wrapped WebDriver cannot execute JavaScript", nameof(searchContext));
+                throw new ArgumentException("Wrapped WebDriver cannot execute JavaScript", "searchContext");
             }
 
             try
@@ -60,7 +60,9 @@ namespace HtmlElements.Locators
             }
             catch (Exception ex)
             {
-                throw new NoSuchElementException($"Failed to find element {Description}", ex);
+                throw new NoSuchElementException(
+                    String.Format("Failed to find element {0}", Description), ex
+                );
             }
         }
 
@@ -76,10 +78,10 @@ namespace HtmlElements.Locators
                 return searchResult as IWebElement;
             }
 
-            throw new NoSuchElementException($"Element not found [{this}]");
+            throw new NoSuchElementException(String.Format("Element not found [{0}]", this));
         }
 
-        private ReadOnlyCollection<IWebElement> ToElementList(object searchResult)
+        private static ReadOnlyCollection<IWebElement> ToElementList(object searchResult)
         {
             if (searchResult is IList<IWebElement>)
             {

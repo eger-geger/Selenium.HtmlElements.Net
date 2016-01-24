@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using OpenQA.Selenium.Support.UI;
 
-namespace HtmlElements
+namespace HtmlElements.Extensions
 {
     /// <summary>
     ///     Crates repeatable command bing evaluated until command condition became true.

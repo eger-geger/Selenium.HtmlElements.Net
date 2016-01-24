@@ -11,13 +11,13 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace HtmlElements
 {
-    public class PageObjectFactory : AbstractPageObjectFactory
+    public class DefaultPageObjectFactory : AbstractPageObjectFactory
     {
         private readonly ProxyFactory _proxyFactory = new ProxyFactory();
 
         private readonly ElementLoaderFactory _loaderFactory;
 
-        public PageObjectFactory()
+        public DefaultPageObjectFactory()
         {
             _loaderFactory = new ElementLoaderFactory(this, _proxyFactory);
         }
@@ -87,7 +87,7 @@ namespace HtmlElements
                 errorBuilder.AppendFormat(
                     "Having multiple attribute for a single class member is not supported by [{0}].", this);
 
-                throw new ArgumentException(errorBuilder.ToString(), nameof(memberInfo));
+                throw new ArgumentException(errorBuilder.ToString(), "memberInfo");
             }
 
             return ByFactory.Create(attributes[0] as FindsByAttribute);
