@@ -4,15 +4,13 @@ using OpenQA.Selenium;
 
 namespace HtmlElements.LazyLoad
 {
-    internal class CachingWebElementListItemLoader : CachingLoader<IWebElement>
+    internal class ListElementLoader : CachingLoader<IWebElement>
     {
         private readonly Int32 _index;
+
         private readonly ILoader<ReadOnlyCollection<IWebElement>> _listLoader;
 
-        public CachingWebElementListItemLoader(
-            ILoader<ReadOnlyCollection<IWebElement>> listLoader, 
-            Int32 index,
-            IWebElement initialValue = null) : base(initialValue)
+        public ListElementLoader(ILoader<ReadOnlyCollection<IWebElement>> listLoader, Int32 index, IWebElement value = null) : base(true, value)
         {
             _listLoader = listLoader;
             _index = index;

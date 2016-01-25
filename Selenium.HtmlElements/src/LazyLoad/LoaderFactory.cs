@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using HtmlElements.Proxy;
 using OpenQA.Selenium;
@@ -16,41 +17,37 @@ namespace HtmlElements.LazyLoad
             _proxyFactory = proxyFactory;
         }
 
-        public ILoader<IWebElement> CreateElementLoader(ISearchContext searchContext, By elementLocator, Boolean cached)
+        public ILoader<IWebElement> CreateElementLoader(ISearchContext searchContext, By elementLocator, Boolean enableCache)
         {
-            if (cached)
-            {
-                return new CachingWebElementLoader(searchContext, elementLocator);
-            }
-
-            return new TransparentWebElementLoader(searchContext, elementLocator);
+            return new WebElementLoader(searchContext, elementLocator, enableCache);
         }
 
-        public ILoader<ReadOnlyCollection<IWebElement>> CreateElementListLoader(ISearchContext searchContext,
-            By elementLocator, Boolean cached)
+        public ILoader<ReadOnlyCollection<IWebElement>> CreateElementListLoader(ISearchContext searchContext, By elementLocator, Boolean enableCache)
         {
-            if (cached)
-            {
-                return new CachingWebElementListLoader(searchContext, elementLocator);
-            }
-
-            return new TransparentWebElementListLoader(elementLocator, searchContext);
+            return new ElementListLoader(searchContext, elementLocator, enableCache);
         }
 
-        public Object CreateListLoader(Type elementType, ILoader<ReadOnlyCollection<IWebElement>> elementLoader, Boolean cached)
+        public Object CreateListLoader(Type elementType, ILoader<ReadOnlyCollection<IWebElement>> elementLoader, Boolean enableCache)
         {
-            var loaderGenericType = cached
-                ? typeof (CachingTypedListLoader<>)
-                : typeof (TransparentTypedListLoader<>);
-
-            var loaderType = loaderGenericType.MakeGenericType(elementType);
-
-            return Activator.CreateInstance(loaderType, elementLoader, _pageObjectFactory, _proxyFactory);
+            return Activator.CreateInstance(
+                typeof(TypedListLoader<>).MakeGenericType(elementType), 
+                elementLoader, _pageObjectFactory, _proxyFactory, enableCache
+            );
         }
 
-        public Object CreateListLoader(Type elementType, ISearchContext searchContext, By elementLocator, Boolean cached)
+        public Object CreateListLoader(Type elementType, ISearchContext searchContext, By elementLocator, Boolean enableCache)
         {
-            return CreateListLoader(elementType, CreateElementListLoader(searchContext, elementLocator, cached), cached);
+            return CreateListLoader(elementType, CreateElementListLoader(searchContext, elementLocator, enableCache), enableCache);
+        }
+
+        public ILoader<IList<TElement>> CreateListLoader<TElement>(ILoader<ReadOnlyCollection<IWebElement>> elementLoader, Boolean enableCache)
+        {
+            return CreateListLoader(typeof(TElement), elementLoader, enableCache) as ILoader<IList<TElement>>;
+        }
+
+        public ILoader<IList<TElement>> CreateListLoader<TElement>(ISearchContext searchContext, By elementLocator, Boolean enableCache)
+        {
+            return CreateListLoader(typeof(TElement), searchContext, elementLocator, enableCache) as ILoader<IList<TElement>>;
         }
     }
 }

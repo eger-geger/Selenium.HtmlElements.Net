@@ -1,15 +1,16 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 
 namespace HtmlElements.LazyLoad
 {
-    internal class CachingWebElementListLoader : CachingLoader<ReadOnlyCollection<IWebElement>>
+    internal class ElementListLoader : CachingLoader<ReadOnlyCollection<IWebElement>>
     {
         private readonly By _locator;
 
         private readonly ISearchContext _searchContext;
 
-        public CachingWebElementListLoader(ISearchContext searchContext, By locator)
+        public ElementListLoader(ISearchContext searchContext, By locator, Boolean enableCache) : base(enableCache)
         {
             _searchContext = searchContext;
             _locator = locator;

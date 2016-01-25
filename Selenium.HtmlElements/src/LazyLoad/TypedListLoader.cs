@@ -7,32 +7,40 @@ using OpenQA.Selenium;
 
 namespace HtmlElements.LazyLoad
 {
-    internal class TransparentTypedListLoader<TElement> : TransparentLoader<IList<TElement>>
+    internal class TypedListLoader<TElement> : CachingLoader<IList<TElement>>
     {
         private readonly ILoader<ReadOnlyCollection<IWebElement>> _elementListLoader;
         private readonly IPageObjectFactory _pageObjectFactory;
         private readonly IProxyFactory _proxyFactory;
 
-        public TransparentTypedListLoader(
+        public TypedListLoader(
             ILoader<ReadOnlyCollection<IWebElement>> elementListLoader,
-            IPageObjectFactory pageObjectFactory,
-            IProxyFactory proxyFactory)
+            IPageObjectFactory pageObjectFactory, 
+            IProxyFactory proxyFactory,
+            Boolean enableCache) : base(enableCache)
         {
             _elementListLoader = elementListLoader;
             _pageObjectFactory = pageObjectFactory;
             _proxyFactory = proxyFactory;
         }
 
-        public override IList<TElement> Load()
+        public override void Reset()
+        {
+            base.Reset();
+
+            _elementListLoader.Reset();
+        }
+
+        protected override IList<TElement> ExecuteLoad()
         {
             return _elementListLoader.Load().Select(CreateTypedElement).ToList();
         }
 
         private TElement CreateTypedElement(IWebElement element, Int32 index)
         {
-            var loader = new CachingWebElementListItemLoader(_elementListLoader, index, element);
-
-            return _pageObjectFactory.Create<TElement>(_proxyFactory.CreateElementProxy(loader));
+            return _pageObjectFactory.Create<TElement>(
+                _proxyFactory.CreateElementProxy(new ListElementLoader(_elementListLoader, index, element))
+            );
         }
     }
 }

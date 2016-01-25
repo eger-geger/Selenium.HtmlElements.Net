@@ -17,7 +17,7 @@ namespace HtmlElements.Elements {
             var webDriver = WrappedDriver;
 
             lock (webDriver) {
-                webDriver.SwitchTo().Frame(this);
+                webDriver.SwitchTo().Frame(WrappedElement);
                 action.Invoke();
                 webDriver.SwitchTo().DefaultContent();
             }

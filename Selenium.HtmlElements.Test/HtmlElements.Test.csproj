@@ -74,9 +74,7 @@
       <Name>HtmlElements</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Proxy\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="TestPage.htm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

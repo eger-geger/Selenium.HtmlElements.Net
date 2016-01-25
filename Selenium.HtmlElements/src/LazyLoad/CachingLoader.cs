@@ -1,16 +1,26 @@
-﻿namespace HtmlElements.LazyLoad
+﻿using System;
+
+namespace HtmlElements.LazyLoad
 {
     internal abstract class CachingLoader<TObject> : ILoader<TObject> where TObject : class
     {
+        private readonly Boolean _enableCache;
+
         private TObject _cached;
 
-        protected CachingLoader(TObject initialValue = null)
+        protected CachingLoader(Boolean enableCache = true, TObject value = null)
         {
-            _cached = initialValue;
+            _enableCache = enableCache;
+            _cached = value;
         }
 
         public TObject Load()
         {
+            if (!_enableCache)
+            {
+                Reset();
+            }
+
             while (_cached == null)
             {
                 _cached = ExecuteLoad();

@@ -152,7 +152,7 @@ namespace HtmlElements.Extensions {
         /// <param name="pollingInterval">Determines how often command will be evaluated until it expires or succeeds</param>
         /// <param name="message">Error message used when command expires</param>
         /// <exception cref="WebDriverTimeoutException">Thrown when condition times out</exception>
-        public static void WaitUntil<TTarget>(this TTarget target, Predicate<TTarget> condition, TimeSpan commandTimeout,TimeSpan pollingInterval,String message = null) where TTarget : class {
+        public static void WaitUntil<TTarget>(this TTarget target, Predicate<TTarget> condition, TimeSpan commandTimeout, TimeSpan pollingInterval, String message = null) where TTarget : class {
             WaitFor(target, condition.Invoke, commandTimeout, pollingInterval, message);
         }
 
