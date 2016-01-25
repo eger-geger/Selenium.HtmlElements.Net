@@ -42,5 +42,10 @@ namespace HtmlElements.LazyLoad
                 _proxyFactory.CreateElementProxy(new ListElementLoader(_elementListLoader, index, element))
             );
         }
+
+        public override string ToString()
+        {
+            return String.Format("Loader for IList<{0}> wrapping [{1}]", typeof(TElement).Name, _elementListLoader);
+        }
     }
 }

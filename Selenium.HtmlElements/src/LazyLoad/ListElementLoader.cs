@@ -26,5 +26,10 @@ namespace HtmlElements.LazyLoad
             base.Reset();
             _listLoader.Reset();
         }
+
+        public override string ToString()
+        {
+            return String.Format("Loader for [{0}] element in [{1}]", _index, _listLoader);
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Castle.DynamicProxy;
 using HtmlElements.LazyLoad;
 using OpenQA.Selenium;
 
@@ -11,8 +10,6 @@ namespace HtmlElements.Proxy
     /// </summary>
     public class ProxyFactory : IProxyFactory
     {
-        private readonly ProxyGenerator _proxyFactory = new ProxyGenerator();
-
         public IWebElement CreateElementProxy(ILoader<IWebElement> elementLoader)
         {
             if (elementLoader == null)
@@ -20,9 +17,7 @@ namespace HtmlElements.Proxy
                 throw new ArgumentNullException("elementLoader");
             }
 
-            return _proxyFactory.CreateInterfaceProxyWithoutTarget<IWebElement>(
-                new WebElementInterceptor(elementLoader)
-                );
+            return new WebElementProxy(elementLoader);
         }
 
         public Object CreateListProxy(Type elementType, Object loader)

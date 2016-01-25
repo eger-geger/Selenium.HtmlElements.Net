@@ -20,5 +20,10 @@ namespace HtmlElements.LazyLoad
         {
             return _searchContext.FindElements(_locator);
         }
+
+        public override string ToString()
+        {
+            return String.Format("Loader for list of elements located by [{0}] in [{1}]", _locator, _searchContext);
+        }
     }
 }

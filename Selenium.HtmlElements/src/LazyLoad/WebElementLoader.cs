@@ -19,5 +19,10 @@ namespace HtmlElements.LazyLoad
         {
             return _searchContext.FindElement(_locator);
         }
+
+        public override string ToString()
+        {
+            return String.Format("Loader for element located by [{0}] in [{1}]", _locator, _searchContext);
+        }
     }
 }

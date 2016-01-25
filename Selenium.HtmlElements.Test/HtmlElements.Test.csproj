@@ -63,7 +63,8 @@
     <Compile Include="src\DefaultPageObjectFactoryTests.cs" />
     <Compile Include="src\Extensions\TypeExtensionsTests.cs" />
     <Compile Include="src\LazyLoad\DefaultLoaderFactoryTests.cs" />
-    <Compile Include="src\Proxy\DefaultProxyFactoryTests.cs" />
+    <Compile Include="src\Proxy\ElementListProxyTests.cs" />
+    <Compile Include="src\Proxy\WebElementProxyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

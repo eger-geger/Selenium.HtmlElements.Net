@@ -4,7 +4,7 @@ using HtmlElements.Extensions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 
-namespace HtmlElements.Elements
+namespace HtmlElements
 {
     public abstract class SearchContextWrapper : ISearchContext, IWrapsDriver, IJavaScriptExecutor
     {
@@ -58,7 +58,7 @@ namespace HtmlElements.Elements
 
         public override string ToString()
         {
-            return string.Format("[{1}] wrapped by [{0}]", GetType(), _wrapped);
+            return String.Format("[{1}] wrapped by [{0}]", GetType(), _wrapped);
         }
     }
 }

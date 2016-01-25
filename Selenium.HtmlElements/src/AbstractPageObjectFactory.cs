@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using HtmlElements.Elements;
 using HtmlElements.Extensions;
 using OpenQA.Selenium;
 
