@@ -77,14 +77,14 @@
     <Compile Include="src\Extensions\WebElementExtensions.cs" />
     <Compile Include="src\ImplicitWaitOverride.cs" />
     <Compile Include="src\IPageObjectFactory.cs" />
-    <Compile Include="src\LazyLoad\TypedListLoader.cs" />
+    <Compile Include="src\LazyLoad\TypedElementListLoader.cs" />
     <Compile Include="src\LazyLoad\LoaderFactory.cs" />
     <Compile Include="src\LazyLoad\ILoaderFactory.cs" />
     <Compile Include="src\LazyLoad\WebElementLoader.cs" />
-    <Compile Include="src\LazyLoad\ElementListLoader.cs" />
+    <Compile Include="src\LazyLoad\WebElementListLoader.cs" />
     <Compile Include="src\LazyLoad\CachingLoader.cs" />
     <Compile Include="src\LazyLoad\ILoader.cs" />
-    <Compile Include="src\LazyLoad\ListElementLoader.cs" />
+    <Compile Include="src\LazyLoad\WebElementListItemLoader.cs" />
     <Compile Include="src\Locators\ByFactory.cs" />
     <Compile Include="src\Locators\ByJavaScript.cs" />
     <Compile Include="src\Locators\ByJquery.cs" />

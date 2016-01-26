@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlElements.Test", "Seleni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlElements.Demo", "Selenium.HtmlElements.Demo\HtmlElements.Demo.csproj", "{06EF8282-43E9-4F26-8034-D91CE4371CEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlElements.IntegrationTests", "HtmlElements.IntegrationTests\HtmlElements.IntegrationTests.csproj", "{E42A0592-2795-4338-8679-296EF66E4790}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{06EF8282-43E9-4F26-8034-D91CE4371CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06EF8282-43E9-4F26-8034-D91CE4371CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06EF8282-43E9-4F26-8034-D91CE4371CEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E42A0592-2795-4338-8679-296EF66E4790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E42A0592-2795-4338-8679-296EF66E4790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E42A0592-2795-4338-8679-296EF66E4790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E42A0592-2795-4338-8679-296EF66E4790}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

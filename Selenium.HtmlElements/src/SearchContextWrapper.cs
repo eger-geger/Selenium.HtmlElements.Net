@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Text;
 using HtmlElements.Extensions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
@@ -58,7 +59,11 @@ namespace HtmlElements
 
         public override string ToString()
         {
-            return String.Format("[{1}] wrapped by [{0}]", GetType(), _wrapped);
+            return new StringBuilder()
+                .AppendFormat("{0} wrapping", GetType().FullName)
+                .AppendLine()
+                .AppendLine(_wrapped.ToString().ShiftLinesToRight(4, '.'))
+                .ToString();
         }
     }
 }

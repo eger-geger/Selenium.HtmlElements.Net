@@ -3,7 +3,7 @@ using HtmlElements.Elements;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
-namespace HtmlElements.Test.Pages {
+namespace HtmlElements.IntegrationTests.Pages {
 
     public class TestPageObject : HtmlPage {
 
@@ -15,6 +15,8 @@ namespace HtmlElements.Test.Pages {
         [FindsBy(How = How.CssSelector, Using = "#element-list li")]
         public IList<HtmlElement> ElementListItems { get; private set; }
 
+        [FindsBy(How = How.CssSelector, Using = "#element-list li"), CacheLookup]
+        public IList<HtmlElement> CachedElementListItems { get; private set; } 
     }
 
 }

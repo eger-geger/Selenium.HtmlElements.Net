@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Text;
+using HtmlElements.Extensions;
 using HtmlElements.LazyLoad;
 
 namespace HtmlElements.Proxy
@@ -47,6 +49,15 @@ namespace HtmlElements.Proxy
         public override int IndexOf(TElement item)
         {
             return TypedElementList.IndexOf(item);
+        }
+
+        public override string ToString()
+        {
+            return new StringBuilder()
+                .AppendFormat("{0} loading elements with", GetType())
+                .AppendLine()
+                .AppendLine(_listLoader.ToString().ShiftLinesToRight(2, '.'))
+                .ToString();
         }
     }
 }

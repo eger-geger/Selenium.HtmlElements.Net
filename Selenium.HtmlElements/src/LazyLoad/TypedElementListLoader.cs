@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using HtmlElements.Extensions;
 using HtmlElements.Proxy;
 using OpenQA.Selenium;
 
 namespace HtmlElements.LazyLoad
 {
-    internal class TypedListLoader<TElement> : CachingLoader<IList<TElement>>
+    internal class TypedElementListLoader<TElement> : CachingLoader<IList<TElement>>
     {
         private readonly ILoader<ReadOnlyCollection<IWebElement>> _elementListLoader;
         private readonly IPageObjectFactory _pageObjectFactory;
         private readonly IProxyFactory _proxyFactory;
 
-        public TypedListLoader(
+        public TypedElementListLoader(
             ILoader<ReadOnlyCollection<IWebElement>> elementListLoader,
             IPageObjectFactory pageObjectFactory, 
             IProxyFactory proxyFactory,
@@ -39,13 +41,17 @@ namespace HtmlElements.LazyLoad
         private TElement CreateTypedElement(IWebElement element, Int32 index)
         {
             return _pageObjectFactory.Create<TElement>(
-                _proxyFactory.CreateElementProxy(new ListElementLoader(_elementListLoader, index, element))
+                _proxyFactory.CreateElementProxy(new WebElementListItemLoader(_elementListLoader, index, element))
             );
         }
 
         public override string ToString()
         {
-            return String.Format("Loader for IList<{0}> wrapping [{1}]", typeof(TElement).Name, _elementListLoader);
+            return new StringBuilder()
+                .AppendFormat("{0} loading elements with", GetType())
+                .AppendLine()
+                .AppendLine(_elementListLoader.ToString().ShiftLinesToRight(2, '.'))
+                .ToString();
         }
     }
 }

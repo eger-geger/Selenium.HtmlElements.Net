@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Text;
+using HtmlElements.Extensions;
 using HtmlElements.LazyLoad;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
@@ -149,7 +151,11 @@ namespace HtmlElements.Proxy
 
         public override string ToString()
         {
-            return String.Format("Proxy wrapping [{0}]", _loader);
+            return new StringBuilder()
+                .AppendFormat("{0} wrapping web element loaded by", GetType())
+                .AppendLine()
+                .AppendLine(_loader.ToString().ShiftLinesToRight(2, '.'))
+                .ToString();
         }
     }
 }

@@ -24,13 +24,13 @@ namespace HtmlElements.LazyLoad
 
         public ILoader<ReadOnlyCollection<IWebElement>> CreateElementListLoader(ISearchContext searchContext, By elementLocator, Boolean enableCache)
         {
-            return new ElementListLoader(searchContext, elementLocator, enableCache);
+            return new WebElementListLoader(searchContext, elementLocator, enableCache);
         }
 
         public Object CreateListLoader(Type elementType, ILoader<ReadOnlyCollection<IWebElement>> elementLoader, Boolean enableCache)
         {
             return Activator.CreateInstance(
-                typeof(TypedListLoader<>).MakeGenericType(elementType), 
+                typeof(TypedElementListLoader<>).MakeGenericType(elementType), 
                 elementLoader, _pageObjectFactory, _proxyFactory, enableCache
             );
         }

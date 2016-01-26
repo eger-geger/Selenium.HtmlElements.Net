@@ -1,16 +1,14 @@
 ﻿using System;
 using System.IO;
-
 using NUnit.Framework;
-
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 
-namespace HtmlElements.Test.Integration {
+namespace HtmlElements.IntegrationTests {
 
     public class IntegrationTestFixture : AssertionHelper {
 
-        protected const String TestPageName = "TestPage.htm";
+        private const String TestPageName = "TestPage.htm";
 
         protected IWebDriver WebDriver { get; private set; }
 
@@ -23,7 +21,7 @@ namespace HtmlElements.Test.Integration {
 
         [TestFixtureSetUp]
         public void InitBrowser() {
-            WebDriver = new ChromeDriver();
+            WebDriver = new FirefoxDriver();
         }
 
         [TestFixtureTearDown]

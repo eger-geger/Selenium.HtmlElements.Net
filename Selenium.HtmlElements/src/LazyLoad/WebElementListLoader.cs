@@ -1,30 +1,32 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Text;
 using HtmlElements.Extensions;
 using OpenQA.Selenium;
 
 namespace HtmlElements.LazyLoad
 {
-    internal class WebElementLoader : CachingLoader<IWebElement>
+    internal class WebElementListLoader : CachingLoader<ReadOnlyCollection<IWebElement>>
     {
         private readonly By _locator;
+
         private readonly ISearchContext _searchContext;
 
-        public WebElementLoader(ISearchContext searchContext, By locator, Boolean enableCache) : base(enableCache)
+        public WebElementListLoader(ISearchContext searchContext, By locator, Boolean enableCache) : base(enableCache)
         {
             _searchContext = searchContext;
             _locator = locator;
         }
 
-        protected override IWebElement ExecuteLoad()
+        protected override ReadOnlyCollection<IWebElement> ExecuteLoad()
         {
-            return _searchContext.FindElement(_locator);
+            return _searchContext.FindElements(_locator);
         }
 
         public override string ToString()
         {
             return new StringBuilder()
-                .AppendFormat("{0} locating element using [{1}] in", GetType(), _locator)
+                .AppendFormat("{0} providing list of elements found with [{1}] in", GetType().FullName, _locator)
                 .AppendLine()
                 .AppendLine(_searchContext.ToString().ShiftLinesToRight(2, '.'))
                 .ToString();
