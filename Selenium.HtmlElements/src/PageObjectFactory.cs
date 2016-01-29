@@ -46,9 +46,12 @@ namespace HtmlElements
 
             if (memberType.IsWebElement())
             {
-                var elementProxy = _proxyFactory.CreateElementProxy(
-                    _loaderFactory.CreateElementLoader(searchContext, locator, isCached)
-                );
+                ILoader<IWebElement> elementLoader = _loaderFactory.CreateElementLoader(searchContext, locator, isCached);
+
+                IWebElement elementProxy = 
+                    typeof(HtmlFrame).IsAssignableFrom(memberType)
+                        ? _proxyFactory.CreateFrameProxy(elementLoader)
+                        : _proxyFactory.CreateElementProxy(elementLoader);
 
                 if (typeof (IWebElement) == memberType || typeof (IHtmlElement) == memberType)
                 {

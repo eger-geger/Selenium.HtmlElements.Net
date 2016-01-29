@@ -14,3 +14,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("df09e424-55f1-4ef4-a17f-26c0dd792ed0")]
 [assembly: AssemblyVersion("1.1.0.10")]
 [assembly: AssemblyFileVersion("1.1.0.10")]
+
+[assembly: InternalsVisibleTo("HtmlElements.IntegrationTests")]

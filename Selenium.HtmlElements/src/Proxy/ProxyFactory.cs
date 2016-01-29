@@ -48,6 +48,16 @@ namespace HtmlElements.Proxy
             return Activator.CreateInstance(typeof (ElementListProxy<>).MakeGenericType(elementType), loader);
         }
 
+        public IWebElement CreateFrameProxy(ILoader<IWebElement> elementLoader)
+        {
+            if (elementLoader == null)
+            {
+                throw new ArgumentNullException("elementLoader");
+            }
+
+            return new FrameWebElementProxy(elementLoader);
+        }
+
         public IList<TElement> CreateListProxy<TElement>(ILoader<IList<TElement>> loader)
         {
             if (loader == null)

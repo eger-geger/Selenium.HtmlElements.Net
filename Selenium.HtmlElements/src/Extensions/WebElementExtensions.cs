@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using HtmlElements.Elements;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Internal;
 
 namespace HtmlElements.Extensions
 {
@@ -294,6 +295,21 @@ namespace HtmlElements.Extensions
         {
             return target.WaitFor(IsVisible, commandTimeout, pollingInterval,
                 message ?? String.Format("{0} did not became visible after {1}", target, commandTimeout));
+        }
+
+        /// <summary>
+        ///     Get raw version of web element out of wrapper layers
+        /// </summary>
+        /// <param name="webElement">WebElement wrapper</param>
+        /// <returns>Raw web element</returns>
+        public static IWebElement ToRawWebElement(this IWebElement webElement)
+        {
+            while (webElement is IWrapsElement)
+            {
+                webElement = (webElement as IWrapsElement).WrappedElement;
+            }
+
+            return webElement;
         }
     }
 }

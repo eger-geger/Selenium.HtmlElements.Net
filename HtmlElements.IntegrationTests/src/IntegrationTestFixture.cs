@@ -8,7 +8,7 @@ namespace HtmlElements.IntegrationTests {
 
     public class IntegrationTestFixture : AssertionHelper {
 
-        private const String TestPageName = "TestPage.htm";
+        private const String InitialUrl = "PageAlpha.htm";
 
         protected IWebDriver WebDriver { get; private set; }
 
@@ -16,7 +16,7 @@ namespace HtmlElements.IntegrationTests {
 
         [SetUp]
         public void OpenTestPage() {
-            WebDriver.Navigate().GoToUrl(Path.GetFullPath(TestPageName));
+            WebDriver.Navigate().GoToUrl(Path.GetFullPath(InitialUrl));
         }
 
         [TestFixtureSetUp]

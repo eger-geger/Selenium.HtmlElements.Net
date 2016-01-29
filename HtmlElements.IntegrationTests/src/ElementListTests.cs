@@ -1,5 +1,8 @@
 ﻿using System;
+using HtmlElements.Elements;
 using HtmlElements.IntegrationTests.Pages;
+using HtmlElements.LazyLoad;
+using HtmlElements.Proxy;
 using NUnit.Framework;
 using OpenQA.Selenium;
 
@@ -7,12 +10,12 @@ namespace HtmlElements.IntegrationTests
 {
     public class ElementListTests : IntegrationTestFixture
     {
-        private TestPageObject _page;
+        private PageAlpha _page;
 
         [SetUp]
         public void InitializePageObject()
         {
-            _page = PageFactory.Create<TestPageObject>(WebDriver);
+            _page = PageFactory.Create<PageAlpha>(WebDriver);
         }
 
         [Test]
@@ -71,10 +74,10 @@ namespace HtmlElements.IntegrationTests
             var element = _page.CachedElementListItems[0];
 
             Expect(element.ToString(), 
-                ContainsSubstring("HtmlElements.Elements.HtmlElement")
-                .And.ContainsSubstring("HtmlElements.Proxy.WebElementProxy")
-                .And.ContainsSubstring("HtmlElements.LazyLoad.WebElementListItemLoader")
-                .And.ContainsSubstring("HtmlElements.LazyLoad.WebElementListLoader"));
+                ContainsSubstring(typeof(HtmlElement).FullName)
+                .And.ContainsSubstring(typeof(WebElementProxy).FullName)
+                .And.ContainsSubstring(typeof(WebElementListItemLoader).FullName)
+                .And.ContainsSubstring(typeof(WebElementListLoader).FullName));
         }
     }
 }

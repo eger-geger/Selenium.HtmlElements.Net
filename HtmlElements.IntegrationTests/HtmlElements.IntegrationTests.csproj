@@ -56,7 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\ElementListTests.cs" />
     <Compile Include="src\IntegrationTestFixture.cs" />
-    <Compile Include="src\Pages\TestPageObject.cs" />
+    <Compile Include="src\PageControlTests.cs" />
+    <Compile Include="src\Pages\PageAlpha.cs" />
+    <Compile Include="src\Pages\PageBeta.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Selenium.HtmlElements\HtmlElements.csproj">
@@ -70,7 +72,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestPage.htm">
+    <Content Include="PageBeta.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PageAlpha.htm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

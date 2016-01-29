@@ -91,7 +91,9 @@
     <Compile Include="src\PageObjectFactory.cs" />
     <Compile Include="src\AbstractPageObjectFactory.cs" />
     <Compile Include="src\Proxy\AbstractReadOnlyList.cs" />
+    <Compile Include="src\Proxy\AbstractWebElementProxy.cs" />
     <Compile Include="src\Proxy\ElementListProxy.cs" />
+    <Compile Include="src\Proxy\FrameWebElementProxy.cs" />
     <Compile Include="src\Proxy\IProxyFactory.cs" />
     <Compile Include="src\Proxy\ProxyFactory.cs" />
     <Compile Include="src\Proxy\WebElementProxy.cs" />

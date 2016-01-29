@@ -158,12 +158,12 @@ namespace HtmlElements.Extensions {
 
             if (searchContext is IWebDriver)
             {
-                return (IWebDriver)searchContext;
+                return (IWebDriver) searchContext;
             }
 
             if (searchContext is IWrapsDriver)
             {
-                return ((IWrapsDriver)searchContext).WrappedDriver;
+                return ((IWrapsDriver) searchContext).WrappedDriver;
             }
 
             if (searchContext is IWrapsElement)

@@ -5,9 +5,9 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace HtmlElements.IntegrationTests.Pages {
 
-    public class TestPageObject : HtmlPage {
+    public class PageAlpha : HtmlPage {
 
-        public TestPageObject(ISearchContext wrapped) : base(wrapped) {}
+        public PageAlpha(ISearchContext wrapped) : base(wrapped) {}
 
         [FindsBy(How = How.CssSelector, Using = "#element-list")]
         public HtmlElement ElementListContainer { get; private set; }
@@ -17,6 +17,9 @@ namespace HtmlElements.IntegrationTests.Pages {
 
         [FindsBy(How = How.CssSelector, Using = "#element-list li"), CacheLookup]
         public IList<HtmlElement> CachedElementListItems { get; private set; } 
+
+        [FindsBy(How = How.CssSelector, Using = "iframe"), CacheLookup]
+        public PageBeta BetaFrame { get; set; }
     }
 
 }
