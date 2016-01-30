@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using HtmlElements.Elements;
-using HtmlElements.Proxy;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
 using OpenQA.Selenium;
 
@@ -14,18 +11,15 @@ namespace HtmlElements.Test
         [Test]
         public void ShouldCreatePageObjectAndInitializeElements()
         {
-            var page = _pageObjectFactory.Create<PageObjectA>(new Mock<ISearchContext>().Object);
+            var pageObjectA = _pageObjectFactory.Create<PageObjectA>(new Mock<IWebDriver>().Object);
 
-            Assert.That(page, Is.Not.Null);
-            Assert.That(page.ElementA, Is.Not.Null.And.InstanceOf<HtmlElement>());
-            Assert.That(page.GetElementB(), Is.Not.Null.And.InstanceOf<HtmlElement>());
-            Assert.That(page.ElementListA, Is.Not.Null.And.InstanceOf<ElementListProxy<HtmlImage>>());
+            Assert.That(pageObjectA, Is.Not.Null);
         }
 
         [Test]
         public void ShouldCreatePageObjectWithCustomConstructor()
         {
-            IWebElement webElement = new Mock<IWebElement>().Object;
+            var webElement = new Mock<IWebElement>().Object;
 
             var pageObjectB = _pageObjectFactory.Create<PageObjectB>(webElement);
 
@@ -36,7 +30,7 @@ namespace HtmlElements.Test
         [Test]
         public void ShouldCreatePageObjectUsingSearchContextAndPageFactoryAsArgumetns()
         {
-            IWebElement webElement = new Mock<IWebElement>().Object;
+            var webElement = new Mock<IWebElement>().Object;
 
             var pageObjectC = _pageObjectFactory.Create<PageObjectC>(webElement);
 
@@ -54,9 +48,7 @@ namespace HtmlElements.Test
             }
 
             public IPageObjectFactory PageFactory { get; private set; }
-
             public IWebElement WebElement { get; private set; }
-
         }
 
         public class PageObjectB
@@ -71,17 +63,6 @@ namespace HtmlElements.Test
 
         public class PageObjectA
         {
-            private IHtmlElement _elementB;
-
-            public IWebElement ElementA { get; private set; }
-
-            public IList<HtmlImage> ElementListA { get; private set; } 
-
-            public IHtmlElement GetElementB()
-            {
-                return _elementB;
-            }
         }
-
     }
 }

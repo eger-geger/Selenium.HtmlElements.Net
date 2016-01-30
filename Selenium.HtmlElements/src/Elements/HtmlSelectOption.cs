@@ -5,7 +5,7 @@ namespace HtmlElements.Elements {
 
     public class HtmlSelectOption : HtmlControl {
 
-        public HtmlSelectOption(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper) {}
+        public HtmlSelectOption(IWebElement webElement) : base(webElement) {}
 
         public new bool Selected {
             get { return base.Selected; }

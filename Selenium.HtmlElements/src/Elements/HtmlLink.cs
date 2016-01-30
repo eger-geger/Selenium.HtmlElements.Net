@@ -11,7 +11,7 @@ namespace HtmlElements.Elements {
         public const string TargetSelf = "_self";
         public const string TargetTop = "_top";
 
-        public HtmlLink(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper)
+        public HtmlLink(IWebElement webElement) : base(webElement)
         {
         }
 

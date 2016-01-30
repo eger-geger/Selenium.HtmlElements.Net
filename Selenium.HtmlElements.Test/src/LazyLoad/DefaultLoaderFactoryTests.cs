@@ -14,16 +14,22 @@ namespace HtmlElements.Test.LazyLoad
         private LoaderFactory _loaderFactory;
         private Mock<IPageObjectFactory> _pageObjectFactoryMock;
         private Mock<IProxyFactory> _proxyFactoryMock;
-        private Mock<ISearchContext> _searchContextMock;
-
+        private Mock<IHtmlElement> _searchContextMock;
+        private Mock<IWebDriver> _webDriverMock;
+        
         [SetUp]
         public void SetUpMock()
         {
-            _searchContextMock = new Mock<ISearchContext>();
+            _webDriverMock = new Mock<IWebDriver>();
+            _searchContextMock = new Mock<IHtmlElement>();
             _pageObjectFactoryMock = new Mock<IPageObjectFactory>();
             _proxyFactoryMock = new Mock<IProxyFactory>();
 
             _loaderFactory = new LoaderFactory(_pageObjectFactoryMock.Object, _proxyFactoryMock.Object);
+
+            _searchContextMock
+                .Setup(ctx => ctx.WrappedDriver)
+                .Returns(_webDriverMock.Object);
 
             _searchContextMock
                 .Setup(ctx => ctx.FindElement(It.IsAny<By>()))
@@ -41,7 +47,7 @@ namespace HtmlElements.Test.LazyLoad
 
             _pageObjectFactoryMock
                 .Setup(f => f.Create<HtmlElement>(It.IsAny<ISearchContext>()))
-                .Returns(() => new HtmlElement(new Mock<IWebElement>().Object));
+                .Returns(() => new HtmlElement(_searchContextMock.Object));
 
             _proxyFactoryMock
                 .Setup(f => f.CreateElementProxy(It.IsAny<ILoader<IWebElement>>()))

@@ -5,7 +5,7 @@ namespace HtmlElements.Elements {
 
     public class HtmlOption : HtmlControl {
 
-        public HtmlOption(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper) {}
+        public HtmlOption(IWebElement webElement) : base(webElement) {}
 
         public string Label {
             get { return GetAttribute("label"); }

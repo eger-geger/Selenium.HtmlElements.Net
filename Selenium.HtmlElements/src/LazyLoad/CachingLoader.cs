@@ -4,6 +4,8 @@ namespace HtmlElements.LazyLoad
 {
     internal abstract class CachingLoader<TObject> : ILoader<TObject> where TObject : class
     {
+        private const Int32 RetryCount = 10;
+
         private readonly Boolean _enableCache;
 
         private TObject _cached;
@@ -21,7 +23,7 @@ namespace HtmlElements.LazyLoad
                 Reset();
             }
 
-            while (_cached == null)
+            for (var i = 0; i < RetryCount && _cached == null; i++)
             {
                 _cached = ExecuteLoad();
             }

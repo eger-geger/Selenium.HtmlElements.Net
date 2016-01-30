@@ -5,16 +5,25 @@ using OpenQA.Selenium;
 namespace HtmlElements.Elements
 {
     /// <summary>
-    ///      Represents iframe and can be used to describe it's content.
+    ///      Models iframe DOM element and provides convenient method for performing actions in it.
     /// </summary>
     public class HtmlFrame : HtmlElement
     {
-        public HtmlFrame(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper)
+        ///<summary>
+        ///     Initializes new instance of HTML element by calling base class constructor
+        /// </summary>
+        /// <param name="webElement">
+        ///     WebElement wrapping WebDriver instance
+        /// </param>
+        /// <exception cref="ArgumentException">
+        ///     Thrown when <paramref name="webElement"/> does not wrap WebDriver
+        /// </exception>
+        public HtmlFrame(IWebElement webElement) : base(webElement)
         {
         }
 
         /// <summary>
-        ///     Specifies the address of the embedded document
+        ///     Gets or sets 'src' attribute of the underlying iframe or null if it does not exist
         /// </summary>
         public string SourceURL
         {
@@ -23,8 +32,7 @@ namespace HtmlElements.Elements
         }
 
         /// <summary>
-        ///     Executes action switching the WebDriver context to current frame before action execution 
-        ///     and switching it back to default WebDriver context after execution
+        ///     Executes action switching the WebDriver context to current frame before execution and switching it back to default WebDriver context after.
         /// </summary>
         /// <param name="action">Action to execute</param>
         public void ExecuteInFrame(Action action)
@@ -44,8 +52,7 @@ namespace HtmlElements.Elements
         }
 
         /// <summary>
-        ///     Executes action switching the WebDriver context to current frame before action execution 
-        ///     and switching it back to default WebDriver context after execution
+        ///     Executes action switching the WebDriver context to current frame before execution and switching it back to default WebDriver context after.
         /// </summary>
         /// <typeparam name="TResult">Action return type</typeparam>
         /// <param name="action">Action to execute</param>

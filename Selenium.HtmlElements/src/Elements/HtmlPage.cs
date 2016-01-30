@@ -16,7 +16,7 @@ namespace HtmlElements.Elements {
 
         }
 
-        public HtmlPage(ISearchContext webDriverOrWrapper) : base(webDriverOrWrapper) {
+        public HtmlPage(ISearchContext webElement) : base(webElement) {
         }
 
         public DocumentReadyState ReadyState {

@@ -14,13 +14,13 @@ namespace HtmlElements.Test
     {
         private AbstractPageObjectFactory _factory;
         private Mock<AbstractPageObjectFactory> _factoryMock;
-        private ISearchContext _searchContext;
+        private IWebDriver _searchContext;
 
         [SetUp]
         public void SetUpMocks()
         {
             _factoryMock = new Mock<AbstractPageObjectFactory>(MockBehavior.Loose);
-            _searchContext = new Mock<ISearchContext>(MockBehavior.Loose).Object;
+            _searchContext = new Mock<IWebDriver>(MockBehavior.Loose).Object;
             _factory = _factoryMock.Object;
 
             _factoryMock.Protected()
@@ -99,7 +99,7 @@ namespace HtmlElements.Test
             protected IWebElement _elementB;
             private IList<IWebElement> _elementListA;
 
-            public PageObjectA(ISearchContext webDriverOrWrapper) : base(webDriverOrWrapper)
+            public PageObjectA(ISearchContext webElement) : base(webElement)
             {
             }
 

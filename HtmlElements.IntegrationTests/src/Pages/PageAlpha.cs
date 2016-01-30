@@ -7,7 +7,7 @@ namespace HtmlElements.IntegrationTests.Pages {
 
     public class PageAlpha : HtmlPage {
 
-        public PageAlpha(ISearchContext webDriverOrWrapper) : base(webDriverOrWrapper) {}
+        public PageAlpha(ISearchContext webElement) : base(webElement) {}
 
         [FindsBy(How = How.CssSelector, Using = "#element-list")]
         public HtmlElement ElementListContainer { get; private set; }
