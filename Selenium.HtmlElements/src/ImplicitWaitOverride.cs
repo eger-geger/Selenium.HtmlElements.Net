@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 namespace HtmlElements
 {
     /// <summary>
-    ///     Allow to declare block in which implicit wait will be overridden with provided value and reset on exit.
+    ///     Allow to declare block of code in which implicit WebDriver wait will be overridden with provided value and restored after it.
     /// </summary>
     public class ImplicitWaitOverride : IDisposable
     {

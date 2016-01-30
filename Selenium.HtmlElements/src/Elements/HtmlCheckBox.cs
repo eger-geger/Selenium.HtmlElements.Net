@@ -5,7 +5,7 @@ namespace HtmlElements.Elements {
 
     public class HtmlCheckBox : HtmlInput {
 
-        public HtmlCheckBox(IWebElement wrapped) : base(wrapped) {}
+        public HtmlCheckBox(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper) {}
 
         public bool Checked {
             get { return Selected; }

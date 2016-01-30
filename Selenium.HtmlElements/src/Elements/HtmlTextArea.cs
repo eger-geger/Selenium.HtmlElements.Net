@@ -5,7 +5,7 @@ namespace HtmlElements.Elements {
 
     public class HtmlTextArea : HtmlControl, ITextControl {
 
-        public HtmlTextArea(IWebElement wrapped) : base(wrapped) {}
+        public HtmlTextArea(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper) {}
 
         public string Cols {
             get { return GetAttribute("cols"); }

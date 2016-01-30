@@ -1,5 +1,4 @@
 ﻿using System;
-using HtmlElements.Elements;
 using OpenQA.Selenium;
 
 namespace HtmlElements
@@ -12,7 +11,7 @@ namespace HtmlElements
         /// <summary>
         ///     Creates and initializes page object of a given type and all nested page objects
         /// </summary>
-        /// <typeparam name="TPageObject">Page object type</typeparam>
+        /// <typeparam name="TPageObject">Page object class</typeparam>
         /// <param name="searchContext">Context used for finding elements</param>
         /// <returns>Fully initialized page object</returns>
         TPageObject Create<TPageObject>(ISearchContext searchContext);
@@ -20,22 +19,22 @@ namespace HtmlElements
         /// <summary>
         ///     Creates and initializes page object of a given type and all nested page objects
         /// </summary>
-        /// <param name="pageObjecType">Page object type</param>
+        /// <param name="pageObjecType">Page object class</param>
         /// <param name="searchContext">Context used for finding elements</param>
         /// <returns>Fully initialized page object</returns>
         Object Create(Type pageObjecType, ISearchContext searchContext);
 
         /// <summary>
-        ///     Initialize web elements in given page object instance
+        ///     Initialize all nested page objects in given instance
         /// </summary>
-        /// <param name="pageObject">Not initialized page object</param>
+        /// <param name="pageObject">Page object instance to be initialized</param>
         /// <param name="searchContext">Context used for finding elements</param>
         void Init(Object pageObject, ISearchContext searchContext);
 
         /// <summary>
-        ///     Initialize page object using it's wrapped context
+        ///     Initialize page object wrapped WebDriver instance
         /// </summary>
         /// <param name="pageObject">Page object instance to be initialized</param>
-        void Init(SearchContextWrapper pageObject);
+        void Init(WebDriverWrapper pageObject);
     }
 }

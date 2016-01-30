@@ -9,7 +9,7 @@ namespace HtmlElements.Elements
     /// </summary>
     public class HtmlFrame : HtmlElement
     {
-        public HtmlFrame(IWebElement wrapped) : base(wrapped)
+        public HtmlFrame(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper)
         {
         }
 

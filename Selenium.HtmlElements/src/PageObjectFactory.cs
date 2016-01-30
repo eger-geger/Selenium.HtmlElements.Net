@@ -11,17 +11,38 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace HtmlElements
 {
+    /// <summary>
+    ///     Default page object implementation creating lazy loading proxies for every web element or list of web elements.
+    ///     It can't handle multiple <see cref="FindsByAttribute"/> attributes as well as <seealso cref="FindsBySequenceAttribute"/> 
+    ///     and <see cref="FindsByAllAttribute"/>. 
+    ///     It supports <see cref="CacheLookupAttribute"/> for elements and element lists by using same raw web element once it have been found.
+    ///     It also supports smart frames (derived from <see cref="HtmlFrame"/> class) which can host nested elements and automatically switch context.
+    ///     Current implementation requires nested page objects to have default constructor or constructor accepting <see cref="IWebElement"/> as a single argument
+    ///     or <see cref="IWebElement"/> as first argument and <see cref="IPageObjectFactory"/> as second.
+    ///     When <see cref="IPageObjectFactory.Create{TPageObject}"/> is called directly it can pass instance of search context being provided as first constructor 
+    ///     argument and itself as second (if needed). It also can use default constructor.
+    /// </summary>
     public class PageObjectFactory : AbstractPageObjectFactory
     {
         private readonly ILoaderFactory _loaderFactory;
         private readonly IProxyFactory _proxyFactory;
 
+        /// <summary>
+        ///     Creates page factory instance using <see cref="ProxyFactory"/> for creating lazy loading error handling proxies
+        ///     and <see cref="LoaderFactory"/> for creating lazy loaded elements and element lists.
+        /// </summary>
         public PageObjectFactory()
         {
             _proxyFactory = new ProxyFactory();
             _loaderFactory = new LoaderFactory(this, _proxyFactory);
         }
 
+        /// <summary>
+        ///     Creates page factory instance using provided <paramref name="proxyFactory"/> for creating proxies
+        ///     and <paramref name="loaderFactory"/> for creating lazy elements and list of elements.
+        /// </summary>
+        /// <param name="proxyFactory"></param>
+        /// <param name="loaderFactory"></param>
         public PageObjectFactory(IProxyFactory proxyFactory, ILoaderFactory loaderFactory)
         {
             if (proxyFactory == null)
@@ -115,12 +136,23 @@ namespace HtmlElements
         {
             try
             {
+                return Activator.CreateInstance(pageObjectType, searchContext, this);
+            }
+            catch (MissingMethodException)
+            {
+                //ignore and proceed
+            }
+
+            try
+            {
                 return Activator.CreateInstance(pageObjectType, searchContext);
             }
             catch (MissingMethodException)
             {
-                return Activator.CreateInstance(pageObjectType);
+                //ignore and proceed
             }
+
+            return Activator.CreateInstance(pageObjectType);
         }
     }
 }

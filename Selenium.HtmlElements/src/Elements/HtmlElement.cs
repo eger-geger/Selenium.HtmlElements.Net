@@ -6,12 +6,12 @@ using OpenQA.Selenium.Internal;
 
 namespace HtmlElements.Elements {
 
-    public class HtmlElement : SearchContextWrapper, IHtmlElement {
+    public class HtmlElement : WebDriverWrapper, IHtmlElement {
 
         private readonly IWebElement _wrappedElement;
 
-        public HtmlElement(IWebElement wrapped) : base(wrapped) {
-            _wrappedElement = (wrapped is HtmlElement) ? (wrapped as HtmlElement)._wrappedElement : wrapped;
+        public HtmlElement(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper) {
+            _wrappedElement = (webDriverOrWrapper is HtmlElement) ? (webDriverOrWrapper as HtmlElement)._wrappedElement : webDriverOrWrapper;
         }
 
         public IWebElement ParentNode {

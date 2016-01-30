@@ -13,7 +13,7 @@
         TObject Load();
 
         /// <summary>
-        ///     Reset cache if it exist. If cache is not supported then method will have no effect.
+        ///     Reset cache if it exist. If cache is not supported then it should have no effect.
         /// </summary>
         void Reset();
 

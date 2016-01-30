@@ -16,7 +16,7 @@ namespace HtmlElements.IntegrationTests.Pages
         [FindsBy(How = How.Id, Using = "submit"), CacheLookup] 
         public HtmlElement SubmitBtn;
 
-        public PageBeta(IWebElement wrapped) : base(wrapped)
+        public PageBeta(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper)
         {
         }
 

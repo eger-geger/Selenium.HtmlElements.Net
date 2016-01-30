@@ -89,7 +89,7 @@ namespace HtmlElements
         ///     Initialize page object using it's wrapped context
         /// </summary>
         /// <param name="pageObject">Page object instance to be initialized</param>
-        public void Init(SearchContextWrapper pageObject)
+        public void Init(WebDriverWrapper pageObject)
         {
             Init(pageObject, pageObject);
         }

@@ -5,7 +5,7 @@ namespace HtmlElements.Elements {
 
     public abstract class HtmlControl : HtmlElement {
 
-        protected HtmlControl(IWebElement wrapped) : base(wrapped) {}
+        protected HtmlControl(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper) {}
 
         public string Value {
             get { return GetAttribute("value"); }

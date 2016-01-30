@@ -5,7 +5,7 @@ namespace HtmlElements.Elements {
 
     public class HtmlImage : HtmlElement {
 
-        public HtmlImage(IWebElement wrapped) : base(wrapped) {}
+        public HtmlImage(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper) {}
 
         public string Alt {
             get { return GetAttribute("alt"); }

@@ -7,15 +7,33 @@ using OpenQA.Selenium.Internal;
 
 namespace HtmlElements
 {
-    public abstract class SearchContextWrapper : ISearchContext, IWrapsDriver, IJavaScriptExecutor
+    /// <summary>
+    ///     Represents object wrapping web driver. Provides methods for executing JavaScript and retrieving wrapped driver instance. 
+    /// </summary>
+    public abstract class WebDriverWrapper : ISearchContext, IWrapsDriver, IJavaScriptExecutor
     {
-        private readonly ISearchContext _wrapped;
+        private readonly IWebDriver _wrappedDriver;
 
-        protected SearchContextWrapper(ISearchContext wrapped)
+        /// <summary>
+        ///     Initializes wrapper converting provided object to WebDriver
+        /// </summary>
+        /// <param name="webDriverOrWrapper">
+        ///     WebDriver, WebElement or something else wrapping WebDriver instance
+        /// </param>
+        /// <exception cref="ArgumentException">
+        ///     Thrown when <paramref name="webDriverOrWrapper"/> is not WebDriver and it does not wrap WebDriver
+        /// </exception>
+        protected WebDriverWrapper(ISearchContext webDriverOrWrapper)
         {
-            _wrapped = (wrapped is SearchContextWrapper) ? 
-                (wrapped as SearchContextWrapper)._wrapped 
-                : wrapped;
+            _wrappedDriver = webDriverOrWrapper.ToWebDriver();
+
+            if (_wrappedDriver == null)
+            {
+                throw new ArgumentException(
+                    "Should be WebDriver or WebDriver wrapper but it isn't", 
+                    "webDriverOrWrapper"
+                );
+            }
         }
 
         public object ExecuteScript(string script, params object[] args)
@@ -44,17 +62,17 @@ namespace HtmlElements
 
         public ReadOnlyCollection<IWebElement> FindElements(By @by)
         {
-            return _wrapped.FindElements(@by);
+            return _wrappedDriver.FindElements(@by);
         }
 
         public IWebElement FindElement(By @by)
         {
-            return _wrapped.FindElement(@by);
+            return _wrappedDriver.FindElement(@by);
         }
 
         public IWebDriver WrappedDriver
         {
-            get { return _wrapped.ToWebDriver(); }
+            get { return _wrappedDriver; }
         }
 
         public override string ToString()
@@ -62,7 +80,7 @@ namespace HtmlElements
             return new StringBuilder()
                 .AppendFormat("{0} wrapping", GetType().FullName)
                 .AppendLine()
-                .AppendLine(_wrapped.ToString().ShiftLinesToRight(4, '.'))
+                .AppendLine(_wrappedDriver.ToString().ShiftLinesToRight(4, '.'))
                 .ToString();
         }
     }

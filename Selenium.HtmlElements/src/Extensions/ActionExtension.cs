@@ -5,7 +5,7 @@ using OpenQA.Selenium.Support.UI;
 namespace HtmlElements.Extensions {
 
     /// <summary>
-    ///     Provides set of generic methods which help you wait for a specific condition
+    ///     Provides set of generic methods waiting for a specific condition
     /// </summary>
     public static class ActionExtension {
 

@@ -93,13 +93,13 @@ namespace HtmlElements.Test
             return ItExpr.Is<MemberInfo>(member => member.Name == memberName);
         }
 
-        private class PageObjectA : SearchContextWrapper
+        private class PageObjectA : WebDriverWrapper
         {
             private HtmlElement _elementA;
             protected IWebElement _elementB;
             private IList<IWebElement> _elementListA;
 
-            public PageObjectA(ISearchContext wrapped) : base(wrapped)
+            public PageObjectA(ISearchContext webDriverOrWrapper) : base(webDriverOrWrapper)
             {
             }
 

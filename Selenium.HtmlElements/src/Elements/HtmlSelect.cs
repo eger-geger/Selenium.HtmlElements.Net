@@ -10,7 +10,7 @@ namespace HtmlElements.Elements {
 
     public class HtmlSelect : HtmlControl, IList<HtmlSelectOption> {
 
-        public HtmlSelect(IWebElement wrapped) : base(wrapped) {}
+        public HtmlSelect(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper) {}
 
         /// <summary>Gets a value indicating whether the parent element supports multiple selections.</summary>
         public bool IsMultiple {

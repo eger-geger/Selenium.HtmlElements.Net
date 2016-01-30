@@ -97,7 +97,7 @@
     <Compile Include="src\Proxy\IProxyFactory.cs" />
     <Compile Include="src\Proxy\ProxyFactory.cs" />
     <Compile Include="src\Proxy\WebElementProxy.cs" />
-    <Compile Include="src\SearchContextWrapper.cs" />
+    <Compile Include="src\WebDriverWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

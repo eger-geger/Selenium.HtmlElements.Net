@@ -12,7 +12,7 @@ namespace HtmlElements.Demo.Elements
         [FindsBy(How = How.CssSelector, Using = ".nextPage")]
         private HtmlLink _nextPageLink;
 
-        public Pagination(IWebElement wrapped) : base(wrapped)
+        public Pagination(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper)
         {
         }
 

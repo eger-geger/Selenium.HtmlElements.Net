@@ -50,11 +50,11 @@ namespace HtmlElements.LazyLoad
         /// <summary>
         ///     Create list loader wrapping web elements loader
         /// </summary>
-        /// <typeparam name="TElement">Type of list items</typeparam>
+        /// <typeparam name="TObject">Type of list items</typeparam>
         /// <param name="elementLoader">Loader providing list of raw web elements</param>
         /// <param name="enableCache">Whether elements should be cached once found</param>
         /// <returns>Loader instance</returns>
-        ILoader<IList<TElement>> CreateListLoader<TElement>(ILoader<ReadOnlyCollection<IWebElement>> elementLoader, Boolean enableCache);
+        ILoader<IList<TObject>> CreateListLoader<TObject>(ILoader<ReadOnlyCollection<IWebElement>> elementLoader, Boolean enableCache);
 
         /// <summary>
         ///     Create list loader wrapping web elements loader

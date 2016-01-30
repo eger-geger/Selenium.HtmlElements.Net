@@ -5,7 +5,7 @@ namespace HtmlElements.Elements {
 
     public class HtmlInput : HtmlControl, ITextControl {
 
-        public HtmlInput(IWebElement wrapped) : base(wrapped) {}
+        public HtmlInput(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper) {}
 
         public string Type {
             get { return GetAttribute("type"); }

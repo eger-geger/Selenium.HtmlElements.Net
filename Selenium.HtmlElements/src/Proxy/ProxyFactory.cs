@@ -6,7 +6,7 @@ using OpenQA.Selenium;
 namespace HtmlElements.Proxy
 {
     /// <summary>
-    ///     Proxy factory which is using castle dynamic proxies for web elements and <see cref="ElementListProxy{TElement}"/> for lists
+    ///     Default proxy factory using hand-crafted proxies
     /// </summary>
     public class ProxyFactory : IProxyFactory
     {

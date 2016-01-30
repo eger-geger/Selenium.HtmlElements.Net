@@ -5,7 +5,7 @@ namespace HtmlElements.Elements {
 
     public class HtmlLabel : HtmlElement {
 
-        public HtmlLabel(IWebElement wrapped) : base(wrapped) {}
+        public HtmlLabel(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper) {}
 
         public string For {
             get { return GetAttribute("for"); }

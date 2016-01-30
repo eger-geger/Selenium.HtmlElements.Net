@@ -5,7 +5,7 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace HtmlElements.Elements {
 
-    public class HtmlPage : SearchContextWrapper {
+    public class HtmlPage : WebDriverWrapper {
 
         public enum DocumentReadyState {
 
@@ -16,7 +16,7 @@ namespace HtmlElements.Elements {
 
         }
 
-        public HtmlPage(ISearchContext wrapped) : base(wrapped) {
+        public HtmlPage(ISearchContext webDriverOrWrapper) : base(webDriverOrWrapper) {
         }
 
         public DocumentReadyState ReadyState {

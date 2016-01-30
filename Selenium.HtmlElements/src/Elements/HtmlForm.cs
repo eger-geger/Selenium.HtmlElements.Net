@@ -5,7 +5,7 @@ namespace HtmlElements.Elements {
 
     public class HtmlForm : HtmlElement {
 
-        public HtmlForm(IWebElement wrapped) : base(wrapped) {}
+        public HtmlForm(IWebElement webDriverOrWrapper) : base(webDriverOrWrapper) {}
 
         public string Action {
             get { return GetAttribute("action"); }

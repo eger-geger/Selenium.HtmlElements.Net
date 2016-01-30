@@ -5,7 +5,7 @@ using OpenQA.Selenium.Support.UI;
 namespace HtmlElements.Extensions
 {
     /// <summary>
-    ///     Crates repeatable command bing evaluated until command condition became true.
+    ///     Crates repeatable command being evaluated until command condition became true.
     /// </summary>
     /// <typeparam name="TTarget">Command target type</typeparam>
     public class CommandBuilder<TTarget>
