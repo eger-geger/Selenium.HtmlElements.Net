@@ -189,7 +189,7 @@ namespace HtmlElements.Extensions
         ///     Wait until element became present on page (get created in DOM) and return the element itself.
         ///     Current overload waits for 10 seconds and checks weather element is present every second.
         /// </summary>
-        /// <typeparam name="TTarget">Type of th target element</typeparam>
+        /// <typeparam name="TTarget">Type of the target element</typeparam>
         /// <param name="target">Element expected to be created in DOM</param>
         /// <param name="message">Error message used when command expires</param>
         /// <returns>Element once it became visible</returns>
@@ -207,7 +207,7 @@ namespace HtmlElements.Extensions
         ///     Wait until element became present on page (get created in DOM) and return the element itself.
         ///     Current overload waits for a given timeout and checks weather element is present every second.
         /// </summary>
-        /// <typeparam name="TTarget">Type of th target element</typeparam>
+        /// <typeparam name="TTarget">Type of the target element</typeparam>
         /// <param name="target">Element expected to be created in DOM</param>
         /// <param name="commandTimeout">Timeout after which command will became expired and exception will be thrown</param>
         /// <param name="message">Error message used when command expires</param>
@@ -225,7 +225,7 @@ namespace HtmlElements.Extensions
         /// <summary>
         ///     Wait until element became present on page (get created in DOM) and return the element itself.
         /// </summary>
-        /// <typeparam name="TTarget">Type of th target element</typeparam>
+        /// <typeparam name="TTarget">Type of the target element</typeparam>
         /// <param name="target">Element expected to be created in DOM</param>
         /// <param name="commandTimeout">Timeout after which command will became expired and exception will be thrown</param>
         /// <param name="pollingInterval">Determines how often command will be evaluated until it expires or succeeds</param>
