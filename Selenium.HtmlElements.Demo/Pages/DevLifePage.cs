@@ -16,7 +16,7 @@ namespace HtmlElements.Demo.Pages {
         [FindsBy(How = How.CssSelector, Using = ".jslink:nth-child(2)"), CacheLookup]
         private HtmlLink _sortByRatig;
 
-        public DevLifePage(ISearchContext webElement) : base(webElement) {}
+        public DevLifePage(ISearchContext webDriverOrWrapper) : base(webDriverOrWrapper) {}
 
         [FindsBy(How = How.CssSelector, Using = ".entry")]
         public DevLifePost Posts { get; private set; }

@@ -256,5 +256,14 @@ namespace HtmlElements.Elements {
             get { return _wrappedElement.IsPresent() && _wrappedElement.Displayed; }
         }
 
+        /// <summary>
+        ///     Replace existing text input with provided.
+        /// </summary>
+        /// <param name="text">Text to enter</param>
+        public void EnterText(string text)
+        {
+            Clear();
+            SendKeys(text);
+        }
     }
 }

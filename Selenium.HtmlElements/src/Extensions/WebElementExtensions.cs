@@ -40,7 +40,8 @@ namespace HtmlElements.Extensions
         /// <summary>
         ///     Check if all text chunks are not shown on page
         /// </summary>
-        /// <param name="text">text to check</param>
+        /// <param name="page">HTML page to search text on</param>
+        /// <param name="text">Text to look for</param>
         /// <returns>
         ///     true if all provided chunks are not present in page source and false otherwise
         /// </returns>

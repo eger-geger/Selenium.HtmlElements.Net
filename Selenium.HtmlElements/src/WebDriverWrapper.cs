@@ -18,7 +18,8 @@ namespace HtmlElements
         ///     Initializes wrapper converting provided object to WebDriver
         /// </summary>
         /// <param name="webDriverOrWrapper">
-        ///     WebDriver, WebElement or something else wrapping WebDriver instance
+        ///     <see cref="IWebDriver"/>, <see cref="IWebElement"/> or anything else 
+        ///     which is wrapping WebDriver instance and can be used for locating elements
         /// </param>
         /// <exception cref="ArgumentException">
         ///     Thrown when <paramref name="webDriverOrWrapper"/> is not WebDriver and it does not wrap WebDriver

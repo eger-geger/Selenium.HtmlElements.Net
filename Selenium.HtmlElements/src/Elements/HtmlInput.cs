@@ -7,7 +7,7 @@ namespace HtmlElements.Elements {
     /// <summary>
     ///     Models HTML input element of any type and exposes it's attributes as properties
     /// </summary>
-    public class HtmlInput : HtmlControl, ITextControl {
+    public class HtmlInput : HtmlControl {
 
         ///<summary>
         ///     Initializes new instance of HTML element by calling base class constructor

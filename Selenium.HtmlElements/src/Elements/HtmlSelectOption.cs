@@ -3,15 +3,37 @@ using OpenQA.Selenium;
 
 namespace HtmlElements.Elements {
 
+    /// <summary>
+    ///     Models options within HTML select element
+    /// </summary>
     public class HtmlSelectOption : HtmlControl {
 
+        /// <summary>
+        ///     Initializes new instance of HTML element by calling base class constructor
+        /// </summary>
+        /// <param name="webElement">
+        ///     WebElement wrapping WebDriver instance
+        /// </param>
+        /// <exception cref="System.ArgumentException">
+        ///     Thrown when <paramref name="webElement" /> does not wrap WebDriver
+        /// </exception>
         public HtmlSelectOption(IWebElement webElement) : base(webElement) {}
 
-        public new bool Selected {
-            get { return base.Selected; }
-            set { this.Do(e => e.Click()).Until(e => (e as IWebElement).Selected == value); }
+        /// <summary>
+        ///     Mark option as selected.
+        /// </summary>
+        public void SelectOption()
+        {
+            this.Do(Click).Until(() => Selected);
         }
 
+        /// <summary>
+        ///     Remove selection if it was present.
+        /// </summary>
+        public void DelesectOption()
+        {
+            this.Do(Click).Until(() => !Selected);
+        }
     }
 
 }
