@@ -22,12 +22,12 @@ namespace HtmlElements.IntegrationTests.Pages
 
         public void SignIn(String login, String password)
         {
-            ExecuteInFrame(() =>
+            using (new FrameContextOverride(this))
             {
                 LoginField.EnterText(login);
                 PasswordField.EnterText(password);
-                SubmitBtn.Click();    
-            });
+                SubmitBtn.Click();
+            }
         }
     }
 }

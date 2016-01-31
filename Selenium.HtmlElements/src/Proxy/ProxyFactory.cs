@@ -48,6 +48,12 @@ namespace HtmlElements.Proxy
             return Activator.CreateInstance(typeof (ElementListProxy<>).MakeGenericType(elementType), loader);
         }
 
+        /// <summary>
+        ///     Create frame-specific web element proxy which is using WebDriver search context 
+        ///     instead of wrapped element context for finding nested elements
+        /// </summary>
+        /// <param name="elementLoader">Frame loader</param>
+        /// <returns>Proxy implementing <see cref="IWebElement"/> interface</returns>
         public IWebElement CreateFrameProxy(ILoader<IWebElement> elementLoader)
         {
             if (elementLoader == null)

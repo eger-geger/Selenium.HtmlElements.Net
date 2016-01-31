@@ -13,13 +13,15 @@ namespace HtmlElements
 {
     /// <summary>
     ///     Default page object implementation creating lazy loading proxies for every web element or list of web elements.
-    ///     It can't handle multiple <see cref="FindsByAttribute"/> attributes as well as <seealso cref="FindsBySequenceAttribute"/> 
-    ///     and <see cref="FindsByAllAttribute"/>. 
+    ///     It can't handle multiple <see cref="FindsByAttribute"/> attributes as well as <see cref="FindsBySequenceAttribute"/> and <see cref="FindsByAllAttribute"/>. 
+    /// 
     ///     It supports <see cref="CacheLookupAttribute"/> for elements and element lists by using same raw web element once it have been found.
     ///     It also supports smart frames (derived from <see cref="HtmlFrame"/> class) which can host nested elements and automatically switch context.
-    ///     Current implementation requires nested page objects to have default constructor or constructor accepting <see cref="IWebElement"/> as a single argument
+    /// 
+    ///     Factory requires nested page objects to have default constructor or constructor accepting <see cref="IWebElement"/> as a single argument
     ///     or <see cref="IWebElement"/> as first argument and <see cref="IPageObjectFactory"/> as second.
-    ///     When <see cref="IPageObjectFactory.Create{TPageObject}"/> is called directly it can pass instance of search context being provided as first constructor 
+    /// 
+    ///     When <see cref="IPageObjectFactory.Create{TPageObject}"/> is called directly it will pass instance of search context being provided as first constructor 
     ///     argument and itself as second (if needed). It also can use default constructor.
     /// </summary>
     public class PageObjectFactory : AbstractPageObjectFactory

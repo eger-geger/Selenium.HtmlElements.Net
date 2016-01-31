@@ -1,28 +1,29 @@
 ﻿using System;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Internal;
 
 namespace HtmlElements
 {
     /// <summary>
     ///     Allow to declare block of code in which implicit WebDriver wait will be overridden with provided value and restored after it.
     /// </summary>
-    public class ImplicitWaitOverride : IDisposable
+    public class ImplicitWaitOverride : IDisposable, IWrapsDriver
     {
         private readonly TimeSpan _defaultImplicitWait;
 
         private TimeSpan _overriddenImplicitWait;
 
-        private readonly IWebDriver _wrappeDriver;
+        private readonly IWebDriver _wrappedDriver;
 
         /// <summary>
         ///     Create new override for a given browser with provided default value. 
         ///     Does not change implicit wait on it's own. In order to do so use <see cref="ImplicitWaitTimeout"/> property.
         /// </summary>
-        /// <param name="wrappeDriver">Driver which implicit wait timeout should be overridden</param>
+        /// <param name="wrappedDriver">Driver which implicit wait timeout should be overridden</param>
         /// <param name="defaultImplicitWait">Default implicit wait timeout set when override is being disposed</param>
-        public ImplicitWaitOverride(IWebDriver wrappeDriver, TimeSpan defaultImplicitWait)
+        public ImplicitWaitOverride(IWebDriver wrappedDriver, TimeSpan defaultImplicitWait)
         {
-            _wrappeDriver = wrappeDriver;
+            _wrappedDriver = wrappedDriver;
             _defaultImplicitWait = defaultImplicitWait;
         }
 
@@ -30,14 +31,25 @@ namespace HtmlElements
         ///     Create new override for a given browser with provided default value. 
         ///     It actually updates implicit wait setting but it can also be changed later with <see cref="ImplicitWaitTimeout"/> property.
         /// </summary>
-        /// <param name="wrappeDriver">Driver which implicit wait timeout should be overridden</param>
+        /// <param name="wrappedDriver">Driver which implicit wait timeout should be overridden</param>
         /// <param name="defaultImplicitWait">Default implicit wait timeout set when override is being disposed</param>
         /// <param name="overridenImplicitWait">Implicit wait timeout to be set for a given WebDriver instance</param>
-        public ImplicitWaitOverride(IWebDriver wrappeDriver, TimeSpan defaultImplicitWait, TimeSpan overridenImplicitWait)
+        public ImplicitWaitOverride(IWebDriver wrappedDriver, TimeSpan defaultImplicitWait, TimeSpan overridenImplicitWait)
         {
-            _wrappeDriver = wrappeDriver;
+            _wrappedDriver = wrappedDriver;
             _defaultImplicitWait = defaultImplicitWait;
             ImplicitWaitTimeout = overridenImplicitWait;
+        }
+
+        /// <summary>
+        ///     Driver instance which timeout get updated
+        /// </summary>
+        public IWebDriver WrappedDriver
+        {
+            get
+            {
+                return _wrappedDriver;
+            }
         }
 
         /// <summary>
@@ -46,7 +58,7 @@ namespace HtmlElements
         public TimeSpan ImplicitWaitTimeout
         {
             get { return _overriddenImplicitWait; }
-            set { _wrappeDriver.Manage().Timeouts().ImplicitlyWait(_overriddenImplicitWait = value); }
+            set { _wrappedDriver.Manage().Timeouts().ImplicitlyWait(_overriddenImplicitWait = value); }
         }
 
         /// <summary>

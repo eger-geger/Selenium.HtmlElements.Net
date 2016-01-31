@@ -19,7 +19,7 @@ namespace HtmlElements.Proxy
         IWebElement CreateElementProxy(ILoader<IWebElement> loader);
 
         /// <summary>
-        ///     Create frame-specific web element proxy
+        ///     Create frame-specific web element proxy 
         /// </summary>
         /// <param name="elementLoader">Frame loader</param>
         /// <returns>Proxy implementing <see cref="IWebElement"/> interface</returns>
