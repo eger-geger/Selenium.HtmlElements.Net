@@ -75,7 +75,7 @@ As you can see from the code above instance of _PageObjectFactory_ class is used
 * how it's members get initialized; 
 * how underlying web elements are located. 
 
-Default page factory implementation wraps raw web elements located in browser into proxy loading elements on demand and hanling _StaleElementReferenceExcetion_ by reloading the underlying element.
+Default page factory implementation wraps raw web elements located in browser into proxy loading elements on demand and hanling _StaleElementReferenceExcetion_ by reloading the underlying element. It is possible to change how proxy is being created (by implementing IProxyFactory interface) and how elements are being loaded (by implementing ILoaderFactory interface). Also you can change the way how new page objects are being created (by overriding _CreatePageObjectInstance_ default factory method) and how page object members are being initialized (by overriding _CreateMemberInstance_ default factory method).
 
 Please refer to API reference for more details.
 
@@ -92,11 +92,103 @@ In addition to creatign your custom page objects you can use set predefined comp
 * HtmlSelect
 * HtmlTextArea
 
-All of the above components are derived from _HtmlElement_ which also candidate to derive from when creating custom components.
+All of the above components are derived from _HtmlElement_ which also a good candidate to derive custom components from.
 
 ## Alternative wait syntax ##
+While writing selenium tests you'll often found your self waiting until something happens in browser. It could be slow loading page, dialog which takes few seconds to show up or hide, background proccess which must finish until test can proceed. The simple way is to wait for few seconds. Reliable way is to use _WebDriverWait_ or _DefaultWait_ classes being part of selenium webdriver library. The convinient way is to use extension methods provided by current library. Just take a look on example below.
+
+```
+
+/* assuming there is a highly dynamic login button which takes some time to load */
+
+[FindsBy(How = How.CssSelector, Using = "#login")]
+private IWebElement _loginButton;
+
+/* we can wait for weird stuff happenning with it */
+
+/* wait for 10 seconds until button became displayed for and click on it */
+_loginButton.WaitForPresent().Click();
+
+/* wait for 10 seconds until button became displayed and click on it or throw exception with given message */
+_loginButton.WaitForVisible("login button did not became visible");
+
+/* wait for 30 seconds until button became hidden */
+_loginButton.UntilHidden(TimeSpan.FromSeconds(30));
+
+/* wait for 60 seconds until button text becames empty checking it every 5 seconds */
+_loginButton.WaitUntil(btn => String.IsNullOrEmpty(btn.Text), TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(5));
+
+/* click on button every 30 seconds up to five minutes until it becames hidden */
+_loginButton
+    .Do(btn => btn.click())
+    .For(TimeSpan.FromSeconds(300))
+    .Every(TimeSpan.FromSeconds(30))
+    .Until(btn => !btn.IsHidden());
+
+```
+
+Yeah, examples above are very realistic but they do show what etensions can do and how it can be used. You could check API reference for list of available extensions and complete signatures.
 
 ## Smart (kind of) frames ##
+Sometimes tests need to interact with HTML frames. In order to do it wee need to switch wedriver context to specific frame firts and in most cases switch it back after we've done. It is exactly what _FrameContextOverride_ class is desgined to do.
+
+```
+
+/* assuming there is an frame defined as following */
+[FindsBy(How = How.CssSelector, Using = "iframe")]
+private IWebElement _frameElement;
+
+/* and IWebDriver instance is defined as 'webDriver' */
+
+/* the following will do stuff in it and switch back */
+using (new FrameContextOverride(webDriver, _frameElement))
+{
+    _frameElement.FindElement(By.Id("email")).SendKeys("joe@gmail.com");
+    _frameElement.FindElement(By.Id("password")).SendKeys("qwerty");
+    _frameElement.FindElement(By.Id("signin")).Click();
+}
+
+```
+
+_HtmlFrame_ is nother class which makes life easier when it coming to working with frames. When created by default page object factory (described above) it's wrapped search context is set to WebDriver instance instead of WebElement (as it is done for other custom elements). It allows using it as a base class for custom page objects for describing frames and interacting with it. Example above could be rewritten as shown below.
+
+```
+/* creating frame page object */
+public class SignInFrame : HtmlFrame {
+
+    [FindsBy(How = How.CssSelector, Using = "#email")]
+    private IWebElement _emailField;
+
+    [FindsBy(How = How.CssSelector, Using = "#password")]
+    private IWebElement _passwordField;
+
+    [FindsBy(How = How.CssSelector, Using = "#signin")]
+    private IWebElement _signinBtn;
+
+    public SignInFrame (IWebElement webElement) : base (webElement) {}
+
+    public void SignIn(String email, String password) 
+    {
+        using(new FrameContextOverride(this))
+        {
+            _emailField.SendKeys(email);
+            _emailField.SendKeys(password);
+            _signinBtn.Click();
+        }
+    }
+
+}
+
+/* and using it on a page */
+
+public class HomePage {
+    
+    [FindsBy(How = How.CssSelector, Using = "iframe")]
+    public SignInFrame { get; set; }
+
+}
+
+```
 
 ## Oher goodies ##
 
