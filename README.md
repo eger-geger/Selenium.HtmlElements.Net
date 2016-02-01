@@ -6,7 +6,7 @@ The main goal of **HtmlElements** library is to represent any given page or part
 
 Assuming we would like to model a page listing nuget packages (https://www.nuget.org/packages) we could describe every package from list as a seprate component and then have list of such components inside page object descriding page as a whole.
 
-```
+```C#
 
 /* describe package list page */
 public class NugetPackageListPage {
@@ -93,7 +93,7 @@ All of the above components are derived from _HtmlElement_ which also a good can
 ## Alternative wait syntax ##
 While writing selenium tests you'll often found your self waiting until something happens in browser. It could be slow loading page, dialog which takes few seconds to show up or hide, background proccess which must finish until test can proceed. The simple way is to wait for few seconds. Reliable way is to use _WebDriverWait_ or _DefaultWait_ classes being part of selenium webdriver library. The convinient way is to use extension methods provided by current library. Just take a look on example below.
 
-```
+```C#
 
 /* assuming there is a highly dynamic login button which takes some time to load */
 
@@ -128,7 +128,7 @@ Yeah, examples above are very realistic but they do show what etensions can do a
 ## Smart (kind of) frames ##
 Sometimes tests need to interact with HTML frames. In order to do it we need to switch wedriver context to specific frame firts and (in most cases) switch it back after we've done. It is exactly what _FrameContextOverride_ class is desgined to do.
 
-```
+```C#
 
 /* assuming there is an frame defined as following */
 [FindsBy(How = How.CssSelector, Using = "iframe")]
@@ -148,7 +148,8 @@ using (new FrameContextOverride(webDriver, _frameElement))
 
 _HtmlFrame_ is nother class which makes life easier when it coming to working with frames. When created by default page object factory (described above) it's wrapped search context is set to WebDriver instance instead of WebElement (as it is done for other custom elements). It allows using it as a base class for custom page objects for describing complex frames objects. Example above could be rewritten as shown below.
 
-```
+```C#
+
 /* creating frame page object */
 public class SignInFrame : HtmlFrame {
 
