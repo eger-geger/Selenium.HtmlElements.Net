@@ -2,9 +2,9 @@
 
 ## Custom page objects ##
 
-The main idea behind HtmlElements library is to represent any given web page or part of a page as set of smaller reusable components. Every component is a  class having any number of nested components and public methods for itenracting with it. Page is serving as a root of component hierarchy.
+The main goal of **HtmlElements** library is to represent any given page or part of a page as set of smaller reusable components. Every component is a class having any number of nested components and public methods. Page is serving as a root of component hierarchy.
 
-Assuming we would like to create a page object for page listing nuget packages (https://www.nuget.org/packages) we could describe every package from list as a seprate components and then have list of such components on page oject descriding page as a whole.
+Assuming we would like to model a page listing nuget packages (https://www.nuget.org/packages) we could describe every package from list as a seprate component and then have list of such components inside page object descriding page as a whole.
 
 ```
 
@@ -69,13 +69,9 @@ NugetPackageListPage page = pageFactory.Create<NugetPackageListPage>(webDriver);
 
 ```
 
-As you can see from the code above instance of _PageObjectFactory_ class is used to create and initialize page instance being a hierarchy root. It is one of the core library components since it creates and recursively initializes all page objects in a given hierarchy. Page factory can initialize fields and properties which type is derived from _IWebElement_ or _IList<IWebElement>_. _PageFactory_ can create (and initilize) page object of any type using default or custom constructor. It also provides few extension points allowing you to change 
+Instance of _PageObjectFactory_ class is used to create and initialize page instance being a hierarchy root. It is one of the core library components since it creates and recursively initializes all page objects in a given hierarchy. Page factory can initialize fields and properties which type is derived from _IWebElement_ or _IList<IWebElement>_. It can create (and initilize) page object of any type using default or custom constructor. It also provides few extension points.
 
-* how page objects get created; 
-* how it's members get initialized; 
-* how underlying web elements are located. 
-
-Default page factory implementation wraps raw web elements located in browser into proxy loading elements on demand and hanling _StaleElementReferenceExcetion_ by reloading the underlying element. It is possible to change how proxy is being created (by implementing IProxyFactory interface) and how elements are being loaded (by implementing ILoaderFactory interface). Also you can change the way how new page objects are being created (by overriding _CreatePageObjectInstance_ default factory method) and how page object members are being initialized (by overriding _CreateMemberInstance_ default factory method).
+Default page factory implementation wraps raw web elements located in browser into proxy loading elements on demand and hanling _StaleElementReferenceExcetion_ by reloading the underlying element. It is possible to change how proxy is being created (by implementing IProxyFactory interface), how elements are being loaded (by implementing ILoaderFactory interface). Also you can change the way how new page objects are being instantiated (by overriding _CreatePageObjectInstance_ default factory method) and how page object members are being initialized (by overriding _CreateMemberInstance_ default factory method).
 
 Please refer to API reference for more details.
 
