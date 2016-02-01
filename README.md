@@ -126,7 +126,7 @@ _loginButton
 Yeah, examples above are very realistic but they do show what etensions can do and how it can be used. You could check API reference for list of available extensions and complete signatures.
 
 ## Smart (kind of) frames ##
-Sometimes tests need to interact with HTML frames. In order to do it wee need to switch wedriver context to specific frame firts and in most cases switch it back after we've done. It is exactly what _FrameContextOverride_ class is desgined to do.
+Sometimes tests need to interact with HTML frames. In order to do it we need to switch wedriver context to specific frame firts and (in most cases) switch it back after we've done. It is exactly what _FrameContextOverride_ class is desgined to do.
 
 ```
 
@@ -146,7 +146,7 @@ using (new FrameContextOverride(webDriver, _frameElement))
 
 ```
 
-_HtmlFrame_ is nother class which makes life easier when it coming to working with frames. When created by default page object factory (described above) it's wrapped search context is set to WebDriver instance instead of WebElement (as it is done for other custom elements). It allows using it as a base class for custom page objects for describing frames and interacting with it. Example above could be rewritten as shown below.
+_HtmlFrame_ is nother class which makes life easier when it coming to working with frames. When created by default page object factory (described above) it's wrapped search context is set to WebDriver instance instead of WebElement (as it is done for other custom elements). It allows using it as a base class for custom page objects for describing complex frames objects. Example above could be rewritten as shown below.
 
 ```
 /* creating frame page object */
