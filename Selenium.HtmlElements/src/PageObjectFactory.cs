@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Text;
 using HtmlElements.Elements;
@@ -27,6 +29,7 @@ namespace HtmlElements
     public class PageObjectFactory : AbstractPageObjectFactory
     {
         private readonly ILoaderFactory _loaderFactory;
+
         private readonly IProxyFactory _proxyFactory;
 
         /// <summary>
@@ -61,6 +64,81 @@ namespace HtmlElements
             _loaderFactory = loaderFactory;
         }
 
+        /// <summary>
+        ///     Creates lazy loaded WebElement found with provided locator in given search context
+        /// </summary>
+        /// <param name="searchContext">
+        ///     Context used for finding element
+        /// </param>
+        /// <param name="locator">
+        ///     Element locator to use for finding element
+        /// </param>
+        /// <returns>
+        ///     Lazy loaded WebElement found in given search context with provided locator
+        /// </returns>
+        public override IWebElement CreateWebElement(ISearchContext searchContext, By locator)
+        {
+            return _proxyFactory.CreateElementProxy(_loaderFactory.CreateElementLoader(searchContext, locator, true));
+        }
+
+        public override TPageObject CreateWebElement<TPageObject>(ISearchContext searchContext, By locator)
+        {
+            return CreateWebElement(typeof (TPageObject), searchContext, locator, true) as TPageObject;
+        }
+
+        private Object CreateWebElement(Type elementType, ISearchContext searchContext, By locator, Boolean cached)
+        {
+            ILoader<IWebElement> elementLoader = _loaderFactory.CreateElementLoader(searchContext, locator, cached);
+
+            IWebElement elementProxy =
+                typeof(HtmlFrame).IsAssignableFrom(elementType)
+                    ? _proxyFactory.CreateFrameProxy(elementLoader)
+                    : _proxyFactory.CreateElementProxy(elementLoader);
+
+            if (typeof(IWebElement) == elementType || typeof(IHtmlElement) == elementType)
+            {
+                return new HtmlElement(elementProxy);
+            }
+
+            return Create(elementType, elementProxy);
+        }
+
+        /// <summary>
+        ///     Creates lazy loaded list of WebElements found with provided locator in given search context
+        /// </summary>
+        /// <param name="searchContext">
+        ///     Context used for finding elements
+        /// </param>
+        /// <param name="locator">
+        ///     Element locator to use for finding elements
+        /// </param>
+        /// <returns>
+        ///     Lazy loaded list of WebElements
+        /// </returns>
+        public override ReadOnlyCollection<IWebElement> CreateWebElementList(ISearchContext searchContext, By locator)
+        {
+            return new ReadOnlyCollection<IWebElement>(
+                _proxyFactory.CreateListProxy(_loaderFactory.CreateElementListLoader(searchContext, locator, true))
+            );
+        }
+
+        public override IList<TPageObject> CreateWebElementList<TPageObject>(ISearchContext searchContext, By locator)
+        {
+            return CreateWebElementList(typeof(TPageObject), searchContext, locator, true) as IList<TPageObject>;
+        }
+
+        private Object CreateWebElementList(Type elementType, ISearchContext searchContext, By locator, Boolean isCached)
+        {
+            if (elementType == typeof(IWebElement) || elementType == typeof(IHtmlElement))
+            {
+                elementType = typeof(HtmlElement);
+            }
+
+            return _proxyFactory.CreateListProxy(
+                elementType, _loaderFactory.CreateListLoader(elementType, searchContext, locator, isCached)
+            );
+        }
+
         protected override Object CreateMemberInstance(Type memberType, MemberInfo memberInfo, ISearchContext searchContext)
         {
             var locator = CreateElementLocator(memberInfo);
@@ -69,40 +147,19 @@ namespace HtmlElements
 
             if (memberType.IsWebElement())
             {
-                ILoader<IWebElement> elementLoader = _loaderFactory.CreateElementLoader(searchContext, locator, isCached);
-
-                IWebElement elementProxy = 
-                    typeof(HtmlFrame).IsAssignableFrom(memberType)
-                        ? _proxyFactory.CreateFrameProxy(elementLoader)
-                        : _proxyFactory.CreateElementProxy(elementLoader);
-
-                if (typeof (IWebElement) == memberType || typeof (IHtmlElement) == memberType)
-                {
-                    return new HtmlElement(elementProxy);
-                }
-
-                return Create(memberType, elementProxy);
+                return CreateWebElement(memberType, searchContext, locator, isCached);
             }
 
             if (memberType.IsWebElementList())
             {
                 var genericArguments = memberType.GetGenericArguments();
 
-                if (genericArguments.Length == 0)
+                if (genericArguments.Length != 1)
                 {
                     return null;
                 }
 
-                var elementType = genericArguments[0];
-
-                if (elementType == typeof (IWebElement) || elementType == typeof (IHtmlElement))
-                {
-                    elementType = typeof (HtmlElement);
-                }
-
-                return _proxyFactory.CreateListProxy(
-                    elementType, _loaderFactory.CreateListLoader(elementType, searchContext, locator, isCached)
-                );
+                return CreateWebElementList(genericArguments[0], searchContext, locator, isCached);
             }
 
             return null;

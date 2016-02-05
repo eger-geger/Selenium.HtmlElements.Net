@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using HtmlElements.Extensions;
 using OpenQA.Selenium;
@@ -6,11 +8,15 @@ using OpenQA.Selenium;
 namespace HtmlElements
 {
     /// <summary>
-    ///     Implements <see cref="IPageObjectFactory"/> contract and delegates responsibility for creating actual page object and initializing it's members to subclasses.
-    ///     This class takes care of locating suitable for initialization members and assigning value to it. 
-    ///     It looks for all instance fields and properties which are web elements or web element lists and have not been assigned value yet.
-    ///     Both fields and properties can be private protected or public, but in order to be initialized 
-    ///     fields should not be marked <value>readonly</value> and properties should have setters.
+    ///     Implements <see cref="IPageObjectFactory" /> contract and delegates responsibility for creating actual page object
+    ///     and initializing it's members to subclasses.
+    ///     It class takes care of locating suitable for initialization members and assigning value to it.
+    ///     It looks for all instance fields and properties which are web elements or web element lists and have not been
+    ///     assigned value yet.
+    ///     Both fields and properties can be private protected or public, but in order to be initialized
+    ///     fields should not be marked
+    ///     <value>readonly</value>
+    ///     and properties should have setters.
     /// </summary>
     public abstract class AbstractPageObjectFactory : IPageObjectFactory
     {
@@ -64,6 +70,11 @@ namespace HtmlElements
 
             var pageObjectType = pageObject.GetType();
 
+            if (pageObject is WebDriverWrapper)
+            {
+                (pageObject as WebDriverWrapper).SetPageObjectFactory(this);
+            }
+
             foreach (var fieldInfo in pageObjectType.GetOwnAndInheritedFields(BindingFlags))
             {
                 if (fieldInfo.GetValue(pageObject) != null)
@@ -95,6 +106,68 @@ namespace HtmlElements
         }
 
         /// <summary>
+        ///     Creates WebElement found with provided locator in given search context
+        /// </summary>
+        /// <param name="searchContext">
+        ///     Context used for finding element
+        /// </param>
+        /// <param name="locator">
+        ///     Element locator to use for finding element
+        /// </param>
+        /// <returns>
+        ///     Custom WebElement found in given search context with provided locator
+        /// </returns>
+        public abstract IWebElement CreateWebElement(ISearchContext searchContext, By locator);
+
+        /// <summary>
+        ///     Creates list of WebElements found with provided locator in given search context
+        /// </summary>
+        /// <param name="searchContext">
+        ///     Context used for finding elements
+        /// </param>
+        /// <param name="locator">
+        ///     Element locator to use for finding elements
+        /// </param>
+        /// <returns>
+        ///     Custom list of WebElements
+        /// </returns>
+        public abstract ReadOnlyCollection<IWebElement> CreateWebElementList(ISearchContext searchContext, By locator);
+
+        /// <summary>
+        ///     Creates and initializes page object of a given type and all nested page objects.
+        /// </summary>
+        /// <typeparam name="TPageObject">
+        ///     Page object class.
+        /// </typeparam>
+        /// <param name="searchContext">
+        ///     Parent context used for finding the element used as page element root.
+        /// </param>
+        /// <param name="locator">
+        ///     Locator used for finding underlying WebElement used as page element root.
+        /// </param>
+        /// <returns>
+        ///     Fully initialized page object using WebElement found in <paramref name="searchContext"/> with <paramref name="locator"/> for finding nested elements.
+        /// </returns>
+        public abstract TPageObject CreateWebElement<TPageObject>(ISearchContext searchContext, By locator) where TPageObject:class;
+
+        /// <summary>
+        ///     Creates and initializes list of page elements and it's nested page objects.
+        /// </summary>
+        /// <typeparam name="TPageObject">
+        ///     The type of the page object.
+        /// </typeparam>
+        /// <param name="searchContext">
+        ///     The search context used for finding underlying WebElements.
+        /// </param>
+        /// <param name="locator">
+        ///     The locator used for finding underlying WebElements.
+        /// </param>
+        /// <returns>
+        ///     List of initialized page objects wrapping elements found in <paramref name="searchContext"/> with <paramref name="locator"/>.
+        /// </returns>
+        public abstract IList<TPageObject> CreateWebElementList<TPageObject>(ISearchContext searchContext, By locator);
+
+        /// <summary>
         ///     Creates value assigned to page object member (field or property).
         /// </summary>
         /// <param name="memberType">Declared type of property or field</param>
@@ -108,8 +181,8 @@ namespace HtmlElements
         /// </summary>
         /// <param name="pageObjectType">Type of page object being initialized</param>
         /// <param name="searchContext">
-        ///     Optional constructor argument representing search context being wrapped. 
-        ///     It could be <see cref="IWebElement"/> or <see cref="IWebDriver"/> instance or other page object.
+        ///     Optional constructor argument representing search context being wrapped.
+        ///     It could be <see cref="IWebElement" /> or <see cref="IWebDriver" /> instance or other page object.
         /// </param>
         /// <returns>New instance of given type</returns>
         protected abstract Object CreatePageObjectInstance(Type pageObjectType, ISearchContext searchContext);

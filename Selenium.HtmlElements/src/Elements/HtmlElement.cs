@@ -22,10 +22,9 @@ namespace HtmlElements.Elements {
         /// <exception cref="ArgumentException">
         ///     Thrown when <paramref name="webElement"/> does not wrap WebDriver
         /// </exception>
-        public HtmlElement(IWebElement webElement) : base(webElement) {
-            _wrappedElement = (webElement is HtmlElement) 
-                ? (webElement as HtmlElement).WrappedElement 
-                : webElement;
+        public HtmlElement(IWebElement webElement) : base(webElement)
+        {
+            _wrappedElement = webElement;
         }
 
         /// <summary>

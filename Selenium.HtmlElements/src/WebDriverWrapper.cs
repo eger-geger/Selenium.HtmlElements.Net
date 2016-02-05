@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using HtmlElements.Extensions;
@@ -12,7 +13,7 @@ namespace HtmlElements
     /// </summary>
     public abstract class WebDriverWrapper : ISearchContext, IWrapsDriver, IJavaScriptExecutor
     {
-        private readonly IWebDriver _wrappedDriver;
+        private readonly ISearchContext _webDriverOrWrapper;
 
         /// <summary>
         ///     Initializes wrapper converting provided object to WebDriver
@@ -26,15 +27,14 @@ namespace HtmlElements
         /// </exception>
         protected WebDriverWrapper(ISearchContext webDriverOrWrapper)
         {
-            _wrappedDriver = webDriverOrWrapper.ToWebDriver();
+            _webDriverOrWrapper = webDriverOrWrapper;
+        }
 
-            if (_wrappedDriver == null)
-            {
-                throw new ArgumentException(
-                    "Should be WebDriver or WebDriver wrapper but it isn't", 
-                    "webDriverOrWrapper"
-                );
-            }
+        protected IPageObjectFactory PageObjectFactory { get; private set; }
+
+        internal void SetPageObjectFactory(IPageObjectFactory pageObjectFactory)
+        {
+            PageObjectFactory = pageObjectFactory;
         }
 
         public object ExecuteScript(string script, params object[] args)
@@ -63,17 +63,39 @@ namespace HtmlElements
 
         public ReadOnlyCollection<IWebElement> FindElements(By @by)
         {
-            return _wrappedDriver.FindElements(@by);
+            return PageObjectFactory.CreateWebElementList(_webDriverOrWrapper, @by);
         }
 
         public IWebElement FindElement(By @by)
         {
-            return _wrappedDriver.FindElement(@by);
+            return PageObjectFactory.CreateWebElement(_webDriverOrWrapper, @by);
+        }
+
+        public TElement FindElement<TElement>(By @by) where TElement:class 
+        {
+            return PageObjectFactory.CreateWebElement<TElement>(_webDriverOrWrapper, @by);
+        }
+
+        public IList<TElement> FindElements<TElement>(By @by) where TElement:class 
+        {
+            return PageObjectFactory.CreateWebElementList<TElement>(_webDriverOrWrapper, @by);
         }
 
         public IWebDriver WrappedDriver
         {
-            get { return _wrappedDriver; }
+            get
+            {
+                var wrappedDriver = _webDriverOrWrapper.ToWebDriver();
+
+                if (wrappedDriver == null)
+                {
+                    throw new InvalidOperationException(
+                        "Should be WebDriver or WebDriver wrapper but it isn't"
+                    );
+                };
+
+                return wrappedDriver;
+            }
         }
 
         public override string ToString()
@@ -81,7 +103,7 @@ namespace HtmlElements
             return new StringBuilder()
                 .AppendFormat("{0} wrapping", GetType().FullName)
                 .AppendLine()
-                .AppendLine(_wrappedDriver.ToString().ShiftLinesToRight(4, '.'))
+                .AppendLine(_webDriverOrWrapper.ToString().ShiftLinesToRight(2, '.'))
                 .ToString();
         }
     }

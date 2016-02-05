@@ -7,7 +7,10 @@ namespace HtmlElements.Elements {
     /// <summary>
     ///     Models HTML link element and exposes it's attributes as properties
     /// </summary>
-    public class HtmlLink : HtmlElement {
+    public class HtmlLink : HtmlElement
+    {
+
+        private readonly IPageObjectFactory _pageObjectFactory;
 
         ///<summary>
         ///     Initializes new instance of HTML element by calling base class constructor
@@ -18,8 +21,9 @@ namespace HtmlElements.Elements {
         /// <exception cref="ArgumentException">
         ///     Thrown when <paramref name="webElement"/> does not wrap WebDriver
         /// </exception>
-        public HtmlLink(IWebElement webElement) : base(webElement)
+        public HtmlLink(IWebElement webElement, IPageObjectFactory pageObjectFactory) : base(webElement)
         {
+            _pageObjectFactory = pageObjectFactory;
         }
 
         /// <summary>
@@ -50,6 +54,15 @@ namespace HtmlElements.Elements {
         public string Target {
             get { return GetAttribute("target"); }
             set { this.SetAttribute("target", value); }
+        }
+
+        public TReturn Open<TReturn>()
+        {
+            IWebDriver wd = WrappedDriver;
+
+            Click();
+
+            return _pageObjectFactory.Create<TReturn>(wd);
         }
     }
 

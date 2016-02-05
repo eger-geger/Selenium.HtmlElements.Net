@@ -31,8 +31,9 @@ namespace HtmlElements.Test
         [Test]
         public void ShouldAskToCreatePageObjectInstanceWhenCalledCreateWithGenericArgument()
         {
-            _factory.Create<PageObjectA>(_searchContext);
+            var pageObjectA = _factory.Create<PageObjectA>(_searchContext);
 
+            VerifyPageObjectCreated(pageObjectA);
             VerifyPageObjectCreationRequestWasMade();
             VerifyMemberInitializationRequestsWereMade(_searchContext);
         }
@@ -40,8 +41,9 @@ namespace HtmlElements.Test
         [Test]
         public void ShouldAskToCreatePageObjectInstanceWhenCalledCreateWithTypeArgument()
         {
-            _factory.Create(typeof (PageObjectA), _searchContext);
+            var pageObjectA = _factory.Create(typeof (PageObjectA), _searchContext);
 
+            VerifyPageObjectCreated(pageObjectA as PageObjectA);
             VerifyPageObjectCreationRequestWasMade();
             VerifyMemberInitializationRequestsWereMade(_searchContext);
         }
@@ -49,8 +51,11 @@ namespace HtmlElements.Test
         [Test]
         public void ShouldAskToInitializeEveryNestedPageObjectWhenInitializingPageObject()
         {
-            _factory.Init(new PageObjectA(_searchContext), _searchContext);
+            var pageObjectA = new PageObjectA(_searchContext);
+            
+            _factory.Init(pageObjectA, _searchContext);
 
+            VerifyPageObjectCreated(pageObjectA);
             VerifyMemberInitializationRequestsWereMade(_searchContext);
         }
 
@@ -62,6 +67,12 @@ namespace HtmlElements.Test
             _factory.Init(contextWrapper);
 
             VerifyMemberInitializationRequestsWereMade(contextWrapper);
+        }
+
+        private void VerifyPageObjectCreated(PageObjectA pageObject)
+        {
+            Assert.That(pageObject, Is.Not.Null);
+            Assert.That(pageObject.PageObjectFactory, Is.Not.Null.And.SameAs(_factory));
         }
 
         private void VerifyPageObjectCreationRequestWasMade()
@@ -103,7 +114,13 @@ namespace HtmlElements.Test
             {
             }
 
+            public IPageObjectFactory PageObjectFactory
+            {
+                get { return base.PageObjectFactory; }
+            }
+
             public HtmlElement ElementC { get; private set; }
+
             public IList<HtmlImage> ElementListB { get; private set; }
         }
     }
