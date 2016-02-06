@@ -264,5 +264,24 @@ namespace HtmlElements.Elements {
             Clear();
             SendKeys(text);
         }
+
+        public TPage Open<TPage>()
+        {
+            IWebDriver wd = WrappedDriver;
+
+            Click();
+
+            return PageObjectFactory.Create<TPage>(wd);
+        }
+
+        public TPage OpenInNewWindow<TPage>()
+        {
+            IWebDriver wd = WrappedDriver;
+
+            wd.WaitUntilNewWindowOpened(Click);
+            wd.SwitchToLastOpenedWindow();
+
+            return PageObjectFactory.Create<TPage>(wd);
+        }
     }
 }

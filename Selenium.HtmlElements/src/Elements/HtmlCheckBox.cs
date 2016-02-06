@@ -30,5 +30,10 @@ namespace HtmlElements.Elements
             get { return Selected; }
             set { this.Do(Click).Until(self => Selected == value); }
         }
+
+        public void Select()
+        {
+            Checked = true;
+        }
     }
 }

@@ -51,28 +51,6 @@ namespace HtmlElements.Elements {
             get { return GetAttribute("target"); }
             set { this.SetAttribute("target", value); }
         }
-
-        /// <summary>
-        /// Opens this instance.
-        /// </summary>
-        /// <typeparam name="TReturn">The type of the return.</typeparam>
-        /// <returns></returns>
-        /// <exception cref="InvalidOperationException"></exception>
-        public TReturn Open<TReturn>()
-        {
-            if (PageObjectFactory == null)
-            {
-                throw new InvalidOperationException(
-                    String.Format("Cannot create [{0}] because wrapped page factory is null", typeof(TReturn))
-                );
-            }
-
-            IWebDriver wd = WrappedDriver;
-
-            Click();
-
-            return PageObjectFactory.Create<TReturn>(wd);
-        }
     }
 
 }
