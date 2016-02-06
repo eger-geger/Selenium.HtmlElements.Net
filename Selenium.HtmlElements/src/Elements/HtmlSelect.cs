@@ -21,9 +21,6 @@ namespace HtmlElements.Elements {
         /// <param name="webElement">
         ///     WebElement wrapping WebDriver instance
         /// </param>
-        /// <exception cref="System.ArgumentException">
-        ///     Thrown when <paramref name="webElement" /> does not wrap WebDriver
-        /// </exception>
         public HtmlSelect(IWebElement webElement) : base(webElement)
         {
             _selectElement = new SelectElement(webElement);

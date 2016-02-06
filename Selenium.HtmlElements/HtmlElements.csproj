@@ -55,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\ElementGroup.cs" />
     <Compile Include="src\ElementGroupAttribute.cs" />
+    <Compile Include="src\Elements\HtmlTable.cs" />
     <Compile Include="src\FrameContextOverride.cs" />
     <Compile Include="src\DocumentReadyState.cs" />
     <Compile Include="src\Elements\HtmlCheckBox.cs" />

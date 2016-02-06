@@ -24,9 +24,6 @@ namespace HtmlElements
         ///     <see cref="IWebDriver"/>, <see cref="IWebElement"/> or anything else 
         ///     which is wrapping WebDriver instance and can be used for locating elements
         /// </param>
-        /// <exception cref="ArgumentException">
-        ///     Thrown when <paramref name="webDriverOrWrapper"/> is not WebDriver and it does not wrap WebDriver
-        /// </exception>
         protected WebDriverWrapper(ISearchContext webDriverOrWrapper)
         {
             _webDriverOrWrapper = webDriverOrWrapper;

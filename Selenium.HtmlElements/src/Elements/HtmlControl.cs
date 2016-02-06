@@ -1,5 +1,4 @@
-﻿using System;
-using HtmlElements.Extensions;
+﻿using HtmlElements.Extensions;
 using OpenQA.Selenium;
 
 namespace HtmlElements.Elements
@@ -15,9 +14,6 @@ namespace HtmlElements.Elements
         /// <param name="webElement">
         ///     WebElement wrapping WebDriver instance
         /// </param>
-        /// <exception cref="ArgumentException">
-        ///     Thrown when <paramref name="webElement" /> does not wrap WebDriver
-        /// </exception>
         protected HtmlControl(IWebElement webElement) : base(webElement)
         {
         }

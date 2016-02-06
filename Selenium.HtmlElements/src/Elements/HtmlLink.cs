@@ -15,9 +15,6 @@ namespace HtmlElements.Elements {
         /// <param name="webElement">
         ///     WebElement wrapping WebDriver instance
         /// </param>
-        /// <exception cref="ArgumentException">
-        ///     Thrown when <paramref name="webElement"/> does not wrap WebDriver
-        /// </exception>
         public HtmlLink(IWebElement webElement) : base(webElement)
         {
         }

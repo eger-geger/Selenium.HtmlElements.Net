@@ -15,9 +15,6 @@ namespace HtmlElements.Elements
         /// <param name="webElement">
         ///     WebElement wrapping WebDriver instance
         /// </param>
-        /// <exception cref="ArgumentException">
-        ///     Thrown when <paramref name="webElement"/> does not wrap WebDriver
-        /// </exception>
         public HtmlCheckBox(IWebElement webElement) : base(webElement)
         {
         }
@@ -31,6 +28,9 @@ namespace HtmlElements.Elements
             set { this.Do(Click).Until(self => Selected == value); }
         }
 
+        /// <summary>
+        ///     Marks checkbox as selected.
+        /// </summary>
         public void Select()
         {
             Checked = true;

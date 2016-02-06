@@ -265,6 +265,15 @@ namespace HtmlElements.Elements {
             SendKeys(text);
         }
 
+        /// <summary>
+        ///     Clicks on a wrapped WebElement and creates new page object instance of given type.
+        /// </summary>
+        /// <typeparam name="TPage">
+        ///     The type of page object being created.
+        /// </typeparam>
+        /// <returns>
+        ///     New page object instance.
+        /// </returns>
         public TPage Open<TPage>()
         {
             IWebDriver wd = WrappedDriver;
@@ -274,6 +283,15 @@ namespace HtmlElements.Elements {
             return PageObjectFactory.Create<TPage>(wd);
         }
 
+        /// <summary>
+        ///     Clicks on wrapped WebElement, waits until new window is opened and switches to it.
+        /// </summary>
+        /// <typeparam name="TPage">
+        ///     Type of page object being created.
+        /// </typeparam>
+        /// <returns>
+        ///     New page object instance.
+        /// </returns>
         public TPage OpenInNewWindow<TPage>()
         {
             IWebDriver wd = WrappedDriver;

@@ -46,8 +46,12 @@ namespace HtmlElements
         ///     Creates page factory instance using provided <paramref name="proxyFactory"/> for creating proxies
         ///     and <paramref name="loaderFactory"/> for creating lazy elements and list of elements.
         /// </summary>
-        /// <param name="proxyFactory"></param>
-        /// <param name="loaderFactory"></param>
+        /// <param name="proxyFactory">
+        ///     Factory creating WebElement and WebElement list proxies.
+        /// </param>
+        /// <param name="loaderFactory">
+        ///     Factory creating WebElement and WebElement list loaders.
+        /// </param>
         public PageObjectFactory(IProxyFactory proxyFactory, ILoaderFactory loaderFactory)
         {
             if (proxyFactory == null)
@@ -65,22 +69,37 @@ namespace HtmlElements
         }
 
         /// <summary>
-        ///     Creates lazy loaded WebElement found with provided locator in given search context
+        ///     Creates lazy loaded WebElement found with provided locator in given search context.
         /// </summary>
         /// <param name="searchContext">
-        ///     Context used for finding element
+        ///     Context used for finding element.
         /// </param>
         /// <param name="locator">
-        ///     Element locator to use for finding element
+        ///     Element locator to use for finding element.
         /// </param>
         /// <returns>
-        ///     Lazy loaded WebElement found in given search context with provided locator
+        ///     Lazy loaded WebElement found in given search context with provided locator.
         /// </returns>
         public override IWebElement CreateWebElement(ISearchContext searchContext, By locator)
         {
             return _proxyFactory.CreateWebElementProxy(_loaderFactory.CreateElementLoader(searchContext, locator, true));
         }
 
+        /// <summary>
+        ///     Creates and initializes page object of a given type and all nested page objects using WebElement found within given context by provided locator.
+        /// </summary>
+        /// <typeparam name="TPageObject">
+        ///     Page object class.
+        /// </typeparam>
+        /// <param name="searchContext">
+        ///     Parent context used for finding the element used as page element root.
+        /// </param>
+        /// <param name="locator">
+        ///     Locator used for finding underlying WebElement used as page element root.
+        /// </param>
+        /// <returns>
+        ///     Fully initialized page object using WebElement found in <paramref name="searchContext" /> with <paramref name="locator" /> for finding nested elements.
+        /// </returns>
         public override TPageObject CreateWebElement<TPageObject>(ISearchContext searchContext, By locator)
         {
             return CreateWebElement(typeof (TPageObject), searchContext, locator, true) as TPageObject;
@@ -122,6 +141,21 @@ namespace HtmlElements
             );
         }
 
+        /// <summary>
+        ///     Creates and initializes list of page elements and it's nested page objects.
+        /// </summary>
+        /// <typeparam name="TPageObject">
+        ///     The type of the page object.
+        /// </typeparam>
+        /// <param name="searchContext">
+        ///     The search context used for finding underlying WebElements.
+        /// </param>
+        /// <param name="locator">
+        ///     The locator used for finding underlying WebElements.
+        /// </param>
+        /// <returns>
+        ///     List of initialized page objects wrapping elements found in <paramref name="searchContext" /> with <paramref name="locator" />.
+        /// </returns>
         public override IList<TPageObject> CreateWebElementList<TPageObject>(ISearchContext searchContext, By locator)
         {
             return CreateWebElementList(typeof(TPageObject), searchContext, locator, true) as IList<TPageObject>;
@@ -139,6 +173,21 @@ namespace HtmlElements
             );
         }
 
+        /// <summary>
+        ///     Creates value assigned to page object member (field or property).
+        /// </summary>
+        /// <param name="memberType">
+        ///     Declared type of property or field.
+        /// </param>
+        /// <param name="memberInfo">
+        ///     Field or property meta information.
+        /// </param>
+        /// <param name="searchContext">
+        ///     Parent page object context.
+        /// </param>
+        /// <returns>
+        ///     Initialized field or property value or null.
+        /// </returns>
         protected override Object CreateMemberInstance(Type memberType, MemberInfo memberInfo, ISearchContext searchContext)
         {
             var locator = CreateElementLocator(memberInfo);
@@ -191,6 +240,20 @@ namespace HtmlElements
             return ByFactory.Create(attributes[0] as FindsByAttribute);
         }
 
+        /// <summary>
+        ///     Creates page object using two-arguments constructor (<see cref="ISearchContext"/> and <see cref="IPageObjectFactory"/>)
+        ///     or single argument constructor (<see cref="ISearchContext"/>) or default constructor.
+        /// </summary>
+        /// <param name="pageObjectType">
+        ///     Type of page object being initialized.
+        /// </param>
+        /// <param name="searchContext">
+        ///     Optional constructor argument representing search context being wrapped.
+        ///     It could be <see cref="IWebElement" /> or <see cref="IWebDriver" /> instance or other page object.
+        /// </param>
+        /// <returns>
+        ///     New instance of given type.
+        /// </returns>
         protected override Object CreatePageObjectInstance(Type pageObjectType, ISearchContext searchContext)
         {
             try
