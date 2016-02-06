@@ -50,7 +50,7 @@ namespace HtmlElements.Test.LazyLoad
                 .Returns(() => new HtmlElement(_searchContextMock.Object));
 
             _proxyFactoryMock
-                .Setup(f => f.CreateElementProxy(It.IsAny<ILoader<IWebElement>>()))
+                .Setup(f => f.CreateWebElementProxy(It.IsAny<ILoader<IWebElement>>()))
                 .Returns(() => new Mock<IWebElement>().Object);
         }
 
@@ -125,18 +125,6 @@ namespace HtmlElements.Test.LazyLoad
         [Test]
         public void ShouldCreateListLoaderInstanceOfGivenType()
         {
-            var elementLoaderMock = new Mock<ILoader<ReadOnlyCollection<IWebElement>>>();
-
-            Assert.That(
-                _loaderFactory.CreateListLoader(typeof (HtmlElement), elementLoaderMock.Object, false),
-                Is.Not.Null.And.InstanceOf<ILoader<IList<HtmlElement>>>()
-            );
-
-            Assert.That(
-                _loaderFactory.CreateListLoader<HtmlElement>(elementLoaderMock.Object, false),
-                Is.Not.Null.And.InstanceOf<ILoader<IList<HtmlElement>>>()
-            );
-
             Assert.That(
                 _loaderFactory.CreateListLoader(typeof (HtmlElement), _searchContextMock.Object, By.Id("any"), true),
                 Is.Not.Null.And.InstanceOf<ILoader<IList<HtmlElement>>>()
@@ -165,7 +153,7 @@ namespace HtmlElements.Test.LazyLoad
             );
 
             _proxyFactoryMock.Verify(
-                f => f.CreateElementProxy(It.IsNotNull<ILoader<IWebElement>>()), Times.Exactly(4)
+                f => f.CreateWebElementProxy(It.IsNotNull<ILoader<IWebElement>>()), Times.Exactly(4)
             );
 
             _pageObjectFactoryMock.Verify(
@@ -190,7 +178,7 @@ namespace HtmlElements.Test.LazyLoad
             );
 
             _proxyFactoryMock.Verify(
-                f => f.CreateElementProxy(It.IsNotNull<ILoader<IWebElement>>()), Times.Exactly(2)
+                f => f.CreateWebElementProxy(It.IsNotNull<ILoader<IWebElement>>()), Times.Exactly(2)
             );
 
             _pageObjectFactoryMock.Verify(

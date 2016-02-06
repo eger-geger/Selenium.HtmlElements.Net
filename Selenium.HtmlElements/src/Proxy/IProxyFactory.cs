@@ -12,33 +12,53 @@ namespace HtmlElements.Proxy
     public interface IProxyFactory
     {
         /// <summary>
-        ///     Creates web element instance wrapping element loader
+        ///     Creates <see cref="IWebElement"/> instance using <paramref name="loader"/> to get raw <see cref="IWebElement"/> and delegating calls to it.
         /// </summary>
-        /// <param name="loader">Element loader</param>
-        /// <returns>Proxy implementing <see cref="IWebElement"/> interface</returns>
-        IWebElement CreateElementProxy(ILoader<IWebElement> loader);
+        /// <param name="loader">
+        ///     Element loader providing raw <see cref="IWebElement"/>.
+        /// </param>
+        /// <returns>
+        ///     Proxy implementing <see cref="IWebElement"/> interface.
+        /// </returns>
+        IWebElement CreateWebElementProxy(ILoader<IWebElement> loader);
 
         /// <summary>
-        ///     Create frame-specific web element proxy 
+        ///     Create frame-specific web element proxy using <see cref="IWebDriver"/> to locate nested elements.
         /// </summary>
-        /// <param name="elementLoader">Frame loader</param>
-        /// <returns>Proxy implementing <see cref="IWebElement"/> interface</returns>
-        IWebElement CreateFrameProxy(ILoader<IWebElement> elementLoader);
+        /// <param name="loader">
+        ///     Element loader providing raw <see cref="IWebElement"/> pointing to frame.
+        /// </param>
+        /// <returns>
+        ///     Proxy implementing <see cref="IWebElement"/> interface.
+        /// </returns>
+        IWebElement CreateFrameProxy(ILoader<IWebElement> loader);
 
         /// <summary>
-        ///     Creates list of web elements wrapping given loader
+        ///     Creates list of WebElements wrapping <paramref name="loader"/> and delegating all calls to list returned by it.
         /// </summary>
-        /// <param name="elementType">Type of elements stored in list</param>
-        /// <param name="loader">List loader</param>
-        /// <returns>Proxy implementing <see cref="IList{T}"/> interface</returns>
+        /// <param name="elementType">
+        ///     Type of elements stored in list.
+        /// </param>
+        /// <param name="loader">
+        ///     List loader providing collection of raw <see cref="IWebElement">WebElements</see> or page objects.
+        /// </param>
+        /// <returns>
+        ///     Proxy implementing <see cref="IList{T}"/> interface.
+        /// </returns>
         Object CreateListProxy(Type elementType, Object loader);
         
         /// <summary>
-        ///     Creates list of web elements wrapping given loader
+        ///     Creates list of WebElements wrapping <paramref name="loader"/> and delegating all calls to list returned by it.
         /// </summary>
-        /// <typeparam name="TElement">Type of elements stored in list</typeparam>
-        /// <param name="loader">List loader</param>
-        /// <returns>Proxy implementing <see cref="IList{T}"/> interface</returns>
+        /// <typeparam name="TElement">
+        ///     Type of elements stored in list.
+        /// </typeparam>
+        /// <param name="loader">
+        ///     List loader providing collection of raw <see cref="IWebElement">WebElements</see> or page objects.
+        /// </param>
+        /// <returns>
+        ///     Proxy implementing <see cref="IList{T}"/> interface.
+        /// </returns>
         IList<TElement> CreateListProxy<TElement>(ILoader<IList<TElement>> loader);
     }
 }

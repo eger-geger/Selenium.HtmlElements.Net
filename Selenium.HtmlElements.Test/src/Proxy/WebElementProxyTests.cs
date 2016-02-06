@@ -31,7 +31,7 @@ namespace HtmlElements.Test.Proxy
                 .Throws<StaleElementReferenceException>()
                 .Returns(true);
 
-            var elementProxy = _proxyFactory.CreateElementProxy(_loaderMock.Object);
+            var elementProxy = _proxyFactory.CreateWebElementProxy(_loaderMock.Object);
 
             Assert.That(elementProxy.Displayed, Is.True);
 
@@ -47,7 +47,7 @@ namespace HtmlElements.Test.Proxy
                 .Setup(e => e.Click())
                 .Throws<StaleElementReferenceException>();
 
-            var elementProxy = _proxyFactory.CreateElementProxy(_loaderMock.Object);
+            var elementProxy = _proxyFactory.CreateWebElementProxy(_loaderMock.Object);
 
             Assert.Throws<StaleElementReferenceException>(() => elementProxy.Click());
 
@@ -64,7 +64,7 @@ namespace HtmlElements.Test.Proxy
                 .Setup(e => e.Click())
                 .Throws<NoSuchElementException>();
 
-            var elementProxy = _proxyFactory.CreateElementProxy(_loaderMock.Object);
+            var elementProxy = _proxyFactory.CreateWebElementProxy(_loaderMock.Object);
 
             Assert.Throws<NoSuchElementException>(() => elementProxy.Click());
 
@@ -75,7 +75,7 @@ namespace HtmlElements.Test.Proxy
         [Test]
         public void ShoulImplementWrapsElement()
         {
-            var elementProxy = _proxyFactory.CreateElementProxy(_loaderMock.Object) as IWrapsElement;
+            var elementProxy = _proxyFactory.CreateWebElementProxy(_loaderMock.Object) as IWrapsElement;
 
             Assert.That(elementProxy, Is.Not.Null.And.InstanceOf<IWrapsElement>());
             Assert.That(elementProxy.WrappedElement, Is.EqualTo(_elementMock.Object));

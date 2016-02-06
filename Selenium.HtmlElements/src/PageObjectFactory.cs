@@ -78,7 +78,7 @@ namespace HtmlElements
         /// </returns>
         public override IWebElement CreateWebElement(ISearchContext searchContext, By locator)
         {
-            return _proxyFactory.CreateElementProxy(_loaderFactory.CreateElementLoader(searchContext, locator, true));
+            return _proxyFactory.CreateWebElementProxy(_loaderFactory.CreateElementLoader(searchContext, locator, true));
         }
 
         public override TPageObject CreateWebElement<TPageObject>(ISearchContext searchContext, By locator)
@@ -93,7 +93,7 @@ namespace HtmlElements
             IWebElement elementProxy =
                 typeof(HtmlFrame).IsAssignableFrom(elementType)
                     ? _proxyFactory.CreateFrameProxy(elementLoader)
-                    : _proxyFactory.CreateElementProxy(elementLoader);
+                    : _proxyFactory.CreateWebElementProxy(elementLoader);
 
             if (typeof(IWebElement) == elementType || typeof(IHtmlElement) == elementType)
             {

@@ -10,16 +10,44 @@ namespace HtmlElements.Proxy
     /// </summary>
     public class ProxyFactory : IProxyFactory
     {
-        public IWebElement CreateElementProxy(ILoader<IWebElement> elementLoader)
+
+        /// <summary>
+        ///     Creates <see cref="IWebElement"/> instance using <paramref name="loader"/> to get raw <see cref="IWebElement"/> and delegating calls to it.
+        /// </summary>
+        /// <param name="loader">
+        ///     Element loader providing raw <see cref="IWebElement"/>.
+        /// </param>
+        /// <returns>
+        ///     Proxy implementing <see cref="IWebElement"/> interface.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown when provided loader is null.
+        /// </exception>
+        public IWebElement CreateWebElementProxy(ILoader<IWebElement> loader)
         {
-            if (elementLoader == null)
+            if (loader == null)
             {
-                throw new ArgumentNullException("elementLoader");
+                throw new ArgumentNullException("loader");
             }
 
-            return new WebElementProxy(elementLoader);
+            return new WebElementProxy(loader);
         }
 
+        /// <summary>
+        ///     Creates list of WebElements wrapping <paramref name="loader"/> and delegating all calls to list returned by it.
+        /// </summary>
+        /// <param name="elementType">
+        ///     Type of elements stored in list.
+        /// </param>
+        /// <param name="loader">
+        ///     List loader providing collection of raw <see cref="IWebElement">WebElements</see> or page objects.
+        /// </param>
+        /// <returns>
+        ///     Proxy implementing <see cref="IList{T}"/> interface.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown when <paramref name="elementType"/> or <paramref name="loader"/> is null.
+        /// </exception>
         public Object CreateListProxy(Type elementType, Object loader)
         {
             if (elementType == null)
@@ -32,38 +60,55 @@ namespace HtmlElements.Proxy
                 throw new ArgumentNullException("loader");
             }
 
-            var expectedListType = typeof (IList<>).MakeGenericType(elementType);
-            var expectedLoaderType = typeof (ILoader<>).MakeGenericType(expectedListType);
+            var expectedLoaderType = typeof(ILoader<>).MakeGenericType(typeof(IList<>).MakeGenericType(elementType));
 
             if (!expectedLoaderType.IsInstanceOfType(loader))
             {
                 throw new ArgumentException(
-                    String.Format(
-                        "Wrong loader type: expected [{0}] but was [{1}]",
-                        expectedLoaderType, loader.GetType()
-                        ), "loader"
-                    );
+                    String.Format("Wrong loader type: expected [{0}] but was [{1}]", expectedLoaderType, loader.GetType()), "loader"
+                );
             }
 
             return Activator.CreateInstance(typeof (ElementListProxy<>).MakeGenericType(elementType), loader);
         }
 
         /// <summary>
-        ///     Create frame-specific web element proxy which is using WebDriver search context 
-        ///     instead of wrapped element context for finding nested elements
+        ///     Create frame-specific web element proxy using <see cref="IWebDriver"/> to locate nested elements.
         /// </summary>
-        /// <param name="elementLoader">Frame loader</param>
-        /// <returns>Proxy implementing <see cref="IWebElement"/> interface</returns>
-        public IWebElement CreateFrameProxy(ILoader<IWebElement> elementLoader)
+        /// <param name="loader">
+        ///     Element loader providing raw <see cref="IWebElement"/> pointing to frame.
+        /// </param>
+        /// <returns>
+        ///     Proxy implementing <see cref="IWebElement"/> interface.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown when provided loader is null.
+        /// </exception>
+        public IWebElement CreateFrameProxy(ILoader<IWebElement> loader)
         {
-            if (elementLoader == null)
+            if (loader == null)
             {
-                throw new ArgumentNullException("elementLoader");
+                throw new ArgumentNullException("loader");
             }
 
-            return new FrameWebElementProxy(elementLoader);
+            return new FrameWebElementProxy(loader);
         }
 
+        /// <summary>
+        ///     Creates list of WebElements wrapping <paramref name="loader"/> and delegating all calls to list returned by it.
+        /// </summary>
+        /// <typeparam name="TElement">
+        ///     Type of elements stored in list.
+        /// </typeparam>
+        /// <param name="loader">
+        ///     List loader providing collection of raw <see cref="IWebElement">WebElements</see> or page objects.
+        /// </param>
+        /// <returns>
+        ///     Proxy implementing <see cref="IList{T}"/> interface.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown when provided loader is null.
+        /// </exception>
         public IList<TElement> CreateListProxy<TElement>(ILoader<IList<TElement>> loader)
         {
             if (loader == null)

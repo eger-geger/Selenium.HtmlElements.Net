@@ -9,9 +9,6 @@ namespace HtmlElements.Elements {
     /// </summary>
     public class HtmlLink : HtmlElement
     {
-
-        private readonly IPageObjectFactory _pageObjectFactory;
-
         ///<summary>
         ///     Initializes new instance of HTML element by calling base class constructor
         /// </summary>
@@ -21,9 +18,8 @@ namespace HtmlElements.Elements {
         /// <exception cref="ArgumentException">
         ///     Thrown when <paramref name="webElement"/> does not wrap WebDriver
         /// </exception>
-        public HtmlLink(IWebElement webElement, IPageObjectFactory pageObjectFactory) : base(webElement)
+        public HtmlLink(IWebElement webElement) : base(webElement)
         {
-            _pageObjectFactory = pageObjectFactory;
         }
 
         /// <summary>
@@ -56,13 +52,26 @@ namespace HtmlElements.Elements {
             set { this.SetAttribute("target", value); }
         }
 
+        /// <summary>
+        /// Opens this instance.
+        /// </summary>
+        /// <typeparam name="TReturn">The type of the return.</typeparam>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public TReturn Open<TReturn>()
         {
+            if (PageObjectFactory == null)
+            {
+                throw new InvalidOperationException(
+                    String.Format("Cannot create [{0}] because wrapped page factory is null", typeof(TReturn))
+                );
+            }
+
             IWebDriver wd = WrappedDriver;
 
             Click();
 
-            return _pageObjectFactory.Create<TReturn>(wd);
+            return PageObjectFactory.Create<TReturn>(wd);
         }
     }
 

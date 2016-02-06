@@ -41,7 +41,7 @@ namespace HtmlElements.LazyLoad
         private TElement CreateTypedElement(IWebElement element, Int32 index)
         {
             return _pageObjectFactory.Create<TElement>(
-                _proxyFactory.CreateElementProxy(new WebElementListItemLoader(_elementListLoader, index, element))
+                _proxyFactory.CreateWebElementProxy(new WebElementListItemLoader(_elementListLoader, index, element))
             );
         }
 
