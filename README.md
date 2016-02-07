@@ -1,4 +1,4 @@
-**HtmlElements** is .NET library extending [Selenium WebDriver](https://github.com/SeleniumHQ/selenium) page object model by allowing you to create more complex and sophysticated page objects. It also provides set of standard page objects for commonly used HTML elements (links, input fields, images, frames, etc), alternative wait syntax, smart frames and some other usefull utilities. You can add it to your project by installing [HtmlElements](http://www.nuget.org/packages/HtmlElements/) nuget package.
+**HtmlElements** is .NET library complementing to [Selenium WebDriver](https://github.com/SeleniumHQ/selenium) page object model by allowing you to create more complex and sophysticated page objects. It also provides set of standard page objects for commonly used HTML elements (links, input fields, images, frames, etc), alternative wait syntax, smart frames and some other usefull utilities. You can add it to your project by installing [HtmlElements](http://www.nuget.org/packages/HtmlElements/) nuget package.
 
 ## Custom page objects ##
 
@@ -64,15 +64,15 @@ NugetPackageListPage page = pageFactory.Create<NugetPackageListPage>(webDriver);
 
 ```
 
-_PageObjectFactory_ is creating and initializing page objects. It is one of the core library components since it creates and recursively initializes all page objects in a given hierarchy. Page factory can initialize fields and properties which type is derived from _IWebElement_ or _IList<IWebElement>_. It can create (and initilize) page object of any type using default or custom constructor. It also provides few extension points.
+[PageObjectFactory](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_page_object_factory.html) is creating and initializing page objects. It is one of the core library components since it creates and recursively initializes all page objects in a given hierarchy. Page factory can initialize fields and properties which type is derived from _IWebElement_ or _IList<IWebElement>_. It can create (and initilize) page object of any type using default or custom constructor. It also provides few extension points.
 
-Default page factory implementation wraps raw web elements located in browser into proxy loading elements on demand and hanling _StaleElementReferenceExcetion_ by reloading the underlying element. It is possible to change how proxy is being created by implementing _IProxyFactory_ interface and how elements are loaded by implementing _ILoaderFactory_ interface. Also you can change the way how new page objects are being instantiated by overriding _CreatePageObjectInstance_ default factory method and how page object members are being initialized by overriding _CreateMemberInstance_ default factory method.
+Default page factory implementation wraps raw WebElements located in browser into proxy loading elements on demand and hanling _StaleElementReferenceExcetion_ by reloading the underlying element. It is possible to change how proxy is being created by implementing [IProxyFactory](http://eger-geger.github.io/Selenium.HtmlElements.Net/interface_html_elements_1_1_proxy_1_1_i_proxy_factory.html) interface and how elements are loaded by implementing [ILoaderFactory](http://eger-geger.github.io/Selenium.HtmlElements.Net/interface_html_elements_1_1_lazy_load_1_1_i_loader_factory.html) interface. Also it is possible to change the way how new page objects are being instantiated by overriding [CreatePageObjectInstance](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_abstract_page_object_factory.html#ae50af112bab9ed9f68b2df6c0be59553) default factory method and how page object members are being initialized by overriding [CreateMemberInstance](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_abstract_page_object_factory.html#aa7aecd99f56e12bdf1e4ee62d84575df) method.
 
 Please refer to API reference for more details.
 
 ## Standart HTML elements ##
 
-In addition to creatign your custom page objects you can use set predefined components which models commonly used DOM elements. Following components can be found in _HtmlElements.Elements_ namespace:
+In addition to creatign your custom page objects you can use set predefined components which models commonly used DOM elements. Following components can be found in [HtmlElements.Elements](http://eger-geger.github.io/Selenium.HtmlElements.Net/namespace_html_elements_1_1_elements.html) namespace:
 
 * HtmlElement
 * HtmlLink
@@ -84,7 +84,7 @@ In addition to creatign your custom page objects you can use set predefined comp
 * HtmlTextArea
 * HtmlTable
 
-All of the above components are derived from _HtmlElement_ which is also a good candidate to derive custom components from.
+All of the above components are derived from [HtmlElement](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_elements_1_1_html_element.html) which is also a good candidate to derive custom components from.
 
 ## Alternative wait syntax ##
 
@@ -122,7 +122,7 @@ So basically you need to say what are you waiting for ? For how long ? How often
 
 ## Smart frames ##
 
-Sometimes tests need to interact with HTML frames. In order to do it we need to switch wedriver context to specific frame firts and switch it back after we've done. It is exactly what _FrameContextOverride_ class is desgined to do.
+Sometimes tests need to interact with HTML frames. In order to do it we need to switch wedriver context to specific frame firts and switch it back after we've done. It is exactly what [FrameContextOverride](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_frame_context_override.html) class is desgined to do.
 
 ```C#
 
@@ -142,7 +142,7 @@ using (new FrameContextOverride(webDriver, _frameElement))
 
 ```
 
-_HtmlFrame_ is another class which makes life easier when it comes to working with frames. When created by default page object factory (described above) it's wrapped search context is set to WebDriver instance instead of WebElement as it is done for other custom elements. It allows using it as a base class for custom frame page objects. Previous example could be rewritten as shown below.
+[HtmlFrame](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_elements_1_1_html_frame.html) is another class which makes life easier when it comes to working with frames. When created by default page object factory (described above) it's wrapped search context is set to WebDriver instance instead of WebElement as it is done for other custom elements. It allows using it as a base class for custom frame page objects. Previous example could be rewritten as shown below.
 
 ```C#
 
@@ -182,7 +182,7 @@ public class HomePage {
 
 ## Implicit wait override ##
 
-There might be cases when you might want to change default implicit wait WebDriver option for specific operation and restore it back after it is done. For example you might set to 30 seconds for most cases but do not want to wait for element which you expect to be removed from DOM. You could use _ImplicitWaitOverride_ for it's purpose.
+There might be cases when you might want to change default implicit wait WebDriver option for specific operation and restore it back after it is done. For example you might set to 30 seconds for most cases but do not want to wait for element which you expect to be removed from DOM. You could use [ImplicitWaitOverride](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_implicit_wait_override.html) for it's purpose.
 
 ```C#
 
@@ -200,8 +200,8 @@ using(new ImplicitWaitOverride(webDriver, defaultImplicitWait, overridenImplcitW
 
 Often people writing selenium tests want to check weather some element or another exist on a page. There are two possible way of doing so: expose raw WebElements or create _IsXXXDisplayed_ properties. Author deslike both and the idea itself. Newertheless people still need to do it. Element group is attempt to make it in a way which does not break encapsulation. How it works:
 
-1. mark your private WebElement fields and properties with _ElementGroupAttribute_ providing one or multiple group names;
-2. create _ElementGroup_ object in your tests specifying the name of the group you are interested in;
+1. mark your private WebElement fields and properties with [ElementGroupAttribute](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_element_group_attribute.html) providing one or multiple group names;
+2. create [ElementGroup](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_element_group.html) object in your tests specifying the name of the group you are interested in;
 3. use created group to retrieve list of WebElements with matching group name from page object.
 
 ```C#
