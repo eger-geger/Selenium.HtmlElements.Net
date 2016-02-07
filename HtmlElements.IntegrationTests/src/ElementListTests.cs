@@ -10,30 +10,22 @@ namespace HtmlElements.IntegrationTests
 {
     public class ElementListTests : IntegrationTestFixture
     {
-        private PageAlpha _page;
-
-        [SetUp]
-        public void InitializePageObject()
-        {
-            _page = PageFactory.Create<PageAlpha>(WebDriver);
-        }
-
         [Test]
         public void ShouldReloadTransparentElementList()
         {
-            var initElementCount = _page.ElementListItems.Count;
+            var initElementCount = PageAlpha.ElementListItems.Count;
 
-            _page.ElementListContainer.InnerHtml += "<li>new list item</li>";
+            PageAlpha.ElementListContainer.InnerHtml += "<li>new list item</li>";
 
-            Expect(_page.ElementListItems.Count, Is.GreaterThan(initElementCount));
+            Expect(PageAlpha.ElementListItems.Count, Is.GreaterThan(initElementCount));
         }
 
         [Test]
         public void ShouldReloadTransparentListItemOnceDomElementGetUpdated()
         {
-            var firstElement = _page.ElementListItems[0];
+            var firstElement = PageAlpha.ElementListItems[0];
 
-            _page.ElementListContainer.InnerHtml = "<li>alpha</li><li>beta</li>";
+            PageAlpha.ElementListContainer.InnerHtml = "<li>alpha</li><li>beta</li>";
 
             Expect(firstElement.Text, Is.EqualTo("alpha"));
         }
@@ -41,9 +33,9 @@ namespace HtmlElements.IntegrationTests
         [Test]
         public void ShouldThrowNoSuchElementException()
         {
-            var firstElement = _page.ElementListItems[0];
+            var firstElement = PageAlpha.ElementListItems[0];
 
-            _page.ElementListContainer.InnerHtml = String.Empty;
+            PageAlpha.ElementListContainer.InnerHtml = String.Empty;
 
             Expect(() => firstElement.Text, Throws.InstanceOf<NoSuchElementException>());
         }
@@ -51,19 +43,19 @@ namespace HtmlElements.IntegrationTests
         [Test]
         public void CachedListShouldNotChangeWhenListGetChanged()
         {
-            var initElementCount = _page.CachedElementListItems.Count;
+            var initElementCount = PageAlpha.CachedElementListItems.Count;
 
-            _page.ElementListContainer.InnerHtml += "<li>new list item</li>";
+            PageAlpha.ElementListContainer.InnerHtml += "<li>new list item</li>";
 
-            Expect(_page.CachedElementListItems.Count, Is.EqualTo(initElementCount));
+            Expect(PageAlpha.CachedElementListItems.Count, Is.EqualTo(initElementCount));
         }
 
         [Test]
         public void ShouldReloadCachedListOnceDomElementGetUpdated()
         {
-            var firstElement = _page.CachedElementListItems[0];
+            var firstElement = PageAlpha.CachedElementListItems[0];
 
-            _page.ElementListContainer.InnerHtml = "<li>alpha</li><li>beta</li>";
+            PageAlpha.ElementListContainer.InnerHtml = "<li>alpha</li><li>beta</li>";
 
             Expect(firstElement.Text, Is.EqualTo("alpha"));
         }
@@ -71,7 +63,7 @@ namespace HtmlElements.IntegrationTests
         [Test]
         public void ShouldProvideMeaningfullTextDescription()
         {
-            var element = _page.CachedElementListItems[0];
+            var element = PageAlpha.CachedElementListItems[0];
 
             Expect(element.ToString(), 
                 ContainsSubstring(typeof(HtmlElement).FullName)

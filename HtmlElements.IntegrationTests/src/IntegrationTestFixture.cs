@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using HtmlElements.IntegrationTests.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -10,13 +11,16 @@ namespace HtmlElements.IntegrationTests {
 
         private const String InitialUrl = "PageAlpha.htm";
 
+        protected readonly IPageObjectFactory PageFactory = new PageObjectFactory();
+
         protected IWebDriver WebDriver { get; private set; }
 
-        protected readonly IPageObjectFactory PageFactory = new PageObjectFactory();
+        protected PageAlpha PageAlpha { get; private set; }
 
         [SetUp]
         public void OpenTestPage() {
             WebDriver.Navigate().GoToUrl(Path.GetFullPath(InitialUrl));
+            PageAlpha = PageFactory.Create<PageAlpha>(WebDriver);
         }
 
         [TestFixtureSetUp]
