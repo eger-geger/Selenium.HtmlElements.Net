@@ -2,15 +2,21 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>$version$</version>
+    <version>2.0.0-alpha</version>
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
     <projectUrl>http://github.com/eger-geger/Selenium.HtmlElements.Net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Throw NoSuchElementException when JavaScript locator failed to find element</releaseNotes>
-    <copyright>Copyright 2014</copyright>
+    <releaseNotes>
+      2.0.0:
+        - page object factory rewritten from scratches: now it has interface, default implementation and better documentation
+        - redesing element groups and removed extension method used for getting elements from a group
+        - added page factory property to custom elements
+        - added documentation for most public members
+    </releaseNotes>
+    <copyright>Copyright 2016</copyright>
     <tags>Selenium WebDriver</tags>
   </metadata>
 </package>
