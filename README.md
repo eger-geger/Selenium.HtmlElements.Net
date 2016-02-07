@@ -2,13 +2,12 @@
 
 ## Custom page objects ##
 
-The main goal of **HtmlElements** library is to represent any given page or part of a page as set of smaller reusable components. Every component is a class having any number of nested components and public methods. Page is serving as a root of component hierarchy.
+The main goal of **HtmlElements** library is to represent any given page or part of a page as set of smaller reusable components. Every component is a class having any number of nested components and public methods. Smaller components create a hierarchy similar to DOM with a page component at the top.
 
 Assuming we would like to model a page listing nuget packages (https://www.nuget.org/packages) we could describe every package from list as a seprate component and then have list of such components inside page object descriding page as a whole.
 
 ```C#
 
-/* describe package list page */
 public class NugetPackageListPage {
     
     [FindsBy(How = How.CssSelector, Using = "#searchBoxInput"), CacheLookup]
@@ -27,7 +26,6 @@ public class NugetPackageListPage {
 
 }
 
-/* describe package item component */
 public class NugetPackageItem : HtmlElement {
 
     [FindsBy(How = How.CssSelector, Using = "h1>a"), CacheLookup]
@@ -58,26 +56,23 @@ public class NugetPackageItem : HtmlElement {
     }
 }
 
-/* initilize WebDriver */
 IWebDriver webDriver = new FirefoxDriver();
 
-/* create default factory */
 IPageObjectFactory pageFactory = new PageObjectFactory();
 
-/* create page instance */
 NugetPackageListPage page = pageFactory.Create<NugetPackageListPage>(webDriver);
 
 ```
 
-Instance of _PageObjectFactory_ class is used to create and initialize page instance being a hierarchy root. It is one of the core library components since it creates and recursively initializes all page objects in a given hierarchy. Page factory can initialize fields and properties which type is derived from _IWebElement_ or _IList<IWebElement>_. It can create (and initilize) page object of any type using default or custom constructor. It also provides few extension points.
+_PageObjectFactory_ is creating and initializing page objects. It is one of the core library components since it creates and recursively initializes all page objects in a given hierarchy. Page factory can initialize fields and properties which type is derived from _IWebElement_ or _IList<IWebElement>_. It can create (and initilize) page object of any type using default or custom constructor. It also provides few extension points.
 
-Default page factory implementation wraps raw web elements located in browser into proxy loading elements on demand and hanling _StaleElementReferenceExcetion_ by reloading the underlying element. It is possible to change how proxy is being created (by implementing IProxyFactory interface), how elements are being loaded (by implementing ILoaderFactory interface). Also you can change the way how new page objects are being instantiated (by overriding _CreatePageObjectInstance_ default factory method) and how page object members are being initialized (by overriding _CreateMemberInstance_ default factory method).
+Default page factory implementation wraps raw web elements located in browser into proxy loading elements on demand and hanling _StaleElementReferenceExcetion_ by reloading the underlying element. It is possible to change how proxy is being created by implementing _IProxyFactory_ interface and how elements are loaded by implementing _ILoaderFactory_ interface. Also you can change the way how new page objects are being instantiated by overriding _CreatePageObjectInstance_ default factory method and how page object members are being initialized by overriding _CreateMemberInstance_ default factory method.
 
 Please refer to API reference for more details.
 
 ## Standart HTML elements ##
 
-In addition to creatign your custom page objects you can use set predefined componenets which models commonly used DOM elements. Following components can be found in _HtmlElements.Elements_ namespace:
+In addition to creatign your custom page objects you can use set predefined components which models commonly used DOM elements. Following components can be found in _HtmlElements.Elements_ namespace:
 
 * HtmlElement
 * HtmlLink
@@ -87,11 +82,13 @@ In addition to creatign your custom page objects you can use set predefined comp
 * HtmlCheckBox
 * HtmlSelect
 * HtmlTextArea
+* HtmlTable
 
-All of the above components are derived from _HtmlElement_ which also a good candidate to derive custom components from.
+All of the above components are derived from _HtmlElement_ which is also a good candidate to derive custom components from.
 
 ## Alternative wait syntax ##
-While writing selenium tests you'll often found your self waiting until something happens in browser. It could be slow loading page, dialog which takes few seconds to show up or hide, background proccess which must finish until test can proceed. The simple way is to wait for few seconds. Reliable way is to use _WebDriverWait_ or _DefaultWait_ classes being part of selenium webdriver library. The convinient way is to use extension methods provided by current library. Just take a look on example below.
+
+While writing selenium tests you'll often found your self waiting until something happens in browser. It could be slow loading page, dialog which takes few seconds to show up or hide, background proccess which must finish until test can proceed. The simple way is to stop thread for few seconds. Reliable way is to use _WebDriverWait_ or _DefaultWait_ classes being part of selenium webdriver library. The convinient way is to use extension methods provided by current library. Just take a look on few examples below.
 
 ```C#
 
@@ -99,8 +96,6 @@ While writing selenium tests you'll often found your self waiting until somethin
 
 [FindsBy(How = How.CssSelector, Using = "#login")]
 private IWebElement _loginButton;
-
-/* we can wait for weird stuff happenning with it */
 
 /* wait for 10 seconds until button became displayed for and click on it */
 _loginButton.WaitForPresent().Click();
@@ -123,10 +118,11 @@ _loginButton
 
 ```
 
-Yeah, examples above are very realistic but they do show what etensions can do and how it can be used. You could check API reference for list of available extensions and complete signatures.
+So basically you need to say what are you waiting for ? For how long ? How often to check weather it happened ? What message should timeout axception be thrown with ?
 
-## Smart (kind of) frames ##
-Sometimes tests need to interact with HTML frames. In order to do it we need to switch wedriver context to specific frame firts and (in most cases) switch it back after we've done. It is exactly what _FrameContextOverride_ class is desgined to do.
+## Smart frames ##
+
+Sometimes tests need to interact with HTML frames. In order to do it we need to switch wedriver context to specific frame firts and switch it back after we've done. It is exactly what _FrameContextOverride_ class is desgined to do.
 
 ```C#
 
@@ -146,11 +142,10 @@ using (new FrameContextOverride(webDriver, _frameElement))
 
 ```
 
-_HtmlFrame_ is nother class which makes life easier when it coming to working with frames. When created by default page object factory (described above) it's wrapped search context is set to WebDriver instance instead of WebElement (as it is done for other custom elements). It allows using it as a base class for custom page objects for describing complex frames objects. Example above could be rewritten as shown below.
+_HtmlFrame_ is another class which makes life easier when it comes to working with frames. When created by default page object factory (described above) it's wrapped search context is set to WebDriver instance instead of WebElement as it is done for other custom elements. It allows using it as a base class for custom frame page objects. Previous example could be rewritten as shown below.
 
 ```C#
 
-/* creating frame page object */
 public class SignInFrame : HtmlFrame {
 
     [FindsBy(How = How.CssSelector, Using = "#email")]
@@ -176,8 +171,6 @@ public class SignInFrame : HtmlFrame {
 
 }
 
-/* and using it on a page */
-
 public class HomePage {
     
     [FindsBy(How = How.CssSelector, Using = "iframe")]
@@ -187,5 +180,48 @@ public class HomePage {
 
 ```
 
-## Oher goodies ##
+## Implicit wait override ##
 
+There might be cases when you might want to change default implicit wait WebDriver option for specific operation and restore it back after it is done. For example you might set to 30 seconds for most cases but do not want to wait for element which you expect to be removed from DOM. You could use _ImplicitWaitOverride_ for it's purpose.
+
+```C#
+
+TimeSpan defaultImplicitWait = TimeSpan.FromSeconds(30);
+
+TimeSpan overridenImplcitWait = TimeSpan.FromSeconds(2);
+
+using(new ImplicitWaitOverride(webDriver, defaultImplicitWait, overridenImplcitWait)){
+    loginDialog.WaitUntilHidden();
+}
+
+```
+
+## Element groups ##
+
+Often people writing selenium tests want to check weather some element or another exist on a page. There are two possible way of doing so: expose raw WebElements or create _IsXXXDisplayed_ properties. Author deslike both and the idea itself. Newertheless people still need to do it. Element group is attempt to make it in a way which does not break encapsulation. How it works:
+
+1. mark your private WebElement fields and properties with _ElementGroupAttribute_ providing one or multiple group names;
+2. create _ElementGroup_ object in your tests specifying the name of the group you are interested in;
+3. use created group to retrieve list of WebElements with matching group name from page object.
+
+```C#
+
+public class LoginPage {
+
+    [ElementGroup("login_form")]
+    private IWebElement _loginButton;
+
+    [ElementGroup("login_form")]
+    private IWebElement _loginInput;
+
+    [ElementGroup("login_form")]
+    private IWebElement _passwordInput;
+}
+
+/* and later on it test */
+
+var loginPage = new LoginPage();
+var loginFormElementGroup = new ElementGroup("login_form");
+IList<IWebElement> loginFormElements = loginFormElementGroup.GetElements(loginPage);
+
+```
