@@ -13,7 +13,7 @@ namespace HtmlElements.Elements {
     /// </summary>
     public class HtmlSelect : HtmlControl, IList<HtmlSelectOption>
     {
-        private readonly SelectElement _selectElement;
+        private readonly Lazy<SelectElement> _lazySelectElement;
 
         /// <summary>
         ///     Initializes new instance of HTML element by calling base class constructor
@@ -23,7 +23,7 @@ namespace HtmlElements.Elements {
         /// </param>
         public HtmlSelect(IWebElement webElement) : base(webElement)
         {
-            _selectElement = new SelectElement(webElement);
+            _lazySelectElement = new Lazy<SelectElement>(() => new SelectElement(webElement));
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace HtmlElements.Elements {
         ///     The text of the option to be selected. If an exact match is not found, this method will perform a substring match.
         /// </param>
         public void SelectByText(string text) {
-            _selectElement.SelectByText(text);
+            _lazySelectElement.Value.SelectByText(text);
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace HtmlElements.Elements {
         ///     The value of the option to be selected.
         /// </param>
         public void SelectByValue(string value) {
-            _selectElement.SelectByValue(value);
+            _lazySelectElement.Value.SelectByValue(value);
         }
 
         /// <summary>
@@ -225,7 +225,7 @@ namespace HtmlElements.Elements {
         ///     Thrown when attempting to deselect all options from a SELECT that does not support multiple selections.
         /// </exception>
         public void DeselectAll() {
-            _selectElement.DeselectAll();
+            _lazySelectElement.Value.DeselectAll();
         }
 
         /// <summary>
@@ -235,7 +235,7 @@ namespace HtmlElements.Elements {
         ///     The text of the option to be deselected.
         /// </param>
         public void DeselectByText(string text) {
-            _selectElement.DeselectByText(text);
+            _lazySelectElement.Value.DeselectByText(text);
         }
 
         /// <summary>
@@ -245,7 +245,7 @@ namespace HtmlElements.Elements {
         ///     The value of the option to deselect.
         /// </param>
         public void DeselectByValue(string value) {
-            _selectElement.DeselectByValue(value);
+            _lazySelectElement.Value.DeselectByValue(value);
         }
 
         private static NotSupportedException ModificationAttemptException

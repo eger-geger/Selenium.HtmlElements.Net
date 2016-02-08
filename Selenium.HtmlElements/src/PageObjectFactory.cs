@@ -114,11 +114,6 @@ namespace HtmlElements
                     ? _proxyFactory.CreateFrameProxy(elementLoader)
                     : _proxyFactory.CreateWebElementProxy(elementLoader);
 
-            if (typeof(IWebElement) == elementType || typeof(IHtmlElement) == elementType)
-            {
-                return new HtmlElement(elementProxy);
-            }
-
             return Create(elementType, elementProxy);
         }
 
@@ -163,11 +158,6 @@ namespace HtmlElements
 
         private Object CreateWebElementList(Type elementType, ISearchContext searchContext, By locator, Boolean isCached)
         {
-            if (elementType == typeof(IWebElement) || elementType == typeof(IHtmlElement))
-            {
-                elementType = typeof(HtmlElement);
-            }
-
             return _proxyFactory.CreateListProxy(
                 elementType, _loaderFactory.CreateListLoader(elementType, searchContext, locator, isCached)
             );
@@ -256,6 +246,11 @@ namespace HtmlElements
         /// </returns>
         protected override Object CreatePageObjectInstance(Type pageObjectType, ISearchContext searchContext)
         {
+            if (pageObjectType == typeof (IWebElement) || pageObjectType == typeof (IHtmlElement))
+            {
+                return new HtmlElement(searchContext as IWebElement);
+            }
+
             try
             {
                 return Activator.CreateInstance(pageObjectType, searchContext, this);

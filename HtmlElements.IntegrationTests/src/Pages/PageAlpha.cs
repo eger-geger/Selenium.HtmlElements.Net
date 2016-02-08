@@ -13,7 +13,7 @@ namespace HtmlElements.IntegrationTests.Pages {
         public HtmlElement ElementListContainer { get; private set; }
 
         [FindsBy(How = How.CssSelector, Using = "#element-list li")]
-        public IList<HtmlElement> ElementListItems { get; private set; }
+        public IList<IWebElement> ElementListItems { get; private set; }
 
         [FindsBy(How = How.CssSelector, Using = "#element-list li"), CacheLookup]
         public IList<HtmlElement> CachedElementListItems { get; private set; } 
