@@ -13,7 +13,7 @@ namespace HtmlElements.Locators {
         /// <param name="jqSelector">
         ///     jQuery compatible element selector.
         /// </param>
-        public ByJquery(String jqSelector) : base("return window.jQuery && jQuery(arguments[0]).get() || [];", jqSelector) {
+        public ByJquery(String jqSelector) : base("window.jQuery && jQuery(arguments[0]).get() || []", jqSelector) {
             Description = String.Format("By.jQuery: {0}", jqSelector);
         }
 

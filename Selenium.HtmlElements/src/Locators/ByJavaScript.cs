@@ -27,7 +27,7 @@ namespace HtmlElements.Locators
                 throw new ArgumentNullException("javaScript", "JavaScript snippet is null or empty");
             }
 
-            _javaScript = javaScript;
+            _javaScript = String.Format("return {0};", javaScript);
             _arguments = arguments;
 
             FindElementMethod = FindElementWithJavaScript;
@@ -42,7 +42,7 @@ namespace HtmlElements.Locators
 
         private ReadOnlyCollection<IWebElement> FindElementListWithJavaScript(ISearchContext searchContext)
         {
-            return ToElementList(FindElementWithJavaScript(searchContext));
+            return ToElementList(FindWithJavaScript(searchContext));
         }
 
         private Object FindWithJavaScript(ISearchContext searchContext)
