@@ -98,7 +98,7 @@ namespace HtmlElements.Extensions
         /// <returns><c>true</c> if element is hidden or does not exist and <c>false</c> otherwise</returns>
         public static bool IsHidden(this IWebElement element)
         {
-            return !IsPresent(element) && !element.Displayed;
+            return !IsPresent(element) || !element.Displayed;
         }
 
         /// <summary>
