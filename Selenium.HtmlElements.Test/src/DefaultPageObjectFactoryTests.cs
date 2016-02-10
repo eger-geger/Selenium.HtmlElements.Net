@@ -159,6 +159,11 @@ namespace HtmlElements.Test
 
         public class PageObjectA
         {
+
+            private IWebElement _elementA;
+
+            private IList<IWebElement> _elementListA;
+
         }
     }
 }
