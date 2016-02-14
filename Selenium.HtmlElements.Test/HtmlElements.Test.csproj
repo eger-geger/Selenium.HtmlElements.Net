@@ -60,6 +60,8 @@
     <Compile Include="src\AbstractPageObjectFactoryTests.cs" />
     <Compile Include="src\DefaultPageObjectFactoryTests.cs" />
     <Compile Include="src\ElementGroupTests.cs" />
+    <Compile Include="src\Extensions\WaitUntilHiddenWebElementExtensionTests.cs" />
+    <Compile Include="src\Extensions\WaitForPresentWebElementExtensionTests.cs" />
     <Compile Include="src\Extensions\IsHiddenWebElementExtensionTests.cs" />
     <Compile Include="src\Extensions\IsPresentWebElementExtensionTests.cs" />
     <Compile Include="src\Extensions\TypeExtensionsTests.cs" />
