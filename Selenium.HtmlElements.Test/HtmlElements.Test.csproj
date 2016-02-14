@@ -60,7 +60,11 @@
     <Compile Include="src\AbstractPageObjectFactoryTests.cs" />
     <Compile Include="src\DefaultPageObjectFactoryTests.cs" />
     <Compile Include="src\ElementGroupTests.cs" />
+    <Compile Include="src\Extensions\IsHiddenWebElementExtensionTests.cs" />
+    <Compile Include="src\Extensions\IsPresentWebElementExtensionTests.cs" />
     <Compile Include="src\Extensions\TypeExtensionsTests.cs" />
+    <Compile Include="src\Extensions\WaitForVisibleWebElementExtensionTests.cs" />
+    <Compile Include="src\Extensions\AbstractWebElementExtensionsTestFixture.cs" />
     <Compile Include="src\LazyLoad\DefaultLoaderFactoryTests.cs" />
     <Compile Include="src\Proxy\ElementListProxyTests.cs" />
     <Compile Include="src\Proxy\WebElementProxyTests.cs" />

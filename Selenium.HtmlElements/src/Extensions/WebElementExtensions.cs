@@ -256,7 +256,7 @@ namespace HtmlElements.Extensions
             where TTarget : class, IWebElement
         {
             return target.WaitFor(IsVisible,
-                message ?? String.Format("{0} did not became visible after 10 seconds", target));
+                message ?? String.Format("{0} did not became visible", target));
         }
 
         /// <summary>
@@ -275,7 +275,7 @@ namespace HtmlElements.Extensions
             String message = null) where TTarget : class, IWebElement
         {
             return target.WaitFor(IsVisible, commandTimeout,
-                message ?? String.Format("{0} did not became visible after {1}", target, commandTimeout));
+                message ?? String.Format("{0} did not became visible", target));
         }
 
         /// <summary>
@@ -295,7 +295,7 @@ namespace HtmlElements.Extensions
             TimeSpan pollingInterval, String message = null) where TTarget : class, IWebElement
         {
             return target.WaitFor(IsVisible, commandTimeout, pollingInterval,
-                message ?? String.Format("{0} did not became visible after {1}", target, commandTimeout));
+                message ?? String.Format("{0} did not became visible", target));
         }
 
         /// <summary>
