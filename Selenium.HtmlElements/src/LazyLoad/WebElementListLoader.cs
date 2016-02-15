@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Text;
-using HtmlElements.Extensions;
 using OpenQA.Selenium;
 
 namespace HtmlElements.LazyLoad
@@ -25,11 +23,7 @@ namespace HtmlElements.LazyLoad
 
         public override string ToString()
         {
-            return new StringBuilder()
-                .AppendFormat("{0} providing list of elements found with [{1}] in", GetType().FullName, _locator)
-                .AppendLine()
-                .AppendLine(_searchContext.ToString().ShiftLinesToRight(2, '.'))
-                .ToString();
+            return String.Format("{0} providing list of elements found with [{1}] in [{2}]", GetType().Name, _locator, _searchContext);
         }
     }
 }

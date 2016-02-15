@@ -66,10 +66,10 @@ namespace HtmlElements.IntegrationTests
             var element = PageAlpha.CachedElementListItems[0];
 
             Expect(element.ToString(), 
-                ContainsSubstring(typeof(HtmlElement).FullName)
-                .And.ContainsSubstring(typeof(WebElementProxy).FullName)
-                .And.ContainsSubstring(typeof(WebElementListItemLoader).FullName)
-                .And.ContainsSubstring(typeof(WebElementListLoader).FullName));
+                ContainsSubstring(typeof(HtmlElement).Name)
+                .And.ContainsSubstring(typeof(WebElementProxy).Name)
+                .And.ContainsSubstring(typeof(WebElementListItemLoader).Name)
+                .And.ContainsSubstring(typeof(WebElementListLoader).Name));
         }
     }
 }

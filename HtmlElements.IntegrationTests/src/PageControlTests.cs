@@ -20,10 +20,10 @@ namespace HtmlElements.IntegrationTests
         public void ControlShouldHaveMeaningfullStringRepresentation()
         {
             Assert.That(PageAlpha.BetaFrame.SubmitBtn.ToString(),
-                ContainsSubstring(typeof(HtmlElement).FullName)
-                .And.ContainsSubstring(typeof(WebElementProxy).FullName)
-                .And.ContainsSubstring(typeof(WebElementLoader).FullName)
-                .And.ContainsSubstring(typeof(FrameWebElementProxy).FullName));
+                ContainsSubstring(typeof(HtmlElement).Name)
+                .And.ContainsSubstring(typeof(WebElementProxy).Name)
+                .And.ContainsSubstring(typeof(WebElementLoader).Name)
+                .And.ContainsSubstring(typeof(FrameWebElementProxy).Name));
         }
 
         [Test]

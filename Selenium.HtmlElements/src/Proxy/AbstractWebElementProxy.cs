@@ -1,8 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Text;
-using HtmlElements.Extensions;
 using HtmlElements.LazyLoad;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
@@ -118,11 +116,7 @@ namespace HtmlElements.Proxy
 
         public override string ToString()
         {
-            return new StringBuilder()
-                .AppendFormat("{0} wrapping web element loaded by", GetType())
-                .AppendLine()
-                .AppendLine(Loader.ToString().ShiftLinesToRight(2, '.'))
-                .ToString();
+            return String.Format("{0} wrapping web element loaded by [{1}]", GetType().Name, Loader);
         }
 
         protected abstract void Execute(Action<IWebElement> action);

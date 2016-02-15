@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using HtmlElements.Extensions;
 using HtmlElements.Proxy;
 using OpenQA.Selenium;
 
@@ -47,11 +45,7 @@ namespace HtmlElements.LazyLoad
 
         public override string ToString()
         {
-            return new StringBuilder()
-                .AppendFormat("{0} loading elements with", GetType())
-                .AppendLine()
-                .AppendLine(_elementListLoader.ToString().ShiftLinesToRight(2, '.'))
-                .ToString();
+            return String.Format("{0} loading elements with [{1}]", GetType().Name, _elementListLoader);
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Text;
-using HtmlElements.Extensions;
 using OpenQA.Selenium;
 
 namespace HtmlElements.LazyLoad
@@ -23,11 +21,7 @@ namespace HtmlElements.LazyLoad
 
         public override string ToString()
         {
-            return new StringBuilder()
-                .AppendFormat("{0} locating element using [{1}] in", GetType(), _locator)
-                .AppendLine()
-                .AppendLine(_searchContext.ToString().ShiftLinesToRight(2, '.'))
-                .ToString();
+            return String.Format("{0} locating element using [{1}] in [{2}]", GetType().Name, _locator, _searchContext);
         }
     }
 }

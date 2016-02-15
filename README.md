@@ -1,4 +1,4 @@
-**HtmlElements** is .NET library complementing to [Selenium WebDriver](https://github.com/SeleniumHQ/selenium) page object model by allowing you to create more complex and sophysticated page objects. It also provides set of standard page objects for commonly used HTML elements (links, input fields, images, frames, etc), alternative wait syntax, smart frames and some other usefull utilities. You can add it to your project by installing [HtmlElements](http://www.nuget.org/packages/HtmlElements/) nuget package.
+**HtmlElements** is .NET library complementing to [Selenium WebDriver](https://github.com/SeleniumHQ/selenium) page object model by allowing you to create more complex and sophysticated page objects. It also provides set of standard page objects for commonly used HTML elements (links, input fields, images, frames, etc), alternative wait syntax, smart frames and some other usefull utilities. You can add it to your project by installing [HtmlElements](http://www.nuget.org/packages/HtmlElements/) nuget package. More information can be found in [API reference](http://eger-geger.github.io/Selenium.HtmlElements.Net/).
 
 ## Custom page objects ##
 

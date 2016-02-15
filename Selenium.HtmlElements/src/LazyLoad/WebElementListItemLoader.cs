@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Text;
-using HtmlElements.Extensions;
 using OpenQA.Selenium;
 
 namespace HtmlElements.LazyLoad
@@ -39,11 +37,7 @@ namespace HtmlElements.LazyLoad
 
         public override string ToString()
         {
-            return new StringBuilder()
-                .AppendFormat("{0} providing [{1}] element from the list loaded by", GetType().FullName, _index)
-                .AppendLine()
-                .AppendLine(_listLoader.ToString().ShiftLinesToRight(2, '.'))
-                .ToString();
+            return String.Format("{0} providing [{1}] element from the list loaded by [{2}]", GetType().Name, _index, _listLoader);
         }
     }
 }

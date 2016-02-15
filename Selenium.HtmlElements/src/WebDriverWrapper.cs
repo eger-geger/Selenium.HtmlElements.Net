@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using HtmlElements.Extensions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
@@ -237,11 +236,7 @@ namespace HtmlElements
         /// </summary>
         public override string ToString()
         {
-            return new StringBuilder()
-                .AppendFormat("{0} wrapping", GetType().FullName)
-                .AppendLine()
-                .AppendLine(_webDriverOrWrapper.ToString().ShiftLinesToRight(2, '.'))
-                .ToString();
+            return String.Format("{0} wrapping [{1}]", GetType().Name, _webDriverOrWrapper);
         }
     }
 }
