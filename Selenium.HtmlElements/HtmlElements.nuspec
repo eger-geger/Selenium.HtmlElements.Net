@@ -10,6 +10,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>
+      2.0.1:
+        - unwrap raw WebElement from multilayered wrapper during FrameContextOverride initialization
       2.0.0:
         - page object factory rewritten from scratches: now it has interface, default implementation and better documentation
         - redesing element groups and removed extension method used for getting elements from a group

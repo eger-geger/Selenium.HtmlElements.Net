@@ -1,5 +1,6 @@
 ﻿using System;
 using HtmlElements.Elements;
+using HtmlElements.Extensions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 
@@ -16,7 +17,7 @@ namespace HtmlElements
         ///     Switch WebDriver context to frame wrapped by given element
         /// </summary>
         /// <param name="frameElement">Frame which will became active</param>
-        public FrameContextOverride(HtmlFrame frameElement) : this(frameElement.WrappedDriver, frameElement.WrappedElement)
+        public FrameContextOverride(HtmlFrame frameElement) : this(frameElement.WrappedDriver, frameElement.ToRawWebElement())
         {
         }
 
