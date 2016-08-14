@@ -3,7 +3,7 @@ using System.IO;
 using HtmlElements.IntegrationTests.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.PhantomJS;
 
 namespace HtmlElements.IntegrationTests {
 
@@ -19,13 +19,13 @@ namespace HtmlElements.IntegrationTests {
 
         [SetUp]
         public void OpenTestPage() {
-            WebDriver.Navigate().GoToUrl(Path.GetFullPath(InitialUrl));
+            WebDriver.Navigate().GoToUrl(new Uri(Path.GetFullPath(InitialUrl)).AbsoluteUri);
             PageAlpha = PageFactory.Create<PageAlpha>(WebDriver);
         }
 
         [TestFixtureSetUp]
         public void InitBrowser() {
-            WebDriver = new FirefoxDriver();
+            WebDriver = new PhantomJSDriver();
         }
 
         [TestFixtureTearDown]

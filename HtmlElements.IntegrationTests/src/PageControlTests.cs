@@ -11,15 +11,17 @@ namespace HtmlElements.IntegrationTests
         [Test]
         public void ShouldSwitchToFrameWhenWorkingWithIt()
         {
-            Assert.That(PageAlpha.BetaFrame, Is.Not.Null);
+            Assert.That(PageAlpha.NonCachedBetaFrame, Is.Not.Null);
+            Assert.That(PageAlpha.CachedBetaFrame, Is.Not.Null);
 
-            PageAlpha.BetaFrame.SignIn("abra@gmail.com", "kadabra");
+            PageAlpha.NonCachedBetaFrame.SignIn("abra@gmail.com", "kadabra");
+            PageAlpha.CachedBetaFrame.SignIn("abra@gmail.com", "kadabra");
         }
 
         [Test]
         public void ControlShouldHaveMeaningfullStringRepresentation()
         {
-            Assert.That(PageAlpha.BetaFrame.SubmitBtn.ToString(),
+            Assert.That(PageAlpha.NonCachedBetaFrame.SubmitBtn.ToString(),
                 ContainsSubstring(typeof(HtmlElement).Name)
                 .And.ContainsSubstring(typeof(WebElementProxy).Name)
                 .And.ContainsSubstring(typeof(WebElementLoader).Name)

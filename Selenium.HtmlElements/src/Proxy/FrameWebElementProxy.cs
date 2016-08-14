@@ -14,33 +14,16 @@ namespace HtmlElements.Proxy
 
         private TResult ExecuteInFrame<TResult>(Func<IWebDriver, TResult> function)
         {
-            return Execute(frame =>
+            var webDriver = Loader.SearchContext.ToWebDriver();
+
+            if (webDriver == null)
             {
-                if (frame == null)
-                {
-                    throw new ArgumentNullException("frame");
-                }
+                throw new InvalidOperationException(
+                    String.Format("Unable switch to frame because frame element does not wraps {0}", typeof(IWebDriver))
+                );
+            }
 
-                var webDriver = frame.ToWebDriver();
-
-                if (webDriver == null)
-                {
-                    throw new InvalidOperationException(
-                        String.Format("Unable switch to frame because frame element does not wraps {0}", typeof (IWebDriver))
-                    );
-                }
-
-                var rawWebElement = frame.ToRawWebElement();
-
-                if (rawWebElement == null)
-                {
-                    throw new InvalidOperationException(
-                        "Unable to retrieve raw web element from frame element"
-                    );
-                }
-
-                return function(webDriver);
-            });
+            return function(webDriver);
         }
 
         public override IWebElement FindElement(By @by)

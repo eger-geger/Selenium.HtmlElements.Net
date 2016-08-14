@@ -35,6 +35,8 @@ namespace HtmlElements.LazyLoad
             _listLoader.Reset();
         }
 
+        public override ISearchContext SearchContext => _listLoader.SearchContext;
+
         public override string ToString()
         {
             return String.Format("{0} providing [{1}] element from the list loaded by [{2}]", GetType().Name, _index, _listLoader);

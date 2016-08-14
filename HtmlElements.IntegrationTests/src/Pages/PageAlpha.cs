@@ -18,8 +18,11 @@ namespace HtmlElements.IntegrationTests.Pages {
         [FindsBy(How = How.CssSelector, Using = "#element-list li"), CacheLookup]
         public IList<HtmlElement> CachedElementListItems { get; private set; } 
 
+        [FindsBy(How = How.CssSelector, Using = "iframe")]
+        public PageBeta NonCachedBetaFrame { get; set; }
+
         [FindsBy(How = How.CssSelector, Using = "iframe"), CacheLookup]
-        public PageBeta BetaFrame { get; set; }
+        public PageBeta CachedBetaFrame { get; set; }
     }
 
 }

@@ -43,6 +43,8 @@ namespace HtmlElements.LazyLoad
             );
         }
 
+        public override ISearchContext SearchContext => _elementListLoader.SearchContext;
+
         public override string ToString()
         {
             return String.Format("{0} loading elements with [{1}]", GetType().Name, _elementListLoader);

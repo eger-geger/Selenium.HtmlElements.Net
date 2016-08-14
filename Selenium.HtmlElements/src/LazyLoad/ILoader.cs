@@ -1,4 +1,6 @@
-﻿namespace HtmlElements.LazyLoad
+﻿using OpenQA.Selenium;
+
+namespace HtmlElements.LazyLoad
 {
     /// <summary>
     ///     Represents contract used for creating/caching objects lazily.
@@ -22,5 +24,10 @@
         /// </summary>
         /// <returns>Instance of <see cref="TObject"/></returns>
         TObject ResetAndLoad();
+
+        /// <summary>
+        ///     Context used to load WebElement or WebElement list.
+        /// </summary>
+        ISearchContext SearchContext { get; }
     }
 }
