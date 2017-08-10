@@ -1,4 +1,5 @@
-﻿using HtmlElements.LazyLoad;
+﻿using System;
+using HtmlElements.LazyLoad;
 using HtmlElements.Proxy;
 using Moq;
 using NUnit.Framework;
@@ -38,6 +39,36 @@ namespace HtmlElements.Test.Proxy
             _loaderMock.Verify(loader => loader.Load(), Times.Exactly(2));
             _loaderMock.Verify(loader => loader.Reset(), Times.Once);
             _elementMock.Verify(e => e.Displayed, Times.Exactly(2));
+        }
+
+        [Test]
+        public void ShouldHandleNotInCacheReferenceException()
+        {
+            _elementMock.SetupSequence(e => e.Displayed)
+                .Throws( new InvalidOperationException("An unknown server-side error occurred while processing the command. Original error: Error while executing atom: Element does not exist in cache (status: 10)"))
+                .Returns(true);
+
+            var elementProxy = _proxyFactory.CreateWebElementProxy(_loaderMock.Object);
+
+            Assert.That(elementProxy.Displayed, Is.True);
+
+            _loaderMock.Verify(loader => loader.Load(), Times.Exactly(2));
+            _loaderMock.Verify(loader => loader.Reset(), Times.Once);
+            _elementMock.Verify(e => e.Displayed, Times.Exactly(2));
+        }
+
+        [Test]
+        public void ShouldNotHandleOtherInvalidOperationException()
+        {
+            _elementMock.Setup(e => e.Click())
+                .Throws<InvalidOperationException>();
+
+            var elementProxy = _proxyFactory.CreateWebElementProxy(_loaderMock.Object);
+
+            Assert.Throws<InvalidOperationException>(() => elementProxy.Click());
+
+            _loaderMock.Verify(loader => loader.Load(), Times.Once);
+            _loaderMock.Verify(loader => loader.Reset(), Times.Never);
         }
 
         [Test]
