@@ -58,6 +58,20 @@ namespace HtmlElements.Test.Proxy
         }
 
         [Test]
+        public void ShouldNotHandleOtherInvalidOperationException()
+        {
+            _elementMock.Setup(e => e.Click())
+                .Throws<InvalidOperationException>();
+
+            var elementProxy = _proxyFactory.CreateWebElementProxy(_loaderMock.Object);
+
+            Assert.Throws<InvalidOperationException>(() => elementProxy.Click());
+
+            _loaderMock.Verify(loader => loader.Load(), Times.Once);
+            _loaderMock.Verify(loader => loader.Reset(), Times.Never);
+        }
+
+        [Test]
         public void ShouldGiveUpAfter5AttemptsToLoadElement()
         {
             _elementMock
