@@ -10,6 +10,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>
+      2.0.2:
+        - handle InvalidOperationException thrown by IOS when element was not found in cache
       2.0.1:
         - unwrap raw WebElement from multilayered wrapper during FrameContextOverride initialization
       2.0.0:
