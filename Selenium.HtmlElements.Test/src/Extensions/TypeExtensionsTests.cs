@@ -123,6 +123,11 @@ namespace HtmlElements.Test.Extensions
                 throw new NotImplementedException();
             }
 
+            public string GetProperty(string propertyName)
+            {
+                throw new NotImplementedException();
+            }
+
             public string TagName { get; set; }
             public string Text { get; set; }
             public bool Enabled { get; set; }
