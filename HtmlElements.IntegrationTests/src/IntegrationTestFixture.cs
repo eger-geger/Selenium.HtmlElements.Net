@@ -7,7 +7,8 @@ using OpenQA.Selenium.PhantomJS;
 
 namespace HtmlElements.IntegrationTests {
 
-    public class IntegrationTestFixture : AssertionHelper {
+    public class IntegrationTestFixture
+    {
 
         private const String InitialUrl = "PageAlpha.htm";
 
@@ -18,18 +19,22 @@ namespace HtmlElements.IntegrationTests {
         protected PageAlpha PageAlpha { get; private set; }
 
         [SetUp]
-        public void OpenTestPage() {
+        public void OpenTestPage()
+        {
             WebDriver.Navigate().GoToUrl(new Uri(Path.GetFullPath(InitialUrl)).AbsoluteUri);
             PageAlpha = PageFactory.Create<PageAlpha>(WebDriver);
         }
 
-        [TestFixtureSetUp]
-        public void InitBrowser() {
+        [OneTimeSetUp]
+        public void InitBrowser()
+        {
+            Environment.CurrentDirectory = Path.GetDirectoryName(this.GetType().Assembly.Location);
             WebDriver = new PhantomJSDriver();
         }
 
-        [TestFixtureTearDown]
-        public void CloseBrowser() {
+        [OneTimeTearDown]
+        public void CloseBrowser()
+        {
             WebDriver.Quit();
         }
 
