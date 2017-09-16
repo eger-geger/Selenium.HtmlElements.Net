@@ -13,29 +13,29 @@ namespace HtmlElements.Test.Extensions
 {
     public class TypeExtensionsTests
     {
-        [TestCase(null, Result = false)]
-        [TestCase(typeof(Object), Result = false)]
-        [TestCase(typeof(IWebDriver), Result = false)]
-        [TestCase(typeof(ISearchContext), Result = false)]
-        [TestCase(typeof(IHtmlElement), Result = true)]
-        [TestCase(typeof(IWebElement), Result = true)]
-        [TestCase(typeof(HtmlElement), Result = true)]
-        [TestCase(typeof(WebElementImpl), Result = true)]
+        [TestCase(null, ExpectedResult = false)]
+        [TestCase(typeof(Object), ExpectedResult = false)]
+        [TestCase(typeof(IWebDriver), ExpectedResult = false)]
+        [TestCase(typeof(ISearchContext), ExpectedResult = false)]
+        [TestCase(typeof(IHtmlElement), ExpectedResult = true)]
+        [TestCase(typeof(IWebElement), ExpectedResult = true)]
+        [TestCase(typeof(HtmlElement), ExpectedResult = true)]
+        [TestCase(typeof(WebElementImpl), ExpectedResult = true)]
         public Boolean ShouldDetermineWeatherTypeIsDerivedFromWebElement(Type type)
         {
             return type.IsWebElement();
         }
 
-        [TestCase(typeof(IList<IWebElement>), Result = true)]
-        [TestCase(typeof(IList<WebElementImpl>), Result = true)]
-        [TestCase(typeof(IList<IHtmlElement>), Result = true)]
-        [TestCase(typeof(IList<HtmlElement>), Result = true)]
-        [TestCase(typeof(IList<Object>), Result = false)]
-        [TestCase(typeof(IList<IWebDriver>), Result = false)]
-        [TestCase(typeof(IList<ISearchContext>), Result = false)]
-        [TestCase(typeof(IEnumerable<IWebElement>), Result = false)]
-        [TestCase(typeof(ICollection<IWebElement>), Result = false)]
-        [TestCase(typeof(List<IWebElement>), Result = false)]
+        [TestCase(typeof(IList<IWebElement>), ExpectedResult = true)]
+        [TestCase(typeof(IList<WebElementImpl>), ExpectedResult = true)]
+        [TestCase(typeof(IList<IHtmlElement>), ExpectedResult = true)]
+        [TestCase(typeof(IList<HtmlElement>), ExpectedResult = true)]
+        [TestCase(typeof(IList<Object>), ExpectedResult = false)]
+        [TestCase(typeof(IList<IWebDriver>), ExpectedResult = false)]
+        [TestCase(typeof(IList<ISearchContext>), ExpectedResult = false)]
+        [TestCase(typeof(IEnumerable<IWebElement>), ExpectedResult = false)]
+        [TestCase(typeof(ICollection<IWebElement>), ExpectedResult = false)]
+        [TestCase(typeof(List<IWebElement>), ExpectedResult = false)]
         public Boolean ShouldDetermineWeatherTypeDescribedListOfWebElements(Type type)
         {
             return type.IsWebElementList();
@@ -119,6 +119,11 @@ namespace HtmlElements.Test.Extensions
             }
 
             public string GetCssValue(string propertyName)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string GetProperty(string propertyName)
             {
                 throw new NotImplementedException();
             }

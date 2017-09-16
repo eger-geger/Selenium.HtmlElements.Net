@@ -108,8 +108,9 @@ namespace HtmlElements.Extensions {
         /// <param name="element">Target element</param>
         /// <param name="propertyName">Property name</param>
         /// <returns>Value of the property</returns>
-        public static object GetProperty(this HtmlElement element, String propertyName) {
-            return element.ExecuteScriptOnSelf("return {self}[arguments[0]];", propertyName);
+        public static T GetProperty<T>(this HtmlElement element, String propertyName)
+        {
+            return (T)element.ExecuteScriptOnSelf("return {self}[arguments[0]];", propertyName);
         }
 
     }

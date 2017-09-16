@@ -91,6 +91,11 @@ namespace HtmlElements.Proxy
             return Execute(e => e.GetAttribute(attributeName));
         }
 
+        public string GetProperty(string propertyName)
+        {
+            return Execute(e => e.GetProperty(propertyName));
+        }
+
         public string GetCssValue(string propertyName)
         {
             return Execute(e => e.GetCssValue(propertyName));

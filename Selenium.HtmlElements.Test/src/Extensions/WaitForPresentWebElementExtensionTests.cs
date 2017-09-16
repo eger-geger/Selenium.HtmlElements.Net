@@ -9,7 +9,7 @@ namespace HtmlElements.Test.Extensions
 {
     public class WaitForPresentWebElementExtensionTests : AbstractWebElementExtensionsTestFixture
     {
-        private static IEnumerable<ITestCaseData> WaitForPresentTestCases
+        private static IEnumerable<object> WaitForPresentTestCases
         {
             get
             {

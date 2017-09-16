@@ -8,7 +8,7 @@ namespace HtmlElements.Test.Extensions
 {
     public class WaitUntilHiddenWebElementExtensionTests : AbstractWebElementExtensionsTestFixture
     {
-        private static IEnumerable<ITestCaseData> WaitUntilHiddenTestCases
+        private static IEnumerable<object> WaitUntilHiddenTestCases
         {
             get
             {
