@@ -10,6 +10,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>
+      3.0.0:
+        - update selenium reference to 3.5.2
+        - add NextSibling WebElement property
       2.0.2:
         - handle InvalidOperationException thrown by IOS when element was not found in cache
       2.0.1:

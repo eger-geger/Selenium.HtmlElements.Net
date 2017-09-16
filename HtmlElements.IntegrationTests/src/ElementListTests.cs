@@ -1,6 +1,5 @@
 ﻿using System;
 using HtmlElements.Elements;
-using HtmlElements.IntegrationTests.Pages;
 using HtmlElements.LazyLoad;
 using HtmlElements.Proxy;
 using NUnit.Framework;

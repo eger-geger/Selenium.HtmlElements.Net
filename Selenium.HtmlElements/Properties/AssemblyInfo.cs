@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: InternalsVisibleTo("HtmlElements.Test")]
 [assembly: Guid("df09e424-55f1-4ef4-a17f-26c0dd792ed0")]
-[assembly: AssemblyVersion("2.0.2")]
-[assembly: AssemblyFileVersion("2.0.2")]
+[assembly: AssemblyVersion("3.0.0")]
+[assembly: AssemblyFileVersion("3.0.0")]
 
 [assembly: InternalsVisibleTo("HtmlElements.IntegrationTests")]

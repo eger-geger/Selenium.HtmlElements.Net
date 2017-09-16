@@ -3,14 +3,14 @@ using System.IO;
 using HtmlElements.IntegrationTests.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.PhantomJS;
 
 namespace HtmlElements.IntegrationTests {
 
     public class IntegrationTestFixture
     {
-
-        private const String InitialUrl = "PageAlpha.htm";
+        private const String PageFileName = "PageAlpha.htm";
 
         protected readonly IPageObjectFactory PageFactory = new PageObjectFactory();
 
@@ -18,10 +18,14 @@ namespace HtmlElements.IntegrationTests {
 
         protected PageAlpha PageAlpha { get; private set; }
 
+        private string PageFileFullPath => Path.GetFullPath(
+            Path.Combine(TestContext.CurrentContext.TestDirectory, PageFileName)
+        );
+
         [SetUp]
         public void OpenTestPage()
         {
-            WebDriver.Navigate().GoToUrl(new Uri(Path.GetFullPath(InitialUrl)).AbsoluteUri);
+            WebDriver.Navigate().GoToUrl(new Uri(PageFileFullPath).AbsoluteUri);
             PageAlpha = PageFactory.Create<PageAlpha>(WebDriver);
         }
 
