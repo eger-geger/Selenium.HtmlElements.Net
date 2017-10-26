@@ -12,7 +12,7 @@ namespace HtmlElements.Test.Extensions
         {
             ElementMock.Setup(e => e.Size).Returns(new Size(100, 100));
 
-            Assert.That(ElementMock.Object.IsPresent(), Is.True);
+            Assert.True(ElementMock.Object.IsPresent());
         }
 
         [Test]
@@ -20,7 +20,7 @@ namespace HtmlElements.Test.Extensions
         {
             ElementMock.Setup(e => e.Size).Throws<NoSuchElementException>();
 
-            Assert.That(ElementMock.Object.IsPresent(), Is.False);
+            Assert.True(ElementMock.Object.IsPresent());
         }
     }
 }
