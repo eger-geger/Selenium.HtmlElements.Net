@@ -21,7 +21,7 @@ namespace HtmlElements.IntegrationTests.Elements
             var element = PageAlpha.FindElement<HtmlElement>(By.Id("hamlet"));
 
             Assert.That(element, Is.Not.Null);
-            Assert.That(element.Text, Is.EqualTo("Something is rotten in the state of Denmark"));
+            Assert.That(element.Text, Is.EqualTo("Something is rotten in the state of Denmark ..."));
         }
 
         [Test]

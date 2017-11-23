@@ -3,6 +3,7 @@ using HtmlElements.LazyLoad;
 using HtmlElements.Proxy;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using System;
 
 namespace HtmlElements.IntegrationTests
 {
@@ -34,6 +35,19 @@ namespace HtmlElements.IntegrationTests
             PageAlpha.Body.InnerHtml = "";
 
             Assert.Throws<NoSuchElementException>(() => PageAlpha.ElementListContainer.Click());
+        }
+
+        [Test]
+        public void ShouldOverrideImplicitTimeout()
+        {
+
+            TimeSpan defaultImplicitWait = TimeSpan.FromSeconds(1);
+            TimeSpan overridenImplcitWait = TimeSpan.FromSeconds(2);
+            using (new ImplicitWaitOverride(WebDriver, defaultImplicitWait, overridenImplcitWait))
+            {
+                Assert.AreEqual(overridenImplcitWait, WebDriver.Manage().Timeouts().ImplicitWait);
+            }
+            Assert.AreEqual(defaultImplicitWait, WebDriver.Manage().Timeouts().ImplicitWait);
         }
     }
 }
