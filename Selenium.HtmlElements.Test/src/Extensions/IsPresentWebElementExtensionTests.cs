@@ -20,7 +20,7 @@ namespace HtmlElements.Test.Extensions
         {
             ElementMock.Setup(e => e.Size).Throws<NoSuchElementException>();
 
-            Assert.True(ElementMock.Object.IsPresent());
+            Assert.False(ElementMock.Object.IsPresent());
         }
     }
 }
