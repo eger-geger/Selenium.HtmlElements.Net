@@ -58,7 +58,7 @@ namespace HtmlElements
         public TimeSpan ImplicitWaitTimeout
         {
             get { return _overriddenImplicitWait; }
-            set { _wrappedDriver.Manage().Timeouts().ImplicitlyWait(_overriddenImplicitWait = value); }
+            set { _wrappedDriver.Manage().Timeouts().ImplicitWait = _overriddenImplicitWait = value; }
         }
 
         /// <summary>

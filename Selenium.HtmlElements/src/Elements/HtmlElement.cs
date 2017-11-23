@@ -42,7 +42,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public IWebElement PreviousSibling
         {
-            get { return this.GetProperty<IWebElement>("previousSibling"); }
+            get { return this.GetProperty<IWebElement>("previousElementSibling"); }
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public IWebElement NextSibling
         {
-            get { return this.GetProperty<IWebElement>("nextSibling"); }
+            get { return this.GetProperty<IWebElement>("nextElementSibling"); }
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public IWebElement FirstChild
         {
-            get { return this.GetProperty<IWebElement>("firstChild"); }
+            get { return this.GetProperty<IWebElement>("firstElementChild"); }
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public IWebElement LastChild
         {
-            get { return this.GetProperty<IWebElement>("lastChild"); }
+            get { return this.GetProperty<IWebElement>("lastElementChild"); }
         }
 
         /// <summary>

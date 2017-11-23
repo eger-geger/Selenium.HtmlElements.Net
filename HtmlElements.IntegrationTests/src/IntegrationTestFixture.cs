@@ -5,6 +5,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.PhantomJS;
+using OpenQA.Selenium.Firefox;
 
 namespace HtmlElements.IntegrationTests {
 
@@ -33,7 +34,9 @@ namespace HtmlElements.IntegrationTests {
         public void InitBrowser()
         {
             Environment.CurrentDirectory = Path.GetDirectoryName(this.GetType().Assembly.Location);
-            WebDriver = new PhantomJSDriver();
+            var options = new FirefoxOptions();
+            options.AddArgument("--headless");
+            WebDriver = new FirefoxDriver(options);
         }
 
         [OneTimeTearDown]
