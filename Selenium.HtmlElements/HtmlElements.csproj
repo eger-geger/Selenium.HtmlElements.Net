@@ -42,13 +42,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WebDriver, Version=2.48.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selenium.WebDriver.2.48.2\lib\net40\WebDriver.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="WebDriver, Version=3.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.3.5.2\lib\net40\WebDriver.dll</HintPath>
     </Reference>
-    <Reference Include="WebDriver.Support, Version=2.48.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selenium.Support.2.48.2\lib\net40\WebDriver.Support.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="WebDriver.Support, Version=3.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.Support.3.5.2\lib\net40\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -106,7 +104,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="nuget-package" DependsOnTargets="Build">
     <Exec Command="nuget spec" />

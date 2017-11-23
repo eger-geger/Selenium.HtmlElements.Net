@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -87,7 +86,7 @@ namespace HtmlElements.Extensions {
         /// <param name="webDriver">WebDriver capable of taking screen-shots</param>
         /// <param name="imagePath">Screen-shot file path</param>
         /// <param name="imageFormat">Image format in which screen-shot will be saved</param>
-        public static void SavePageImage(this ITakesScreenshot webDriver, string imagePath, ImageFormat imageFormat) {
+        public static void SavePageImage(this ITakesScreenshot webDriver, string imagePath, ScreenshotImageFormat imageFormat) {
             webDriver.GetScreenshot().SaveAsFile(imagePath, imageFormat);
         }
 

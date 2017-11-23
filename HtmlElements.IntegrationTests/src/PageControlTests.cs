@@ -22,10 +22,10 @@ namespace HtmlElements.IntegrationTests
         public void ControlShouldHaveMeaningfullStringRepresentation()
         {
             Assert.That(PageAlpha.NonCachedBetaFrame.SubmitBtn.ToString(),
-                ContainsSubstring(typeof(HtmlElement).Name)
-                .And.ContainsSubstring(typeof(WebElementProxy).Name)
-                .And.ContainsSubstring(typeof(WebElementLoader).Name)
-                .And.ContainsSubstring(typeof(FrameWebElementProxy).Name));
+                Does.Contain(typeof(HtmlElement).Name)
+                .And.Contain(typeof(WebElementProxy).Name)
+                .And.Contain(typeof(WebElementLoader).Name)
+                .And.Contain(typeof(FrameWebElementProxy).Name));
         }
 
         [Test]

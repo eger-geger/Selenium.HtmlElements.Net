@@ -12,7 +12,7 @@ namespace HtmlElements.Test.Extensions
         {
             ElementMock.Setup(e => e.Size).Throws<NoSuchElementException>();
 
-            Assert.That(ElementMock.Object.IsHidden(), Is.True);
+            Assert.True(ElementMock.Object.IsHidden());
         }
 
         [Test]
@@ -21,7 +21,7 @@ namespace HtmlElements.Test.Extensions
             ElementMock.Setup(e => e.Size).Returns(new Size(100, 100));
             ElementMock.Setup(e => e.Displayed).Returns(false);
 
-            Assert.That(ElementMock.Object.IsHidden(), Is.True);
+            Assert.True(ElementMock.Object.IsHidden());
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace HtmlElements.Test.Extensions
             ElementMock.Setup(e => e.Size).Returns(new Size(100, 100));
             ElementMock.Setup(e => e.Displayed).Returns(true);
 
-            Assert.That(ElementMock.Object.IsHidden(), Is.False);
+            Assert.False(ElementMock.Object.IsHidden());
         }
     }
 }

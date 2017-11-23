@@ -1,6 +1,5 @@
 ﻿using System;
 using HtmlElements.Elements;
-using HtmlElements.IntegrationTests.Pages;
 using HtmlElements.LazyLoad;
 using HtmlElements.Proxy;
 using NUnit.Framework;
@@ -17,7 +16,7 @@ namespace HtmlElements.IntegrationTests
 
             PageAlpha.ElementListContainer.InnerHtml += "<li>new list item</li>";
 
-            Expect(PageAlpha.ElementListItems.Count, Is.GreaterThan(initElementCount));
+            Assert.That(PageAlpha.ElementListItems.Count, Is.GreaterThan(initElementCount));
         }
 
         [Test]
@@ -27,7 +26,7 @@ namespace HtmlElements.IntegrationTests
 
             PageAlpha.ElementListContainer.InnerHtml = "<li>alpha</li><li>beta</li>";
 
-            Expect(firstElement.Text, Is.EqualTo("alpha"));
+            Assert.That(firstElement.Text, Is.EqualTo("alpha"));
         }
 
         [Test]
@@ -37,7 +36,7 @@ namespace HtmlElements.IntegrationTests
 
             PageAlpha.ElementListContainer.InnerHtml = String.Empty;
 
-            Expect(() => firstElement.Text, Throws.InstanceOf<NoSuchElementException>());
+            Assert.That(() => firstElement.Text, Throws.InstanceOf<NoSuchElementException>());
         }
 
         [Test]
@@ -47,7 +46,7 @@ namespace HtmlElements.IntegrationTests
 
             PageAlpha.ElementListContainer.InnerHtml += "<li>new list item</li>";
 
-            Expect(PageAlpha.CachedElementListItems.Count, Is.EqualTo(initElementCount));
+            Assert.That(PageAlpha.CachedElementListItems.Count, Is.EqualTo(initElementCount));
         }
 
         [Test]
@@ -57,7 +56,7 @@ namespace HtmlElements.IntegrationTests
 
             PageAlpha.ElementListContainer.InnerHtml = "<li>alpha</li><li>beta</li>";
 
-            Expect(firstElement.Text, Is.EqualTo("alpha"));
+            Assert.That(firstElement.Text, Is.EqualTo("alpha"));
         }
 
         [Test]
@@ -65,11 +64,11 @@ namespace HtmlElements.IntegrationTests
         {
             var element = PageAlpha.CachedElementListItems[0];
 
-            Expect(element.ToString(), 
-                ContainsSubstring(typeof(HtmlElement).Name)
-                .And.ContainsSubstring(typeof(WebElementProxy).Name)
-                .And.ContainsSubstring(typeof(WebElementListItemLoader).Name)
-                .And.ContainsSubstring(typeof(WebElementListLoader).Name));
+            Assert.That(element.ToString(), 
+                Does.Contain(typeof(HtmlElement).Name)
+                .And.Contain(typeof(WebElementProxy).Name)
+                .And.Contain(typeof(WebElementListItemLoader).Name)
+                .And.Contain(typeof(WebElementListLoader).Name));
         }
     }
 }
