@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
@@ -31,14 +32,15 @@ namespace HtmlElements.Extensions {
         /// <exception cref="WebDriverTimeoutException">
         ///     Thrown if new tab did not open after 10 seconds
         /// </exception>
-        public static string WaitUntilNewWindowOpened(this IWebDriver webDriver, Action command, String message = null) {
+        /// <returns>List of new window handles.</returns>
+        public static IList<string> WaitUntilNewWindowOpened(this IWebDriver webDriver, Action command, String message = null) {
             var initialWindowHandles = webDriver.WindowHandles;
 
             command();
 
             webDriver.WaitUntil(s => s.WindowHandles.Count > initialWindowHandles.Count, message ?? "New browser window did not open after 10 seconds");
 
-            return webDriver.WindowHandles.Single(windowHandle => !initialWindowHandles.Contains(windowHandle));
+            return webDriver.WindowHandles.Where(windowHandle => !initialWindowHandles.Contains(windowHandle)).ToList();
         }
 
         /// <summary>
