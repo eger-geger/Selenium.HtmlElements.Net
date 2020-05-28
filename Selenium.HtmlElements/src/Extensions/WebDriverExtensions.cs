@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
@@ -14,24 +13,13 @@ namespace HtmlElements.Extensions {
     /// </summary>
     public static class WebDriverExtensions {
 
-        private static List<string> InitialWindowHandls;
-
-        /// <summary>
-        ///     Sets initial window handles.
-        /// </summary>
-        /// <param name="webDriver">WebDriver instance.</param>
-        public static void SerInitialWindowHandls(this IWebDriver webDriver) => InitialWindowHandls = webDriver.WindowHandles.ToList();
-
         /// <summary>
         ///     Locates last window handler and make it active.
         /// </summary>
         /// <param name="webDriver">WebDriver instance</param>
+        [Obsolete("This method is deprecated, please use native webdriver switch to window functionality.")]
         public static void SwitchToLastOpenedWindow(this IWebDriver webDriver) {
-
-            if (InitialWindowHandls != null)
-                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last(handls => !InitialWindowHandls.Any(initialHandls => initialHandls == handls)));
-            else
-                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+            webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
         }
 
         /// <summary>
@@ -43,12 +31,14 @@ namespace HtmlElements.Extensions {
         /// <exception cref="WebDriverTimeoutException">
         ///     Thrown if new tab did not open after 10 seconds
         /// </exception>
-        public static void WaitUntilNewWindowOpened(this IWebDriver webDriver, Action command, String message = null) {
-            webDriver.SerInitialWindowHandls();
+        public static string WaitUntilNewWindowOpened(this IWebDriver webDriver, Action command, String message = null) {
+            var initialWindowHandles = webDriver.WindowHandles;
 
             command();
 
-            webDriver.WaitUntil(s => s.WindowHandles.Count > InitialWindowHandls.Count, message ?? "New browser window did not open after 10 seconds");
+            webDriver.WaitUntil(s => s.WindowHandles.Count > initialWindowHandles.Count, message ?? "New browser window did not open after 10 seconds");
+
+            return webDriver.WindowHandles.Single(windowHandle => !initialWindowHandles.Contains(windowHandle));
         }
 
         /// <summary>
