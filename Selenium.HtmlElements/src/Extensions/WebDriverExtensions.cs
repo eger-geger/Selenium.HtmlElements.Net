@@ -139,8 +139,7 @@ namespace HtmlElements.Extensions {
         /// <param name="command">Command which should trigger new browser tab</param>
         /// <param name="message">Error message used when command expires</param>
         public static void OpenNewWindow(this IWebDriver webDriver, Action command, String message = null) {
-            webDriver.WaitUntilNewWindowOpened(command, message);
-            webDriver.SwitchToLastOpenedWindow();
+            webDriver.SwitchTo().Window(webDriver.WaitUntilNewWindowOpened(command, message).First());
         }
 
         /// <summary>

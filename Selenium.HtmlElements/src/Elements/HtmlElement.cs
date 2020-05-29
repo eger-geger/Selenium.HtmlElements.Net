@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Linq;
 using HtmlElements.Extensions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
@@ -344,10 +345,9 @@ namespace HtmlElements.Elements
         /// </returns>
         public TPage OpenInNewWindow<TPage>()
         {
-            IWebDriver wd = WrappedDriver;
+            var wd = WrappedDriver;
 
-            wd.WaitUntilNewWindowOpened(Click);
-            wd.SwitchToLastOpenedWindow();
+            wd.SwitchTo().Window(wd.WaitUntilNewWindowOpened(Click).First());
 
             return PageObjectFactory.Create<TPage>(wd);
         }

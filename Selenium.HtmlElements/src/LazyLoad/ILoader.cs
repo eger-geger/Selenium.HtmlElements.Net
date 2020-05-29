@@ -11,7 +11,7 @@ namespace HtmlElements.LazyLoad
         /// <summary>
         ///     Create new object instance or take it from cache
         /// </summary>
-        /// <returns>Instance of <see cref="TObject"/></returns>
+        /// <returns>Newly created or cached instance.</returns>
         TObject Load();
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace HtmlElements.LazyLoad
         /// <summary>
         ///     Reset cache and create new instance. Similar to subsequent calls to <see cref="Reset"/> and <see cref="Load"/>
         /// </summary>
-        /// <returns>Instance of <see cref="TObject"/></returns>
+        /// <returns>Newly created or cached instance.</returns>
         TObject ResetAndLoad();
 
         /// <summary>
