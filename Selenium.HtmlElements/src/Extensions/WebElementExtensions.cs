@@ -17,7 +17,7 @@ namespace HtmlElements.Extensions
         /// <param name="page">HTML page to search text on</param>
         /// <param name="text">List of string to check</param>
         /// <returns><c>true</c> if every string from the list is shown on a page and <c>false</c> otherwise</returns>
-        public static bool IsTextShown(this HtmlPage page, params String[] text)
+        public static bool IsTextShown(this HtmlPage page, params string[] text)
         {
             var bodyText = page.Body.Text;
 
@@ -30,7 +30,7 @@ namespace HtmlElements.Extensions
         /// <param name="page">HTML page to search text on</param>
         /// <param name="text">List of string to check</param>
         /// <returns><c>true</c> if every string from the list exist on a page and <c>false</c> otherwise</returns>
-        public static bool IsTextPresent(this HtmlPage page, params String[] text)
+        public static bool IsTextPresent(this HtmlPage page, params string[] text)
         {
             var pageSource = page.Source;
 
@@ -45,7 +45,7 @@ namespace HtmlElements.Extensions
         /// <returns>
         ///     true if all provided chunks are not present in page source and false otherwise
         /// </returns>
-        public static bool IsTextNotPresent(this HtmlPage page, params String[] text)
+        public static bool IsTextNotPresent(this HtmlPage page, params string[] text)
         {
             return text.All(t => !page.Source.Contains(t));
         }
@@ -120,12 +120,12 @@ namespace HtmlElements.Extensions
         ///     Thrown when element did not hide after 10 seconds
         /// </exception>
         public static void WaitUntilHidden<TTarget>(this TTarget target, TimeSpan commandTimeout,
-            TimeSpan pollingInterval, String message = null) where TTarget : class, IWebElement
+            TimeSpan pollingInterval, string message = null) where TTarget : class, IWebElement
         {
             try
             {
                 target.WaitUntil(IsHidden, commandTimeout, pollingInterval,
-                    message ?? String.Format("{0} did not became hidden after {1}", target, commandTimeout));
+                    message ?? string.Format("{0} did not became hidden after {1}", target, commandTimeout));
             }
             catch (NoSuchElementException)
             {
@@ -147,13 +147,13 @@ namespace HtmlElements.Extensions
         /// <exception cref="WebDriverTimeoutException">
         ///     Thrown when element did not hide after 10 seconds
         /// </exception>
-        public static void WaitUntilHidden<TTarget>(this TTarget target, TimeSpan commandTimeout, String message = null)
+        public static void WaitUntilHidden<TTarget>(this TTarget target, TimeSpan commandTimeout, string message = null)
             where TTarget : class, IWebElement
         {
             try
             {
                 target.WaitUntil(IsHidden, commandTimeout,
-                    message ?? String.Format("{0} did not became hidden after {1}", target, commandTimeout));
+                    message ?? string.Format("{0} did not became hidden after {1}", target, commandTimeout));
             }
             catch (NoSuchElementException)
             {
@@ -174,13 +174,13 @@ namespace HtmlElements.Extensions
         /// <exception cref="WebDriverTimeoutException">
         ///     Thrown when element did not hide after 10 seconds
         /// </exception>
-        public static void WaitUntilHidden<TTarget>(this TTarget target, String message = null)
+        public static void WaitUntilHidden<TTarget>(this TTarget target, string message = null)
             where TTarget : class, IWebElement
         {
             try
             {
                 target.WaitUntil(IsHidden,
-                    message ?? String.Format("{0} did not became hidden after 10 seconds", target));
+                    message ?? string.Format("{0} did not became hidden after 10 seconds", target));
             }
             catch (NoSuchElementException)
             {
@@ -203,11 +203,11 @@ namespace HtmlElements.Extensions
         /// <exception cref="WebDriverTimeoutException">
         ///     Thrown when element did not appear in DOM after 10 seconds
         /// </exception>
-        public static TTarget WaitForPresent<TTarget>(this TTarget target, String message = null)
+        public static TTarget WaitForPresent<TTarget>(this TTarget target, string message = null)
             where TTarget : class, IWebElement
         {
             return target.WaitFor(IsPresent,
-                message ?? String.Format("{0} did not appear in DOM after 10 seconds", target));
+                message ?? string.Format("{0} did not appear in DOM after 10 seconds", target));
         }
 
         /// <summary>
@@ -223,10 +223,10 @@ namespace HtmlElements.Extensions
         ///     Thrown when element did not appear in DOM after 10 seconds
         /// </exception>
         public static TTarget WaitForPresent<TTarget>(this TTarget target, TimeSpan commandTimeout,
-            String message = null) where TTarget : class, IWebElement
+            string message = null) where TTarget : class, IWebElement
         {
             return target.WaitFor(IsPresent, commandTimeout,
-                message ?? String.Format("{0} did not appear in DOM after {1}", target, commandTimeout));
+                message ?? string.Format("{0} did not appear in DOM after {1}", target, commandTimeout));
         }
 
         /// <summary>
@@ -242,10 +242,10 @@ namespace HtmlElements.Extensions
         ///     Thrown when element did not appear in DOM after 10 seconds
         /// </exception>
         public static TTarget WaitForPresent<TTarget>(this TTarget target, TimeSpan commandTimeout,
-            TimeSpan pollingInterval, String message = null) where TTarget : class, IWebElement
+            TimeSpan pollingInterval, string message = null) where TTarget : class, IWebElement
         {
             return target.WaitFor(IsPresent, commandTimeout, pollingInterval,
-                message ?? String.Format("{0} did not appear in DOM after {1}", target, commandTimeout));
+                message ?? string.Format("{0} did not appear in DOM after {1}", target, commandTimeout));
         }
 
         /// <summary>
@@ -259,11 +259,11 @@ namespace HtmlElements.Extensions
         /// <exception cref="WebDriverTimeoutException">
         ///     Thrown when element did not became visible after 10 seconds
         /// </exception>
-        public static TTarget WaitForVisible<TTarget>(this TTarget target, String message = null)
+        public static TTarget WaitForVisible<TTarget>(this TTarget target, string message = null)
             where TTarget : class, IWebElement
         {
             return target.WaitFor(IsVisible,
-                message ?? String.Format("{0} did not became visible", target));
+                message ?? string.Format("{0} did not became visible", target));
         }
 
         /// <summary>
@@ -279,10 +279,10 @@ namespace HtmlElements.Extensions
         ///     Thrown when element did not became visible after a given timeout
         /// </exception>
         public static TTarget WaitForVisible<TTarget>(this TTarget target, TimeSpan commandTimeout,
-            String message = null) where TTarget : class, IWebElement
+            string message = null) where TTarget : class, IWebElement
         {
             return target.WaitFor(IsVisible, commandTimeout,
-                message ?? String.Format("{0} did not became visible", target));
+                message ?? string.Format("{0} did not became visible", target));
         }
 
         /// <summary>
@@ -299,10 +299,10 @@ namespace HtmlElements.Extensions
         ///     Thrown when element did not became visible after a given timeout
         /// </exception>
         public static TTarget WaitForVisible<TTarget>(this TTarget target, TimeSpan commandTimeout,
-            TimeSpan pollingInterval, String message = null) where TTarget : class, IWebElement
+            TimeSpan pollingInterval, string message = null) where TTarget : class, IWebElement
         {
             return target.WaitFor(IsVisible, commandTimeout, pollingInterval,
-                message ?? String.Format("{0} did not became visible", target));
+                message ?? string.Format("{0} did not became visible", target));
         }
 
         /// <summary>

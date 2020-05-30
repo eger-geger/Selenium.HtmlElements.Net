@@ -10,6 +10,12 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>
+      3.1.0:
+        - deprecate `SwitchToLastOpenedWindow` extension method
+        - update methods waiting for opening tabs to return opened window handles
+      3.0.1:
+        - update selenium references to 3.7.0
+        - update 'PreviousSibling', 'NextSibling', 'FirstChild', 'LastChild' properties to return only element nodes
       3.0.0:
         - update selenium reference to 3.5.2
         - add NextSibling WebElement property

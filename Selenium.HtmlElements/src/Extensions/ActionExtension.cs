@@ -57,7 +57,7 @@ namespace HtmlElements.Extensions {
         /// <param name="message">Error message used when command expires</param>
         /// <returns>Command result if it succeeded otherwise exception will thrown</returns>
         /// <exception cref="WebDriverTimeoutException">Thrown when command get timed out</exception>
-        public static TReturn WaitFor<TTarget, TReturn>(this TTarget target, Func<TTarget, TReturn> command, String message = null) where TTarget : class {
+        public static TReturn WaitFor<TTarget, TReturn>(this TTarget target, Func<TTarget, TReturn> command, string message = null) where TTarget : class {
             return WaitFor(target, command, DefaultCommandTimeout, message);
         }
 
@@ -78,7 +78,7 @@ namespace HtmlElements.Extensions {
             this TTarget target, 
             Func<TTarget, TReturn> command, 
             TimeSpan commandTimeout, 
-            String message = null) where TTarget : class {
+            string message = null) where TTarget : class {
             return WaitFor(target, command, commandTimeout, DefaultPollingInterval, message);
         }
 
@@ -100,9 +100,9 @@ namespace HtmlElements.Extensions {
             Func<TTarget, TReturn> command, 
             TimeSpan commandTimeout, 
             TimeSpan pollingInterval, 
-            String message = null) where TTarget : class {
+            string message = null) where TTarget : class {
             var wait = new DefaultWait<TTarget>(target) {
-                Message = message ?? String.Format("{0} expired after {1}", command, commandTimeout),
+                Message = message ?? string.Format("{0} expired after {1}", command, commandTimeout),
                 PollingInterval = pollingInterval,
                 Timeout = commandTimeout
             };
@@ -122,7 +122,7 @@ namespace HtmlElements.Extensions {
         /// <param name="condition">Condition to evaluate against target</param>
         /// <param name="message">Error message used when command expires</param>
         /// <exception cref="WebDriverTimeoutException">Thrown when condition times out</exception>
-        public static void WaitUntil<TTarget>(this TTarget target, Predicate<TTarget> condition, String message = null) where TTarget : class {
+        public static void WaitUntil<TTarget>(this TTarget target, Predicate<TTarget> condition, string message = null) where TTarget : class {
             WaitUntil(target, condition, DefaultCommandTimeout, message);
         }
 
@@ -137,7 +137,7 @@ namespace HtmlElements.Extensions {
         /// <param name="commandTimeout">Timeout after which command will became expired and exception will be thrown</param>
         /// <param name="message">Error message used when command expires</param>
         /// <exception cref="WebDriverTimeoutException">Thrown when condition times out</exception>
-        public static void WaitUntil<TTarget>(this TTarget target, Predicate<TTarget> condition, TimeSpan commandTimeout, String message = null) where TTarget : class {
+        public static void WaitUntil<TTarget>(this TTarget target, Predicate<TTarget> condition, TimeSpan commandTimeout, string message = null) where TTarget : class {
             WaitUntil(target, condition, commandTimeout, DefaultPollingInterval, message);
         }
 
@@ -152,7 +152,7 @@ namespace HtmlElements.Extensions {
         /// <param name="pollingInterval">Determines how often command will be evaluated until it expires or succeeds</param>
         /// <param name="message">Error message used when command expires</param>
         /// <exception cref="WebDriverTimeoutException">Thrown when condition times out</exception>
-        public static void WaitUntil<TTarget>(this TTarget target, Predicate<TTarget> condition, TimeSpan commandTimeout, TimeSpan pollingInterval, String message = null) where TTarget : class {
+        public static void WaitUntil<TTarget>(this TTarget target, Predicate<TTarget> condition, TimeSpan commandTimeout, TimeSpan pollingInterval, string message = null) where TTarget : class {
             WaitFor(target, condition.Invoke, commandTimeout, pollingInterval, message);
         }
 

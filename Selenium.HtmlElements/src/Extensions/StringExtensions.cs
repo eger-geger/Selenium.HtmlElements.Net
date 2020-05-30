@@ -16,9 +16,9 @@ namespace HtmlElements.Extensions
         /// <returns>
         ///     String containing collection items converted to string and separated with commas
         /// </returns>
-        public static String ToCommaSeparatedString(this IEnumerable enumerable)
+        public static string ToCommaSeparatedString(this IEnumerable enumerable)
         {
-            return String.Join(",", enumerable);
+            return string.Join(",", enumerable);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace HtmlElements.Test
             _factory = _factoryMock.Object;
 
             _factoryMock.Protected()
-                .Setup<Object>("CreatePageObjectInstance", typeof(PageObjectA), _searchContext)
+                .Setup<object>("CreatePageObjectInstance", typeof(PageObjectA), _searchContext)
                 .Returns(new PageObjectA(_searchContext));
         }
 
@@ -83,23 +83,23 @@ namespace HtmlElements.Test
 
         private void VerifyMemberInitializationRequestsWereMade(ISearchContext context)
         {
-            _factoryMock.Protected().Verify<Object>("CreateMemberInstance", Times.Once(),
+            _factoryMock.Protected().Verify<object>("CreateMemberInstance", Times.Once(),
                 typeof(HtmlElement), ItIsMemberNamed("_elementA"), context);
 
-            _factoryMock.Protected().Verify<Object>("CreateMemberInstance", Times.Once(),
+            _factoryMock.Protected().Verify<object>("CreateMemberInstance", Times.Once(),
                 typeof(IWebElement), ItIsMemberNamed("_elementB"), context);
 
-            _factoryMock.Protected().Verify<Object>("CreateMemberInstance", Times.Once(),
+            _factoryMock.Protected().Verify<object>("CreateMemberInstance", Times.Once(),
                 typeof(IList<IWebElement>), ItIsMemberNamed("_elementListA"), context);
 
-            _factoryMock.Protected().Verify<Object>("CreateMemberInstance", Times.Once(),
+            _factoryMock.Protected().Verify<object>("CreateMemberInstance", Times.Once(),
                 typeof (HtmlElement), ItIsMemberNamed("ElementC"), context ?? _searchContext);
 
-            _factoryMock.Protected().Verify<Object>("CreateMemberInstance", Times.Once(),
+            _factoryMock.Protected().Verify<object>("CreateMemberInstance", Times.Once(),
                 typeof(IList<HtmlImage>), ItIsMemberNamed("ElementListB"), context ?? _searchContext);
         }
 
-        private static Expression ItIsMemberNamed(String memberName)
+        private static Expression ItIsMemberNamed(string memberName)
         {
             return ItExpr.Is<MemberInfo>(member => member.Name == memberName);
         }

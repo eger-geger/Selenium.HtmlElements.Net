@@ -56,12 +56,12 @@ namespace HtmlElements
         {
             if (proxyFactory == null)
             {
-                throw new ArgumentNullException("proxyFactory");
+                throw new ArgumentNullException(nameof(proxyFactory));
             }
 
             if (loaderFactory == null)
             {
-                throw new ArgumentNullException("loaderFactory");
+                throw new ArgumentNullException(nameof(loaderFactory));
             }
 
             _proxyFactory = proxyFactory;
@@ -105,7 +105,7 @@ namespace HtmlElements
             return CreateWebElement(typeof (TPageObject), searchContext, locator, true) as TPageObject;
         }
 
-        private Object CreateWebElement(Type elementType, ISearchContext searchContext, By locator, Boolean cached)
+        private object CreateWebElement(Type elementType, ISearchContext searchContext, By locator, bool cached)
         {
             ILoader<IWebElement> elementLoader = _loaderFactory.CreateElementLoader(searchContext, locator, cached);
 
@@ -156,7 +156,7 @@ namespace HtmlElements
             return CreateWebElementList(typeof(TPageObject), searchContext, locator, true) as IList<TPageObject>;
         }
 
-        private Object CreateWebElementList(Type elementType, ISearchContext searchContext, By locator, Boolean isCached)
+        private object CreateWebElementList(Type elementType, ISearchContext searchContext, By locator, bool isCached)
         {
             return _proxyFactory.CreateListProxy(
                 elementType, _loaderFactory.CreateListLoader(elementType, searchContext, locator, isCached)
@@ -178,7 +178,7 @@ namespace HtmlElements
         /// <returns>
         ///     Initialized field or property value or null.
         /// </returns>
-        protected override Object CreateMemberInstance(Type memberType, MemberInfo memberInfo, ISearchContext searchContext)
+        protected override object CreateMemberInstance(Type memberType, MemberInfo memberInfo, ISearchContext searchContext)
         {
             var locator = CreateElementLocator(memberInfo);
 
@@ -224,7 +224,7 @@ namespace HtmlElements
                 errorBuilder.AppendFormat(
                     "Having multiple attribute for a single class member is not supported by [{0}].", this);
 
-                throw new ArgumentException(errorBuilder.ToString(), "memberInfo");
+                throw new ArgumentException(errorBuilder.ToString(), nameof(memberInfo));
             }
 
             return ByFactory.Create(attributes[0] as FindsByAttribute);
@@ -244,7 +244,7 @@ namespace HtmlElements
         /// <returns>
         ///     New instance of given type.
         /// </returns>
-        protected override Object CreatePageObjectInstance(Type pageObjectType, ISearchContext searchContext)
+        protected override object CreatePageObjectInstance(Type pageObjectType, ISearchContext searchContext)
         {
             if (pageObjectType == typeof (IWebElement) || pageObjectType == typeof (IHtmlElement))
             {

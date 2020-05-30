@@ -45,7 +45,7 @@ namespace HtmlElements.Proxy
         /// <returns>
         ///     Proxy implementing <see cref="IList{T}"/> interface.
         /// </returns>
-        Object CreateListProxy(Type elementType, Object loader);
+        object CreateListProxy(Type elementType, object loader);
         
         /// <summary>
         ///     Creates list of WebElements wrapping <paramref name="loader"/> and delegating all calls to list returned by it.

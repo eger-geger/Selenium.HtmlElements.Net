@@ -14,7 +14,7 @@ namespace HtmlElements.Test.Extensions
             get
             {
                 yield return new TestCaseData(
-                    new Func<IWebElement, TimeSpan, TimeSpan, String, IWebElement>(
+                    new Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement>(
                         (webElement, timeout, interval, message) => webElement.WaitForPresent(timeout, interval, message)
                         ),
                     TimeSpan.FromSeconds(5),
@@ -23,7 +23,7 @@ namespace HtmlElements.Test.Extensions
                     );
 
                 yield return new TestCaseData(
-                    new Func<IWebElement, TimeSpan, TimeSpan, String, IWebElement>(
+                    new Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement>(
                         (webElement, timeout, interval, message) => webElement.WaitForPresent(timeout, message)
                         ),
                     TimeSpan.FromSeconds(5),
@@ -32,7 +32,7 @@ namespace HtmlElements.Test.Extensions
                     );
 
                 yield return new TestCaseData(
-                    new Func<IWebElement, TimeSpan, TimeSpan, String, IWebElement>(
+                    new Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement>(
                         (webElement, timeout, interval, message) => webElement.WaitForPresent(message)
                         ),
                     TimeSpan.FromSeconds(10),
@@ -41,7 +41,7 @@ namespace HtmlElements.Test.Extensions
                     );
 
                 yield return new TestCaseData(
-                    new Func<IWebElement, TimeSpan, TimeSpan, String, IWebElement>(
+                    new Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement>(
                         (webElement, timeout, interval, message) => webElement.WaitForPresent(timeout, interval, message)
                         ),
                     TimeSpan.FromSeconds(5),
@@ -51,10 +51,10 @@ namespace HtmlElements.Test.Extensions
             }
         }
 
-        [TestCaseSource("WaitForPresentTestCases")]
+        [TestCaseSource(nameof(WaitForPresentTestCases))]
         public void ShouldReturnOnceElementBecameAddedToDocument(
-            Func<IWebElement, TimeSpan, TimeSpan, String, IWebElement> waitForPresent,
-            TimeSpan timeout, TimeSpan pollingInterval, String errorMessage
+            Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement> waitForPresent,
+            TimeSpan timeout, TimeSpan pollingInterval, string errorMessage
             )
         {
             ElementMock.Setup(e => e.Size).Throws<NoSuchElementException>();
@@ -64,10 +64,10 @@ namespace HtmlElements.Test.Extensions
             Assert.That(waitForPresent(ElementMock.Object, timeout, pollingInterval, errorMessage), Is.SameAs(ElementMock.Object));
         }
 
-        [TestCaseSource("WaitForPresentTestCases")]
+        [TestCaseSource(nameof(WaitForPresentTestCases))]
         public void ShouldHandleNoSuchElementException(
-            Func<IWebElement, TimeSpan, TimeSpan, String, IWebElement> waitForPresent,
-            TimeSpan timeout, TimeSpan pollingInterval, String errorMessage    
+            Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement> waitForPresent,
+            TimeSpan timeout, TimeSpan pollingInterval, string errorMessage    
             )
         {
             ElementMock.Setup(e => e.Size).Throws<NoSuchElementException>();
@@ -77,10 +77,10 @@ namespace HtmlElements.Test.Extensions
             Assert.That(waitForPresent(ElementMock.Object, timeout, pollingInterval, errorMessage), Is.SameAs(ElementMock.Object));
         }
 
-        [TestCaseSource("WaitForPresentTestCases")]
+        [TestCaseSource(nameof(WaitForPresentTestCases))]
         public void ShouldHandleStaleElementReferenceException(
-            Func<IWebElement, TimeSpan, TimeSpan, String, IWebElement> waitForPresent,
-            TimeSpan timeout, TimeSpan pollingInterval, String errorMessage
+            Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement> waitForPresent,
+            TimeSpan timeout, TimeSpan pollingInterval, string errorMessage
             )
         {
             ElementMock.Setup(e => e.Size).Throws<StaleElementReferenceException>();
@@ -90,10 +90,10 @@ namespace HtmlElements.Test.Extensions
             Assert.That(waitForPresent(ElementMock.Object, timeout, pollingInterval, errorMessage), Is.SameAs(ElementMock.Object));
         }
 
-        [TestCaseSource("WaitForPresentTestCases")]
+        [TestCaseSource(nameof(WaitForPresentTestCases))]
         public void ShouldThrowWebDriverTimeoutExceptionWithGivenMessage(
-            Func<IWebElement, TimeSpan, TimeSpan, String, IWebElement> waitForPresent, 
-            TimeSpan timeout, TimeSpan pollingInterval, String errorMessage
+            Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement> waitForPresent, 
+            TimeSpan timeout, TimeSpan pollingInterval, string errorMessage
             )
         {
             ElementMock.Setup(e => e.Size).Throws<NoSuchElementException>();

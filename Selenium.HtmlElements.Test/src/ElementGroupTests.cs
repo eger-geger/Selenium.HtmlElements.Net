@@ -13,7 +13,7 @@ namespace HtmlElements.Test
         {
             var pageObjectB = new PageObjectB();
 
-            Assert.That(new ElementGroup("alpha").GetElements(pageObjectB), Is.EquivalentTo(new Dictionary<String, IWebElement>
+            Assert.That(new ElementGroup("alpha").GetElements(pageObjectB), Is.EquivalentTo(new Dictionary<string, IWebElement>
             {
                 {
                     "ElementA", pageObjectB.ElementA
@@ -26,7 +26,7 @@ namespace HtmlElements.Test
                 }
             }));
 
-            Assert.That(new ElementGroup("beta").GetElements(pageObjectB), Is.EquivalentTo(new Dictionary<String, IWebElement>
+            Assert.That(new ElementGroup("beta").GetElements(pageObjectB), Is.EquivalentTo(new Dictionary<string, IWebElement>
             {
                 {
                     "ElementA", pageObjectB.ElementA
@@ -42,7 +42,7 @@ namespace HtmlElements.Test
         {
            var pageObjectB = new PageObjectB();
  
-            Assert.That(new ElementGroup("alpha", "beta").GetElements(pageObjectB), Is.EquivalentTo(new Dictionary<String, IWebElement>
+            Assert.That(new ElementGroup("alpha", "beta").GetElements(pageObjectB), Is.EquivalentTo(new Dictionary<string, IWebElement>
             {
                 {
                     "ElementA", pageObjectB.ElementA

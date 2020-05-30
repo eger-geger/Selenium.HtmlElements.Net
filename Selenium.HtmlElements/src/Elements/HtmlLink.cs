@@ -29,7 +29,7 @@ namespace HtmlElements.Elements {
                 var linkHref = Href;
 
                 return linkHref.Contains(Uri.UriSchemeHttp) || linkHref.Contains(Uri.UriSchemeHttps)
-                    ? linkHref : String.Format("{0}://{1}{2}", windowLocation.Scheme, windowLocation.Host, linkHref);
+                    ? linkHref : string.Format("{0}://{1}{2}", windowLocation.Scheme, windowLocation.Host, linkHref);
             }
         }
 

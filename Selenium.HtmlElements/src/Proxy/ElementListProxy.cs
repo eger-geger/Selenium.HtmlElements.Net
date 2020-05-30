@@ -52,7 +52,7 @@ namespace HtmlElements.Proxy
 
         public override string ToString()
         {
-            return String.Format("{0} loading elements with [{1}]", GetType().Name, _listLoader);
+            return string.Format("{0} loading elements with [{1}]", GetType().Name, _listLoader);
         }
     }
 }

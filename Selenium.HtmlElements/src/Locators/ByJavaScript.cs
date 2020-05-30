@@ -12,27 +12,27 @@ namespace HtmlElements.Locators
     /// </summary>
     public class ByJavaScript : By
     {
-        private readonly Object[] _arguments;
-        private readonly String _javaScript;
+        private readonly object[] _arguments;
+        private readonly string _javaScript;
 
         /// <summary>
         ///     Creates new instance of JavaScript element finder.
         /// </summary>
         /// <param name="javaScript">JavaScript code which returns collection of element or single element</param>
         /// <param name="arguments">Arguments passed to <see cref="IJavaScriptExecutor"/> when locating element</param>
-        public ByJavaScript(String javaScript, params Object[] arguments)
+        public ByJavaScript(string javaScript, params object[] arguments)
         {
-            if (String.IsNullOrEmpty(javaScript))
+            if (string.IsNullOrEmpty(javaScript))
             {
-                throw new ArgumentNullException("javaScript", "JavaScript snippet is null or empty");
+                throw new ArgumentNullException(nameof(javaScript), "JavaScript snippet is null or empty");
             }
 
-            _javaScript = String.Format("return {0};", javaScript);
+            _javaScript = string.Format("return {0};", javaScript);
             _arguments = arguments;
 
             FindElementMethod = FindElementWithJavaScript;
             FindElementsMethod = FindElementListWithJavaScript;
-            Description = String.Format("By.JavaScript: {0}, {1}", javaScript, arguments.ToCommaSeparatedString());
+            Description = string.Format("By.JavaScript: {0}, {1}", javaScript, arguments.ToCommaSeparatedString());
         }
 
         private IWebElement FindElementWithJavaScript(ISearchContext context)
@@ -45,13 +45,13 @@ namespace HtmlElements.Locators
             return ToElementList(FindWithJavaScript(searchContext));
         }
 
-        private Object FindWithJavaScript(ISearchContext searchContext)
+        private object FindWithJavaScript(ISearchContext searchContext)
         {
             var jsExecutor = searchContext.ToJavaScriptExecutor();
 
             if (jsExecutor == null)
             {
-                throw new ArgumentException("Wrapped WebDriver cannot execute JavaScript", "searchContext");
+                throw new ArgumentException("Wrapped WebDriver cannot execute JavaScript", nameof(searchContext));
             }
 
             try
@@ -61,7 +61,7 @@ namespace HtmlElements.Locators
             catch (Exception ex)
             {
                 throw new NoSuchElementException(
-                    String.Format("Failed to find element {0}", Description), ex
+                    string.Format("Failed to find element {0}", Description), ex
                 );
             }
         }
@@ -78,7 +78,7 @@ namespace HtmlElements.Locators
                 return searchResult as IWebElement;
             }
 
-            throw new NoSuchElementException(String.Format("Element not found [{0}]", this));
+            throw new NoSuchElementException(string.Format("Element not found [{0}]", this));
         }
 
         private static ReadOnlyCollection<IWebElement> ToElementList(object searchResult)

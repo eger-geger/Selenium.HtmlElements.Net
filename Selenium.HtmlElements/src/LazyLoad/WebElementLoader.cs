@@ -7,7 +7,7 @@ namespace HtmlElements.LazyLoad
     {
         private readonly By _locator;
 
-        public WebElementLoader(ISearchContext searchContext, By locator, Boolean enableCache) : base(enableCache)
+        public WebElementLoader(ISearchContext searchContext, By locator, bool enableCache) : base(enableCache)
         {
             _locator = locator;
 
@@ -23,7 +23,7 @@ namespace HtmlElements.LazyLoad
 
         public override string ToString()
         {
-            return String.Format("{0} locating element using [{1}] in [{2}]", GetType().Name, _locator, SearchContext);
+            return string.Format("{0} locating element using [{1}] in [{2}]", GetType().Name, _locator, SearchContext);
         }
     }
 }

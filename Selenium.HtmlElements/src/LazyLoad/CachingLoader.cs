@@ -5,13 +5,13 @@ namespace HtmlElements.LazyLoad
 {
     internal abstract class CachingLoader<TObject> : ILoader<TObject> where TObject : class
     {
-        private const Int32 RetryCount = 10;
+        private const int RetryCount = 10;
 
-        private readonly Boolean _enableCache;
+        private readonly bool _enableCache;
 
         private TObject _cached;
 
-        protected CachingLoader(Boolean enableCache = true, TObject value = null)
+        protected CachingLoader(bool enableCache = true, TObject value = null)
         {
             _enableCache = enableCache;
             _cached = value;

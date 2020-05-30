@@ -14,14 +14,14 @@ namespace HtmlElements.Test.Extensions
     public class TypeExtensionsTests
     {
         [TestCase(null, ExpectedResult = false)]
-        [TestCase(typeof(Object), ExpectedResult = false)]
+        [TestCase(typeof(object), ExpectedResult = false)]
         [TestCase(typeof(IWebDriver), ExpectedResult = false)]
         [TestCase(typeof(ISearchContext), ExpectedResult = false)]
         [TestCase(typeof(IHtmlElement), ExpectedResult = true)]
         [TestCase(typeof(IWebElement), ExpectedResult = true)]
         [TestCase(typeof(HtmlElement), ExpectedResult = true)]
         [TestCase(typeof(WebElementImpl), ExpectedResult = true)]
-        public Boolean ShouldDetermineWeatherTypeIsDerivedFromWebElement(Type type)
+        public bool ShouldDetermineWeatherTypeIsDerivedFromWebElement(Type type)
         {
             return type.IsWebElement();
         }
@@ -30,13 +30,13 @@ namespace HtmlElements.Test.Extensions
         [TestCase(typeof(IList<WebElementImpl>), ExpectedResult = true)]
         [TestCase(typeof(IList<IHtmlElement>), ExpectedResult = true)]
         [TestCase(typeof(IList<HtmlElement>), ExpectedResult = true)]
-        [TestCase(typeof(IList<Object>), ExpectedResult = false)]
+        [TestCase(typeof(IList<object>), ExpectedResult = false)]
         [TestCase(typeof(IList<IWebDriver>), ExpectedResult = false)]
         [TestCase(typeof(IList<ISearchContext>), ExpectedResult = false)]
         [TestCase(typeof(IEnumerable<IWebElement>), ExpectedResult = false)]
         [TestCase(typeof(ICollection<IWebElement>), ExpectedResult = false)]
         [TestCase(typeof(List<IWebElement>), ExpectedResult = false)]
-        public Boolean ShouldDetermineWeatherTypeDescribedListOfWebElements(Type type)
+        public bool ShouldDetermineWeatherTypeDescribedListOfWebElements(Type type)
         {
             return type.IsWebElementList();
         }
@@ -44,7 +44,7 @@ namespace HtmlElements.Test.Extensions
         [Test]
         public void ShouldFindAllPropertiesMatchingConstraints()
         {
-            IList<String> properties = typeof (PageObjecB)
+            IList<string> properties = typeof (PageObjecB)
                 .GetOwnAndInheritedProperties(BindingFlags.Instance | BindingFlags.Public)
                 .Select(property => property.Name)
                 .ToList();
@@ -55,7 +55,7 @@ namespace HtmlElements.Test.Extensions
         [Test]
         public void ShouldFindAllFieldsMatchingConstraints()
         {
-            IList<String> fields = typeof(PageObjecB)
+            IList<string> fields = typeof(PageObjecB)
                 .GetOwnAndInheritedFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
                 .Select(property => property.Name)
                 .ToList();

@@ -116,7 +116,7 @@ namespace HtmlElements
             }
 
             throw new InvalidOperationException(
-                String.Format("[{0}] cannot execute JavaScript", _webDriverOrWrapper)
+                string.Format("[{0}] cannot execute JavaScript", _webDriverOrWrapper)
             );
         }
 
@@ -145,7 +145,7 @@ namespace HtmlElements
             }
 
             throw new InvalidOperationException(
-                String.Format("[{0}] cannot execute JavaScript", _webDriverOrWrapper)
+                string.Format("[{0}] cannot execute JavaScript", _webDriverOrWrapper)
             );
         }
 
@@ -236,7 +236,7 @@ namespace HtmlElements
         /// </summary>
         public override string ToString()
         {
-            return String.Format("{0} wrapping [{1}]", GetType().Name, _webDriverOrWrapper);
+            return string.Format("{0} wrapping [{1}]", GetType().Name, _webDriverOrWrapper);
         }
     }
 }

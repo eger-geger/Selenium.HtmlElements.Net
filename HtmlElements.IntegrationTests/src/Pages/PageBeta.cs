@@ -20,7 +20,7 @@ namespace HtmlElements.IntegrationTests.Pages
         {
         }
 
-        public void SignIn(String login, String password)
+        public void SignIn(string login, string password)
         {
             using (new FrameContextOverride(this))
             {

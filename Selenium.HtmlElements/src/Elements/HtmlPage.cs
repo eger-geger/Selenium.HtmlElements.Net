@@ -24,7 +24,7 @@ namespace HtmlElements.Elements {
         /// </summary>
         public DocumentReadyState ReadyState {
             get { 
-                var readyState = (String) ExecuteScript("return document.readyState;");
+                var readyState = (string) ExecuteScript("return document.readyState;");
 
                 switch (readyState) {
                     case "uninitialized": 
@@ -40,7 +40,7 @@ namespace HtmlElements.Elements {
                 }
 
                 throw new InvalidOperationException(
-                    String.Format("Unexpected document state: {0}", readyState)
+                    string.Format("Unexpected document state: {0}", readyState)
                 );
             }
         }

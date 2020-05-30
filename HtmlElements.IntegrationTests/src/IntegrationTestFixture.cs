@@ -11,7 +11,7 @@ namespace HtmlElements.IntegrationTests {
 
     public class IntegrationTestFixture
     {
-        private const String PageFileName = "PageAlpha.htm";
+        private const string PageFileName = "PageAlpha.htm";
 
         protected readonly IPageObjectFactory PageFactory = new PageObjectFactory();
 

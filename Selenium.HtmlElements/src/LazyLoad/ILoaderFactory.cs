@@ -25,7 +25,7 @@ namespace HtmlElements.LazyLoad
         /// <returns>
         ///     Loader instance.
         /// </returns>
-        ILoader<IWebElement> CreateElementLoader(ISearchContext searchContext, By locator, Boolean enableCache);
+        ILoader<IWebElement> CreateElementLoader(ISearchContext searchContext, By locator, bool enableCache);
 
         /// <summary>
         ///     Creates element list loader using search context and locator to find list of elements.
@@ -42,7 +42,7 @@ namespace HtmlElements.LazyLoad
         /// <returns>
         ///     Loader instance.
         /// </returns>
-        ILoader<ReadOnlyCollection<IWebElement>> CreateElementListLoader(ISearchContext searchContext, By locator, Boolean enableCache);
+        ILoader<ReadOnlyCollection<IWebElement>> CreateElementListLoader(ISearchContext searchContext, By locator, bool enableCache);
 
         /// <summary>
         ///     Create list loader wrapping web elements loader.
@@ -62,7 +62,7 @@ namespace HtmlElements.LazyLoad
         /// <returns>
         ///     Loader instance.
         /// </returns>
-        Object CreateListLoader(Type elementType, ISearchContext searchContext, By locator, Boolean enableCache);
+        object CreateListLoader(Type elementType, ISearchContext searchContext, By locator, bool enableCache);
 
         /// <summary>
         ///     Create list loader wrapping web elements loader.
@@ -82,6 +82,6 @@ namespace HtmlElements.LazyLoad
         /// <returns>
         ///     Loader instance.
         /// </returns>
-        ILoader<IList<TElement>> CreateListLoader<TElement>(ISearchContext searchContext, By locator, Boolean enableCache);
+        ILoader<IList<TElement>> CreateListLoader<TElement>(ISearchContext searchContext, By locator, bool enableCache);
     }
 }

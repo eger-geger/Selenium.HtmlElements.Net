@@ -121,7 +121,7 @@ namespace HtmlElements.Proxy
 
         public override string ToString()
         {
-            return String.Format("{0} wrapping web element loaded by [{1}]", GetType().Name, Loader);
+            return string.Format("{0} wrapping web element loaded by [{1}]", GetType().Name, Loader);
         }
 
         protected abstract void Execute(Action<IWebElement> action);

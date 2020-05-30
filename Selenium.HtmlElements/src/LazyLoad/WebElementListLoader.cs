@@ -9,7 +9,7 @@ namespace HtmlElements.LazyLoad
         private readonly By _locator;
 
 
-        public WebElementListLoader(ISearchContext searchContext, By locator, Boolean enableCache) : base(enableCache)
+        public WebElementListLoader(ISearchContext searchContext, By locator, bool enableCache) : base(enableCache)
         {
             _locator = locator;
             SearchContext = searchContext;
@@ -24,7 +24,7 @@ namespace HtmlElements.LazyLoad
 
         public override string ToString()
         {
-            return String.Format("{0} providing list of elements found with [{1}] in [{2}]", GetType().Name, _locator, SearchContext);
+            return string.Format("{0} providing list of elements found with [{1}] in [{2}]", GetType().Name, _locator, SearchContext);
         }
     }
 }

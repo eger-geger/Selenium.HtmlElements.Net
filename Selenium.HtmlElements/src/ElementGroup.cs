@@ -17,7 +17,7 @@ namespace HtmlElements
                                                   | System.Reflection.BindingFlags.Public
                                                   | System.Reflection.BindingFlags.NonPublic;
 
-        private readonly String[] _groups;
+        private readonly string[] _groups;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ElementGroup"/> class.
@@ -25,7 +25,7 @@ namespace HtmlElements
         /// <param name="groups">
         ///     List of group names WebElements belongs to.
         /// </param>
-        public ElementGroup(params String[] groups)
+        public ElementGroup(params string[] groups)
         {
             _groups = groups;
         }
@@ -39,11 +39,11 @@ namespace HtmlElements
         /// <returns>
         ///     List of WebElements which belong to current group.
         /// </returns>
-        public IDictionary<String, IWebElement> GetElements(Object pageObject)
+        public IDictionary<string, IWebElement> GetElements(object pageObject)
         {
             var pageObjectType = pageObject.GetType();
 
-            IDictionary<String, IWebElement> elements = new Dictionary<String, IWebElement>();
+            IDictionary<string, IWebElement> elements = new Dictionary<string, IWebElement>();
 
             foreach (var field in pageObjectType.GetOwnAndInheritedFields(BindingFlags))
             {

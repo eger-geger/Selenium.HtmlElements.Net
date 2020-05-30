@@ -19,7 +19,7 @@ namespace HtmlElements.Proxy
             if (webDriver == null)
             {
                 throw new InvalidOperationException(
-                    String.Format("Unable switch to frame because frame element does not wraps {0}", typeof(IWebDriver))
+                    string.Format("Unable switch to frame because frame element does not wraps {0}", typeof(IWebDriver))
                 );
             }
 

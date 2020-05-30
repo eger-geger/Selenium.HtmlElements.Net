@@ -98,7 +98,7 @@ namespace HtmlElements.Extensions
         /// <returns>List of fields metadata which can be assigned a web element or list of web elements value</returns>
         public static IEnumerable<FieldInfo> GetOwnAndInheritedFields(this Type type, BindingFlags bindingFlags)
         {
-            while (type != null && type != typeof(Object))
+            while (type != null && type != typeof(object))
             {
                 foreach (var field in type.GetFields(bindingFlags | BindingFlags.DeclaredOnly))
                 {
@@ -124,7 +124,7 @@ namespace HtmlElements.Extensions
             return Regex.IsMatch(fieldInfo.Name, "<.+>k__BackingField");
         }
 
-        private static Boolean IsWebElementOrElementList(Type type)
+        private static bool IsWebElementOrElementList(Type type)
         {
             return type.IsWebElement() || type.IsWebElementList();
         }

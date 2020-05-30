@@ -33,7 +33,7 @@ namespace HtmlElements.Elements {
             get {
                 var multiple = GetAttribute("multiple");
 
-                return multiple != null && Boolean.Parse(multiple);
+                return multiple != null && bool.Parse(multiple);
             }
         }
 

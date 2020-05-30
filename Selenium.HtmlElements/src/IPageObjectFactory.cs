@@ -98,7 +98,7 @@ namespace HtmlElements
         /// <returns>
         ///     Fully initialized page object.
         /// </returns>
-        Object Create(Type pageObjecType, ISearchContext searchContext);
+        object Create(Type pageObjecType, ISearchContext searchContext);
 
         /// <summary>
         ///     Initialize all nested page objects in given instance.
@@ -109,7 +109,7 @@ namespace HtmlElements
         /// <param name="searchContext">
         ///     Context used for finding elements.
         /// </param>
-        void Init(Object pageObject, ISearchContext searchContext);
+        void Init(object pageObject, ISearchContext searchContext);
 
         /// <summary>
         ///     Initialize page object wrapped WebDriver instance.

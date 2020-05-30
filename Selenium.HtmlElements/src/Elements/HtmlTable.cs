@@ -29,7 +29,7 @@ namespace HtmlElements.Elements
         /// </returns>
         public IList<HtmlElement> Column(int index)
         {
-            return FindElements<HtmlElement>(By.CssSelector(String.Format("tr>*:nth-child({0})", index)));
+            return FindElements<HtmlElement>(By.CssSelector(string.Format("tr>*:nth-child({0})", index)));
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace HtmlElements.Elements
         /// </returns>
         public IList<HtmlElement> Row(int index)
         {
-            return FindElements<HtmlElement>(By.CssSelector(String.Format("tr:nth-child({0})>*", index)));
+            return FindElements<HtmlElement>(By.CssSelector(string.Format("tr:nth-child({0})>*", index)));
         }
 
     }

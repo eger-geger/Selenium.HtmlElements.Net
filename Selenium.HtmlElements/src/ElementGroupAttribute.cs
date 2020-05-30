@@ -9,7 +9,7 @@ namespace HtmlElements
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
     public class ElementGroupAttribute : Attribute
     {
-        private readonly String[] _groups;
+        private readonly string[] _groups;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ElementGroupAttribute"/> class with provided group names.
@@ -17,7 +17,7 @@ namespace HtmlElements
         /// <param name="groups">
         ///     List of group names to which element belongs.
         /// </param>
-        public ElementGroupAttribute(params String[] groups)
+        public ElementGroupAttribute(params string[] groups)
         {
             _groups = groups;
         }
@@ -25,7 +25,7 @@ namespace HtmlElements
         /// <summary>
         ///     List of group names.
         /// </summary>
-        public String[] Groups
+        public string[] Groups
         {
             get { return _groups; }
         }

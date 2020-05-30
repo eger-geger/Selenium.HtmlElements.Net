@@ -34,7 +34,7 @@ namespace HtmlElements.IntegrationTests
         {
             var firstElement = PageAlpha.ElementListItems[0];
 
-            PageAlpha.ElementListContainer.InnerHtml = String.Empty;
+            PageAlpha.ElementListContainer.InnerHtml = string.Empty;
 
             Assert.That(() => firstElement.Text, Throws.InstanceOf<NoSuchElementException>());
         }

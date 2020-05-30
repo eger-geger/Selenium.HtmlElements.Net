@@ -80,7 +80,7 @@ namespace HtmlElements.Extensions
         /// </summary>
         /// <param name="errorMessage">Error message</param>
         /// <returns>Current builder instance</returns>
-        public CommandBuilder<TTarget> WithMessage(String errorMessage)
+        public CommandBuilder<TTarget> WithMessage(string errorMessage)
         {
             _wait.Message = errorMessage;
 
@@ -151,12 +151,12 @@ namespace HtmlElements.Extensions
         ///     or command timeout expires or command throw unexpected (not from ignore list) exception
         /// </summary>
         /// <param name="condition">Predicate telling weather command should be evaluated again</param>
-        public void Until(Func<Boolean> condition)
+        public void Until(Func<bool> condition)
         {
             Until(target => condition());
         }
 
-        private Func<CommandBuilder<TTarget>, Boolean> CreateCommandExecutor(Predicate<TTarget> condition)
+        private Func<CommandBuilder<TTarget>, bool> CreateCommandExecutor(Predicate<TTarget> condition)
         {
             return builder =>
             {

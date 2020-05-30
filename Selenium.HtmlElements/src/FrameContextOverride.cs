@@ -30,12 +30,12 @@ namespace HtmlElements
         {
             if (webDriver == null)
             {
-                throw new ArgumentNullException("webDriver");
+                throw new ArgumentNullException(nameof(webDriver));
             }
 
             if (frameElement == null)
             {
-                throw new ArgumentNullException("frameElement");
+                throw new ArgumentNullException(nameof(frameElement));
             }
 
             _wrappedDriver = webDriver;

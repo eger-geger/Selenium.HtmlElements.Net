@@ -6,11 +6,11 @@ namespace HtmlElements.LazyLoad
 {
     internal class WebElementListItemLoader : CachingLoader<IWebElement>
     {
-        private readonly Int32 _index;
+        private readonly int _index;
 
         private readonly ILoader<ReadOnlyCollection<IWebElement>> _listLoader;
 
-        public WebElementListItemLoader(ILoader<ReadOnlyCollection<IWebElement>> listLoader, Int32 index, IWebElement value = null) : base(true, value)
+        public WebElementListItemLoader(ILoader<ReadOnlyCollection<IWebElement>> listLoader, int index, IWebElement value = null) : base(true, value)
         {
             _listLoader = listLoader;
             _index = index;
@@ -24,7 +24,7 @@ namespace HtmlElements.LazyLoad
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                throw new NoSuchElementException(String.Format("List element [{0}] not found in [{1}]", _index,_listLoader), ex);
+                throw new NoSuchElementException(string.Format("List element [{0}] not found in [{1}]", _index,_listLoader), ex);
             }
             
         }
@@ -39,7 +39,7 @@ namespace HtmlElements.LazyLoad
 
         public override string ToString()
         {
-            return String.Format("{0} providing [{1}] element from the list loaded by [{2}]", GetType().Name, _index, _listLoader);
+            return string.Format("{0} providing [{1}] element from the list loaded by [{2}]", GetType().Name, _index, _listLoader);
         }
     }
 }

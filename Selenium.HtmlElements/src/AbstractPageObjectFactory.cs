@@ -60,12 +60,12 @@ namespace HtmlElements
         {
             if (pageObject == null)
             {
-                throw new ArgumentNullException("pageObject");
+                throw new ArgumentNullException(nameof(pageObject));
             }
 
             if (searchContext == null)
             {
-                throw new ArgumentNullException("searchContext");
+                throw new ArgumentNullException(nameof(searchContext));
             }
 
             var pageObjectType = pageObject.GetType();
@@ -174,7 +174,7 @@ namespace HtmlElements
         /// <param name="memberInfo">Field or property meta information</param>
         /// <param name="searchContext">Parent page object context</param>
         /// <returns>Initialized field or property value or null</returns>
-        protected abstract Object CreateMemberInstance(Type memberType, MemberInfo memberInfo, ISearchContext searchContext);
+        protected abstract object CreateMemberInstance(Type memberType, MemberInfo memberInfo, ISearchContext searchContext);
 
         /// <summary>
         ///     Create instance of page object class. It is not responsible for initializing page object members.
@@ -185,6 +185,6 @@ namespace HtmlElements
         ///     It could be <see cref="IWebElement" /> or <see cref="IWebDriver" /> instance or other page object.
         /// </param>
         /// <returns>New instance of given type</returns>
-        protected abstract Object CreatePageObjectInstance(Type pageObjectType, ISearchContext searchContext);
+        protected abstract object CreatePageObjectInstance(Type pageObjectType, ISearchContext searchContext);
     }
 }

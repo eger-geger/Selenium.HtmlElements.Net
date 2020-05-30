@@ -73,7 +73,7 @@ namespace HtmlElements.Elements
         /// <summary>
         ///     HTML content of an element
         /// </summary>
-        public String InnerHtml
+        public string InnerHtml
         {
             get { return this.GetProperty<string>("innerHTML"); }
             set { this.SetPropery("innerHTML", value); }
@@ -84,9 +84,9 @@ namespace HtmlElements.Elements
         ///     On returning text, this property returns the value of all text nodes within the element node.
         ///     On setting text, this property removes all child nodes and replaces them with a single text node.
         /// </summary>
-        public String TextContent
+        public string TextContent
         {
-            get { return this.GetProperty("textContent") as String; }
+            get { return this.GetProperty("textContent") as string; }
             set { this.SetPropery("textContent", value); }
         }
 

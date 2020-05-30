@@ -13,7 +13,7 @@ namespace HtmlElements.Test.Extensions
             get
             {
                 yield return new TestCaseData(
-                    new Action<IWebElement, TimeSpan, TimeSpan, String>(
+                    new Action<IWebElement, TimeSpan, TimeSpan, string>(
                         (webElement, timeout, interval, message) => webElement.WaitUntilHidden(timeout, interval, message)
                     ),
                     TimeSpan.FromSeconds(5),
@@ -22,7 +22,7 @@ namespace HtmlElements.Test.Extensions
                     );
 
                 yield return new TestCaseData(
-                    new Action<IWebElement, TimeSpan, TimeSpan, String>(
+                    new Action<IWebElement, TimeSpan, TimeSpan, string>(
                         (webElement, timeout, interval, message) => webElement.WaitUntilHidden(timeout, message)
                         ),
                     TimeSpan.FromSeconds(5),
@@ -31,7 +31,7 @@ namespace HtmlElements.Test.Extensions
                     );
 
                 yield return new TestCaseData(
-                    new Action<IWebElement, TimeSpan, TimeSpan, String>(
+                    new Action<IWebElement, TimeSpan, TimeSpan, string>(
                         (webElement, timeout, interval, message) => webElement.WaitUntilHidden(message)
                         ),
                     TimeSpan.FromSeconds(10),
@@ -40,7 +40,7 @@ namespace HtmlElements.Test.Extensions
                     );
 
                 yield return new TestCaseData(
-                    new Action<IWebElement, TimeSpan, TimeSpan, String>(
+                    new Action<IWebElement, TimeSpan, TimeSpan, string>(
                         (webElement, timeout, interval, message) => webElement.WaitUntilHidden(timeout, interval, message)
                         ),
                     TimeSpan.FromSeconds(5),
@@ -50,10 +50,10 @@ namespace HtmlElements.Test.Extensions
             }
         }
 
-        [TestCaseSource("WaitUntilHiddenTestCases")]
+        [TestCaseSource(nameof(WaitUntilHiddenTestCases))]
         public void ShouldReturnOnceElementBecameHidden(
-            Action<IWebElement, TimeSpan, TimeSpan, String> waitUntilHidden,
-            TimeSpan timeout, TimeSpan pollingInterval, String errorMessage
+            Action<IWebElement, TimeSpan, TimeSpan, string> waitUntilHidden,
+            TimeSpan timeout, TimeSpan pollingInterval, string errorMessage
             )
         {
             ElementMock.Setup(e => e.Displayed).Returns(true);
@@ -66,10 +66,10 @@ namespace HtmlElements.Test.Extensions
             waitUntilHidden(ElementMock.Object, timeout, pollingInterval, errorMessage);
         }
 
-        [TestCaseSource("WaitUntilHiddenTestCases")]
+        [TestCaseSource(nameof(WaitUntilHiddenTestCases))]
         public void ShouldHandleNoSuchElementException(
-            Action<IWebElement, TimeSpan, TimeSpan, String> waitUntilHidden,
-            TimeSpan timeout, TimeSpan pollingInterval, String errorMessage    
+            Action<IWebElement, TimeSpan, TimeSpan, string> waitUntilHidden,
+            TimeSpan timeout, TimeSpan pollingInterval, string errorMessage    
             )
         {
             ElementMock.Setup(e => e.Displayed).Returns(true);
@@ -79,10 +79,10 @@ namespace HtmlElements.Test.Extensions
             waitUntilHidden(ElementMock.Object, timeout, pollingInterval, errorMessage);
         }
 
-        [TestCaseSource("WaitUntilHiddenTestCases")]
+        [TestCaseSource(nameof(WaitUntilHiddenTestCases))]
         public void ShouldHandleStaleElementReferenceException(
-            Action<IWebElement, TimeSpan, TimeSpan, String> waitUntilHidden,
-            TimeSpan timeout, TimeSpan pollingInterval, String errorMessage
+            Action<IWebElement, TimeSpan, TimeSpan, string> waitUntilHidden,
+            TimeSpan timeout, TimeSpan pollingInterval, string errorMessage
             )
         {
             ElementMock.Setup(e => e.Displayed).Throws<StaleElementReferenceException>();
@@ -92,10 +92,10 @@ namespace HtmlElements.Test.Extensions
             waitUntilHidden(ElementMock.Object, timeout, pollingInterval, errorMessage);
         }
 
-        [TestCaseSource("WaitUntilHiddenTestCases")]
+        [TestCaseSource(nameof(WaitUntilHiddenTestCases))]
         public void ShouldThrowWebDriverTimeoutExceptionWithGivenMessage(
-            Action<IWebElement, TimeSpan, TimeSpan, String> waitUntilHidden, 
-            TimeSpan timeout, TimeSpan pollingInterval, String errorMessage
+            Action<IWebElement, TimeSpan, TimeSpan, string> waitUntilHidden, 
+            TimeSpan timeout, TimeSpan pollingInterval, string errorMessage
             )
         {
             ElementMock.Setup(e => e.Displayed).Returns(true);

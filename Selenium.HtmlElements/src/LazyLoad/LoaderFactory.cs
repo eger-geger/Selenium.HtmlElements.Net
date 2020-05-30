@@ -28,12 +28,12 @@ namespace HtmlElements.LazyLoad
         {
             if (pageObjectFactory == null)
             {
-                throw new ArgumentNullException("pageObjectFactory");
+                throw new ArgumentNullException(nameof(pageObjectFactory));
             }
 
             if (proxyFactory == null)
             {
-                throw new ArgumentNullException("proxyFactory");
+                throw new ArgumentNullException(nameof(proxyFactory));
             }
 
             _pageObjectFactory = pageObjectFactory;
@@ -56,7 +56,7 @@ namespace HtmlElements.LazyLoad
         /// <returns>
         ///     Loader instance.
         /// </returns>
-        public ILoader<IWebElement> CreateElementLoader(ISearchContext searchContext, By locator, Boolean enableCache)
+        public ILoader<IWebElement> CreateElementLoader(ISearchContext searchContext, By locator, bool enableCache)
         {
             return new WebElementLoader(searchContext, locator, enableCache);
         }
@@ -77,7 +77,7 @@ namespace HtmlElements.LazyLoad
         /// <returns>
         ///     Loader instance.
         /// </returns>
-        public ILoader<ReadOnlyCollection<IWebElement>> CreateElementListLoader(ISearchContext searchContext, By locator, Boolean enableCache)
+        public ILoader<ReadOnlyCollection<IWebElement>> CreateElementListLoader(ISearchContext searchContext, By locator, bool enableCache)
         {
             return new WebElementListLoader(searchContext, locator, enableCache);
         }
@@ -101,7 +101,7 @@ namespace HtmlElements.LazyLoad
         /// <returns>
         ///     Loader instance.
         /// </returns>
-        public Object CreateListLoader(Type elementType, ISearchContext searchContext, By locator, Boolean enableCache)
+        public object CreateListLoader(Type elementType, ISearchContext searchContext, By locator, bool enableCache)
         {
             return Activator.CreateInstance(
                 typeof(TypedElementListLoader<>).MakeGenericType(elementType),
@@ -130,7 +130,7 @@ namespace HtmlElements.LazyLoad
         /// <returns>
         ///     Loader instance.
         /// </returns>
-        public ILoader<IList<TElement>> CreateListLoader<TElement>(ISearchContext searchContext, By locator, Boolean enableCache)
+        public ILoader<IList<TElement>> CreateListLoader<TElement>(ISearchContext searchContext, By locator, bool enableCache)
         {
             return CreateListLoader(typeof(TElement), searchContext, locator, enableCache) as ILoader<IList<TElement>>;
         }

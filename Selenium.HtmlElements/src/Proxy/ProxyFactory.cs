@@ -27,7 +27,7 @@ namespace HtmlElements.Proxy
         {
             if (loader == null)
             {
-                throw new ArgumentNullException("loader");
+                throw new ArgumentNullException(nameof(loader));
             }
 
             return new WebElementProxy(loader);
@@ -48,16 +48,16 @@ namespace HtmlElements.Proxy
         /// <exception cref="ArgumentNullException">
         ///     Thrown when <paramref name="elementType"/> or <paramref name="loader"/> is null.
         /// </exception>
-        public Object CreateListProxy(Type elementType, Object loader)
+        public object CreateListProxy(Type elementType, object loader)
         {
             if (elementType == null)
             {
-                throw new ArgumentNullException("elementType");
+                throw new ArgumentNullException(nameof(elementType));
             }
 
             if (loader == null)
             {
-                throw new ArgumentNullException("loader");
+                throw new ArgumentNullException(nameof(loader));
             }
 
             var expectedLoaderType = typeof(ILoader<>).MakeGenericType(typeof(IList<>).MakeGenericType(elementType));
@@ -65,7 +65,7 @@ namespace HtmlElements.Proxy
             if (!expectedLoaderType.IsInstanceOfType(loader))
             {
                 throw new ArgumentException(
-                    String.Format("Wrong loader type: expected [{0}] but was [{1}]", expectedLoaderType, loader.GetType()), "loader"
+                    string.Format("Wrong loader type: expected [{0}] but was [{1}]", expectedLoaderType, loader.GetType()), nameof(loader)
                 );
             }
 
@@ -88,7 +88,7 @@ namespace HtmlElements.Proxy
         {
             if (loader == null)
             {
-                throw new ArgumentNullException("loader");
+                throw new ArgumentNullException(nameof(loader));
             }
 
             return new FrameWebElementProxy(loader);
@@ -113,7 +113,7 @@ namespace HtmlElements.Proxy
         {
             if (loader == null)
             {
-                throw new ArgumentNullException("loader");
+                throw new ArgumentNullException(nameof(loader));
             }
 
             return new ElementListProxy<TElement>(loader);

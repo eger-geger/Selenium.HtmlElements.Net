@@ -17,7 +17,7 @@ namespace HtmlElements.LazyLoad
             ILoader<ReadOnlyCollection<IWebElement>> elementListLoader,
             IPageObjectFactory pageObjectFactory, 
             IProxyFactory proxyFactory,
-            Boolean enableCache) : base(enableCache)
+            bool enableCache) : base(enableCache)
         {
             _elementListLoader = elementListLoader;
             _pageObjectFactory = pageObjectFactory;
@@ -36,7 +36,7 @@ namespace HtmlElements.LazyLoad
             return _elementListLoader.Load().Select(CreateTypedElement).ToList();
         }
 
-        private TElement CreateTypedElement(IWebElement element, Int32 index)
+        private TElement CreateTypedElement(IWebElement element, int index)
         {
             return _pageObjectFactory.Create<TElement>(
                 _proxyFactory.CreateWebElementProxy(new WebElementListItemLoader(_elementListLoader, index, element))
@@ -47,7 +47,7 @@ namespace HtmlElements.LazyLoad
 
         public override string ToString()
         {
-            return String.Format("{0} loading elements with [{1}]", GetType().Name, _elementListLoader);
+            return string.Format("{0} loading elements with [{1}]", GetType().Name, _elementListLoader);
         }
     }
 }
