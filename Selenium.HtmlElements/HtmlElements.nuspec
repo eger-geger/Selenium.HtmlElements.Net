@@ -4,10 +4,11 @@
     <id>$id$</id>
     <version>$version$</version>
     <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
+    <authors>Ivan Mihaylovskyy</authors>
+    <owners>eger</owners>
     <projectUrl>http://github.com/eger-geger/Selenium.HtmlElements.Net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
     <description>$description$</description>
     <releaseNotes>
       3.1.0:
