@@ -89,7 +89,7 @@ namespace HtmlElements
         /// <summary>
         ///     Creates and initializes page object of a given type and all nested page objects.
         /// </summary>
-        /// <param name="pageObjecType">
+        /// <param name="pageObjectType">
         ///     Page object class.
         /// </param>
         /// <param name="searchContext">
@@ -98,7 +98,7 @@ namespace HtmlElements
         /// <returns>
         ///     Fully initialized page object.
         /// </returns>
-        object Create(Type pageObjecType, ISearchContext searchContext);
+        object Create(Type pageObjectType, ISearchContext searchContext);
 
         /// <summary>
         ///     Initialize all nested page objects in given instance.

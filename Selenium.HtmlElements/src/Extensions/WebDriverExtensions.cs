@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Web;
+using HtmlElements.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 
@@ -151,7 +152,7 @@ namespace HtmlElements.Extensions
         /// <returns>Collection of URL parameters names as keys and parameters values as values</returns>
         public static NameValueCollection GetUrlParameters(this IWebDriver webDriver)
         {
-            return HttpUtility.ParseQueryString(new Uri(webDriver.Url).Query);
+            return HttpLib.ParseQueryString(new Uri(webDriver.Url).Query);
         }
 
         /// <summary>Retrieve instance of <see cref="IWebDriver"/> wrapped by search context</summary>

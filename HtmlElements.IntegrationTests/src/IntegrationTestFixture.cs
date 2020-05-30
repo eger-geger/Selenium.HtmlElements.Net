@@ -33,10 +33,9 @@ namespace HtmlElements.IntegrationTests {
         [OneTimeSetUp]
         public void InitBrowser()
         {
-            Environment.CurrentDirectory = Path.GetDirectoryName(this.GetType().Assembly.Location);
             var options = new FirefoxOptions();
             options.AddArgument("--headless");
-            WebDriver = new FirefoxDriver(options);
+            WebDriver = new FirefoxDriver(Environment.CurrentDirectory, options);
         }
 
         [OneTimeTearDown]

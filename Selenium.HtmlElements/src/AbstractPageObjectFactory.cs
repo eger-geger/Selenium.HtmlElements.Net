@@ -28,12 +28,12 @@ namespace HtmlElements
         /// <summary>
         ///     Creates and initializes page object of a given type and all nested page objects.
         /// </summary>
-        /// <param name="pageObjecType">Page object type</param>
+        /// <param name="pageObjectType">Page object type</param>
         /// <param name="searchContext">Context used for finding elements</param>
         /// <returns>Fully initialized page object</returns>
-        public object Create(Type pageObjecType, ISearchContext searchContext)
+        public object Create(Type pageObjectType, ISearchContext searchContext)
         {
-            var pageObject = CreatePageObjectInstance(pageObjecType, searchContext);
+            var pageObject = CreatePageObjectInstance(pageObjectType, searchContext);
 
             Init(pageObject, searchContext);
 
