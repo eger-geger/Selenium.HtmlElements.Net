@@ -9,21 +9,10 @@
     <ProjectReference Include="..\Selenium.HtmlElements\HtmlElements.csproj" />
   </ItemGroup>
   <ItemGroup>
-<!--    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />-->
-<!--    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />-->
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\packages\PhantomJS.2.1.1\tools\phantomjs\phantomjs.exe">
-      <Link>phantomjs.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="PageBeta.htm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PageAlpha.htm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="phantomjs-license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -34,7 +23,6 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
     <PackageReference Include="NUnit" Version="3.9.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.9.0" />
-    <PackageReference Include="PhantomJS" Version="2.1.1" />
     <PackageReference Include="Selenium.Support" Version="3.7.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.7.0" />
     <PackageReference Include="Selenium.WebDriver.GeckoDriver.Win64" Version="0.26.0" />
