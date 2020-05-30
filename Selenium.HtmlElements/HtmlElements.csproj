@@ -3,7 +3,36 @@
     <TargetFrameworks>net40;netstandard2.0;</TargetFrameworks>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PackageId>HtmlElements</PackageId>
+    <PackageVersion>3.2.0</PackageVersion>
+    <Authors>eger</Authors>
+    <PackageTags>Selenium WebDriver</PackageTags>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageProjectUrl>http://github.com/eger-geger/Selenium.HtmlElements.Net</PackageProjectUrl>
+    <PackageReleaseNotes>
+      3.2.0:
+      - target netstandard
+      3.1.0:
+      - deprecate `SwitchToLastOpenedWindow` extension method
+      - update methods waiting for opening tabs to return opened window handles
+      3.0.1:
+      - update selenium references to 3.7.0
+      - update 'PreviousSibling', 'NextSibling', 'FirstChild', 'LastChild' properties to return only element nodes
+      3.0.0:
+      - update selenium reference to 3.5.2
+      - add NextSibling WebElement property
+      2.0.2:
+      - handle InvalidOperationException thrown by IOS when element was not found in cache
+      2.0.1:
+      - unwrap raw WebElement from multilayered wrapper during FrameContextOverride initialization
+      2.0.0:
+      - page object factory rewritten from scratches: now it has interface, default implementation and better documentation
+      - redesing element groups and removed extension method used for getting elements from a group
+      - added page factory property to custom elements
+      - added documentation for most public members
+    </PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DocumentationFile>bin\Debug\HtmlElements.XML</DocumentationFile>
@@ -12,9 +41,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DocumentationFile>bin\Release\HtmlElements.XML</DocumentationFile>
   </PropertyGroup>
-  <ItemGroup>
-    <Content Include="HtmlElements.nuspec" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Selenium.Support" Version="3.7.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.7.0" />
