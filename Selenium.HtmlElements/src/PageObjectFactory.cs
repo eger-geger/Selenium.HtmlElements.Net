@@ -186,7 +186,7 @@ namespace HtmlElements
 
       if (attributes.Length == 0)
       {
-        return BySelf.Locate(memberInfo, memberType);
+        return ByDefaultLocator.Locate(memberInfo, memberType);
       }
 
       if (attributes.Length > 1)

@@ -16,7 +16,7 @@ namespace HtmlElements.IntegrationTests.Pages
     [FindsBy(How = How.Id, Using = "submit"), CacheLookup]
     public HtmlElement SubmitBtn;
 
-    public By Locator => By.TagName("iframe");
+    public override By DefaultLocator => By.TagName("iframe");
     
     public PageBeta(IWebElement webElement) : base(webElement)
     {

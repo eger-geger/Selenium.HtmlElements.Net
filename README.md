@@ -36,7 +36,7 @@ public class NugetPackageItem : HtmlElement {
     [FindsBy(How = How.CssSelector, Using = ".downloads"), CacheLookup]
     private HtmlElement _downloads;
 
-    public By Locator => By.CssSelector("#searchResults li");
+    public override By DefaultLocator => By.CssSelector("#searchResults li");
     
     public String Name { 
         get {
@@ -75,7 +75,8 @@ Please refer to API reference for more details.
 
 Some web components can be located using the same locators regardless a page they present on.
 
-In this case you can define default locator (see `NugetPackageItem.Locator`) and omit [FindsBy] attribute rather then duplicate it across page object or page element classes.
+In this case you can override default locator (see `NugetPackageItem.DefaultLocator`) and omit [FindsBy] attribute rather then duplicate it across page object or page element classes.
+If `DefaultLocator` property is not defined, element[s] will be located `By.Id` using page object property name as id value.
 
 ## Standart HTML elements ##
 

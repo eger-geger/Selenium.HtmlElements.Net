@@ -30,6 +30,8 @@ namespace HtmlElements.Elements
             _wrappedElement = webElement;
         }
 
+        public virtual By DefaultLocator { get; }
+        
         /// <summary>
         ///     A WebElement, representing the parent node of current element, or null if it has no parent
         /// </summary>
