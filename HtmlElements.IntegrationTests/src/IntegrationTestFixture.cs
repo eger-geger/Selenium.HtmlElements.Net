@@ -3,8 +3,6 @@ using System.IO;
 using HtmlElements.IntegrationTests.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Firefox;
 
 namespace HtmlElements.IntegrationTests {
