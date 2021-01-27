@@ -75,7 +75,7 @@ Please refer to API reference for more details.
 
 Some web components can be located using the same locators regardless a page they present on.
 
-In this case you can define default locator (see `NugetPackageItem.Locator`) and omit [FindBy] attribute rather then duplicate it across page object or page element classes.
+In this case you can define default locator (see `NugetPackageItem.Locator`) and omit [FindsBy] attribute rather then duplicate it across page object or page element classes.
 
 ## Standart HTML elements ##
 
