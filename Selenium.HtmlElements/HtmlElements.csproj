@@ -37,6 +37,8 @@
 			- added page factory property to custom elements
 			- added documentation for most public members
 		</PackageReleaseNotes>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<DocumentationFile>bin\Debug\HtmlElements.XML</DocumentationFile>
