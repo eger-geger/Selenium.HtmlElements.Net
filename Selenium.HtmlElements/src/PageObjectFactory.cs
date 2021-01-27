@@ -156,7 +156,7 @@ namespace HtmlElements
     /// <returns>Initialized field or property value or null.</returns>
     protected override object CreateMemberInstance(Type memberType, MemberInfo memberInfo, ISearchContext searchContext)
     {
-      var locator = CreateElementLocator(memberInfo);
+      var locator = CreateElementLocator(memberInfo, memberType);
 
       var isCached = memberInfo.IsDefined(typeof(CacheLookupAttribute), true);
 
@@ -180,13 +180,13 @@ namespace HtmlElements
       return null;
     }
 
-    private By CreateElementLocator(MemberInfo memberInfo)
+    private By CreateElementLocator(MemberInfo memberInfo, Type memberType)
     {
       var attributes = memberInfo.GetCustomAttributes(typeof(FindsByAttribute), true);
 
       if (attributes.Length == 0)
       {
-        return ByFactory.Create(How.Id, memberInfo.Name);
+        return BySelf.Locate(memberInfo, memberType);
       }
 
       if (attributes.Length > 1)

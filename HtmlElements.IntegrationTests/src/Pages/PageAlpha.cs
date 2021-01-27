@@ -23,7 +23,9 @@ namespace HtmlElements.IntegrationTests.Pages
     [FindsBy(How = How.CssSelector, Using = "iframe")]
     public PageBeta NonCachedBetaFrame { get; set; }
 
-    [FindsBy(How = How.CssSelector, Using = "iframe"), CacheLookup]
+    public PageBeta BetaFrame;
+    
+    [CacheLookup]
     public PageBeta CachedBetaFrame { get; set; }
   }
 }

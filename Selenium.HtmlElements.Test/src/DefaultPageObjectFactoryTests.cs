@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using Moq;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
+using SeleniumExtras.PageObjects;
 
 namespace HtmlElements.Test
 {
@@ -160,8 +160,10 @@ namespace HtmlElements.Test
         public class PageObjectA
         {
 
+            [FindsBy(How = How.Id,Using = "any")]
             private IWebElement _elementA;
 
+            [FindsBy(How = How.Id,Using = "any")]
             private IList<IWebElement> _elementListA;
 
         }

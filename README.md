@@ -16,7 +16,6 @@ public class NugetPackageListPage {
     [FindsBy(How = How.CssSelector, Using = "#searchBoxSubmit"), CacheLookup]
     private IWebElement _searchBtn;
 
-    [FindsBy(How = How.CssSelector, Using = "#searchResults li")]
     public IList<NugetPackageItem> Packages { get; private set; }
 
     public void Search(String query){
@@ -37,6 +36,8 @@ public class NugetPackageItem : HtmlElement {
     [FindsBy(How = How.CssSelector, Using = ".downloads"), CacheLookup]
     private HtmlElement _downloads;
 
+    public By Locator => By.CssSelector("#searchResults li");
+    
     public String Name { 
         get {
             return _name.Text;
@@ -70,9 +71,15 @@ Default page factory implementation wraps raw WebElements located in browser int
 
 Please refer to API reference for more details.
 
+### Page element default locator
+
+Some web components can be located using the same locators regardless a page they present on.
+
+In this case you can define default locator (see `NugetPackageItem.Locator`) and omit [FindBy] attribute rather then duplicate it across page object or page element classes.
+
 ## Standart HTML elements ##
 
-In addition to creatign your custom page objects you can use set predefined components which models commonly used DOM elements. Following components can be found in [HtmlElements.Elements](http://eger-geger.github.io/Selenium.HtmlElements.Net/namespace_html_elements_1_1_elements.html) namespace:
+In addition to creating your custom page objects you can use set predefined components which models commonly used DOM elements. Following components can be found in [HtmlElements.Elements](http://eger-geger.github.io/Selenium.HtmlElements.Net/namespace_html_elements_1_1_elements.html) namespace:
 
 * HtmlElement
 * HtmlLink
