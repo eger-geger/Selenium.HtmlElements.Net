@@ -16,6 +16,7 @@
 			- target net5.0
 			- use selenium 4.0-alpha
 			- use PageObjectFactory from SeleniumExtras.PageObjects
+			- use By Locator property to define default web element locator
 			3.2.0:
 			- target netstandard
 			3.1.0:
