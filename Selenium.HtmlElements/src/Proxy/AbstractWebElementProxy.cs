@@ -95,10 +95,7 @@ namespace HtmlElements.Proxy
             return Execute(e => e.GetCssValue(propertyName));
         }
 
-        public IWebElement WrappedElement
-        {
-            get { return Loader.Load(); }
-        }
+        public IWebElement WrappedElement => Loader.Load();
 
         protected bool Equals(WebElementProxy other)
         {
@@ -127,7 +124,7 @@ namespace HtmlElements.Proxy
 
         protected TResult Execute<TResult>(Func<IWebElement, TResult> action)
         {
-            TResult returnValue = default(TResult);
+            var returnValue = default(TResult);
 
             Execute(element => { returnValue = action(element); });
 

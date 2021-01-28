@@ -4,7 +4,7 @@ namespace HtmlElements.Test.Utilities
 {
     public class NameValueCollectionBuilder
     {
-        private readonly NameValueCollection _collection = new NameValueCollection();
+        private readonly NameValueCollection _collection = new();
 
         public NameValueCollectionBuilder Add(string name, string value)
         {
@@ -12,6 +12,6 @@ namespace HtmlElements.Test.Utilities
             return this;
         }
 
-        public NameValueCollection NameValueCollection => new NameValueCollection(_collection);
+        public NameValueCollection NameValueCollection => new(_collection);
     }
 }

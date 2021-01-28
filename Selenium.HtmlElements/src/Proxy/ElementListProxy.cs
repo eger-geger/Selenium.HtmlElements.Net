@@ -12,22 +12,16 @@ namespace HtmlElements.Proxy
             _listLoader = listLoader;
         }
 
-        public override int Count
-        {
-            get { return TypedElementList.Count; }
-        }
+        public override int Count => TypedElementList.Count;
 
         public override TElement this[int index]
         {
-            get { return TypedElementList[index]; }
+            get => TypedElementList[index];
 
-            set { throw ModificationAttemptException; }
+            set => throw ModificationAttemptException;
         }
 
-        private IList<TElement> TypedElementList
-        {
-            get { return _listLoader.Load(); }
-        }
+        private IList<TElement> TypedElementList => _listLoader.Load();
 
         public override IEnumerator<TElement> GetEnumerator()
         {

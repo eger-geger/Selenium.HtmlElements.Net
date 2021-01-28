@@ -46,8 +46,8 @@ namespace HtmlElements
         /// </summary>
         public TimeSpan ImplicitWaitTimeout
         {
-            get { return _overriddenImplicitWait; }
-            set { _wrappedDriver.Manage().Timeouts().ImplicitWait = _overriddenImplicitWait = value; }
+            get => _overriddenImplicitWait;
+            set => _wrappedDriver.Manage().Timeouts().ImplicitWait = _overriddenImplicitWait = value;
         }
 
         /// <summary>
@@ -61,9 +61,6 @@ namespace HtmlElements
         /// <summary>
         ///     Driver instance which timeout get updated
         /// </summary>
-        public IWebDriver WrappedDriver
-        {
-            get { return _wrappedDriver; }
-        }
+        public IWebDriver WrappedDriver => _wrappedDriver;
     }
 }

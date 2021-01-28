@@ -24,8 +24,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Href
         {
-            get { return GetAttribute("href"); }
-            set { this.SetAttribute("href", value); }
+            get => GetAttribute("href");
+            set => this.SetAttribute("href", value);
         }
 
         /// <summary>
@@ -33,8 +33,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Target
         {
-            get { return GetAttribute("target"); }
-            set { this.SetAttribute("target", value); }
+            get => GetAttribute("target");
+            set => this.SetAttribute("target", value);
         }
 
         /// <summary>

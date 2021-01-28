@@ -87,8 +87,8 @@ namespace HtmlElements.Test
             [ElementGroup("alpha")]
             public IWebElement ElementD
             {
-                get { return _elementD; }
-                set { _elementD = value; }
+                get => _elementD;
+                set => _elementD = value;
             }
 
             [ElementGroup("beta")]

@@ -10,9 +10,9 @@ namespace HtmlElements.Test.Proxy
 {
     public class ElementListProxyTests
     {
-        private readonly ProxyFactory _proxyFactory = new ProxyFactory();
+        private readonly ProxyFactory _proxyFactory = new();
 
-        private readonly List<IWebElement> _loadedElements = new List<IWebElement>
+        private readonly List<IWebElement> _loadedElements = new()
         {
             new Mock<IWebElement>().Object,
             new Mock<IWebElement>().Object
@@ -69,7 +69,7 @@ namespace HtmlElements.Test.Proxy
         [Test]
         public void ShouldLoadElementsAndCopyThemToArray()
         {
-            IWebElement[] webElements = new IWebElement[2];
+            var webElements = new IWebElement[2];
 
             _elementListProxy.CopyTo(webElements, 0);
 

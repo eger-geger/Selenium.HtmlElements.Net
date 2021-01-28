@@ -37,10 +37,7 @@ namespace HtmlElements.Elements
             }
         }
 
-        private static NotSupportedException ModificationAttemptException
-        {
-            get { return new NotSupportedException("Attempted to modify read-only collection"); }
-        }
+        private static NotSupportedException ModificationAttemptException => new("Attempted to modify read-only collection");
 
         /// <summary>
         /// Gets the list of options for the select element.
@@ -94,8 +91,8 @@ namespace HtmlElements.Elements
         /// <exception cref="NotSupportedException">Thrown when attempted to set property value.</exception>
         public HtmlSelectOption this[int index]
         {
-            get { return Options[index]; }
-            set { throw ModificationAttemptException; }
+            get => Options[index];
+            set => throw ModificationAttemptException;
         }
 
         /// <summary>
@@ -129,18 +126,12 @@ namespace HtmlElements.Elements
         /// <summary>
         /// Always returns <value>true</value> since list is read-only
         /// </summary>
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
         /// <summary>
         /// Gets the number of options contained in select element.
         /// </summary>
-        public int Count
-        {
-            get { return Options.Count; }
-        }
+        public int Count => Options.Count;
 
         /// <summary>
         /// Not supported. Calling it will trigger <see cref="System.NotSupportedException"/>.

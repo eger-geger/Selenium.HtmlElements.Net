@@ -23,8 +23,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string InputSize
         {
-            get { return GetAttribute("size"); }
-            set { this.SetAttribute("size", value); }
+            get => GetAttribute("size");
+            set => this.SetAttribute("size", value);
         }
 
         /// <summary>
@@ -32,8 +32,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string MaxLength
         {
-            get { return GetAttribute("maxlength"); }
-            set { this.SetAttribute("maxlength", value); }
+            get => GetAttribute("maxlength");
+            set => this.SetAttribute("maxlength", value);
         }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Src
         {
-            get { return GetAttribute("src"); }
-            set { this.SetAttribute("src", value); }
+            get => GetAttribute("src");
+            set => this.SetAttribute("src", value);
         }
 
         /// <summary>
@@ -50,8 +50,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Type
         {
-            get { return GetAttribute("type"); }
-            set { this.SetAttribute("type", value); }
+            get => GetAttribute("type");
+            set => this.SetAttribute("type", value);
         }
     }
 }

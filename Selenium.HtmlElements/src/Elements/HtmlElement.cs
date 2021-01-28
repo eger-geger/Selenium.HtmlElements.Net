@@ -32,25 +32,22 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Class
         {
-            get { return GetAttribute("class"); }
-            set { this.SetAttribute("class", value); }
+            get => GetAttribute("class");
+            set => this.SetAttribute("class", value);
         }
 
         /// <summary>
         ///     First child node of the web element, as a web element
         /// </summary>
-        public IWebElement FirstChild
-        {
-            get { return this.GetProperty<IWebElement>("firstElementChild"); }
-        }
+        public IWebElement FirstChild => this.GetProperty<IWebElement>("firstElementChild");
 
         /// <summary>
         ///     Gets or sets 'id' attribute of the underlying DOM element or null if it does not exist
         /// </summary>
         public string Id
         {
-            get { return GetAttribute("id"); }
-            set { this.SetAttribute("id", value); }
+            get => GetAttribute("id");
+            set => this.SetAttribute("id", value);
         }
 
         /// <summary>
@@ -58,58 +55,46 @@ namespace HtmlElements.Elements
         /// </summary>
         public string InnerHtml
         {
-            get { return this.GetProperty<string>("innerHTML"); }
-            set { this.SetPropery("innerHTML", value); }
+            get => this.GetProperty<string>("innerHTML");
+            set => this.SetPropery("innerHTML", value);
         }
 
         /// <summary>
         ///     Last child node of the current element, as a web element
         /// </summary>
-        public IWebElement LastChild
-        {
-            get { return this.GetProperty<IWebElement>("lastElementChild"); }
-        }
+        public IWebElement LastChild => this.GetProperty<IWebElement>("lastElementChild");
 
         /// <summary>
         ///     Gets or sets 'name' attribute of the underlying DOM element or null if it does not exist
         /// </summary>
         public string Name
         {
-            get { return GetAttribute("name"); }
-            set { this.SetAttribute("name", value); }
+            get => GetAttribute("name");
+            set => this.SetAttribute("name", value);
         }
 
         /// <summary>
         ///     The next node of current web element, in the same tree level
         /// </summary>
-        public IWebElement NextSibling
-        {
-            get { return this.GetProperty<IWebElement>("nextElementSibling"); }
-        }
+        public IWebElement NextSibling => this.GetProperty<IWebElement>("nextElementSibling");
 
         /// <summary>
         ///     A WebElement, representing the parent node of current element, or null if it has no parent
         /// </summary>
-        public IWebElement ParentNode
-        {
-            get { return this.GetProperty<IWebElement>("parentNode"); }
-        }
+        public IWebElement ParentNode => this.GetProperty<IWebElement>("parentNode");
 
         /// <summary>
         ///     A previous node of current web element, in the same tree level
         /// </summary>
-        public IWebElement PreviousSibling
-        {
-            get { return this.GetProperty<IWebElement>("previousElementSibling"); }
-        }
+        public IWebElement PreviousSibling => this.GetProperty<IWebElement>("previousElementSibling");
 
         /// <summary>
         ///     Gets or sets 'style' attribute of the underlying DOM element or null if it does not exist
         /// </summary>
         public string Style
         {
-            get { return GetAttribute("style"); }
-            set { this.SetAttribute("style", value); }
+            get => GetAttribute("style");
+            set => this.SetAttribute("style", value);
         }
 
         /// <summary>
@@ -119,8 +104,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string TextContent
         {
-            get { return GetProperty("textContent") as string; }
-            set { this.SetPropery("textContent", value); }
+            get => GetProperty("textContent") as string;
+            set => this.SetPropery("textContent", value);
         }
 
         /// <summary>
@@ -128,8 +113,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Title
         {
-            get { return GetAttribute("title"); }
-            set { this.SetAttribute("title", value); }
+            get => GetAttribute("title");
+            set => this.SetAttribute("title", value);
         }
 
         /// <summary>
@@ -231,31 +216,20 @@ namespace HtmlElements.Elements
         /// <summary>
         ///     Returns underlying web element wrapped by current <see cref="HtmlElement"/>
         /// </summary>
-        public IWebElement WrappedElement
-        {
-            get
-            {
-                return _wrappedElement is IWrapsElement
-                    ? (_wrappedElement as IWrapsElement).WrappedElement
-                    : _wrappedElement;
-            }
-        }
+        public IWebElement WrappedElement =>
+            _wrappedElement is IWrapsElement
+                ? (_wrappedElement as IWrapsElement).WrappedElement
+                : _wrappedElement;
 
         /// <summary>
         ///     Gets the tag name of this element.
         /// </summary>
-        public string TagName
-        {
-            get { return _wrappedElement.TagName; }
-        }
+        public string TagName => _wrappedElement.TagName;
 
         /// <summary>
         ///     Gets the innerText of this element, without any leading or trailing whitespace, and with other whitespace collapsed.
         /// </summary>
-        public string Text
-        {
-            get { return _wrappedElement.Text; }
-        }
+        public string Text => _wrappedElement.Text;
 
         /// <summary>
         ///     Gets a value indicating whether or not this element is enabled.
@@ -263,10 +237,7 @@ namespace HtmlElements.Elements
         /// <remarks>
         ///     The property will generally return true for everything except explicitly disabled input elements.
         /// </remarks>
-        public bool Enabled
-        {
-            get { return _wrappedElement.Enabled; }
-        }
+        public bool Enabled => _wrappedElement.Enabled;
 
         /// <summary>
         ///     Gets a value indicating whether or not this element is selected.
@@ -274,34 +245,22 @@ namespace HtmlElements.Elements
         /// <remarks>
         ///     This operation only applies to input elements such as checkboxes, options in a select element and radio buttons.
         /// </remarks>
-        public bool Selected
-        {
-            get { return _wrappedElement.Selected; }
-        }
+        public bool Selected => _wrappedElement.Selected;
 
         /// <summary>
         ///     Gets a <see cref="Point"/> object containing the coordinates of the upper-left corner of this element relative to the upper-left corner of the page.
         /// </summary>
-        public Point Location
-        {
-            get { return _wrappedElement.Location; }
-        }
+        public Point Location => _wrappedElement.Location;
 
         /// <summary>
         ///     Gets object containing the height and width of this element.
         /// </summary>
-        public Size Size
-        {
-            get { return _wrappedElement.Size; }
-        }
+        public Size Size => _wrappedElement.Size;
 
         /// <summary>
         ///     Gets a value indicating whether or not this element is displayed.
         /// </summary>
-        public bool Displayed
-        {
-            get { return _wrappedElement.IsPresent() && _wrappedElement.Displayed; }
-        }
+        public bool Displayed => _wrappedElement.IsPresent() && _wrappedElement.Displayed;
 
         /// <summary>
         ///     Replace existing text input with provided.
@@ -324,7 +283,7 @@ namespace HtmlElements.Elements
         /// </returns>
         public TPage Open<TPage>()
         {
-            IWebDriver wd = WrappedDriver;
+            var wd = WrappedDriver;
 
             Click();
 

@@ -29,10 +29,7 @@ namespace HtmlElements.Elements
         /// <summary>
         /// URL of the current page
         /// </summary>
-        public string CurrentUrl
-        {
-            get { return WrappedDriver.Url; }
-        }
+        public string CurrentUrl => WrappedDriver.Url;
 
         /// <summary>
         /// Loading status of the current document loaded or being loading in browser
@@ -78,18 +75,12 @@ namespace HtmlElements.Elements
         /// source returned is a representation of the underlying DOM: do not expect it to be formatted
         /// or escaped in the same way as the response sent from the web server.
         /// </remarks>
-        public string Source
-        {
-            get { return WrappedDriver.PageSource; }
-        }
+        public string Source => WrappedDriver.PageSource;
 
         /// <summary>
         /// Title of the current page
         /// </summary>
-        public string Title
-        {
-            get { return WrappedDriver.Title; }
-        }
+        public string Title => WrappedDriver.Title;
 
         /// <summary>
         /// Reload the current page

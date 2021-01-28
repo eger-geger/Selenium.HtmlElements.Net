@@ -23,8 +23,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string SourceURL
         {
-            get { return GetAttribute("src"); }
-            set { this.SetAttribute("src", value); }
+            get => GetAttribute("src");
+            set => this.SetAttribute("src", value);
         }
     }
 }

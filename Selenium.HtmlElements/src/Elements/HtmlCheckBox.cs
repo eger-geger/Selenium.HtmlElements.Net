@@ -23,7 +23,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public bool Checked
         {
-            get { return Selected; }
+            get => Selected;
             set { this.Do(Click).Until(self => Selected == value); }
         }
 

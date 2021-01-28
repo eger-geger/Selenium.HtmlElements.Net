@@ -9,7 +9,7 @@ namespace HtmlElements.Test.Proxy
 {
     public class WebElementProxyTests
     {
-        private readonly ProxyFactory _proxyFactory = new ProxyFactory();
+        private readonly ProxyFactory _proxyFactory = new();
 
         private Mock<IWebElement> _elementMock;
 

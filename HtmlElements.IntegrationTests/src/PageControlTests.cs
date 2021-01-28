@@ -40,8 +40,8 @@ namespace HtmlElements.IntegrationTests
         [Test]
         public void ShouldOverrideImplicitTimeout()
         {
-            TimeSpan defaultImplicitWait = TimeSpan.FromSeconds(1);
-            TimeSpan overridenImplcitWait = TimeSpan.FromSeconds(2);
+            var defaultImplicitWait = TimeSpan.FromSeconds(1);
+            var overridenImplcitWait = TimeSpan.FromSeconds(2);
 
             using (new ImplicitWaitOverride(WebDriver, defaultImplicitWait, overridenImplcitWait))
             {

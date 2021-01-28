@@ -23,7 +23,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public bool Disabled
         {
-            get { return this.HasAttribute("disabled"); }
+            get => this.HasAttribute("disabled");
             set
             {
                 if (value)
@@ -42,8 +42,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Value
         {
-            get { return GetAttribute("value"); }
-            set { this.SetAttribute("value", value); }
+            get => GetAttribute("value");
+            set => this.SetAttribute("value", value);
         }
     }
 }

@@ -23,8 +23,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Cols
         {
-            get { return GetAttribute("cols"); }
-            set { this.SetAttribute("cols", value); }
+            get => GetAttribute("cols");
+            set => this.SetAttribute("cols", value);
         }
 
         /// <summary>
@@ -32,8 +32,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Rows
         {
-            get { return GetAttribute("rows"); }
-            set { this.SetAttribute("rows", value); }
+            get => GetAttribute("rows");
+            set => this.SetAttribute("rows", value);
         }
     }
 }

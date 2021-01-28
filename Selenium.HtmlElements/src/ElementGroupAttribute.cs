@@ -25,9 +25,6 @@ namespace HtmlElements
         /// <summary>
         ///     List of group names.
         /// </summary>
-        public string[] Groups
-        {
-            get { return _groups; }
-        }
+        public string[] Groups => _groups;
     }
 }

@@ -117,10 +117,7 @@ namespace HtmlElements.Test
             {
             }
 
-            public IPageObjectFactory PageObjectFactory
-            {
-                get { return base.PageObjectFactory; }
-            }
+            public IPageObjectFactory PageObjectFactory => base.PageObjectFactory;
 
             public HtmlElement ElementC { get; private set; }
 

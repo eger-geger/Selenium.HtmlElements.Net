@@ -49,9 +49,6 @@ namespace HtmlElements
         /// <summary>
         ///     Driver instance which context get switched
         /// </summary>
-        public IWebDriver WrappedDriver
-        {
-            get { return _wrappedDriver; }
-        }
+        public IWebDriver WrappedDriver => _wrappedDriver;
     }
 }

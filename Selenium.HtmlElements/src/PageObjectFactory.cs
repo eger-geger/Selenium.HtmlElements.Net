@@ -94,9 +94,9 @@ namespace HtmlElements
 
         private object CreateWebElement(Type elementType, ISearchContext searchContext, By locator, bool cached)
         {
-            ILoader<IWebElement> elementLoader = _loaderFactory.CreateElementLoader(searchContext, locator, cached);
+            var elementLoader = _loaderFactory.CreateElementLoader(searchContext, locator, cached);
 
-            IWebElement elementProxy =
+            var elementProxy =
                 typeof(HtmlFrame).IsAssignableFrom(elementType)
                     ? _proxyFactory.CreateFrameProxy(elementLoader)
                     : _proxyFactory.CreateWebElementProxy(elementLoader);
@@ -112,7 +112,7 @@ namespace HtmlElements
         /// <returns>Lazy loaded list of WebElements</returns>
         public override ReadOnlyCollection<IWebElement> CreateWebElementList(ISearchContext searchContext, By locator)
         {
-            return new ReadOnlyCollection<IWebElement>(
+            return new(
                 _proxyFactory.CreateListProxy(_loaderFactory.CreateElementListLoader(searchContext, locator, true))
             );
         }

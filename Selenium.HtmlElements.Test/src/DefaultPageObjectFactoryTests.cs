@@ -9,9 +9,9 @@ namespace HtmlElements.Test
 {
     public class DefaultPageObjectFactoryTests
     {
-        private readonly PageObjectFactory _pageObjectFactory = new PageObjectFactory();
+        private readonly PageObjectFactory _pageObjectFactory = new();
 
-        private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Loose);
+        private readonly MockRepository _mockRepository = new(MockBehavior.Loose);
 
         [Test]
         public void ShouldCreatePageObjectAndInitializeElements()
@@ -47,16 +47,16 @@ namespace HtmlElements.Test
         [Test]
         public void ShouldCreateWebElementUsingSearchContextLocator()
         {
-            IWebElement wrappedWebElement = _mockRepository.OneOf<IWebElement>();
+            var wrappedWebElement = _mockRepository.OneOf<IWebElement>();
 
-            Mock<ISearchContext> contextMock = new Mock<ISearchContext>();
+            var contextMock = new Mock<ISearchContext>();
 
             contextMock
                 .Setup(ctx => ctx.FindElement(It.IsAny<By>()))
                 .Returns(wrappedWebElement)
                 .Verifiable();
 
-            IWebElement webElement = _pageObjectFactory.CreateWebElement(contextMock.Object, By.Id("any"));
+            var webElement = _pageObjectFactory.CreateWebElement(contextMock.Object, By.Id("any"));
 
             Assert.That(webElement, Is.Not.Null.And.InstanceOf<IWrapsElement>());
             Assert.That((webElement as IWrapsElement).WrappedElement, Is.SameAs(wrappedWebElement));
@@ -74,14 +74,14 @@ namespace HtmlElements.Test
                 _mockRepository.OneOf<IWebElement>()
             });
 
-            Mock<ISearchContext> contextMock = new Mock<ISearchContext>();
+            var contextMock = new Mock<ISearchContext>();
 
             contextMock
                 .Setup(ctx => ctx.FindElements(It.IsAny<By>()))
                 .Returns(wrappedElementList)
                 .Verifiable();
 
-            ReadOnlyCollection<IWebElement> elementList =
+            var elementList =
                 _pageObjectFactory.CreateWebElementList(contextMock.Object, By.ClassName("any"));
 
             Assert.That(elementList, Is.Not.Null);
@@ -93,16 +93,16 @@ namespace HtmlElements.Test
         [Test]
         public void ShouldCreateCustomWebElementUsingSearchContextAndLocator()
         {
-            IWebElement wrappedWebElement = _mockRepository.OneOf<IWebElement>();
+            var wrappedWebElement = _mockRepository.OneOf<IWebElement>();
 
-            Mock<ISearchContext> contextMock = new Mock<ISearchContext>();
+            var contextMock = new Mock<ISearchContext>();
 
             contextMock
                 .Setup(ctx => ctx.FindElement(It.IsAny<By>()))
                 .Returns(wrappedWebElement)
                 .Verifiable();
 
-            PageObjectB pageObjectB =
+            var pageObjectB =
                 _pageObjectFactory.CreateWebElement<PageObjectB>(contextMock.Object, By.Id("any"));
 
             Assert.That(pageObjectB, Is.Not.Null);
@@ -122,14 +122,14 @@ namespace HtmlElements.Test
                 _mockRepository.OneOf<IWebElement>()
             });
 
-            Mock<ISearchContext> contextMock = new Mock<ISearchContext>();
+            var contextMock = new Mock<ISearchContext>();
 
             contextMock
                 .Setup(ctx => ctx.FindElements(It.IsAny<By>()))
                 .Returns(wrappedElementList)
                 .Verifiable();
 
-            IList<PageObjectA> elementList =
+            var elementList =
                 _pageObjectFactory.CreateWebElementList<PageObjectA>(contextMock.Object, By.ClassName("any"));
 
             Assert.That(elementList, Is.Not.Null);

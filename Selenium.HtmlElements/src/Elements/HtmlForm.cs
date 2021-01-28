@@ -27,8 +27,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Action
         {
-            get { return GetAttribute("action"); }
-            set { this.SetAttribute("action", value); }
+            get => GetAttribute("action");
+            set => this.SetAttribute("action", value);
         }
 
         /// <summary>
@@ -36,8 +36,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Enctype
         {
-            get { return GetAttribute("enctype"); }
-            set { this.SetAttribute("enctype", value); }
+            get => GetAttribute("enctype");
+            set => this.SetAttribute("enctype", value);
         }
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Method
         {
-            get { return GetAttribute("method"); }
-            set { this.SetAttribute("method", value); }
+            get => GetAttribute("method");
+            set => this.SetAttribute("method", value);
         }
 
         /// <summary>
@@ -54,8 +54,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Target
         {
-            get { return GetAttribute("target"); }
-            set { this.SetAttribute("target", value); }
+            get => GetAttribute("target");
+            set => this.SetAttribute("target", value);
         }
     }
 }

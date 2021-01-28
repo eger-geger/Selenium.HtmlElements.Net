@@ -6,10 +6,7 @@ namespace HtmlElements.Proxy
 {
     internal abstract class AbstractReadOnlyList<TObject> : IList<TObject>
     {
-        protected static NotSupportedException ModificationAttemptException
-        {
-            get { return new NotSupportedException("Attempted to modify read-only collection"); }
-        }
+        protected static NotSupportedException ModificationAttemptException => new("Attempted to modify read-only collection");
 
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -31,10 +28,7 @@ namespace HtmlElements.Proxy
             throw ModificationAttemptException;
         }
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
         public void Insert(int index, TObject item)
         {
