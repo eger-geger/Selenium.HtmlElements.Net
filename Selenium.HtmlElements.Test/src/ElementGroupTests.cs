@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -13,50 +12,53 @@ namespace HtmlElements.Test
         {
             var pageObjectB = new PageObjectB();
 
-            Assert.That(new ElementGroup("alpha").GetElements(pageObjectB), Is.EquivalentTo(new Dictionary<string, IWebElement>
-            {
+            Assert.That(new ElementGroup("alpha").GetElements(pageObjectB), Is.EquivalentTo(
+                new Dictionary<string, IWebElement>
                 {
-                    "ElementA", pageObjectB.ElementA
-                },
-                {
-                    "ElementB", pageObjectB.ElementB
-                },
-                {
-                    "ElementD", pageObjectB.ElementD
-                }
-            }));
+                    {
+                        "ElementA", pageObjectB.ElementA
+                    },
+                    {
+                        "ElementB", pageObjectB.ElementB
+                    },
+                    {
+                        "ElementD", pageObjectB.ElementD
+                    }
+                }));
 
-            Assert.That(new ElementGroup("beta").GetElements(pageObjectB), Is.EquivalentTo(new Dictionary<string, IWebElement>
-            {
+            Assert.That(new ElementGroup("beta").GetElements(pageObjectB), Is.EquivalentTo(
+                new Dictionary<string, IWebElement>
                 {
-                    "ElementA", pageObjectB.ElementA
-                },
-                {
-                    "ElementE", pageObjectB.ElementE
-                }
-            }));
+                    {
+                        "ElementA", pageObjectB.ElementA
+                    },
+                    {
+                        "ElementE", pageObjectB.ElementE
+                    }
+                }));
         }
 
         [Test]
         public void ShouldIncludeElementsFromMultipleGroups()
         {
-           var pageObjectB = new PageObjectB();
- 
-            Assert.That(new ElementGroup("alpha", "beta").GetElements(pageObjectB), Is.EquivalentTo(new Dictionary<string, IWebElement>
-            {
+            var pageObjectB = new PageObjectB();
+
+            Assert.That(new ElementGroup("alpha", "beta").GetElements(pageObjectB), Is.EquivalentTo(
+                new Dictionary<string, IWebElement>
                 {
-                    "ElementA", pageObjectB.ElementA
-                },
-                {
-                    "ElementB", pageObjectB.ElementB
-                },
-                {
-                    "ElementD", pageObjectB.ElementD
-                },
-                {
-                    "ElementE", pageObjectB.ElementE
-                }
-            }));
+                    {
+                        "ElementA", pageObjectB.ElementA
+                    },
+                    {
+                        "ElementB", pageObjectB.ElementB
+                    },
+                    {
+                        "ElementD", pageObjectB.ElementD
+                    },
+                    {
+                        "ElementE", pageObjectB.ElementE
+                    }
+                }));
         }
 
         private static IWebElement CreateWebElement()
@@ -66,11 +68,9 @@ namespace HtmlElements.Test
 
         public class PageObjectA
         {
-            [ElementGroup("alpha", "beta")]
-            public readonly IWebElement ElementA = CreateWebElement();
+            [ElementGroup("alpha", "beta")] public readonly IWebElement ElementA = CreateWebElement();
 
-            [ElementGroup("alpha")]
-            public readonly IWebElement ElementB = CreateWebElement();
+            [ElementGroup("alpha")] public readonly IWebElement ElementB = CreateWebElement();
 
             public readonly IWebElement ElementC = CreateWebElement();
         }
@@ -85,7 +85,8 @@ namespace HtmlElements.Test
             }
 
             [ElementGroup("alpha")]
-            public IWebElement ElementD {
+            public IWebElement ElementD
+            {
                 get { return _elementD; }
                 set { _elementD = value; }
             }
@@ -93,6 +94,5 @@ namespace HtmlElements.Test
             [ElementGroup("beta")]
             public IWebElement ElementE { get; private set; }
         }
-
     }
 }

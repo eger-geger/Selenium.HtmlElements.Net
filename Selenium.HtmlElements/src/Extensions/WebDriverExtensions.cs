@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
-using System.Web;
 using HtmlElements.Utilities;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 
 namespace HtmlElements.Extensions
 {

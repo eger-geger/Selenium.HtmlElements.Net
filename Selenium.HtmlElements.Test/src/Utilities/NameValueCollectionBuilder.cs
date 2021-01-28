@@ -11,8 +11,7 @@ namespace HtmlElements.Test.Utilities
             _collection.Add(name, value);
             return this;
         }
-        
+
         public NameValueCollection NameValueCollection => new NameValueCollection(_collection);
-        
     }
 }

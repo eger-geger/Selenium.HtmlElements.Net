@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HtmlElements.Extensions;
@@ -53,7 +52,7 @@ namespace HtmlElements
                 }
 
                 IList<ElementGroupAttribute> attributes = field
-                    .GetCustomAttributes(typeof (ElementGroupAttribute), true)
+                    .GetCustomAttributes(typeof(ElementGroupAttribute), true)
                     .OfType<ElementGroupAttribute>()
                     .ToList();
 
@@ -76,7 +75,7 @@ namespace HtmlElements
                 }
 
                 IList<ElementGroupAttribute> attributes = property
-                    .GetCustomAttributes(typeof (ElementGroupAttribute), true)
+                    .GetCustomAttributes(typeof(ElementGroupAttribute), true)
                     .OfType<ElementGroupAttribute>()
                     .ToList();
 

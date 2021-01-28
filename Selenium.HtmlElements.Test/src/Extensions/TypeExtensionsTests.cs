@@ -44,12 +44,12 @@ namespace HtmlElements.Test.Extensions
         [Test]
         public void ShouldFindAllPropertiesMatchingConstraints()
         {
-            IList<string> properties = typeof (PageObjecB)
+            IList<string> properties = typeof(PageObjecB)
                 .GetOwnAndInheritedProperties(BindingFlags.Instance | BindingFlags.Public)
                 .Select(property => property.Name)
                 .ToList();
 
-            Assert.That(properties, Is.EquivalentTo(new[] { "ElemetnB", "ElementListC" }));
+            Assert.That(properties, Is.EquivalentTo(new[] {"ElemetnB", "ElementListC"}));
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace HtmlElements.Test.Extensions
                 .Select(property => property.Name)
                 .ToList();
 
-            Assert.That(fields, Is.EquivalentTo(new[] { "_elementA", "_elementListA", "_elementListB", "_elementC" }));
+            Assert.That(fields, Is.EquivalentTo(new[] {"_elementA", "_elementListA", "_elementListB", "_elementC"}));
         }
 
         private class PageObjectA
@@ -69,7 +69,7 @@ namespace HtmlElements.Test.Extensions
 
             public IWebElement _elementA;
 
-            public IList<IWebElement> _elementListA; 
+            public IList<IWebElement> _elementListA;
 
             public IWebElement ElemetnB { get; set; }
         }
@@ -129,13 +129,18 @@ namespace HtmlElements.Test.Extensions
             }
 
             public string TagName { get; set; }
+
             public string Text { get; set; }
+
             public bool Enabled { get; set; }
+
             public bool Selected { get; set; }
+
             public Point Location { get; set; }
+
             public Size Size { get; set; }
+
             public bool Displayed { get; set; }
         }
-
     }
 }

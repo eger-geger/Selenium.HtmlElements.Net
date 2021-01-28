@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 using HtmlElements.Elements;
 using OpenQA.Selenium;
@@ -19,7 +18,8 @@ namespace HtmlElements.Locators
             if (!typeof(HtmlElement).IsAssignableFrom(elementType))
                 throw new ArgumentException(errorMessage);
 
-            return (Activator.CreateInstance(elementType, default(HtmlElement)) as HtmlElement)?.DefaultLocator ?? By.Id(memberInfo.Name);
+            return (Activator.CreateInstance(elementType, default(HtmlElement)) as HtmlElement)?.DefaultLocator ??
+                   By.Id(memberInfo.Name);
         }
     }
 }

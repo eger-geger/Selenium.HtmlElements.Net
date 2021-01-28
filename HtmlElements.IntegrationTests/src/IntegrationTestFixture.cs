@@ -5,8 +5,8 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 
-namespace HtmlElements.IntegrationTests {
-
+namespace HtmlElements.IntegrationTests
+{
     public class IntegrationTestFixture
     {
         private const string PageFileName = "PageAlpha.htm";
@@ -41,7 +41,5 @@ namespace HtmlElements.IntegrationTests {
         {
             WebDriver.Quit();
         }
-
     }
-
 }

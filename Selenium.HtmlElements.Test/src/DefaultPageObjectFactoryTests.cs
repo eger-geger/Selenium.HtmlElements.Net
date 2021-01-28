@@ -81,7 +81,8 @@ namespace HtmlElements.Test
                 .Returns(wrappedElementList)
                 .Verifiable();
 
-            ReadOnlyCollection<IWebElement> elementList = _pageObjectFactory.CreateWebElementList(contextMock.Object, By.ClassName("any"));
+            ReadOnlyCollection<IWebElement> elementList =
+                _pageObjectFactory.CreateWebElementList(contextMock.Object, By.ClassName("any"));
 
             Assert.That(elementList, Is.Not.Null);
             Assert.That(elementList.Count, Is.EqualTo(3));
@@ -101,7 +102,8 @@ namespace HtmlElements.Test
                 .Returns(wrappedWebElement)
                 .Verifiable();
 
-            PageObjectB pageObjectB = _pageObjectFactory.CreateWebElement<PageObjectB>(contextMock.Object, By.Id("any"));
+            PageObjectB pageObjectB =
+                _pageObjectFactory.CreateWebElement<PageObjectB>(contextMock.Object, By.Id("any"));
 
             Assert.That(pageObjectB, Is.Not.Null);
             Assert.That(pageObjectB.WebElement, Is.Not.Null.And.InstanceOf<IWrapsElement>());
@@ -127,7 +129,8 @@ namespace HtmlElements.Test
                 .Returns(wrappedElementList)
                 .Verifiable();
 
-            IList<PageObjectA> elementList = _pageObjectFactory.CreateWebElementList<PageObjectA>(contextMock.Object, By.ClassName("any"));
+            IList<PageObjectA> elementList =
+                _pageObjectFactory.CreateWebElementList<PageObjectA>(contextMock.Object, By.ClassName("any"));
 
             Assert.That(elementList, Is.Not.Null);
             Assert.That(elementList.Count, Is.EqualTo(3));
@@ -144,6 +147,7 @@ namespace HtmlElements.Test
             }
 
             public IPageObjectFactory PageFactory { get; private set; }
+
             public IWebElement WebElement { get; private set; }
         }
 
@@ -159,13 +163,9 @@ namespace HtmlElements.Test
 
         public class PageObjectA
         {
+            [FindsBy(How = How.Id, Using = "any")] private IWebElement _elementA;
 
-            [FindsBy(How = How.Id,Using = "any")]
-            private IWebElement _elementA;
-
-            [FindsBy(How = How.Id,Using = "any")]
-            private IList<IWebElement> _elementListA;
-
+            [FindsBy(How = How.Id, Using = "any")] private IList<IWebElement> _elementListA;
         }
     }
 }

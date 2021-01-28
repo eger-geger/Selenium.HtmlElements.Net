@@ -10,11 +10,14 @@ namespace HtmlElements.LazyLoad
 
         private readonly ILoader<ReadOnlyCollection<IWebElement>> _listLoader;
 
-        public WebElementListItemLoader(ILoader<ReadOnlyCollection<IWebElement>> listLoader, int index, IWebElement value = null) : base(true, value)
+        public WebElementListItemLoader(ILoader<ReadOnlyCollection<IWebElement>> listLoader, int index,
+            IWebElement value = null) : base(true, value)
         {
             _listLoader = listLoader;
             _index = index;
         }
+
+        public override ISearchContext SearchContext => _listLoader.SearchContext;
 
         protected override IWebElement ExecuteLoad()
         {
@@ -24,9 +27,9 @@ namespace HtmlElements.LazyLoad
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                throw new NoSuchElementException(string.Format("List element [{0}] not found in [{1}]", _index,_listLoader), ex);
+                throw new NoSuchElementException(
+                    string.Format("List element [{0}] not found in [{1}]", _index, _listLoader), ex);
             }
-            
         }
 
         public override void Reset()
@@ -35,11 +38,10 @@ namespace HtmlElements.LazyLoad
             _listLoader.Reset();
         }
 
-        public override ISearchContext SearchContext => _listLoader.SearchContext;
-
         public override string ToString()
         {
-            return string.Format("{0} providing [{1}] element from the list loaded by [{2}]", GetType().Name, _index, _listLoader);
+            return string.Format("{0} providing [{1}] element from the list loaded by [{2}]", GetType().Name, _index,
+                _listLoader);
         }
     }
 }

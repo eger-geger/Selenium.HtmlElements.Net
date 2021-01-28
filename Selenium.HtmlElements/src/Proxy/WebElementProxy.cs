@@ -31,6 +31,7 @@ namespace HtmlElements.Proxy
                     {
                         throw;
                     }
+
                     Loader.Reset();
 
                     if (i == 4)

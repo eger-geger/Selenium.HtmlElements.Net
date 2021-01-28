@@ -13,6 +13,7 @@ namespace HtmlElements.LazyLoad
     public class LoaderFactory : ILoaderFactory
     {
         private readonly IPageObjectFactory _pageObjectFactory;
+
         private readonly IProxyFactory _proxyFactory;
 
         /// <summary>
@@ -67,12 +68,13 @@ namespace HtmlElements.LazyLoad
         /// <returns>
         ///     Loader instance.
         /// </returns>
-        public ILoader<ReadOnlyCollection<IWebElement>> CreateElementListLoader(ISearchContext searchContext, By locator, bool enableCache)
+        public ILoader<ReadOnlyCollection<IWebElement>> CreateElementListLoader(ISearchContext searchContext,
+            By locator, bool enableCache)
         {
             return new WebElementListLoader(searchContext, locator, enableCache);
         }
 
-    
+
         /// <summary>
         ///     Create list loader wrapping web elements loader.
         /// </summary>
@@ -95,9 +97,9 @@ namespace HtmlElements.LazyLoad
         {
             return Activator.CreateInstance(
                 typeof(TypedElementListLoader<>).MakeGenericType(elementType),
-                CreateElementListLoader(searchContext, locator, enableCache), 
-                _pageObjectFactory, 
-                _proxyFactory, 
+                CreateElementListLoader(searchContext, locator, enableCache),
+                _pageObjectFactory,
+                _proxyFactory,
                 enableCache
             );
         }
@@ -120,7 +122,8 @@ namespace HtmlElements.LazyLoad
         /// <returns>
         ///     Loader instance.
         /// </returns>
-        public ILoader<IList<TElement>> CreateListLoader<TElement>(ISearchContext searchContext, By locator, bool enableCache)
+        public ILoader<IList<TElement>> CreateListLoader<TElement>(ISearchContext searchContext, By locator,
+            bool enableCache)
         {
             return CreateListLoader(typeof(TElement), searchContext, locator, enableCache) as ILoader<IList<TElement>>;
         }

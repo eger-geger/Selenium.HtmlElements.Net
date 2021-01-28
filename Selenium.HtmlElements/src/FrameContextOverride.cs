@@ -2,7 +2,6 @@
 using HtmlElements.Elements;
 using HtmlElements.Extensions;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 
 namespace HtmlElements
 {
@@ -17,7 +16,8 @@ namespace HtmlElements
         ///     Switch WebDriver context to frame wrapped by given element
         /// </summary>
         /// <param name="frameElement">Frame which will became active</param>
-        public FrameContextOverride(HtmlFrame frameElement) : this(frameElement.WrappedDriver, frameElement.ToRawWebElement())
+        public FrameContextOverride(HtmlFrame frameElement) : this(frameElement.WrappedDriver,
+            frameElement.ToRawWebElement())
         {
         }
 
@@ -34,16 +34,8 @@ namespace HtmlElements
             }
 
             _wrappedDriver = webDriver ?? throw new ArgumentNullException(nameof(webDriver));
-                
-            webDriver.SwitchTo().Frame(frameElement);
-        }
 
-        /// <summary>
-        ///     Driver instance which context get switched
-        /// </summary>
-        public IWebDriver WrappedDriver
-        {
-            get { return _wrappedDriver; }
+            webDriver.SwitchTo().Frame(frameElement);
         }
 
         /// <summary>
@@ -52,6 +44,14 @@ namespace HtmlElements
         public void Dispose()
         {
             _wrappedDriver.SwitchTo().DefaultContent();
+        }
+
+        /// <summary>
+        ///     Driver instance which context get switched
+        /// </summary>
+        public IWebDriver WrappedDriver
+        {
+            get { return _wrappedDriver; }
         }
     }
 }

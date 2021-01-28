@@ -2,8 +2,8 @@
 using HtmlElements.Extensions;
 using OpenQA.Selenium;
 
-namespace HtmlElements.Elements {
-
+namespace HtmlElements.Elements
+{
     /// <summary>
     ///     Models HTML link element and exposes it's attributes as properties
     /// </summary>
@@ -20,23 +20,10 @@ namespace HtmlElements.Elements {
         }
 
         /// <summary>
-        ///     Absolute URL which link is pointing to
-        /// </summary>
-        public string Url {
-            get {
-                var windowLocation = new Uri(WrappedDriver.Url);
-
-                var linkHref = Href;
-
-                return linkHref.Contains(Uri.UriSchemeHttp) || linkHref.Contains(Uri.UriSchemeHttps)
-                    ? linkHref : string.Format("{0}://{1}{2}", windowLocation.Scheme, windowLocation.Host, linkHref);
-            }
-        }
-
-        /// <summary>
         ///     Gets or sets 'href' attribute of the underlying link element or null if it does not exist
         /// </summary>
-        public string Href {
+        public string Href
+        {
             get { return GetAttribute("href"); }
             set { this.SetAttribute("href", value); }
         }
@@ -44,10 +31,27 @@ namespace HtmlElements.Elements {
         /// <summary>
         ///     Gets or sets 'target' attribute of the underlying link element or null if it does not exist
         /// </summary>
-        public string Target {
+        public string Target
+        {
             get { return GetAttribute("target"); }
             set { this.SetAttribute("target", value); }
         }
-    }
 
+        /// <summary>
+        ///     Absolute URL which link is pointing to
+        /// </summary>
+        public string Url
+        {
+            get
+            {
+                var windowLocation = new Uri(WrappedDriver.Url);
+
+                var linkHref = Href;
+
+                return linkHref.Contains(Uri.UriSchemeHttp) || linkHref.Contains(Uri.UriSchemeHttps)
+                    ? linkHref
+                    : string.Format("{0}://{1}{2}", windowLocation.Scheme, windowLocation.Host, linkHref);
+            }
+        }
+    }
 }

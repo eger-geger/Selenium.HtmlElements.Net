@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using HtmlElements.Extensions;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 
 namespace HtmlElements
 {
@@ -47,11 +46,6 @@ namespace HtmlElements
 
                 return _pageObjectFactory;
             }
-        }
-
-        internal void SetPageObjectFactory(IPageObjectFactory pageObjectFactory)
-        {
-            _pageObjectFactory = pageObjectFactory;
         }
 
         /// <summary>
@@ -179,36 +173,6 @@ namespace HtmlElements
         }
 
         /// <summary>
-        ///     Finds the first <see cref="IWebElement"/> using given method and creates a page object of given type wrapping the element.
-        /// </summary>
-        /// <typeparam name="TElement">
-        ///     The type of the element.
-        /// </typeparam>
-        /// <param name="by">The locating mechanism to use.</param>
-        /// <returns>
-        ///     The first matching <see cref="IWebElement" /> on the current context wrapped by page object instance of given type.
-        /// </returns>
-        public TElement FindElement<TElement>(By @by) where TElement:class 
-        {
-            return PageObjectFactory.CreateWebElement<TElement>(_webDriverOrWrapper, @by);
-        }
-
-        /// <summary>
-        ///     Finds all <see cref="IWebElement">IWebElements</see> within the current context using the given mechanism and creates page objects wrapping it.
-        /// </summary>
-        /// <param name="by">
-        ///     The locating mechanism to use.
-        /// </param>
-        /// <returns>
-        ///     A <see cref="IList{T}" /> of all <see cref="IWebElement">WebElements</see> matching the current criteria
-        ///     wrapped by page objects instances of given type, or an empty list if nothing matches.
-        /// </returns>
-        public IList<TElement> FindElements<TElement>(By @by) where TElement:class 
-        {
-            return PageObjectFactory.CreateWebElementList<TElement>(_webDriverOrWrapper, @by);
-        }
-
-        /// <summary>
         ///     Gets the <see cref="T:OpenQA.Selenium.IWebDriver" /> wrapped by current page object instance.
         /// </summary>
         /// <exception cref="InvalidOperationException">
@@ -229,6 +193,41 @@ namespace HtmlElements
 
                 return wrappedDriver;
             }
+        }
+
+        internal void SetPageObjectFactory(IPageObjectFactory pageObjectFactory)
+        {
+            _pageObjectFactory = pageObjectFactory;
+        }
+
+        /// <summary>
+        ///     Finds the first <see cref="IWebElement"/> using given method and creates a page object of given type wrapping the element.
+        /// </summary>
+        /// <typeparam name="TElement">
+        ///     The type of the element.
+        /// </typeparam>
+        /// <param name="by">The locating mechanism to use.</param>
+        /// <returns>
+        ///     The first matching <see cref="IWebElement" /> on the current context wrapped by page object instance of given type.
+        /// </returns>
+        public TElement FindElement<TElement>(By @by) where TElement : class
+        {
+            return PageObjectFactory.CreateWebElement<TElement>(_webDriverOrWrapper, @by);
+        }
+
+        /// <summary>
+        ///     Finds all <see cref="IWebElement">IWebElements</see> within the current context using the given mechanism and creates page objects wrapping it.
+        /// </summary>
+        /// <param name="by">
+        ///     The locating mechanism to use.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="IList{T}" /> of all <see cref="IWebElement">WebElements</see> matching the current criteria
+        ///     wrapped by page objects instances of given type, or an empty list if nothing matches.
+        /// </returns>
+        public IList<TElement> FindElements<TElement>(By @by) where TElement : class
+        {
+            return PageObjectFactory.CreateWebElementList<TElement>(_webDriverOrWrapper, @by);
         }
 
         /// <summary>

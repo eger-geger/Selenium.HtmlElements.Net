@@ -12,11 +12,15 @@ namespace HtmlElements.Test.LazyLoad
     public class DefaultLoaderFactoryTests
     {
         private LoaderFactory _loaderFactory;
+
         private Mock<IPageObjectFactory> _pageObjectFactoryMock;
+
         private Mock<IProxyFactory> _proxyFactoryMock;
+
         private Mock<IHtmlElement> _searchContextMock;
+
         private Mock<IWebDriver> _webDriverMock;
-        
+
         [SetUp]
         public void SetUpMock()
         {
@@ -126,7 +130,7 @@ namespace HtmlElements.Test.LazyLoad
         public void ShouldCreateListLoaderInstanceOfGivenType()
         {
             Assert.That(
-                _loaderFactory.CreateListLoader(typeof (HtmlElement), _searchContextMock.Object, By.Id("any"), true),
+                _loaderFactory.CreateListLoader(typeof(HtmlElement), _searchContextMock.Object, By.Id("any"), true),
                 Is.Not.Null.And.InstanceOf<ILoader<IList<HtmlElement>>>()
             );
 

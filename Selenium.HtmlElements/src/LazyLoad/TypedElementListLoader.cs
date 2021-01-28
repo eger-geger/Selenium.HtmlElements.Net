@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using HtmlElements.Proxy;
@@ -10,12 +9,14 @@ namespace HtmlElements.LazyLoad
     internal class TypedElementListLoader<TElement> : CachingLoader<IList<TElement>>
     {
         private readonly ILoader<ReadOnlyCollection<IWebElement>> _elementListLoader;
+
         private readonly IPageObjectFactory _pageObjectFactory;
+
         private readonly IProxyFactory _proxyFactory;
 
         public TypedElementListLoader(
             ILoader<ReadOnlyCollection<IWebElement>> elementListLoader,
-            IPageObjectFactory pageObjectFactory, 
+            IPageObjectFactory pageObjectFactory,
             IProxyFactory proxyFactory,
             bool enableCache) : base(enableCache)
         {
@@ -23,6 +24,8 @@ namespace HtmlElements.LazyLoad
             _pageObjectFactory = pageObjectFactory;
             _proxyFactory = proxyFactory;
         }
+
+        public override ISearchContext SearchContext => _elementListLoader.SearchContext;
 
         public override void Reset()
         {
@@ -42,8 +45,6 @@ namespace HtmlElements.LazyLoad
                 _proxyFactory.CreateWebElementProxy(new WebElementListItemLoader(_elementListLoader, index, element))
             );
         }
-
-        public override ISearchContext SearchContext => _elementListLoader.SearchContext;
 
         public override string ToString()
         {

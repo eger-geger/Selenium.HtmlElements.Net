@@ -9,6 +9,11 @@ namespace HtmlElements.LazyLoad
     public interface ILoader<out TObject>
     {
         /// <summary>
+        ///     Context used to load WebElement or WebElement list.
+        /// </summary>
+        ISearchContext SearchContext { get; }
+
+        /// <summary>
         ///     Create new object instance or take it from cache
         /// </summary>
         /// <returns>Newly created or cached instance.</returns>
@@ -24,10 +29,5 @@ namespace HtmlElements.LazyLoad
         /// </summary>
         /// <returns>Newly created or cached instance.</returns>
         TObject ResetAndLoad();
-
-        /// <summary>
-        ///     Context used to load WebElement or WebElement list.
-        /// </summary>
-        ISearchContext SearchContext { get; }
     }
 }

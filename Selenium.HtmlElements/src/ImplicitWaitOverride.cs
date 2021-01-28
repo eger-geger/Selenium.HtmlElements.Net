@@ -1,6 +1,5 @@
 ﻿using System;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 
 namespace HtmlElements
 {
@@ -11,9 +10,9 @@ namespace HtmlElements
     {
         private readonly TimeSpan _defaultImplicitWait;
 
-        private TimeSpan _overriddenImplicitWait;
-
         private readonly IWebDriver _wrappedDriver;
+
+        private TimeSpan _overriddenImplicitWait;
 
         /// <summary>
         ///     Create new override for a given browser with provided default value. 
@@ -34,22 +33,12 @@ namespace HtmlElements
         /// <param name="wrappedDriver">Driver which implicit wait timeout should be overridden</param>
         /// <param name="defaultImplicitWait">Default implicit wait timeout set when override is being disposed</param>
         /// <param name="overridenImplicitWait">Implicit wait timeout to be set for a given WebDriver instance</param>
-        public ImplicitWaitOverride(IWebDriver wrappedDriver, TimeSpan defaultImplicitWait, TimeSpan overridenImplicitWait)
+        public ImplicitWaitOverride(IWebDriver wrappedDriver, TimeSpan defaultImplicitWait,
+            TimeSpan overridenImplicitWait)
         {
             _wrappedDriver = wrappedDriver;
             _defaultImplicitWait = defaultImplicitWait;
             ImplicitWaitTimeout = overridenImplicitWait;
-        }
-
-        /// <summary>
-        ///     Driver instance which timeout get updated
-        /// </summary>
-        public IWebDriver WrappedDriver
-        {
-            get
-            {
-                return _wrappedDriver;
-            }
         }
 
         /// <summary>
@@ -67,6 +56,14 @@ namespace HtmlElements
         public void Dispose()
         {
             ImplicitWaitTimeout = _defaultImplicitWait;
+        }
+
+        /// <summary>
+        ///     Driver instance which timeout get updated
+        /// </summary>
+        public IWebDriver WrappedDriver
+        {
+            get { return _wrappedDriver; }
         }
     }
 }

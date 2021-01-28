@@ -1,20 +1,22 @@
 ﻿using HtmlElements.Extensions;
 using OpenQA.Selenium;
 
-namespace HtmlElements.Elements {
-
+namespace HtmlElements.Elements
+{
     /// <summary>
     ///     Models options within HTML select element
     /// </summary>
-    public class HtmlSelectOption : HtmlControl {
-
+    public class HtmlSelectOption : HtmlControl
+    {
         /// <summary>
         ///     Initializes new instance of HTML element by calling base class constructor
         /// </summary>
         /// <param name="webElement">
         ///     WebElement wrapping WebDriver instance
         /// </param>
-        public HtmlSelectOption(IWebElement webElement) : base(webElement) {}
+        public HtmlSelectOption(IWebElement webElement) : base(webElement)
+        {
+        }
 
         /// <summary>
         ///     Mark option as selected.
@@ -32,5 +34,4 @@ namespace HtmlElements.Elements {
             this.Do(Click).Until(() => !Selected);
         }
     }
-
 }

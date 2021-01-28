@@ -42,7 +42,8 @@ namespace HtmlElements.LazyLoad
         /// <returns>
         ///     Loader instance.
         /// </returns>
-        ILoader<ReadOnlyCollection<IWebElement>> CreateElementListLoader(ISearchContext searchContext, By locator, bool enableCache);
+        ILoader<ReadOnlyCollection<IWebElement>> CreateElementListLoader(ISearchContext searchContext, By locator,
+            bool enableCache);
 
         /// <summary>
         ///     Create list loader wrapping web elements loader.

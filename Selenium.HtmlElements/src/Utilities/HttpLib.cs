@@ -45,7 +45,7 @@ namespace HtmlElements.Utilities
                 ? Uri.UnescapeDataString(pair[1])
                 : string.Empty;
 
-            return new []{name, value};
+            return new[] {name, value};
         }
     }
 }

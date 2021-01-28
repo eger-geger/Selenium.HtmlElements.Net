@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using OpenQA.Selenium;
 
 namespace HtmlElements.Elements
@@ -16,7 +15,9 @@ namespace HtmlElements.Elements
         /// <param name="wrapped">
         ///     WebElement wrapping WebDriver instance.
         /// </param>
-        public HtmlTable(IWebElement wrapped) : base(wrapped) { }
+        public HtmlTable(IWebElement wrapped) : base(wrapped)
+        {
+        }
 
         /// <summary>
         ///     Get list of cells in a column with given index.
@@ -45,6 +46,5 @@ namespace HtmlElements.Elements
         {
             return FindElements<HtmlElement>(By.CssSelector(string.Format("tr:nth-child({0})>*", index)));
         }
-
     }
 }

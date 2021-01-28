@@ -10,7 +10,6 @@ namespace HtmlElements.Proxy
     /// </summary>
     public class ProxyFactory : IProxyFactory
     {
-
         /// <summary>
         ///     Creates <see cref="IWebElement"/> instance using <paramref name="loader"/> to get raw <see cref="IWebElement"/> and delegating calls to it.
         /// </summary>
@@ -65,11 +64,12 @@ namespace HtmlElements.Proxy
             if (!expectedLoaderType.IsInstanceOfType(loader))
             {
                 throw new ArgumentException(
-                    string.Format("Wrong loader type: expected [{0}] but was [{1}]", expectedLoaderType, loader.GetType()), nameof(loader)
+                    string.Format("Wrong loader type: expected [{0}] but was [{1}]", expectedLoaderType,
+                        loader.GetType()), nameof(loader)
                 );
             }
 
-            return Activator.CreateInstance(typeof (ElementListProxy<>).MakeGenericType(elementType), loader);
+            return Activator.CreateInstance(typeof(ElementListProxy<>).MakeGenericType(elementType), loader);
         }
 
         /// <summary>

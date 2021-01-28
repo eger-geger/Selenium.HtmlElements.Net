@@ -1,5 +1,4 @@
-﻿using System;
-using HtmlElements.Elements;
+﻿using HtmlElements.Elements;
 using HtmlElements.LazyLoad;
 using HtmlElements.Proxy;
 using NUnit.Framework;
@@ -64,11 +63,11 @@ namespace HtmlElements.IntegrationTests
         {
             var element = PageAlpha.CachedElementListItems[0];
 
-            Assert.That(element.ToString(), 
+            Assert.That(element.ToString(),
                 Does.Contain(typeof(HtmlElement).Name)
-                .And.Contain(typeof(WebElementProxy).Name)
-                .And.Contain(typeof(WebElementListItemLoader).Name)
-                .And.Contain(typeof(WebElementListLoader).Name));
+                    .And.Contain(typeof(WebElementProxy).Name)
+                    .And.Contain(typeof(WebElementListItemLoader).Name)
+                    .And.Contain(typeof(WebElementListLoader).Name));
         }
     }
 }

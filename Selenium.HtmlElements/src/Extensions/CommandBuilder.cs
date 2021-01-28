@@ -11,8 +11,11 @@ namespace HtmlElements.Extensions
     public class CommandBuilder<TTarget>
     {
         private readonly List<Type> _ignoredExceptionTypes = new List<Type>();
+
         private readonly DefaultWait<CommandBuilder<TTarget>> _wait;
+
         private Action<TTarget> _command;
+
         private TTarget _target;
 
         /// <summary>

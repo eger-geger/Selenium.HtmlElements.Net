@@ -1,5 +1,4 @@
-﻿using System;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace HtmlElements.LazyLoad
 {
@@ -44,8 +43,8 @@ namespace HtmlElements.LazyLoad
             return Load();
         }
 
-        protected abstract TObject ExecuteLoad();
-
         public abstract ISearchContext SearchContext { get; }
+
+        protected abstract TObject ExecuteLoad();
     }
 }

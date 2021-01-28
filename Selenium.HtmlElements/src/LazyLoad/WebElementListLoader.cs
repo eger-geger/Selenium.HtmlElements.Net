@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 
 namespace HtmlElements.LazyLoad
@@ -15,16 +14,17 @@ namespace HtmlElements.LazyLoad
             SearchContext = searchContext;
         }
 
+        public override ISearchContext SearchContext { get; }
+
         protected override ReadOnlyCollection<IWebElement> ExecuteLoad()
         {
             return SearchContext.FindElements(_locator);
         }
 
-        public override ISearchContext SearchContext { get; }
-
         public override string ToString()
         {
-            return string.Format("{0} providing list of elements found with [{1}] in [{2}]", GetType().Name, _locator, SearchContext);
+            return string.Format("{0} providing list of elements found with [{1}] in [{2}]", GetType().Name, _locator,
+                SearchContext);
         }
     }
 }

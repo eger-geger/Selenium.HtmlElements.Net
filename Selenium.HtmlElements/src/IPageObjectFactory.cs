@@ -39,7 +39,7 @@ namespace HtmlElements
         /// <returns>
         ///     Fully initialized page object using WebElement found in <paramref name="searchContext"/> with <paramref name="locator"/> for finding nested elements.
         /// </returns>
-        TPageObject CreateWebElement<TPageObject>(ISearchContext searchContext, By locator) where TPageObject:class;
+        TPageObject CreateWebElement<TPageObject>(ISearchContext searchContext, By locator) where TPageObject : class;
 
         /// <summary>
         ///     Creates list of WebElements found with provided locator in given search context.

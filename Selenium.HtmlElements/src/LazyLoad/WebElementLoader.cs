@@ -1,5 +1,4 @@
-﻿using System;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace HtmlElements.LazyLoad
 {
@@ -14,12 +13,12 @@ namespace HtmlElements.LazyLoad
             SearchContext = searchContext;
         }
 
+        public override ISearchContext SearchContext { get; }
+
         protected override IWebElement ExecuteLoad()
         {
             return SearchContext.FindElement(_locator);
         }
-
-        public override ISearchContext SearchContext { get; }
 
         public override string ToString()
         {

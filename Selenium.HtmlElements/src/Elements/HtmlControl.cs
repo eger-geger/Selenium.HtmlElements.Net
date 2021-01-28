@@ -19,15 +19,6 @@ namespace HtmlElements.Elements
         }
 
         /// <summary>
-        ///     Value assigned to control
-        /// </summary>
-        public string Value
-        {
-            get { return GetAttribute("value"); }
-            set { this.SetAttribute("value", value); }
-        }
-
-        /// <summary>
         ///     Disabled/enabled control state
         /// </summary>
         public bool Disabled
@@ -44,6 +35,15 @@ namespace HtmlElements.Elements
                     this.RemoveAttribute("disabled");
                 }
             }
+        }
+
+        /// <summary>
+        ///     Value assigned to control
+        /// </summary>
+        public string Value
+        {
+            get { return GetAttribute("value"); }
+            set { this.SetAttribute("value", value); }
         }
     }
 }

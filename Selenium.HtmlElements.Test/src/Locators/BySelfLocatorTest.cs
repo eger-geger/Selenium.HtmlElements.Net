@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using HtmlElements.Elements;
 using HtmlElements.Locators;
@@ -12,8 +11,9 @@ namespace HtmlElements.Test.Locators
 {
     [TestOf(typeof(ByDefaultLocator))]
     public class BySelfLocatorTest
-    { 
+    {
         private const string WebElementName = "CustomWebElement";
+
         private static IEnumerable<TestCaseData> testCases = new List<TestCaseData>
         {
             new TestCaseData(typeof(IWebElement)).Returns(
@@ -22,7 +22,7 @@ namespace HtmlElements.Test.Locators
             new TestCaseData(typeof(WithDefaultLocator)).Returns(By.Id("any"))
         };
 
-        
+
         public class WithEmptyLocator : HtmlElement
         {
             public WithEmptyLocator(IWebElement webElement) : base(webElement)

@@ -3,247 +3,247 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.PageObjects;
 
 namespace HtmlElements.Elements
 {
-  /// <summary>
-  /// Models HTML select element and provides access to it's options
-  /// </summary>
-  public class HtmlSelect : HtmlControl, IList<HtmlSelectOption>
-  {
-    private readonly Lazy<SelectElement> _lazySelectElement;
-
     /// <summary>
-    /// Initializes new instance of HTML element by calling base class constructor
+    /// Models HTML select element and provides access to it's options
     /// </summary>
-    /// <param name="webElement">WebElement wrapping WebDriver instance</param>
-    public HtmlSelect(IWebElement webElement) : base(webElement)
+    public class HtmlSelect : HtmlControl, IList<HtmlSelectOption>
     {
-      _lazySelectElement = new Lazy<SelectElement>(() => new SelectElement(webElement));
-    }
+        private readonly Lazy<SelectElement> _lazySelectElement;
 
-    /// <summary>
-    /// Gets a value indicating whether select element supports multiple selections.
-    /// </summary>
-    public bool IsMultiple
-    {
-      get
-      {
-        var multiple = GetAttribute("multiple");
-
-        return multiple != null && bool.Parse(multiple);
-      }
-    }
-
-    /// <summary>
-    /// Gets the list of options for the select element.
-    /// </summary>
-    [FindsBy(How = How.TagName, Using = "option")]
-    public IList<HtmlSelectOption> Options { get; private set; }
-
-    /// <summary>
-    /// Gets all of the selected options within the select element
-    /// </summary>
-    [FindsBy(How = How.CssSelector, Using = "option[selected]")]
-    public IList<HtmlSelectOption> SelectedOptions { get; private set; }
-
-    /// <summary>
-    /// Gets the selected item within the select element. If more than one item is selected this
-    /// will return the first item.
-    /// </summary>
-    /// <exception cref="OpenQA.Selenium.NoSuchElementException">Thrown if no option is selected.</exception>
-    public HtmlSelectOption SelectedOption
-    {
-      get
-      {
-        var selected = SelectedOptions.FirstOrDefault();
-
-        if (selected == null)
+        /// <summary>
+        /// Initializes new instance of HTML element by calling base class constructor
+        /// </summary>
+        /// <param name="webElement">WebElement wrapping WebDriver instance</param>
+        public HtmlSelect(IWebElement webElement) : base(webElement)
         {
-          throw new NoSuchElementException("There are no selected options");
+            _lazySelectElement = new Lazy<SelectElement>(() => new SelectElement(webElement));
         }
 
-        return selected;
-      }
-    }
+        /// <summary>
+        /// Gets a value indicating whether select element supports multiple selections.
+        /// </summary>
+        public bool IsMultiple
+        {
+            get
+            {
+                var multiple = GetAttribute("multiple");
 
-    /// <summary>
-    /// Returns an enumerator that iterates through select options.
-    /// </summary>
-    /// <returns>
-    /// An <see cref="System.Collections.IEnumerator"/> object that can be used to iterate through
-    /// select options.
-    /// </returns>
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
+                return multiple != null && bool.Parse(multiple);
+            }
+        }
 
-    /// <summary>
-    /// Gets select option at the specified index. Using setter will trigger <see cref="System.NotSupportedException"/>
-    /// </summary>
-    /// <param name="index">The zero-based index of the select option to get.</param>
-    /// <returns>The select option at the specified index.</returns>
-    /// <exception cref="NotSupportedException">Thrown when attempted to set property value.</exception>
-    public HtmlSelectOption this[int index]
-    {
-      get { return Options[index]; }
-      set { throw ModificationAttemptException; }
-    }
+        private static NotSupportedException ModificationAttemptException
+        {
+            get { return new NotSupportedException("Attempted to modify read-only collection"); }
+        }
 
-    /// <summary>
-    /// Not supported. Calling it will trigger <see cref="System.NotSupportedException"/>.
-    /// </summary>
-    /// <exception cref="System.NotSupportedException">Thrown on any attempt to use method.</exception>
-    public void RemoveAt(int index)
-    {
-      throw ModificationAttemptException;
-    }
+        /// <summary>
+        /// Gets the list of options for the select element.
+        /// </summary>
+        [FindsBy(How = How.TagName, Using = "option")]
+        public IList<HtmlSelectOption> Options { get; private set; }
 
-    /// <summary>
-    /// Not supported. Calling it will trigger <see cref="System.NotSupportedException"/>.
-    /// </summary>
-    /// <exception cref="System.NotSupportedException">Thrown on any attempt to use method.</exception>
-    public void Insert(int index, HtmlSelectOption item)
-    {
-      throw ModificationAttemptException;
-    }
+        /// <summary>
+        /// Gets the selected item within the select element. If more than one item is selected this
+        /// will return the first item.
+        /// </summary>
+        /// <exception cref="OpenQA.Selenium.NoSuchElementException">Thrown if no option is selected.</exception>
+        public HtmlSelectOption SelectedOption
+        {
+            get
+            {
+                var selected = SelectedOptions.FirstOrDefault();
 
-    /// <summary>
-    /// Determines the index of a specific option among other select options.
-    /// </summary>
-    /// <param name="item">The options to locate in select element.</param>
-    /// <returns>The index of item if found; otherwise, -1.</returns>
-    public int IndexOf(HtmlSelectOption item)
-    {
-      return Options.IndexOf(item);
-    }
+                if (selected == null)
+                {
+                    throw new NoSuchElementException("There are no selected options");
+                }
 
-    /// <summary>
-    /// Always returns <value>true</value> since list is read-only
-    /// </summary>
-    public bool IsReadOnly
-    {
-      get { return true; }
-    }
+                return selected;
+            }
+        }
 
-    /// <summary>
-    /// Gets the number of options contained in select element.
-    /// </summary>
-    public int Count
-    {
-      get { return Options.Count; }
-    }
+        /// <summary>
+        /// Gets all of the selected options within the select element
+        /// </summary>
+        [FindsBy(How = How.CssSelector, Using = "option[selected]")]
+        public IList<HtmlSelectOption> SelectedOptions { get; private set; }
 
-    /// <summary>
-    /// Not supported. Calling it will trigger <see cref="System.NotSupportedException"/>.
-    /// </summary>
-    /// <exception cref="System.NotSupportedException">Thrown on any attempt to use method.</exception>
-    public bool Remove(HtmlSelectOption item)
-    {
-      throw ModificationAttemptException;
-    }
+        /// <summary>
+        /// Returns an enumerator that iterates through select options.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="System.Collections.IEnumerator"/> object that can be used to iterate through
+        /// select options.
+        /// </returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
-    /// <summary>
-    /// Copies select element options to an <see cref="System.Array"/>, starting at a particular
-    /// <see cref="System.Array"/> index.
-    /// </summary>
-    /// <param name="array">
-    /// The one-dimensional <see cref="System.Array"/> that is the destination of the copied select
-    /// options. The <see cref="System.Array"/> must have zero-based indexing.
-    /// </param>
-    /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
-    public void CopyTo(HtmlSelectOption[] array, int arrayIndex)
-    {
-      Options.CopyTo(array, arrayIndex);
-    }
+        /// <summary>
+        /// Gets select option at the specified index. Using setter will trigger <see cref="System.NotSupportedException"/>
+        /// </summary>
+        /// <param name="index">The zero-based index of the select option to get.</param>
+        /// <returns>The select option at the specified index.</returns>
+        /// <exception cref="NotSupportedException">Thrown when attempted to set property value.</exception>
+        public HtmlSelectOption this[int index]
+        {
+            get { return Options[index]; }
+            set { throw ModificationAttemptException; }
+        }
 
-    /// <summary>
-    /// Determines whether the select element contains a specific option.
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    public bool Contains(HtmlSelectOption item)
-    {
-      return Options.Contains(item);
-    }
+        /// <summary>
+        /// Not supported. Calling it will trigger <see cref="System.NotSupportedException"/>.
+        /// </summary>
+        /// <exception cref="System.NotSupportedException">Thrown on any attempt to use method.</exception>
+        public void RemoveAt(int index)
+        {
+            throw ModificationAttemptException;
+        }
 
-    /// <summary>
-    /// Not supported. Calling it will trigger <see cref="System.NotSupportedException"/>.
-    /// </summary>
-    /// <exception cref="System.NotSupportedException">Thrown on any attempt to use method.</exception>
-    public void Add(HtmlSelectOption item)
-    {
-      throw ModificationAttemptException;
-    }
+        /// <summary>
+        /// Not supported. Calling it will trigger <see cref="System.NotSupportedException"/>.
+        /// </summary>
+        /// <exception cref="System.NotSupportedException">Thrown on any attempt to use method.</exception>
+        public void Insert(int index, HtmlSelectOption item)
+        {
+            throw ModificationAttemptException;
+        }
 
-    /// <summary>
-    /// Returns an enumerator that iterates through select options.
-    /// </summary>
-    /// <returns>
-    /// A <see cref="System.Collections.Generic.IEnumerator{T}"/> that can be used to iterate
-    /// through select options.
-    /// </returns>
-    public IEnumerator<HtmlSelectOption> GetEnumerator()
-    {
-      return Options.GetEnumerator();
-    }
+        /// <summary>
+        /// Determines the index of a specific option among other select options.
+        /// </summary>
+        /// <param name="item">The options to locate in select element.</param>
+        /// <returns>The index of item if found; otherwise, -1.</returns>
+        public int IndexOf(HtmlSelectOption item)
+        {
+            return Options.IndexOf(item);
+        }
 
-    /// <summary>
-    /// Select all options by the text displayed.
-    /// </summary>
-    /// <param name="text">
-    /// The text of the option to be selected. If an exact match is not found, this method will
-    /// perform a substring match.
-    /// </param>
-    public void SelectByText(string text)
-    {
-      _lazySelectElement.Value.SelectByText(text);
-    }
+        /// <summary>
+        /// Always returns <value>true</value> since list is read-only
+        /// </summary>
+        public bool IsReadOnly
+        {
+            get { return true; }
+        }
 
-    /// <summary>
-    /// Select an option by the value.
-    /// </summary>
-    /// <param name="value">The value of the option to be selected.</param>
-    public void SelectByValue(string value)
-    {
-      _lazySelectElement.Value.SelectByValue(value);
-    }
+        /// <summary>
+        /// Gets the number of options contained in select element.
+        /// </summary>
+        public int Count
+        {
+            get { return Options.Count; }
+        }
 
-    /// <summary>
-    /// Clear all selected entries. This is only valid when the SELECT supports multiple selections.
-    /// </summary>
-    /// <exception cref="OpenQA.Selenium.WebDriverException">
-    /// Thrown when attempting to deselect all options from a SELECT that does not support multiple selections.
-    /// </exception>
-    public void DeselectAll()
-    {
-      _lazySelectElement.Value.DeselectAll();
-    }
+        /// <summary>
+        /// Not supported. Calling it will trigger <see cref="System.NotSupportedException"/>.
+        /// </summary>
+        /// <exception cref="System.NotSupportedException">Thrown on any attempt to use method.</exception>
+        public bool Remove(HtmlSelectOption item)
+        {
+            throw ModificationAttemptException;
+        }
 
-    /// <summary>
-    /// Deselect the option by the text displayed.
-    /// </summary>
-    /// <param name="text">The text of the option to be deselected.</param>
-    public void DeselectByText(string text)
-    {
-      _lazySelectElement.Value.DeselectByText(text);
-    }
+        /// <summary>
+        /// Copies select element options to an <see cref="System.Array"/>, starting at a particular
+        /// <see cref="System.Array"/> index.
+        /// </summary>
+        /// <param name="array">
+        /// The one-dimensional <see cref="System.Array"/> that is the destination of the copied select
+        /// options. The <see cref="System.Array"/> must have zero-based indexing.
+        /// </param>
+        /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+        public void CopyTo(HtmlSelectOption[] array, int arrayIndex)
+        {
+            Options.CopyTo(array, arrayIndex);
+        }
 
-    /// <summary>
-    /// Deselect the option having value matching the specified text.
-    /// </summary>
-    /// <param name="value">The value of the option to deselect.</param>
-    public void DeselectByValue(string value)
-    {
-      _lazySelectElement.Value.DeselectByValue(value);
-    }
+        /// <summary>
+        /// Determines whether the select element contains a specific option.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public bool Contains(HtmlSelectOption item)
+        {
+            return Options.Contains(item);
+        }
 
-    private static NotSupportedException ModificationAttemptException
-    {
-      get { return new NotSupportedException("Attempted to modify read-only collection"); }
+        /// <summary>
+        /// Not supported. Calling it will trigger <see cref="System.NotSupportedException"/>.
+        /// </summary>
+        /// <exception cref="System.NotSupportedException">Thrown on any attempt to use method.</exception>
+        public void Add(HtmlSelectOption item)
+        {
+            throw ModificationAttemptException;
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through select options.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.Collections.Generic.IEnumerator{T}"/> that can be used to iterate
+        /// through select options.
+        /// </returns>
+        public IEnumerator<HtmlSelectOption> GetEnumerator()
+        {
+            return Options.GetEnumerator();
+        }
+
+        /// <summary>
+        /// Select all options by the text displayed.
+        /// </summary>
+        /// <param name="text">
+        /// The text of the option to be selected. If an exact match is not found, this method will
+        /// perform a substring match.
+        /// </param>
+        public void SelectByText(string text)
+        {
+            _lazySelectElement.Value.SelectByText(text);
+        }
+
+        /// <summary>
+        /// Select an option by the value.
+        /// </summary>
+        /// <param name="value">The value of the option to be selected.</param>
+        public void SelectByValue(string value)
+        {
+            _lazySelectElement.Value.SelectByValue(value);
+        }
+
+        /// <summary>
+        /// Clear all selected entries. This is only valid when the SELECT supports multiple selections.
+        /// </summary>
+        /// <exception cref="OpenQA.Selenium.WebDriverException">
+        /// Thrown when attempting to deselect all options from a SELECT that does not support multiple selections.
+        /// </exception>
+        public void DeselectAll()
+        {
+            _lazySelectElement.Value.DeselectAll();
+        }
+
+        /// <summary>
+        /// Deselect the option by the text displayed.
+        /// </summary>
+        /// <param name="text">The text of the option to be deselected.</param>
+        public void DeselectByText(string text)
+        {
+            _lazySelectElement.Value.DeselectByText(text);
+        }
+
+        /// <summary>
+        /// Deselect the option having value matching the specified text.
+        /// </summary>
+        /// <param name="value">The value of the option to deselect.</param>
+        public void DeselectByValue(string value)
+        {
+            _lazySelectElement.Value.DeselectByValue(value);
+        }
     }
-  }
 }

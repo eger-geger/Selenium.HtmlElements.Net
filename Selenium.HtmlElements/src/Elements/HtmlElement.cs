@@ -3,17 +3,14 @@ using System.Drawing;
 using System.Linq;
 using HtmlElements.Extensions;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 
 namespace HtmlElements.Elements
 {
-
     /// <summary>
     ///     Models HTML DOM element providing access to common attributes and properties
     /// </summary>
     public class HtmlElement : WebDriverWrapper, IHtmlElement
     {
-
         private readonly IWebElement _wrappedElement;
 
         ///<summary>
@@ -31,10 +28,70 @@ namespace HtmlElements.Elements
         }
 
         /// <summary>
+        ///    Gets or sets 'class' attribute of the underlying DOM element or null if it does not exist
+        /// </summary>
+        public string Class
+        {
+            get { return GetAttribute("class"); }
+            set { this.SetAttribute("class", value); }
+        }
+
+        /// <summary>
         /// Defines default root web element locator. [FindsBy] attribute overrides default value />
         /// </summary>
         public virtual By DefaultLocator { get; }
-        
+
+        /// <summary>
+        ///     First child node of the web element, as a web element
+        /// </summary>
+        public IWebElement FirstChild
+        {
+            get { return this.GetProperty<IWebElement>("firstElementChild"); }
+        }
+
+        /// <summary>
+        ///     Gets or sets 'id' attribute of the underlying DOM element or null if it does not exist
+        /// </summary>
+        public string Id
+        {
+            get { return GetAttribute("id"); }
+            set { this.SetAttribute("id", value); }
+        }
+
+        /// <summary>
+        ///     HTML content of an element
+        /// </summary>
+        public string InnerHtml
+        {
+            get { return this.GetProperty<string>("innerHTML"); }
+            set { this.SetPropery("innerHTML", value); }
+        }
+
+        /// <summary>
+        ///     Last child node of the current element, as a web element
+        /// </summary>
+        public IWebElement LastChild
+        {
+            get { return this.GetProperty<IWebElement>("lastElementChild"); }
+        }
+
+        /// <summary>
+        ///     Gets or sets 'name' attribute of the underlying DOM element or null if it does not exist
+        /// </summary>
+        public string Name
+        {
+            get { return GetAttribute("name"); }
+            set { this.SetAttribute("name", value); }
+        }
+
+        /// <summary>
+        ///     The next node of current web element, in the same tree level
+        /// </summary>
+        public IWebElement NextSibling
+        {
+            get { return this.GetProperty<IWebElement>("nextElementSibling"); }
+        }
+
         /// <summary>
         ///     A WebElement, representing the parent node of current element, or null if it has no parent
         /// </summary>
@@ -52,36 +109,12 @@ namespace HtmlElements.Elements
         }
 
         /// <summary>
-        ///     The next node of current web element, in the same tree level
+        ///     Gets or sets 'style' attribute of the underlying DOM element or null if it does not exist
         /// </summary>
-        public IWebElement NextSibling
+        public string Style
         {
-            get { return this.GetProperty<IWebElement>("nextElementSibling"); }
-        }
-
-        /// <summary>
-        ///     First child node of the web element, as a web element
-        /// </summary>
-        public IWebElement FirstChild
-        {
-            get { return this.GetProperty<IWebElement>("firstElementChild"); }
-        }
-
-        /// <summary>
-        ///     Last child node of the current element, as a web element
-        /// </summary>
-        public IWebElement LastChild
-        {
-            get { return this.GetProperty<IWebElement>("lastElementChild"); }
-        }
-
-        /// <summary>
-        ///     HTML content of an element
-        /// </summary>
-        public string InnerHtml
-        {
-            get { return this.GetProperty<string>("innerHTML"); }
-            set { this.SetPropery("innerHTML", value); }
+            get { return GetAttribute("style"); }
+            set { this.SetAttribute("style", value); }
         }
 
         /// <summary>
@@ -93,42 +126,6 @@ namespace HtmlElements.Elements
         {
             get { return GetProperty("textContent") as string; }
             set { this.SetPropery("textContent", value); }
-        }
-
-        /// <summary>
-        ///     Gets or sets 'name' attribute of the underlying DOM element or null if it does not exist
-        /// </summary>
-        public string Name
-        {
-            get { return GetAttribute("name"); }
-            set { this.SetAttribute("name", value); }
-        }
-
-        /// <summary>
-        ///     Gets or sets 'id' attribute of the underlying DOM element or null if it does not exist
-        /// </summary>
-        public string Id
-        {
-            get { return GetAttribute("id"); }
-            set { this.SetAttribute("id", value); }
-        }
-
-        /// <summary>
-        ///    Gets or sets 'class' attribute of the underlying DOM element or null if it does not exist
-        /// </summary>
-        public string Class
-        {
-            get { return GetAttribute("class"); }
-            set { this.SetAttribute("class", value); }
-        }
-
-        /// <summary>
-        ///     Gets or sets 'style' attribute of the underlying DOM element or null if it does not exist
-        /// </summary>
-        public string Style
-        {
-            get { return GetAttribute("style"); }
-            set { this.SetAttribute("style", value); }
         }
 
         /// <summary>
@@ -356,7 +353,5 @@ namespace HtmlElements.Elements
 
             return PageObjectFactory.Create<TPage>(wd);
         }
-
-
     }
 }

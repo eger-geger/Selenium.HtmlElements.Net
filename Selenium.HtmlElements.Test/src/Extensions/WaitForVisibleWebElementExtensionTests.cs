@@ -14,39 +14,41 @@ namespace HtmlElements.Test.Extensions
             {
                 yield return new TestCaseData(
                     new Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement>(
-                        (webElement, timeout, interval, message) => webElement.WaitForVisible(timeout, interval, message)
-                        ),
+                        (webElement, timeout, interval, message) =>
+                            webElement.WaitForVisible(timeout, interval, message)
+                    ),
                     TimeSpan.FromSeconds(5),
                     TimeSpan.FromSeconds(1),
                     "Element did not became visible"
-                    );
+                );
 
                 yield return new TestCaseData(
                     new Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement>(
                         (webElement, timeout, interval, message) => webElement.WaitForVisible(timeout, message)
-                        ),
+                    ),
                     TimeSpan.FromSeconds(5),
                     TimeSpan.FromSeconds(1),
                     "Element did not became visible"
-                    );
+                );
 
                 yield return new TestCaseData(
                     new Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement>(
                         (webElement, timeout, interval, message) => webElement.WaitForVisible(message)
-                        ),
+                    ),
                     TimeSpan.FromSeconds(10),
                     TimeSpan.FromSeconds(1),
                     "Element did not became visible"
-                    );
+                );
 
                 yield return new TestCaseData(
                     new Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement>(
-                        (webElement, timeout, interval, message) => webElement.WaitForVisible(timeout, interval, message)
-                        ),
+                        (webElement, timeout, interval, message) =>
+                            webElement.WaitForVisible(timeout, interval, message)
+                    ),
                     TimeSpan.FromSeconds(5),
                     TimeSpan.FromSeconds(10),
                     "Element did not became visible"
-                    );
+                );
             }
         }
 
@@ -54,53 +56,57 @@ namespace HtmlElements.Test.Extensions
         public void ShouldReturnOnceElementBecameVisible(
             Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement> waitForVisible,
             TimeSpan timeout, TimeSpan pollingInterval, string errorMessage
-            )
+        )
         {
             ElementMock.Setup(e => e.Displayed).Returns(false);
 
-            ExecuteAsync(() => ElementMock.Setup(e => e.Displayed).Returns(true), timeout.Subtract(TimeSpan.FromSeconds(2)));
+            ExecuteAsync(() => ElementMock.Setup(e => e.Displayed).Returns(true),
+                timeout.Subtract(TimeSpan.FromSeconds(2)));
 
-            Assert.That(waitForVisible(ElementMock.Object, timeout, pollingInterval, errorMessage), Is.SameAs(ElementMock.Object));
+            Assert.That(waitForVisible(ElementMock.Object, timeout, pollingInterval, errorMessage),
+                Is.SameAs(ElementMock.Object));
         }
 
         [TestCaseSource(nameof(WaitForVisibleTestCases))]
         public void ShouldHandleNoSuchElementException(
             Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement> waitForVisible,
-            TimeSpan timeout, TimeSpan pollingInterval, string errorMessage    
-            )
+            TimeSpan timeout, TimeSpan pollingInterval, string errorMessage
+        )
         {
             ElementMock.Setup(e => e.Displayed).Throws<NoSuchElementException>();
 
             ExecuteAsync(() => ElementMock.Setup(e => e.Displayed).Returns(true), TimeSpan.FromSeconds(2));
 
-            Assert.That(waitForVisible(ElementMock.Object, timeout, pollingInterval, errorMessage), Is.SameAs(ElementMock.Object));
+            Assert.That(waitForVisible(ElementMock.Object, timeout, pollingInterval, errorMessage),
+                Is.SameAs(ElementMock.Object));
         }
 
         [TestCaseSource(nameof(WaitForVisibleTestCases))]
         public void ShouldHandleStaleElementReferenceException(
             Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement> waitForVisible,
             TimeSpan timeout, TimeSpan pollingInterval, string errorMessage
-            )
+        )
         {
             ElementMock.Setup(e => e.Displayed).Throws<StaleElementReferenceException>();
 
             ExecuteAsync(() => ElementMock.Setup(e => e.Displayed).Returns(true), TimeSpan.FromSeconds(2));
 
-            Assert.That(waitForVisible(ElementMock.Object, timeout, pollingInterval, errorMessage), Is.SameAs(ElementMock.Object));
+            Assert.That(waitForVisible(ElementMock.Object, timeout, pollingInterval, errorMessage),
+                Is.SameAs(ElementMock.Object));
         }
 
         [TestCaseSource(nameof(WaitForVisibleTestCases))]
         public void ShouldThrowWebDriverTimeoutExceptionWithGivenMessage(
-            Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement> waitForVisible, 
+            Func<IWebElement, TimeSpan, TimeSpan, string, IWebElement> waitForVisible,
             TimeSpan timeout, TimeSpan pollingInterval, string errorMessage
-            )
+        )
         {
             ElementMock.Setup(e => e.Displayed).Returns(false);
 
             Assert.That(
                 () => waitForVisible(ElementMock.Object, timeout, pollingInterval, errorMessage),
                 Throws.InstanceOf<WebDriverTimeoutException>().With.Message.Contains(errorMessage)
-                );
+            );
         }
     }
 }

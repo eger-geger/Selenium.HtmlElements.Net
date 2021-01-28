@@ -1,5 +1,4 @@
-﻿using System;
-using HtmlElements.Extensions;
+﻿using HtmlElements.Extensions;
 using OpenQA.Selenium;
 
 namespace HtmlElements.Elements

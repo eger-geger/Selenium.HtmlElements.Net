@@ -28,7 +28,7 @@ namespace HtmlElements.Extensions
                 return false;
             }
 
-            return typeof (IWebElement).IsAssignableFrom(type);
+            return typeof(IWebElement).IsAssignableFrom(type);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace HtmlElements.Extensions
             var genericArguments = type.GetGenericArguments();
 
             return type.IsGenericType
-                   && type.GetGenericTypeDefinition() == typeof (IList<>)
+                   && type.GetGenericTypeDefinition() == typeof(IList<>)
                    && genericArguments.Length == 1
                    && IsWebElement(genericArguments[0]);
         }

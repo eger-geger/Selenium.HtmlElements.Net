@@ -14,10 +14,10 @@ namespace HtmlElements.Test.Proxy
 
         private readonly List<IWebElement> _loadedElements = new List<IWebElement>
         {
-            new Mock<IWebElement>().Object, 
+            new Mock<IWebElement>().Object,
             new Mock<IWebElement>().Object
         };
-        
+
         private Mock<ILoader<IList<IWebElement>>> _listLoaderMock;
 
         private IList<IWebElement> _elementListProxy;

@@ -7,6 +7,7 @@ namespace HtmlElements.IntegrationTests.Elements
     public class HtmlElementPropertiesTests : IntegrationTestFixture
     {
         HtmlElement elementList;
+
         HtmlElement hamlet;
 
 
@@ -15,8 +16,8 @@ namespace HtmlElements.IntegrationTests.Elements
         {
             elementList = PageAlpha.FindElement<HtmlElement>(By.Id("element-list"));
             hamlet = PageAlpha.FindElement<HtmlElement>(By.Id("hamlet"));
-
         }
+
         [Test]
         public void PreviousSibling()
         {
@@ -34,9 +35,9 @@ namespace HtmlElements.IntegrationTests.Elements
         {
             Assert.That(hamlet.TextContent,
                 Does.StartWith("\r\n")
-                .And.Contains("...")
-                .And.Contains("Something is rotten in the state of Denmark")
-                .And.EndsWith(" "));
+                    .And.Contains("...")
+                    .And.Contains("Something is rotten in the state of Denmark")
+                    .And.EndsWith(" "));
         }
 
         [Test]

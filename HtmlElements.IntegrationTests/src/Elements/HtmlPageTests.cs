@@ -1,5 +1,4 @@
 ﻿using HtmlElements.Elements;
-using HtmlElements.IntegrationTests.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 

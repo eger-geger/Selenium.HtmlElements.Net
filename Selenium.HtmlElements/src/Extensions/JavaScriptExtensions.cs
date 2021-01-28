@@ -1,13 +1,12 @@
-﻿using System;
-using HtmlElements.Elements;
+﻿using HtmlElements.Elements;
 
-namespace HtmlElements.Extensions {
-
+namespace HtmlElements.Extensions
+{
     /// <summary>
     ///     Provides methods of manipulating DOM element via JavaScript
     /// </summary>
-    public static class JavaScriptExtensions {
-
+    public static class JavaScriptExtensions
+    {
         /// <summary>
         ///     Execute JavaScript code in browser replacing all occurrences of <c>{self}</c> with actual DOM element being pointed to by current web element.
         /// </summary>
@@ -34,7 +33,8 @@ namespace HtmlElements.Extensions {
         /// <param name="jsSnippet">JavaScript snippet to execute in browser</param>
         /// <param name="arguments">Arguments passed to JavaScript snippet</param>
         /// <returns>Result of the script execution or default value for a given type</returns>
-        public static TReturn ExecuteScriptOnSelf<TReturn>(this HtmlElement element, string jsSnippet, params object[] arguments)
+        public static TReturn ExecuteScriptOnSelf<TReturn>(this HtmlElement element, string jsSnippet,
+            params object[] arguments)
         {
             var result = element.ExecuteScriptOnSelf(jsSnippet, arguments);
 
@@ -54,7 +54,8 @@ namespace HtmlElements.Extensions {
         /// <returns>
         ///     <c>true</c> if attribute exists and <c>false</c> otherwise
         /// </returns>
-        public static bool HasAttribute(this HtmlElement element, string attributeName) {
+        public static bool HasAttribute(this HtmlElement element, string attributeName)
+        {
             return element.ExecuteScriptOnSelf<bool?>(
                 "return {self}.hasAttribute(arguments[0]);", attributeName
             ).GetValueOrDefault(false);
@@ -66,8 +67,10 @@ namespace HtmlElements.Extensions {
         /// <param name="element">Target element</param>
         /// <param name="attributeName">Attribute name</param>
         /// <param name="attributeValue">Attribute value</param>
-        public static void SetAttribute(this HtmlElement element, string attributeName, string attributeValue) {
-            element.ExecuteScriptOnSelf("{self}.setAttribute(arguments[0], arguments[1]);", attributeName, attributeValue);
+        public static void SetAttribute(this HtmlElement element, string attributeName, string attributeValue)
+        {
+            element.ExecuteScriptOnSelf("{self}.setAttribute(arguments[0], arguments[1]);", attributeName,
+                attributeValue);
         }
 
         /// <summary>
@@ -75,7 +78,8 @@ namespace HtmlElements.Extensions {
         /// </summary>
         /// <param name="element">Target element</param>
         /// <param name="attributeName">Attribute name</param>
-        public static void RemoveAttribute(this HtmlElement element, string attributeName) {
+        public static void RemoveAttribute(this HtmlElement element, string attributeName)
+        {
             element.ExecuteScriptOnSelf("{self}.removeAttribute(arguments[0]);", attributeName);
         }
 
@@ -98,7 +102,8 @@ namespace HtmlElements.Extensions {
         /// <param name="element"></param>
         /// <param name="propertyName"></param>
         /// <param name="propertyValue"></param>
-        public static void SetPropery(this HtmlElement element, string propertyName, object propertyValue) {
+        public static void SetPropery(this HtmlElement element, string propertyName, object propertyValue)
+        {
             element.ExecuteScriptOnSelf("{self}[arguments[0]] = arguments[1];", propertyName, propertyValue);
         }
 
@@ -110,9 +115,7 @@ namespace HtmlElements.Extensions {
         /// <returns>Value of the property</returns>
         public static T GetProperty<T>(this HtmlElement element, string propertyName)
         {
-            return (T)element.ExecuteScriptOnSelf("return {self}[arguments[0]];", propertyName);
+            return (T) element.ExecuteScriptOnSelf("return {self}[arguments[0]];", propertyName);
         }
-
     }
-
 }

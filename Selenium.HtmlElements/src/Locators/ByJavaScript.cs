@@ -13,6 +13,7 @@ namespace HtmlElements.Locators
     public class ByJavaScript : By
     {
         private readonly object[] _arguments;
+
         private readonly string _javaScript;
 
         /// <summary>

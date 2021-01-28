@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using HtmlElements.LazyLoad;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 
 namespace HtmlElements.Proxy
 {
@@ -51,11 +50,6 @@ namespace HtmlElements.Proxy
             get { return Execute(e => e.Displayed); }
         }
 
-        public IWebElement WrappedElement
-        {
-            get { return Loader.Load(); }
-        }
-
         public virtual IWebElement FindElement(By @by)
         {
             return Execute(e => e.FindElement(@by));
@@ -99,6 +93,11 @@ namespace HtmlElements.Proxy
         public string GetCssValue(string propertyName)
         {
             return Execute(e => e.GetCssValue(propertyName));
+        }
+
+        public IWebElement WrappedElement
+        {
+            get { return Loader.Load(); }
         }
 
         protected bool Equals(WebElementProxy other)

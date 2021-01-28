@@ -3,8 +3,8 @@ namespace HtmlElements
     /// <summary>
     ///     Lists possible document loading states
     /// </summary>
-    public enum DocumentReadyState {
-
+    public enum DocumentReadyState
+    {
         /// <summary>
         ///     Document not started loading yet.
         /// </summary>
@@ -29,6 +29,5 @@ namespace HtmlElements
         ///     Document has fully loaded.
         /// </summary>
         Complete
-
     }
 }

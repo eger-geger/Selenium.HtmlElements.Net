@@ -4,14 +4,15 @@ using HtmlElements.Proxy;
 using Moq;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 
 namespace HtmlElements.Test.Proxy
 {
     public class WebElementProxyTests
     {
         private readonly ProxyFactory _proxyFactory = new ProxyFactory();
+
         private Mock<IWebElement> _elementMock;
+
         private Mock<ILoader<IWebElement>> _loaderMock;
 
         [SetUp]
@@ -45,7 +46,8 @@ namespace HtmlElements.Test.Proxy
         public void ShouldHandleNotInCacheReferenceException()
         {
             _elementMock.SetupSequence(e => e.Displayed)
-                .Throws( new InvalidOperationException("An unknown server-side error occurred while processing the command. Original error: Error while executing atom: Element does not exist in cache (status: 10)"))
+                .Throws(new InvalidOperationException(
+                    "An unknown server-side error occurred while processing the command. Original error: Error while executing atom: Element does not exist in cache (status: 10)"))
                 .Returns(true);
 
             var elementProxy = _proxyFactory.CreateWebElementProxy(_loaderMock.Object);
@@ -85,7 +87,6 @@ namespace HtmlElements.Test.Proxy
             _loaderMock.Verify(loader => loader.Load(), Times.Exactly(5));
             _loaderMock.Verify(loader => loader.Reset(), Times.Exactly(5));
             _elementMock.Verify(e => e.Click(), Times.Exactly(5));
-
         }
 
         [Test]

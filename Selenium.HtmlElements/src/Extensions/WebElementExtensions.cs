@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using HtmlElements.Elements;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 
 namespace HtmlElements.Extensions
 {

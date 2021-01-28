@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using HtmlElements.Elements;
@@ -13,7 +12,9 @@ namespace HtmlElements.Test
     public class AbstractPageObjectFactoryTests
     {
         private AbstractPageObjectFactory _factory;
+
         private Mock<AbstractPageObjectFactory> _factoryMock;
+
         private IWebDriver _searchContext;
 
         [SetUp]
@@ -41,7 +42,7 @@ namespace HtmlElements.Test
         [Test]
         public void ShouldAskToCreatePageObjectInstanceWhenCalledCreateWithTypeArgument()
         {
-            var pageObjectA = _factory.Create(typeof (PageObjectA), _searchContext);
+            var pageObjectA = _factory.Create(typeof(PageObjectA), _searchContext);
 
             VerifyPageObjectCreated(pageObjectA as PageObjectA);
             VerifyPageObjectCreationRequestWasMade();
@@ -52,7 +53,7 @@ namespace HtmlElements.Test
         public void ShouldAskToInitializeEveryNestedPageObjectWhenInitializingPageObject()
         {
             var pageObjectA = new PageObjectA(_searchContext);
-            
+
             _factory.Init(pageObjectA, _searchContext);
 
             VerifyPageObjectCreated(pageObjectA);
@@ -78,7 +79,7 @@ namespace HtmlElements.Test
         private void VerifyPageObjectCreationRequestWasMade()
         {
             _factoryMock.Protected().Verify("CreatePageObjectInstance", Times.Once(),
-                typeof (PageObjectA), _searchContext);
+                typeof(PageObjectA), _searchContext);
         }
 
         private void VerifyMemberInitializationRequestsWereMade(ISearchContext context)
@@ -93,7 +94,7 @@ namespace HtmlElements.Test
                 typeof(IList<IWebElement>), ItIsMemberNamed("_elementListA"), context);
 
             _factoryMock.Protected().Verify<object>("CreateMemberInstance", Times.Once(),
-                typeof (HtmlElement), ItIsMemberNamed("ElementC"), context ?? _searchContext);
+                typeof(HtmlElement), ItIsMemberNamed("ElementC"), context ?? _searchContext);
 
             _factoryMock.Protected().Verify<object>("CreateMemberInstance", Times.Once(),
                 typeof(IList<HtmlImage>), ItIsMemberNamed("ElementListB"), context ?? _searchContext);
@@ -107,7 +108,9 @@ namespace HtmlElements.Test
         private class PageObjectA : WebDriverWrapper
         {
             private HtmlElement _elementA;
+
             protected IWebElement _elementB;
+
             private IList<IWebElement> _elementListA;
 
             public PageObjectA(ISearchContext webElement) : base(webElement)

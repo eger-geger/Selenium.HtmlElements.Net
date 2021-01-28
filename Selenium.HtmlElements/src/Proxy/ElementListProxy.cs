@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using HtmlElements.LazyLoad;
 
 namespace HtmlElements.Proxy
@@ -13,11 +12,6 @@ namespace HtmlElements.Proxy
             _listLoader = listLoader;
         }
 
-        private IList<TElement> TypedElementList
-        {
-            get { return _listLoader.Load(); }
-        }
-
         public override int Count
         {
             get { return TypedElementList.Count; }
@@ -28,6 +22,11 @@ namespace HtmlElements.Proxy
             get { return TypedElementList[index]; }
 
             set { throw ModificationAttemptException; }
+        }
+
+        private IList<TElement> TypedElementList
+        {
+            get { return _listLoader.Load(); }
         }
 
         public override IEnumerator<TElement> GetEnumerator()
