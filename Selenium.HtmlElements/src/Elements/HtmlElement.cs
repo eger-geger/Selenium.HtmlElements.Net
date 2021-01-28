@@ -86,7 +86,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string TextContent
         {
-            get { return GetProperty("textContent") as string; }
+            get { return this.GetProperty("textContent") as string; }
             set { this.SetPropery("textContent", value); }
         }
 
