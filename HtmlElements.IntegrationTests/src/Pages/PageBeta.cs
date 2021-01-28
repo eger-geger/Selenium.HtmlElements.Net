@@ -4,6 +4,7 @@ using SeleniumExtras.PageObjects;
 
 namespace HtmlElements.IntegrationTests.Pages
 {
+    [ElementLocator(How = How.TagName, Using = "iframe")]
     public class PageBeta : HtmlFrame
     {
         [FindsBy(How = How.Id, Using = "login"), CacheLookup]
@@ -14,8 +15,6 @@ namespace HtmlElements.IntegrationTests.Pages
 
         [FindsBy(How = How.Id, Using = "submit"), CacheLookup]
         public HtmlElement SubmitBtn;
-
-        public override By DefaultLocator => By.TagName("iframe");
 
         public PageBeta(IWebElement webElement) : base(webElement)
         {

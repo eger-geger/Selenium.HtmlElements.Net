@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using HtmlElements.Elements;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 
@@ -64,6 +65,11 @@ namespace HtmlElements.Locators
         }
 
         public static By Create(FindsByAttribute attribute)
+        {
+            return Create(attribute.How, attribute.Using, attribute.CustomFinderType);
+        }
+
+        public static By Create(ElementLocatorAttribute attribute)
         {
             return Create(attribute.How, attribute.Using, attribute.CustomFinderType);
         }

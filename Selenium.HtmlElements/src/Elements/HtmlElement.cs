@@ -37,11 +37,6 @@ namespace HtmlElements.Elements
         }
 
         /// <summary>
-        /// Defines default root web element locator. [FindsBy] attribute overrides default value />
-        /// </summary>
-        public virtual By DefaultLocator { get; }
-
-        /// <summary>
         ///     First child node of the web element, as a web element
         /// </summary>
         public IWebElement FirstChild

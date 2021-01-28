@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using HtmlElements.Elements;
@@ -174,28 +175,61 @@ namespace HtmlElements
 
         private By CreateElementLocator(MemberInfo memberInfo, Type memberType)
         {
-            var attributes = memberInfo.GetCustomAttributes(typeof(FindsByAttribute), true);
+            var memberAttr = GetSingleMemberAttrOrDefault(memberInfo);
+            var typeAttr = GetSingleTypeAttrOrDefault(memberType);
 
-            if (attributes.Length == 0)
+            return memberAttr != null
+                ? ByFactory.Create(memberAttr)
+                : typeAttr != null
+                    ? ByFactory.Create(typeAttr)
+                    : ByFactory.Create(How.Id, memberInfo.Name);
+        }
+
+        private ElementLocatorAttribute GetSingleTypeAttrOrDefault(Type elementType)
+        {
+            var attrs = elementType
+                .GetCustomAttributes(typeof(ElementLocatorAttribute), true)
+                .Cast<ElementLocatorAttribute>()
+                .ToArray();
+
+            return attrs switch
             {
-                return ByDefaultLocator.Locate(memberInfo, memberType);
-            }
+                {Length: 0} => null,
+                {Length: 1} => attrs[0],
+                _ => throw new ArgumentException(BuildMultipleTypeAttrError(elementType))
+            };
+        }
 
-            if (attributes.Length > 1)
+        private FindsByAttribute GetSingleMemberAttrOrDefault(MemberInfo memberInfo)
+        {
+            var attrs = memberInfo
+                .GetCustomAttributes(typeof(FindsByAttribute), true)
+                .Cast<FindsByAttribute>()
+                .ToArray();
+
+            return attrs switch
             {
-                var errorBuilder = new StringBuilder();
+                {Length: 0} => null,
+                {Length: 1} => attrs[0],
+                _ => throw new ArgumentException(BuildMultipleMemberAttrError(memberInfo))
+            };
+        }
 
-                errorBuilder.AppendFormat(
-                    "Multiple attributes [{0}] found on [{1}] which is member of [{2}] class.",
-                    typeof(FindsByAttribute), memberInfo.Name, memberInfo.DeclaringType);
+        private string BuildMultipleTypeAttrError(Type elementType)
+        {
+            return new StringBuilder()
+                .AppendFormat("Multiple {0} found on {1} ", typeof(ElementLocatorAttribute), elementType)
+                .AppendFormat("which is not supported by {0}.", this)
+                .ToString();
+        }
 
-                errorBuilder.AppendFormat(
-                    "Having multiple attribute for a single class member is not supported by [{0}].", this);
-
-                throw new ArgumentException(errorBuilder.ToString(), nameof(memberInfo));
-            }
-
-            return ByFactory.Create(attributes[0] as FindsByAttribute);
+        private string BuildMultipleMemberAttrError(MemberInfo memberInfo)
+        {
+            return new StringBuilder()
+                .AppendFormat("Multiple {0} found on {1} (member of {2})",
+                    typeof(FindsByAttribute), memberInfo.Name, memberInfo.DeclaringType)
+                .AppendFormat("which is not supported by {0}.", this)
+                .ToString();
         }
 
         /// <summary>
