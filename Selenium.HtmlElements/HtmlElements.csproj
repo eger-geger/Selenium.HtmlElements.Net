@@ -13,7 +13,6 @@
 		<PackageProjectUrl>http://github.com/eger-geger/Selenium.HtmlElements.Net</PackageProjectUrl>
 		<PackageReleaseNotes>
 			4.0.0-alpha01
-			- target net5.0
 			- use selenium 4.0-alpha
 			- use PageObjectFactory from SeleniumExtras.PageObjects
 			- use By DefaultLocator property to define default web element locator
