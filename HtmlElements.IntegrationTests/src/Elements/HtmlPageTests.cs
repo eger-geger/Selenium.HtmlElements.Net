@@ -1,4 +1,5 @@
 ﻿using HtmlElements.Elements;
+using HtmlElements.IntegrationTests.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 
@@ -28,6 +29,13 @@ namespace HtmlElements.IntegrationTests.Elements
         public void ShouldProvideDocumentReadyState()
         {
             Assert.That(PageAlpha.ReadyState, Is.EqualTo(DocumentReadyState.Complete));
+        }
+
+        [Test]
+        public void ShouldUseElementLocatorIfFindByAttributeIsNotProvided()
+        {
+            Assert.NotNull(PageAlpha.BetaFrame);
+            Assert.NotNull(PageAlpha.BetaFrame.LoginField);
         }
     }
 }

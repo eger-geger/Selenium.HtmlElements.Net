@@ -31,6 +31,11 @@ namespace HtmlElements.Elements
         }
 
         /// <summary>
+        /// Defines default root web element locator. [FindsBy] attribute overrides default value />
+        /// </summary>
+        public virtual By DefaultLocator { get; }
+        
+        /// <summary>
         ///     A WebElement, representing the parent node of current element, or null if it has no parent
         /// </summary>
         public IWebElement ParentNode
@@ -86,7 +91,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string TextContent
         {
-            get { return this.GetProperty("textContent") as string; }
+            get { return GetProperty("textContent") as string; }
             set { this.SetPropery("textContent", value); }
         }
 
