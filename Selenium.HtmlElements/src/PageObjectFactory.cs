@@ -55,18 +55,8 @@ namespace HtmlElements
     /// <param name="loaderFactory">Factory creating WebElement and WebElement list loaders.</param>
     public PageObjectFactory(IProxyFactory proxyFactory, ILoaderFactory loaderFactory)
     {
-      if (proxyFactory == null)
-      {
-        throw new ArgumentNullException(nameof(proxyFactory));
-      }
-
-      if (loaderFactory == null)
-      {
-        throw new ArgumentNullException(nameof(loaderFactory));
-      }
-
-      _proxyFactory = proxyFactory;
-      _loaderFactory = loaderFactory;
+      _proxyFactory = proxyFactory ?? throw new ArgumentNullException(nameof(proxyFactory));
+      _loaderFactory = loaderFactory ?? throw new ArgumentNullException(nameof(loaderFactory));
     }
 
     /// <summary>

@@ -26,18 +26,8 @@ namespace HtmlElements.LazyLoad
         /// </param>
         public LoaderFactory(IPageObjectFactory pageObjectFactory, IProxyFactory proxyFactory)
         {
-            if (pageObjectFactory == null)
-            {
-                throw new ArgumentNullException(nameof(pageObjectFactory));
-            }
-
-            if (proxyFactory == null)
-            {
-                throw new ArgumentNullException(nameof(proxyFactory));
-            }
-
-            _pageObjectFactory = pageObjectFactory;
-            _proxyFactory = proxyFactory;
+            _pageObjectFactory = pageObjectFactory ?? throw new ArgumentNullException(nameof(pageObjectFactory));
+            _proxyFactory = proxyFactory ?? throw new ArgumentNullException(nameof(proxyFactory));
         }
 
 

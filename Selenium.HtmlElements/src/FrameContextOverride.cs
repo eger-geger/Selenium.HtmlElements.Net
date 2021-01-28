@@ -28,17 +28,12 @@ namespace HtmlElements
         /// <param name="frameElement">Frame which will became active</param>
         public FrameContextOverride(IWebDriver webDriver, IWebElement frameElement)
         {
-            if (webDriver == null)
-            {
-                throw new ArgumentNullException(nameof(webDriver));
-            }
-
             if (frameElement == null)
             {
                 throw new ArgumentNullException(nameof(frameElement));
             }
 
-            _wrappedDriver = webDriver;
+            _wrappedDriver = webDriver ?? throw new ArgumentNullException(nameof(webDriver));
                 
             webDriver.SwitchTo().Frame(frameElement);
         }
