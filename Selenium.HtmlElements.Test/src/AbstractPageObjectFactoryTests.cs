@@ -9,6 +9,7 @@ using OpenQA.Selenium;
 
 namespace HtmlElements.Test
 {
+    [Parallelizable(ParallelScope.Fixtures)]
     public class AbstractPageObjectFactoryTests
     {
         private AbstractPageObjectFactory _factory;
@@ -28,7 +29,19 @@ namespace HtmlElements.Test
                 .Setup<object>("CreatePageObjectInstance", typeof(PageObjectA), _searchContext)
                 .Returns(new PageObjectA(_searchContext));
         }
-
+        
+        [Test]
+        public void ShouldRaiseArgumentErrorWhenInitializingNullObject()
+        {
+            Assert.That(() => _factory.Init(null,  _searchContext), Throws.ArgumentNullException);
+        }
+        
+        [Test]
+        public void ShouldRaiseArgumentErrorWhenInitializingWithNullContext()
+        {
+            Assert.That(() => _factory.Init(new PageObjectA(_searchContext),  null), Throws.ArgumentNullException);
+        }
+        
         [Test]
         public void ShouldAskToCreatePageObjectInstanceWhenCalledCreateWithGenericArgument()
         {

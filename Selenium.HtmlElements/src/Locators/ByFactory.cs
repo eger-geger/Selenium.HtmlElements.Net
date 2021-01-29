@@ -10,43 +10,20 @@ namespace HtmlElements.Locators
     {
         public static By Create(How how, string usingValue, Type customFinderType = null)
         {
-            if (string.IsNullOrWhiteSpace(usingValue) && how == How.Custom)
+            return how switch
             {
-                throw new ArgumentException(string.Format("[Using] should not be empty when [How={0}]", how));
-            }
-
-            switch (how)
-            {
-                case How.Id:
-                    return By.Id(usingValue);
-
-                case How.Name:
-                    return By.Name(usingValue);
-
-                case How.TagName:
-                    return By.TagName(usingValue);
-
-                case How.ClassName:
-                    return By.ClassName(usingValue);
-
-                case How.CssSelector:
-                    return By.CssSelector(usingValue);
-
-                case How.LinkText:
-                    return By.LinkText(usingValue);
-
-                case How.PartialLinkText:
-                    return By.PartialLinkText(usingValue);
-
-                case How.XPath:
-                    return By.XPath(usingValue);
-
-                case How.Custom:
-                    return Create(customFinderType, usingValue);
-            }
-
-            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                "Cannot construct [By] from [How={0}], [Using={1}]", how, usingValue));
+                How.Id => By.Id(usingValue),
+                How.Name => By.Name(usingValue),
+                How.TagName => By.TagName(usingValue),
+                How.ClassName => By.ClassName(usingValue),
+                How.CssSelector => By.CssSelector(usingValue),
+                How.LinkText => By.LinkText(usingValue),
+                How.PartialLinkText => By.PartialLinkText(usingValue),
+                How.XPath => By.XPath(usingValue),
+                How.Custom => Create(customFinderType, usingValue),
+                _ => throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                    "Cannot construct [By] from [How={0}], [Using={1}]", how, usingValue))
+            };
         }
 
         public static By Create(Type customFinderType, string usingValue)

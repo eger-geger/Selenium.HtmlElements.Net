@@ -8,6 +8,7 @@ using OpenQA.Selenium;
 
 namespace HtmlElements.Test.Proxy
 {
+    [Parallelizable(ParallelScope.Fixtures)]
     public class ElementListProxyTests
     {
         private readonly ProxyFactory _proxyFactory = new();

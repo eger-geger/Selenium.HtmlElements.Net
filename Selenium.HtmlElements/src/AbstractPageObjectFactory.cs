@@ -68,9 +68,9 @@ namespace HtmlElements
 
             var pageObjectType = pageObject.GetType();
 
-            if (pageObject is WebDriverWrapper)
+            if (pageObject is WebDriverWrapper wrapper)
             {
-                (pageObject as WebDriverWrapper).SetPageObjectFactory(this);
+                wrapper.SetPageObjectFactory(this);
             }
 
             foreach (var fieldInfo in pageObjectType.GetOwnAndInheritedFields(BindingFlags))
@@ -90,8 +90,7 @@ namespace HtmlElements
                     continue;
                 }
 
-                propertyInfo.SetValue(pageObject,
-                    CreateMemberInstance(propertyInfo.PropertyType, propertyInfo, searchContext), null);
+                propertyInfo.SetValue(pageObject, CreateMemberInstance(propertyInfo.PropertyType, propertyInfo, searchContext), null);
             }
         }
 

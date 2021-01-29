@@ -7,6 +7,7 @@ using OpenQA.Selenium;
 
 namespace HtmlElements.Test.Extensions
 {
+    [Parallelizable(ParallelScope.Fixtures)]
     public abstract class AbstractWebElementExtensionsTestFixture
     {
         protected Mock<IWebElement> ElementMock;

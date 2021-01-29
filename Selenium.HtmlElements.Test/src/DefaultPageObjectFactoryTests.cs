@@ -33,7 +33,7 @@ namespace HtmlElements.Test
         }
 
         [Test]
-        public void ShouldCreatePageObjectUsingSearchContextAndPageFactoryAsArgumetns()
+        public void ShouldCreatePageObjectUsingSearchContextAndPageFactoryAsArguments()
         {
             var webElement = new Mock<IWebElement>().Object;
 
@@ -59,7 +59,7 @@ namespace HtmlElements.Test
             var webElement = _pageObjectFactory.CreateWebElement(contextMock.Object, By.Id("any"));
 
             Assert.That(webElement, Is.Not.Null.And.InstanceOf<IWrapsElement>());
-            Assert.That((webElement as IWrapsElement).WrappedElement, Is.SameAs(wrappedWebElement));
+            Assert.That((webElement as IWrapsElement)?.WrappedElement, Is.SameAs(wrappedWebElement));
 
             contextMock.Verify();
         }
@@ -107,7 +107,7 @@ namespace HtmlElements.Test
 
             Assert.That(pageObjectB, Is.Not.Null);
             Assert.That(pageObjectB.WebElement, Is.Not.Null.And.InstanceOf<IWrapsElement>());
-            Assert.That((pageObjectB.WebElement as IWrapsElement).WrappedElement, Is.EqualTo(wrappedWebElement));
+            Assert.That((pageObjectB.WebElement as IWrapsElement)?.WrappedElement, Is.EqualTo(wrappedWebElement));
 
             contextMock.Verify();
         }
