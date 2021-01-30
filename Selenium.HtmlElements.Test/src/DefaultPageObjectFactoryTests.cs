@@ -7,6 +7,9 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 
+// ReSharper disable CollectionNeverUpdated.Local
+#pragma warning disable 649
+
 #pragma warning disable 169
 
 namespace HtmlElements.Test
@@ -33,7 +36,16 @@ namespace HtmlElements.Test
                 .Verifiable();
 
             driverMock
-                .Setup(wd => wd.FindElements(By.Name("list-element-a")))
+                .Setup(wd => wd.FindElements(By.ClassName("element-a")))
+                .Returns(new List<IWebElement>
+                {
+                    _mockRepository.OneOf<IWebElement>(),
+                    _mockRepository.OneOf<IWebElement>()
+                }.AsReadOnly())
+                .Verifiable();
+
+            driverMock
+                .Setup(wd => wd.FindElements(By.Name("list-element-b")))
                 .Returns(new List<IWebElement>
                 {
                     _mockRepository.OneOf<IWebElement>(),
@@ -44,9 +56,9 @@ namespace HtmlElements.Test
             var pageObjectA = _pageObjectFactory.Create<PageObjectA>(driverMock.Object);
 
             Assert.That(pageObjectA, Is.Not.Null);
-            
+
             pageObjectA.Invalidate();
-            
+
             driverMock.Verify();
         }
 
@@ -213,17 +225,20 @@ namespace HtmlElements.Test
         {
             private ElementA _elementA;
 
+            private IList<ElementA> _elementListA;
+
             [FindsBy(How = How.Id, Using = "element-b")]
             private IWebElement _elementB;
 
-            [FindsBy(How = How.Name, Using = "list-element-a")]
-            private IList<IWebElement> _elementListA;
+            [FindsBy(How = How.Name, Using = "list-element-b")]
+            private IList<IWebElement> _elementListB;
 
             public void Invalidate()
             {
                 _elementA.Click();
                 _elementB.Click();
                 _elementListA.FirstOrDefault()?.Click();
+                _elementListB.FirstOrDefault()?.Click();
             }
         }
 

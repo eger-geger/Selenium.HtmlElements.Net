@@ -146,29 +146,38 @@ namespace HtmlElements
         /// <param name="memberInfo">Field or property meta information.</param>
         /// <param name="searchContext">Parent page object context.</param>
         /// <returns>Initialized field or property value or null.</returns>
-        protected override object CreateMemberInstance(Type memberType, MemberInfo memberInfo,
-            ISearchContext searchContext)
+        protected override object CreateMemberInstance(
+            Type memberType,
+            MemberInfo memberInfo,
+            ISearchContext searchContext
+        )
         {
-            var locator = CreateElementLocator(memberInfo, memberType);
-
-            bool isCached = memberInfo.IsDefined(typeof(CacheLookupAttribute), true);
-
             return memberType switch
             {
-                { } elementType when elementType.IsWebElement() =>
-                    CreateWebElement(elementType, searchContext, locator, isCached),
+                { } elementType when elementType.IsWebElement() => CreateWebElement(
+                    elementType,
+                    searchContext,
+                    CreateElementLocator(memberInfo, memberType),
+                    memberInfo.IsDefined(typeof(CacheLookupAttribute), true)
+                    || memberType.IsDefined(typeof(CacheLookupAttribute), true)
+                ),
 
-                { } listType when listType.IsWebElementList(out var elementType) =>
-                    CreateWebElementList(elementType, searchContext, locator, isCached),
+                { } listType when listType.IsWebElementList(out var elementType) => CreateWebElementList(
+                    elementType,
+                    searchContext,
+                    CreateElementLocator(memberInfo, elementType),
+                    memberInfo.IsDefined(typeof(CacheLookupAttribute), true)
+                    || elementType.IsDefined(typeof(CacheLookupAttribute), true)
+                ),
 
                 _ => null
             };
         }
 
-        private By CreateElementLocator(MemberInfo memberInfo, Type memberType)
+        private By CreateElementLocator(MemberInfo memberInfo, Type webElementType)
         {
             var memberAttr = GetSingleMemberAttrOrDefault(memberInfo);
-            var typeAttr = GetSingleTypeAttrOrDefault(memberType);
+            var typeAttr = GetSingleTypeAttrOrDefault(webElementType);
 
             return memberAttr != null
                 ? ByFactory.Create(memberAttr)
@@ -193,7 +202,7 @@ namespace HtmlElements
                 .GetCustomAttributes(typeof(FindsByAttribute), true)
                 .Cast<FindsByAttribute>()
                 .ToArray();
-            
+
             return attrs switch
             {
                 {Length: 0} => null,
@@ -201,7 +210,7 @@ namespace HtmlElements
                 _ => throw new ArgumentException(BuildMultipleMemberAttrError(memberInfo))
             };
         }
-        
+
         private string BuildMultipleMemberAttrError(MemberInfo memberInfo)
         {
             return new StringBuilder()
