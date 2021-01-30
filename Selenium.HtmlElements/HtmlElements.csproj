@@ -6,16 +6,16 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<PackageId>HtmlElements</PackageId>
-		<PackageVersion>4.0.0-alpha01</PackageVersion>
+		<PackageVersion>4.0.0</PackageVersion>
 		<Authors>eger</Authors>
 		<PackageTags>Selenium WebDriver</PackageTags>
 		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
 		<PackageProjectUrl>http://github.com/eger-geger/Selenium.HtmlElements.Net</PackageProjectUrl>
 		<PackageReleaseNotes>
-			4.0.0-alpha01
+			4.0.0
 			- use selenium 4.0-alpha
 			- use PageObjectFactory from SeleniumExtras.PageObjects
-			- use By DefaultLocator property to define default web element locator
+			- introduce ElementLocatorAttribute
 			3.2.0:
 			- target netstandard
 			3.1.0:
@@ -65,5 +65,4 @@
 		</ItemGroup>
 		<Delete Files="@(nupkg)" />
 	</Target>
-	<Target Name="AfterBuild"></Target>
 </Project>
