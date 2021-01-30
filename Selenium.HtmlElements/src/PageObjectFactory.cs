@@ -151,26 +151,18 @@ namespace HtmlElements
         {
             var locator = CreateElementLocator(memberInfo, memberType);
 
-            var isCached = memberInfo.IsDefined(typeof(CacheLookupAttribute), true);
+            bool isCached = memberInfo.IsDefined(typeof(CacheLookupAttribute), true);
 
-            if (memberType.IsWebElement())
+            return memberType switch
             {
-                return CreateWebElement(memberType, searchContext, locator, isCached);
-            }
+                { } elementType when elementType.IsWebElement() =>
+                    CreateWebElement(elementType, searchContext, locator, isCached),
 
-            if (memberType.IsWebElementList())
-            {
-                var genericArguments = memberType.GetGenericArguments();
+                { } listType when listType.IsWebElementList(out var elementType) =>
+                    CreateWebElementList(elementType, searchContext, locator, isCached),
 
-                if (genericArguments.Length != 1)
-                {
-                    return null;
-                }
-
-                return CreateWebElementList(genericArguments[0], searchContext, locator, isCached);
-            }
-
-            return null;
+                _ => null
+            };
         }
 
         private By CreateElementLocator(MemberInfo memberInfo, Type memberType)

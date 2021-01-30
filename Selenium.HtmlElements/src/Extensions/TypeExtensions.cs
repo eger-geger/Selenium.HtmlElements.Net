@@ -7,57 +7,50 @@ using OpenQA.Selenium;
 namespace HtmlElements.Extensions
 {
     /// <summary>
-    ///     Utility functions taking <see cref="Type" /> as it's first argument
+    /// Utility functions taking <see cref="Type" /> as it's first argument
     /// </summary>
     public static class TypeExtensions
     {
         /// <summary>
-        ///     Determines weather instance of given type can be assigned to <see cref="IWebElement" /> reference.
+        /// Determines weather instance of given type can be assigned to <see cref="IWebElement" /> reference.
         /// </summary>
-        /// <param name="type">Type of interest</param>
+        /// <param name="type">Type of interest.</param>
         /// <returns>
-        ///     <value>true</value>
-        ///     if instance of this type is a we element and
-        ///     <value>false</value>
-        ///     otherwise
+        /// <value>true</value> if instance of this type is a we element and <value>false</value> otherwise.
         /// </returns>
         public static bool IsWebElement(this Type type)
         {
-            if (type == null)
-            {
-                return false;
-            }
-
-            return typeof(IWebElement).IsAssignableFrom(type);
+            return type != null && typeof(IWebElement).IsAssignableFrom(type);
         }
 
         /// <summary>
-        ///     Determines weather type describes list of web elements.
+        /// Determines weather type describes list of web elements.
         /// </summary>
         /// <param name="type">Type of interest</param>
+        /// <param name="elementType">List item type or null.</param>
         /// <returns>
-        ///     <value>true</value>
-        ///     if type is <see cref="IList{T}" /> and generic argument is a web element, otherwise -
-        ///     <value>false</value>
+        /// <value>true</value> if type is <see cref="IList{T}" /> and generic argument is a web element,
+        /// otherwise - <value>false</value>.
         /// </returns>
-        public static bool IsWebElementList(this Type type)
+        public static bool IsWebElementList(this Type type, out Type elementType)
         {
-            if (type == null)
-            {
-                return false;
-            }
+            bool isElementList =
+                type != null
+                && type.IsGenericType
+                && type.GetGenericTypeDefinition() == typeof(IList<>)
+                && IsWebElement(type.GetGenericArguments()[0]);
 
-            var genericArguments = type.GetGenericArguments();
+            elementType = isElementList
+                ? type.GetGenericArguments()[0]
+                : null;
 
-            return type.IsGenericType
-                   && type.GetGenericTypeDefinition() == typeof(IList<>)
-                   && genericArguments.Length == 1
-                   && IsWebElement(genericArguments[0]);
+            return isElementList;
         }
 
         /// <summary>
-        ///     Retrieve metadata of all properties in current object hierarchy which can be assigned a web element or web element list.
-        ///     Properties which cannot be read or written and also indexed properties are being excluded from search.
+        /// Retrieve metadata of all properties in current object hierarchy which can be assigned a web element or web element
+        /// list.
+        /// Properties which cannot be read or written and also indexed properties are being excluded from search.
         /// </summary>
         /// <param name="type">Type being scanned</param>
         /// <param name="bindingFlags">A bitmask comprised that specify how the search is conducted</param>
@@ -91,7 +84,7 @@ namespace HtmlElements.Extensions
         }
 
         /// <summary>
-        ///     Retrieve metadata of all fields in current object hierarchy which can be assigned a web element or web element list.
+        /// Retrieve metadata of all fields in current object hierarchy which can be assigned a web element or web element list.
         /// </summary>
         /// <param name="type">Type being scanned</param>
         /// <param name="bindingFlags">A bitmask comprised that specify how the search is conducted</param>
@@ -126,7 +119,7 @@ namespace HtmlElements.Extensions
 
         private static bool IsWebElementOrElementList(Type type)
         {
-            return type.IsWebElement() || type.IsWebElementList();
+            return type.IsWebElement() || type.IsWebElementList(out _);
         }
     }
 }

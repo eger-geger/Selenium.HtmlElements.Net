@@ -26,19 +26,21 @@ namespace HtmlElements.Test.Extensions
             return type.IsWebElement();
         }
 
-        [TestCase(typeof(IList<IWebElement>), ExpectedResult = true)]
-        [TestCase(typeof(IList<WebElementImpl>), ExpectedResult = true)]
-        [TestCase(typeof(IList<IHtmlElement>), ExpectedResult = true)]
-        [TestCase(typeof(IList<HtmlElement>), ExpectedResult = true)]
-        [TestCase(typeof(IList<object>), ExpectedResult = false)]
-        [TestCase(typeof(IList<IWebDriver>), ExpectedResult = false)]
-        [TestCase(typeof(IList<ISearchContext>), ExpectedResult = false)]
-        [TestCase(typeof(IEnumerable<IWebElement>), ExpectedResult = false)]
-        [TestCase(typeof(ICollection<IWebElement>), ExpectedResult = false)]
-        [TestCase(typeof(List<IWebElement>), ExpectedResult = false)]
-        public bool ShouldDetermineWeatherTypeDescribedListOfWebElements(Type type)
+        [TestCase(typeof(IList<IWebElement>), typeof(IWebElement), ExpectedResult = true)]
+        [TestCase(typeof(IList<WebElementImpl>), typeof(WebElementImpl), ExpectedResult = true)]
+        [TestCase(typeof(IList<IHtmlElement>), typeof(IHtmlElement), ExpectedResult = true)]
+        [TestCase(typeof(IList<HtmlElement>), typeof(HtmlElement), ExpectedResult = true)]
+        [TestCase(typeof(IList<object>), null, ExpectedResult = false)]
+        [TestCase(typeof(IList<IWebDriver>), null, ExpectedResult = false)]
+        [TestCase(typeof(IList<ISearchContext>), null, ExpectedResult = false)]
+        [TestCase(typeof(IEnumerable<IWebElement>), null, ExpectedResult = false)]
+        [TestCase(typeof(ICollection<IWebElement>), null, ExpectedResult = false)]
+        [TestCase(typeof(List<IWebElement>), null, ExpectedResult = false)]
+        public bool ShouldDetermineWeatherTypeDescribedListOfWebElements(Type listType, Type listElementType)
         {
-            return type.IsWebElementList();
+            bool result = listType.IsWebElementList(out var elementType);
+            Assert.That(elementType, Is.EqualTo(listElementType));
+            return result;
         }
 
         [Test]
