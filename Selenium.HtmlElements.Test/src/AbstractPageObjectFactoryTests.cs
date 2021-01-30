@@ -6,6 +6,8 @@ using Moq;
 using Moq.Protected;
 using NUnit.Framework;
 using OpenQA.Selenium;
+#pragma warning disable 649
+#pragma warning disable 169
 
 namespace HtmlElements.Test
 {
@@ -122,7 +124,7 @@ namespace HtmlElements.Test
         {
             private HtmlElement _elementA;
 
-            protected IWebElement _elementB;
+            protected IWebElement ElementB;
 
             private IList<IWebElement> _elementListA;
 
@@ -130,7 +132,7 @@ namespace HtmlElements.Test
             {
             }
 
-            public IPageObjectFactory PageObjectFactory => base.PageObjectFactory;
+            public new IPageObjectFactory PageObjectFactory => base.PageObjectFactory;
 
             public HtmlElement ElementC { get; private set; }
 

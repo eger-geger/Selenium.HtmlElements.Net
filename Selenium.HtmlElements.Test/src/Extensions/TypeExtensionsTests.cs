@@ -8,6 +8,8 @@ using HtmlElements.Elements;
 using HtmlElements.Extensions;
 using NUnit.Framework;
 using OpenQA.Selenium;
+#pragma warning disable 649
+#pragma warning disable 169
 
 namespace HtmlElements.Test.Extensions
 {
