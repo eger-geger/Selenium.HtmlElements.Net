@@ -3,7 +3,7 @@
         <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
         <OutputType>Library</OutputType>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <RepositoryUrl>http://github.com/eger-geger/Selenium.HtmlElements.Net</RepositoryUrl>
+        <RepositoryUrl>git@github.com/Selenium.HtmlElements.Net.git</RepositoryUrl>
         <Description>WebDriver page factory supporting nested components</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
