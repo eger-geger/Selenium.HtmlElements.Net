@@ -1,13 +1,12 @@
 **HtmlElements** is .NET library complementing to [Selenium WebDriver](https://github.com/SeleniumHQ/selenium) page object model by allowing you to create more complex and sophysticated page objects. It also provides set of standard page objects for commonly used HTML elements (links, input fields, images, frames, etc), alternative wait syntax, smart frames and some other usefull utilities. You can add it to your project by installing [HtmlElements](http://www.nuget.org/packages/HtmlElements/) nuget package. More information can be found in [API reference](http://eger-geger.github.io/Selenium.HtmlElements.Net/).
 
-## Custom page objects ##
+## Web components ##
 
 The main goal of **HtmlElements** library is to represent any given page or part of a page as set of smaller reusable components. Every component is a class having any number of nested components and public methods. Smaller components create a hierarchy similar to DOM with a page component at the top.
 
-Assuming we would like to model a page listing nuget packages (https://www.nuget.org/packages) we could describe every package from list as a seprate component and then have list of such components inside page object descriding page as a whole.
+Assuming we would like to model a page listing nuget packages (https://www.nuget.org/packages) we could describe every package from list as a separate component and then have list of such components inside page object describing page as a whole.
 
 ```C#
-
 public class NugetPackageListPage {
     
     [FindsBy(How = How.CssSelector, Using = "#searchBoxInput"), CacheLookup]
@@ -25,6 +24,8 @@ public class NugetPackageListPage {
 
 }
 
+[CacheLookup]
+[ElementLocator(How = How.CssSelector, Using = "#searchResults li")]
 public class NugetPackageItem : HtmlElement {
 
     [FindsBy(How = How.CssSelector, Using = "h1>a"), CacheLookup]
@@ -35,8 +36,6 @@ public class NugetPackageItem : HtmlElement {
 
     [FindsBy(How = How.CssSelector, Using = ".downloads"), CacheLookup]
     private HtmlElement _downloads;
-
-    public override By DefaultLocator => By.CssSelector("#searchResults li");
     
     public String Name { 
         get {
@@ -62,23 +61,40 @@ IWebDriver webDriver = new FirefoxDriver();
 IPageObjectFactory pageFactory = new PageObjectFactory();
 
 NugetPackageListPage page = pageFactory.Create<NugetPackageListPage>(webDriver);
-
 ```
 
-[PageObjectFactory](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_page_object_factory.html) is creating and initializing page objects. It is one of the core library components since it creates and recursively initializes all page objects in a given hierarchy. Page factory can initialize fields and properties which type is derived from _IWebElement_ or _IList<IWebElement>_. It can create (and initilize) page object of any type using default or custom constructor. It also provides few extension points.
+[PageObjectFactory](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_page_object_factory.html) is creating and initializing page objects. It is one of the core library components since it creates and recursively initializes all page objects in a given hierarchy. Page factory can initialize fields and properties which type is derived from _IWebElement_ or _IList<IWebElement>_. It can create (and initialize) page object of any type using default or custom constructor. It also provides few extension points.
 
-Default page factory implementation wraps raw WebElements located in browser into proxy loading elements on demand and hanling _StaleElementReferenceExcetion_ by reloading the underlying element. It is possible to change how proxy is being created by implementing [IProxyFactory](http://eger-geger.github.io/Selenium.HtmlElements.Net/interface_html_elements_1_1_proxy_1_1_i_proxy_factory.html) interface and how elements are loaded by implementing [ILoaderFactory](http://eger-geger.github.io/Selenium.HtmlElements.Net/interface_html_elements_1_1_lazy_load_1_1_i_loader_factory.html) interface. Also it is possible to change the way how new page objects are being instantiated by overriding [CreatePageObjectInstance](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_abstract_page_object_factory.html#ae50af112bab9ed9f68b2df6c0be59553) default factory method and how page object members are being initialized by overriding [CreateMemberInstance](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_abstract_page_object_factory.html#aa7aecd99f56e12bdf1e4ee62d84575df) method.
+Default page factory implementation wraps raw WebElements located in browser into proxy loading elements on demand and handling _StaleElementReferenceException_ by reloading the underlying element. It is possible to change how proxy is being created by implementing [IProxyFactory](http://eger-geger.github.io/Selenium.HtmlElements.Net/interface_html_elements_1_1_proxy_1_1_i_proxy_factory.html) interface and how elements are loaded by implementing [ILoaderFactory](http://eger-geger.github.io/Selenium.HtmlElements.Net/interface_html_elements_1_1_lazy_load_1_1_i_loader_factory.html) interface. Also it is possible to change the way how new page objects are being instantiated by overriding [CreatePageObjectInstance](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_abstract_page_object_factory.html#ae50af112bab9ed9f68b2df6c0be59553) default factory method and how page object members are being initialized by overriding [CreateMemberInstance](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_abstract_page_object_factory.html#aa7aecd99f56e12bdf1e4ee62d84575df) method.
 
 Please refer to API reference for more details.
 
-### Page element default locator
+## Default locator
 
-Some web components can be located using the same locators regardless a page they present on.
+Whenever a web component is used among multiple pages/components and WebDriver can find it with same element locator it's locator can be defined next to a component class using `ElementLocator` attribute. It can later be overriden with `FindsBy` attribute.
 
-In this case you can override default locator (see `NugetPackageItem.DefaultLocator`) and omit [FindsBy] attribute rather then duplicate it across page object or page element classes.
-If `DefaultLocator` property is not defined, element[s] will be located `By.Id` using page object property name as id value.
+```c#
+[ElementLocator(How = How.ClassName, Using = "fancy-button")]
+public class FancyButton : HtmlElement {
+    
+    
+}
 
-## Standart HTML elements ##
+public class APage {
+
+    private FancyButton _fancyButton;
+    
+    [FindsBy(How = How.ClassName, Using = "another-button")]
+    private FancyButton _anotherFancyButton;
+    
+    private IList<FancyButton> _allFancyButtons;
+
+}
+```
+
+When neither of `ElementLocator` or `FindsBy` attributes are available for given field or property it will point to an element having `id` attribute equal to field or property name.
+
+## Standard HTML elements ##
 
 In addition to creating your custom page objects you can use set predefined components which models commonly used DOM elements. Following components can be found in [HtmlElements.Elements](http://eger-geger.github.io/Selenium.HtmlElements.Net/namespace_html_elements_1_1_elements.html) namespace:
 
@@ -96,10 +112,9 @@ All of the above components are derived from [HtmlElement](http://eger-geger.git
 
 ## Alternative wait syntax ##
 
-While writing selenium tests you'll often found your self waiting until something happens in browser. It could be slow loading page, dialog which takes few seconds to show up or hide, background proccess which must finish until test can proceed. The simple way is to stop thread for few seconds. Reliable way is to use _WebDriverWait_ or _DefaultWait_ classes being part of selenium webdriver library. The convinient way is to use extension methods provided by current library. Just take a look on few examples below.
+While writing selenium tests you'll often found your self waiting until something happens in browser. It could be slow loading page, dialog which takes few seconds to show up or hide, background process which must finish until test can proceed. The simple way is to stop thread for few seconds. Reliable way is to use _WebDriverWait_ or _DefaultWait_ classes being part of selenium webdriver library. The convenient way is to use extension methods provided by current library. Just take a look on few examples below.
 
 ```C#
-
 /* assuming there is a highly dynamic login button which takes some time to load */
 
 [FindsBy(How = How.CssSelector, Using = "#login")]
@@ -123,17 +138,15 @@ _loginButton
     .For(TimeSpan.FromSeconds(300))
     .Every(TimeSpan.FromSeconds(30))
     .Until(btn => !btn.IsHidden());
-
 ```
 
-So basically you need to say what are you waiting for ? For how long ? How often to check weather it happened ? What message should timeout axception be thrown with ?
+So basically you need to say what are you waiting for ? For how long ? How often to check weather it happened ? What message should timeout exception be thrown with ?
 
 ## Smart frames ##
 
 Sometimes tests need to interact with HTML frames. In order to do it we need to switch wedriver context to specific frame firts and switch it back after we've done. It is exactly what [FrameContextOverride](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_frame_context_override.html) class is desgined to do.
 
 ```C#
-
 /* assuming there is an frame defined as following */
 [FindsBy(How = How.CssSelector, Using = "iframe")]
 private IWebElement _frameElement;
@@ -147,13 +160,11 @@ using (new FrameContextOverride(webDriver, _frameElement))
     _frameElement.FindElement(By.Id("password")).SendKeys("qwerty");
     _frameElement.FindElement(By.Id("signin")).Click();
 }
-
 ```
 
 [HtmlFrame](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_elements_1_1_html_frame.html) is another class which makes life easier when it comes to working with frames. When created by default page object factory (described above) it's wrapped search context is set to WebDriver instance instead of WebElement as it is done for other custom elements. It allows using it as a base class for custom frame page objects. Previous example could be rewritten as shown below.
 
 ```C#
-
 public class SignInFrame : HtmlFrame {
 
     [FindsBy(How = How.CssSelector, Using = "#email")]
@@ -185,7 +196,6 @@ public class HomePage {
     public SignInFrame { get; set; }
 
 }
-
 ```
 
 ## Implicit wait override ##
@@ -193,7 +203,6 @@ public class HomePage {
 There might be cases when you might want to change default implicit wait WebDriver option for specific operation and restore it back after it is done. For example you might set to 30 seconds for most cases but do not want to wait for element which you expect to be removed from DOM. You could use [ImplicitWaitOverride](http://eger-geger.github.io/Selenium.HtmlElements.Net/class_html_elements_1_1_implicit_wait_override.html) for it's purpose.
 
 ```C#
-
 TimeSpan defaultImplicitWait = TimeSpan.FromSeconds(30);
 
 TimeSpan overridenImplcitWait = TimeSpan.FromSeconds(2);
@@ -201,7 +210,6 @@ TimeSpan overridenImplcitWait = TimeSpan.FromSeconds(2);
 using(new ImplicitWaitOverride(webDriver, defaultImplicitWait, overridenImplcitWait)){
     loginDialog.WaitUntilHidden();
 }
-
 ```
 
 ## Element groups ##
@@ -213,7 +221,6 @@ Often people writing selenium tests want to check weather some element or anothe
 3. use created group to retrieve list of WebElements with matching group name from page object.
 
 ```C#
-
 public class LoginPage {
 
     [ElementGroup("login_form")]
@@ -231,5 +238,4 @@ public class LoginPage {
 var loginPage = new LoginPage();
 var loginFormElementGroup = new ElementGroup("login_form");
 IList<IWebElement> loginFormElements = loginFormElementGroup.GetElements(loginPage);
-
 ```
