@@ -10,7 +10,7 @@
     <PropertyGroup>
         <PackageId>HtmlElements</PackageId>
         <PackageVersion>4.0.0-alpha</PackageVersion>
-        <Authors>Ivan Mihaylovskyy</Authors>
+        <Authors>eger</Authors>
         <PackageTags>Selenium WebDriver</PackageTags>
         <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
         <PackageProjectUrl>http://github.com/eger-geger/Selenium.HtmlElements.Net</PackageProjectUrl>
