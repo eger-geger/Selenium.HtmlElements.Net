@@ -9,7 +9,7 @@ using OpenQA.Selenium;
 
 namespace HtmlElements.Test
 {
-    [Parallelizable(ParallelScope.Fixtures)]
+    [Parallelizable(ParallelScope.Self)]
     public class AbstractPageObjectFactoryTests
     {
         private AbstractPageObjectFactory _factory;

@@ -9,7 +9,7 @@ using OpenQA.Selenium;
 
 namespace HtmlElements.Test.LazyLoad
 {
-    [Parallelizable(ParallelScope.Fixtures)]
+    [Parallelizable(ParallelScope.Self)]
     public class DefaultLoaderFactoryTests
     {
         private LoaderFactory _loaderFactory;
