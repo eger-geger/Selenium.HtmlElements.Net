@@ -50,6 +50,7 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DocumentationFile>bin\Release\HtmlElements.XML</DocumentationFile>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="DotNetSeleniumExtras.PageObjects" Version="3.11.0" />
