@@ -33,7 +33,6 @@ dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggest
 
 # ReSharper properties
 resharper_arguments_skip_single = true
-resharper_autodetect_indent_settings = true
 resharper_blank_lines_around_single_line_auto_property = 1
 resharper_blank_lines_around_single_line_local_method = 1
 resharper_blank_lines_around_single_line_property = 1

@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using HtmlElements.Elements;
 using Moq;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
+
+#pragma warning disable 169
 
 namespace HtmlElements.Test
 {
@@ -16,9 +20,34 @@ namespace HtmlElements.Test
         [Test]
         public void ShouldCreatePageObjectAndInitializeElements()
         {
-            var pageObjectA = _pageObjectFactory.Create<PageObjectA>(new Mock<IWebDriver>().Object);
+            var driverMock = _mockRepository.Create<IWebDriver>();
+
+            driverMock
+                .Setup(wd => wd.FindElement(By.Id("element-b")))
+                .Returns(_mockRepository.OneOf<IWebElement>())
+                .Verifiable();
+
+            driverMock
+                .Setup(wd => wd.FindElement(By.ClassName("element-a")))
+                .Returns(_mockRepository.OneOf<IWebElement>())
+                .Verifiable();
+
+            driverMock
+                .Setup(wd => wd.FindElements(By.Name("list-element-a")))
+                .Returns(new List<IWebElement>
+                {
+                    _mockRepository.OneOf<IWebElement>(),
+                    _mockRepository.OneOf<IWebElement>()
+                }.AsReadOnly())
+                .Verifiable();
+
+            var pageObjectA = _pageObjectFactory.Create<PageObjectA>(driverMock.Object);
 
             Assert.That(pageObjectA, Is.Not.Null);
+            
+            pageObjectA.Invalidate();
+            
+            driverMock.Verify();
         }
 
         [Test]
@@ -81,8 +110,10 @@ namespace HtmlElements.Test
                 .Returns(wrappedElementList)
                 .Verifiable();
 
-            var elementList =
-                _pageObjectFactory.CreateWebElementList(contextMock.Object, By.ClassName("any"));
+            var elementList = _pageObjectFactory.CreateWebElementList(
+                contextMock.Object,
+                By.ClassName("any")
+            );
 
             Assert.That(elementList, Is.Not.Null);
             Assert.That(elementList.Count, Is.EqualTo(3));
@@ -138,6 +169,23 @@ namespace HtmlElements.Test
             contextMock.Verify();
         }
 
+        [Test]
+        public void ShouldFailToInitializeMemberWithMultipleMemberAttributes()
+        {
+            Assert.That(
+                () => _pageObjectFactory.Create<PageObjectD>(Mock.Of<ISearchContext>()),
+                Throws.ArgumentException
+            );
+        }
+
+
+        public class PageObjectD
+        {
+            [FindsBy(How = How.Id, Using = "any")]
+            [FindsBy(How = How.Name, Using = "some")]
+            private IWebElement _element;
+        }
+
         public class PageObjectC
         {
             public PageObjectC(IWebElement webElement, IPageObjectFactory pageFactory)
@@ -163,9 +211,28 @@ namespace HtmlElements.Test
 
         public class PageObjectA
         {
-            [FindsBy(How = How.Id, Using = "any")] private IWebElement _elementA;
+            private ElementA _elementA;
 
-            [FindsBy(How = How.Id, Using = "any")] private IList<IWebElement> _elementListA;
+            [FindsBy(How = How.Id, Using = "element-b")]
+            private IWebElement _elementB;
+
+            [FindsBy(How = How.Name, Using = "list-element-a")]
+            private IList<IWebElement> _elementListA;
+
+            public void Invalidate()
+            {
+                _elementA.Click();
+                _elementB.Click();
+                _elementListA.FirstOrDefault()?.Click();
+            }
+        }
+
+        [ElementLocator(How = How.ClassName, Using = "element-a")]
+        public class ElementA : HtmlElement
+        {
+            public ElementA(IWebElement webElement) : base(webElement)
+            {
+            }
         }
     }
 }

@@ -177,19 +177,14 @@ namespace HtmlElements
                     : ByFactory.Create(How.Id, memberInfo.Name);
         }
 
-        private ElementLocatorAttribute GetSingleTypeAttrOrDefault(Type elementType)
+        private static ElementLocatorAttribute GetSingleTypeAttrOrDefault(Type elementType)
         {
             var attrs = elementType
                 .GetCustomAttributes(typeof(ElementLocatorAttribute), true)
                 .Cast<ElementLocatorAttribute>()
                 .ToArray();
 
-            return attrs switch
-            {
-                {Length: 0} => null,
-                {Length: 1} => attrs[0],
-                _ => throw new ArgumentException(BuildMultipleTypeAttrError(elementType))
-            };
+            return attrs.Length == 1 ? attrs[0] : null;
         }
 
         private FindsByAttribute GetSingleMemberAttrOrDefault(MemberInfo memberInfo)
@@ -198,7 +193,7 @@ namespace HtmlElements
                 .GetCustomAttributes(typeof(FindsByAttribute), true)
                 .Cast<FindsByAttribute>()
                 .ToArray();
-
+            
             return attrs switch
             {
                 {Length: 0} => null,
@@ -206,15 +201,7 @@ namespace HtmlElements
                 _ => throw new ArgumentException(BuildMultipleMemberAttrError(memberInfo))
             };
         }
-
-        private string BuildMultipleTypeAttrError(Type elementType)
-        {
-            return new StringBuilder()
-                .AppendFormat("Multiple {0} found on {1} ", typeof(ElementLocatorAttribute), elementType)
-                .AppendFormat("which is not supported by {0}.", this)
-                .ToString();
-        }
-
+        
         private string BuildMultipleMemberAttrError(MemberInfo memberInfo)
         {
             return new StringBuilder()
