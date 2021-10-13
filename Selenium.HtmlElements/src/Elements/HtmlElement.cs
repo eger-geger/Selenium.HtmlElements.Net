@@ -184,18 +184,21 @@ namespace HtmlElements.Elements
             return _wrappedElement.GetAttribute(attributeName);
         }
 
+        public string GetDomAttribute(string attributeName)
+        {
+            return _wrappedElement.GetDomAttribute(attributeName);
+        }
 
-        /// <summary>
-        /// Gets the value of a JavaScript property of this element.
-        /// </summary>
-        /// <param name="propertyName"></param>
-        /// <returns>The JavaScript property's current value. Returns a null if the value is not set or the property does not exist.
-        ///</returns>
-        /// <exception cref="StaleElementReferenceException">Thrown when the target element is no longer valid in the document DOM.
-        /// </exception>
+
+        [Obsolete("Use the GetDomProperty method instead.")]
         public string GetProperty(string propertyName)
         {
             return _wrappedElement.GetProperty(propertyName);
+        }
+
+        public string GetDomProperty(string propertyName)
+        {
+            return _wrappedElement.GetDomProperty(propertyName);
         }
 
         /// <summary>
@@ -211,6 +214,11 @@ namespace HtmlElements.Elements
         public string GetCssValue(string propertyName)
         {
             return _wrappedElement.GetCssValue(propertyName);
+        }
+
+        public ISearchContext GetShadowRoot()
+        {
+            return _wrappedElement.GetShadowRoot();
         }
 
         /// <summary>

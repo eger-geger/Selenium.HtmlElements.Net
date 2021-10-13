@@ -122,7 +122,22 @@ namespace HtmlElements.Test.Extensions
                 throw new NotImplementedException();
             }
 
+            public string GetDomAttribute(string attributeName)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string GetDomProperty(string propertyName)
+            {
+                throw new NotImplementedException();
+            }
+
             public string GetCssValue(string propertyName)
+            {
+                throw new NotImplementedException();
+            }
+
+            public ISearchContext GetShadowRoot()
             {
                 throw new NotImplementedException();
             }

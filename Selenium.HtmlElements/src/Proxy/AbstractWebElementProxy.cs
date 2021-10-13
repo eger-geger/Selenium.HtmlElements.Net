@@ -15,6 +15,11 @@ namespace HtmlElements.Proxy
             Loader = loader;
         }
 
+        public ISearchContext GetShadowRoot()
+        {
+            return Execute(e => e.GetShadowRoot());
+        }
+
         public string TagName
         {
             get { return Execute(e => e.TagName); }
@@ -85,9 +90,20 @@ namespace HtmlElements.Proxy
             return Execute(e => e.GetAttribute(attributeName));
         }
 
+        public string GetDomAttribute(string attributeName)
+        {
+            return Execute(e => e.GetDomAttribute(attributeName));
+        }
+
+        [Obsolete("Use the GetDomProperty method instead.")]
         public string GetProperty(string propertyName)
         {
             return Execute(e => e.GetProperty(propertyName));
+        }
+
+        public string GetDomProperty(string propertyName)
+        {
+            return Execute(e => e.GetDomProperty(propertyName));
         }
 
         public string GetCssValue(string propertyName)
