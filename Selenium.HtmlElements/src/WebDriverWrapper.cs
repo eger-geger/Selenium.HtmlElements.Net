@@ -114,6 +114,20 @@ namespace HtmlElements
             );
         }
 
+        public object ExecuteScript(PinnedScript script, params object[] args)
+        {
+            var jsExecutor = WrappedDriver.ToJavaScriptExecutor();
+
+            if (jsExecutor != null)
+            {
+                return jsExecutor.ExecuteScript(script, args);
+            }
+
+            throw new InvalidOperationException(
+                string.Format("[{0}] cannot execute JavaScript", _webDriverOrWrapper)
+            );
+        }
+
         /// <summary>
         ///     Executes JavaScript asynchronously in the context of the currently selected frame or window.
         /// </summary>

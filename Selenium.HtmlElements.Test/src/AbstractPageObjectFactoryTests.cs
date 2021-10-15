@@ -103,7 +103,7 @@ namespace HtmlElements.Test
                 typeof(HtmlElement), ItIsMemberNamed("_elementA"), context);
 
             _factoryMock.Protected().Verify<object>("CreateMemberInstance", Times.Once(),
-                typeof(IWebElement), ItIsMemberNamed("_elementB"), context);
+                typeof(IWebElement), ItIsMemberNamed("ElementB"), context);
 
             _factoryMock.Protected().Verify<object>("CreateMemberInstance", Times.Once(),
                 typeof(IList<IWebElement>), ItIsMemberNamed("_elementListA"), context);
