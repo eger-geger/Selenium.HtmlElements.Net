@@ -23,7 +23,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string InputSize
         {
-            get => GetAttribute("size");
+            get => GetDomAttribute("size");
             set => this.SetAttribute("size", value);
         }
 
@@ -32,7 +32,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string MaxLength
         {
-            get => GetAttribute("maxlength");
+            get => GetDomAttribute("maxlength");
             set => this.SetAttribute("maxlength", value);
         }
 
@@ -41,7 +41,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Src
         {
-            get => GetAttribute("src");
+            get => GetDomAttribute("src");
             set => this.SetAttribute("src", value);
         }
 
@@ -50,7 +50,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Type
         {
-            get => GetAttribute("type");
+            get => GetDomAttribute("type");
             set => this.SetAttribute("type", value);
         }
     }

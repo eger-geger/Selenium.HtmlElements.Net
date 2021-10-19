@@ -34,10 +34,8 @@ namespace HtmlElements.IntegrationTests.Elements
         public void TextContent()
         {
             Assert.That(hamlet.TextContent,
-                Does.StartWith("\r\n")
-                    .And.Contains("...")
-                    .And.Contains("Something is rotten in the state of Denmark")
-                    .And.EndsWith(" "));
+                Does.Contain("...")
+                    .And.Contains("Something is rotten in the state of Denmark"));
         }
 
         [Test]

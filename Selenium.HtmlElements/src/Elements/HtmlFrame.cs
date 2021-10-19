@@ -23,7 +23,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string SourceURL
         {
-            get => GetAttribute("src");
+            get => GetDomAttribute("src");
             set => this.SetAttribute("src", value);
         }
     }

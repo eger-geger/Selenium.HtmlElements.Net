@@ -27,7 +27,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string For
         {
-            get => GetAttribute("for");
+            get => GetDomAttribute("for");
             set => this.SetAttribute("for", value);
         }
     }

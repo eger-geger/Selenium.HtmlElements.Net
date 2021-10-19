@@ -42,7 +42,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Value
         {
-            get => GetAttribute("value");
+            get => GetDomAttribute("value");
             set => this.SetAttribute("value", value);
         }
     }

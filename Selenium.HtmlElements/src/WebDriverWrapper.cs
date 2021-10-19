@@ -113,7 +113,8 @@ namespace HtmlElements
                 string.Format("[{0}] cannot execute JavaScript", _webDriverOrWrapper)
             );
         }
-
+        
+        /// <inheritdoc cref="IJavaScriptExecutor.ExecuteScript(OpenQA.Selenium.PinnedScript,object[])"/>
         public object ExecuteScript(PinnedScript script, params object[] args)
         {
             var jsExecutor = WrappedDriver.ToJavaScriptExecutor();

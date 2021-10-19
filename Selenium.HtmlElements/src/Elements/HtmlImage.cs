@@ -23,7 +23,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Alt
         {
-            get => GetAttribute("alt");
+            get => GetDomAttribute("alt");
             set => this.SetAttribute("alt", value);
         }
 
@@ -32,7 +32,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Height
         {
-            get => GetAttribute("height");
+            get => GetDomAttribute("height");
             set => this.SetAttribute("height", value);
         }
 
@@ -41,7 +41,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Src
         {
-            get => GetAttribute("src");
+            get => GetDomAttribute("src");
             set => this.SetAttribute("src", value);
         }
 
@@ -50,7 +50,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Width
         {
-            get => GetAttribute("width");
+            get => GetDomAttribute("width");
             set => this.SetAttribute("width", value);
         }
     }

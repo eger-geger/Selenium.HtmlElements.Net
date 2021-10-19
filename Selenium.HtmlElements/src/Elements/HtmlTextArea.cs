@@ -23,7 +23,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Cols
         {
-            get => GetAttribute("cols");
+            get => GetDomAttribute("cols");
             set => this.SetAttribute("cols", value);
         }
 
@@ -32,7 +32,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Rows
         {
-            get => GetAttribute("rows");
+            get => GetDomAttribute("rows");
             set => this.SetAttribute("rows", value);
         }
     }

@@ -27,7 +27,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Action
         {
-            get => GetAttribute("action");
+            get => GetDomAttribute("action");
             set => this.SetAttribute("action", value);
         }
 
@@ -36,7 +36,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Enctype
         {
-            get => GetAttribute("enctype");
+            get => GetDomAttribute("enctype");
             set => this.SetAttribute("enctype", value);
         }
 
@@ -45,7 +45,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Method
         {
-            get => GetAttribute("method");
+            get => GetDomAttribute("method");
             set => this.SetAttribute("method", value);
         }
 
@@ -54,7 +54,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Target
         {
-            get => GetAttribute("target");
+            get => GetDomAttribute("target");
             set => this.SetAttribute("target", value);
         }
     }

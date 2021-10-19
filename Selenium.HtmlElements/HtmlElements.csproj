@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
         <OutputType>Library</OutputType>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <RepositoryUrl>https://github.com/eger-geger/Selenium.HtmlElements.Net.git</RepositoryUrl>
         <Description>WebDriver page factory supporting nested components</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
     <PropertyGroup>
         <PackageId>HtmlElements</PackageId>

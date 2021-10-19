@@ -24,7 +24,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Href
         {
-            get => GetAttribute("href");
+            get => GetDomAttribute("href");
             set => this.SetAttribute("href", value);
         }
 
@@ -33,7 +33,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Target
         {
-            get => GetAttribute("target");
+            get => GetDomAttribute("target");
             set => this.SetAttribute("target", value);
         }
 

@@ -32,7 +32,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Class
         {
-            get => GetAttribute("class");
+            get => GetDomAttribute("class");
             set => this.SetAttribute("class", value);
         }
 
@@ -46,7 +46,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Id
         {
-            get => GetAttribute("id");
+            get => GetDomAttribute("id");
             set => this.SetAttribute("id", value);
         }
 
@@ -69,7 +69,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Name
         {
-            get => GetAttribute("name");
+            get => GetDomAttribute("name");
             set => this.SetAttribute("name", value);
         }
 
@@ -93,7 +93,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Style
         {
-            get => GetAttribute("style");
+            get => GetDomAttribute("style");
             set => this.SetAttribute("style", value);
         }
 
@@ -104,7 +104,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string TextContent
         {
-            get => GetProperty("textContent") as string;
+            get => GetDomProperty("textContent");
             set => this.SetPropery("textContent", value);
         }
 
@@ -113,7 +113,7 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Title
         {
-            get => GetAttribute("title");
+            get => GetDomAttribute("title");
             set => this.SetAttribute("title", value);
         }
 
@@ -179,23 +179,26 @@ namespace HtmlElements.Elements
         ///     Note that the value of the following attributes will be returned even if there is no explicit attribute on the element: 
         ///     Attribute nameValue returned if not explicitly specified.
         /// </remarks>
+        [Obsolete("Use GetDomAttribute instead")]
         public string GetAttribute(string attributeName)
         {
             return _wrappedElement.GetAttribute(attributeName);
         }
-
+        
+        /// <inheritdoc cref="IWebElement.GetDomAttribute"/>
         public string GetDomAttribute(string attributeName)
         {
             return _wrappedElement.GetDomAttribute(attributeName);
         }
 
 
-        [Obsolete("Use the GetDomProperty method instead.")]
+        [Obsolete("Use the GetDomProperty instead")]
         public string GetProperty(string propertyName)
         {
             return _wrappedElement.GetProperty(propertyName);
         }
-
+        
+        /// <inheritdoc cref="IWebElement.GetDomProperty"/>
         public string GetDomProperty(string propertyName)
         {
             return _wrappedElement.GetDomProperty(propertyName);
@@ -215,7 +218,8 @@ namespace HtmlElements.Elements
         {
             return _wrappedElement.GetCssValue(propertyName);
         }
-
+        
+        /// <inheritdoc cref="IWebElement.GetShadowRoot"/>
         public ISearchContext GetShadowRoot()
         {
             return _wrappedElement.GetShadowRoot();
