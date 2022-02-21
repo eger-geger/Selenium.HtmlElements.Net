@@ -42,8 +42,8 @@ namespace HtmlElements.Elements
         /// </summary>
         public string Value
         {
-            get => GetDomAttribute("value");
-            set => this.SetAttribute("value", value);
+            get => GetDomProperty("value");
+            set => this.SetPropery("value", value);
         }
     }
 }
