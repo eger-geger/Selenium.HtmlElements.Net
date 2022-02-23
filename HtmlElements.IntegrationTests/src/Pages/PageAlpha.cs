@@ -21,7 +21,10 @@ namespace HtmlElements.IntegrationTests.Pages
         public IList<HtmlElement> CachedElementListItems { get; private set; }
 
         [FindsBy(How = How.CssSelector, Using = "iframe")]
-        public PageBeta NonCachedBetaFrame { get; set; }
+        public PageBeta NonCachedBetaFrame { get; set; }        
+        
+        [FindsBy(How = How.Id, Using = "42")]
+        public HtmlInput Input { get; set; }
 
         public PageBeta BetaFrame;
 

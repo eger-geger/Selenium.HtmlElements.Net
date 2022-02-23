@@ -1,24 +1,28 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-<head>
-    <title>HTMLElements Test Page</title>
-</head>
-<body>
-    <ul id="element-list">
-        <li>list item</li>
-        <li>list item</li>
-        <li>list item</li>
-    </ul>
+    <head>
+        <title>HTMLElements Test Page</title>
+    </head>
+    <body>
+        <ul id="element-list">
+            <li>list item</li>
+            <li>list item</li>
+            <li>list item</li>
+        </ul>
 
-    <div id="hamlet">
-        <p>
-            <span>Something is rotten in the state of Denmark</span>
-            <span>...</span>
-        </p>
-        <br />
-    </div>
+        <div id="hamlet">
+            <p>
+                <span>Something is rotten in the state of Denmark</span>
+                <span>...</span>
+            </p>
+            <br />
+        </div>
+        
+        <iframe src="PageBeta.htm"></iframe>
+        <input id="42" type="text" />
 
-    <iframe src="PageBeta.htm"></iframe>
-
-</body>
+        <script>
+            document.getElementById("42").value = "42";
+        </script>
+    </body>
 </html>
